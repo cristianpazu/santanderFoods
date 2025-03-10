@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UiTexto{
  
@@ -103,6 +104,16 @@ class UiTexto{
             fontSize: 16,
             color: Colors.black,
             fontWeight: fontWeight));
+  }
+
+  Widget textoRobotoLight2() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.monomaniacOne(fontSize: 18),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
   }
 }
  
