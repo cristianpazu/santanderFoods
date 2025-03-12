@@ -8,128 +8,130 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      color: Color(0xC4411DDB),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Textfields(),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 730,
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 10,
-                      width: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          cardWidget(
-                            colors: Colors.white,
-                            altura: 180,
-                            image: Image.asset(
-                              'assets/hamburguesa.png',
-                              fit: BoxFit.contain,
-                            ),
-                            texto: 'RESTAURANTES',
-                          ),
-                          SizedBox(
-                            width: 35,
-                          ),
-                          cardWidget(
-                            colors: Colors.white,
-                            altura: 180,
-                            image: Image.asset(
-                              'assets/gimnasio.png',
-                              fit: BoxFit.contain,
-                            ),
-                            texto: 'GYM',
-                          ),
-                        ],
+        body: SingleChildScrollView(
+      child: Container(
+        color: Color(0x411DDB),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Textfields(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 730,
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                        width: 10,
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          cardWidget(
-                            colors: Colors.white,
-                            altura: 180,
-                            image: Image.asset(
-                              'assets/hamburguesa.png',
-                              fit: BoxFit.contain,
+                      Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
                             ),
-                            texto: 'COMIDAS \n RAPIDAS',
-                          ),
-                          SizedBox(
-                            width: 35,
-                          ),
-                          cardWidget(
-                            colors: Colors.white,
-                            altura: 180,
-                            image: Image.asset(
-                              'assets/hotel.png',
-                              fit: BoxFit.contain,
+                            cardWidget(
+                              colors: Colors.white,
+                              altura: 180,
+                              image: Image.asset(
+                                'assets/hamburguesa.png',
+                                fit: BoxFit.contain,
+                              ),
+                              texto: 'RESTAURANTES',
                             ),
-                            texto: 'HOTELES',
-                          ),
-                        ],
+                            SizedBox(
+                              width: 35,
+                            ),
+                            cardWidget(
+                              colors: Colors.white,
+                              altura: 180,
+                              image: Image.asset(
+                                'assets/gimnasio.png',
+                                fit: BoxFit.contain,
+                              ),
+                              texto: 'GYM',
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          cardWidget(
-                            colors: Colors.white,
-                            altura: 180,
-                            image: Image.asset(
-                              'assets/PANADERIAS.png',
-                              fit: BoxFit.contain,
-                            ),
-                            texto: 'PANADERIAS',
-                          ),
-                          SizedBox(
-                            width: 35,
-                          ),
-                        ],
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            cardWidget(
+                              colors: Colors.white,
+                              altura: 180,
+                              image: Image.asset(
+                                'assets/hamburguesa.png',
+                                fit: BoxFit.contain,
+                              ),
+                              texto: 'COMIDAS \n RAPIDAS',
+                            ),
+                            SizedBox(
+                              width: 35,
+                            ),
+                            cardWidget(
+                              colors: Colors.white,
+                              altura: 180,
+                              image: Image.asset(
+                                'assets/hotel.png',
+                                fit: BoxFit.contain,
+                              ),
+                              texto: 'HOTELES',
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 10,
+                            ),
+                            cardWidget(
+                              colors: Colors.white,
+                              altura: 180,
+                              image: Image.asset(
+                                'assets/PANADERIAS.png',
+                                fit: BoxFit.contain,
+                              ),
+                              texto: 'PANADERIAS',
+                            ),
+                            SizedBox(
+                              width: 35,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     )
 

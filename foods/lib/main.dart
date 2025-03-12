@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
     
-      home: const Restaurantes(),
+      home: const Menu(),
     );
   }
 }

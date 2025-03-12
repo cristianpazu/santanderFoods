@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
+import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/UI/screens/restaurantes/menu_restaurantes/menu_restaurtantes.dart';
 import 'package:foods/Utils/titutlos.dart';
 
 class Restaurantes extends StatelessWidget {
@@ -52,14 +54,18 @@ class Restaurantes extends StatelessWidget {
                   Row(
                     children: [
                       cardWidget2(
+                       redireccionamiento:Menu_restaurantes(),
                         colors: Color(0xFFF6F6),
                         altura: 210,
                         image: Image.asset(
-                          '/solar.jpeg',
+                          'assets/solar.jpeg',
                           fit: BoxFit.contain,
                         ),
                         texto: 'SOLAR',
-                        icon2: Icon(Icons.calendar_month_rounded),
+                        icon2: IconButton(onPressed: (){
+                          
+                          Dialogs('HORARIOS','Cerrado' ,'	11:30 a.m a 10p. m' ,' 11:30a.m. a 10p. m' ,'	11:30a.m a 10p.m','	11:30 a.m a 10p.m','	11:30a.m a 10p.m','	11:30a.m a 10p.m').calendarios(context);
+                        }, icon: Icon(Icons.calendar_month_outlined)),
                       ),
                       SizedBox(
                         width: 11,
@@ -68,11 +74,11 @@ class Restaurantes extends StatelessWidget {
                         colors: Color(0xFFF6F6),
                         altura: 210,
                         image: Image.asset(
-                          '/solar.jpeg',
+                          'assets/casape.png',
                           fit: BoxFit.contain,
                         ),
                         texto: 'C. de \n Pedro',
-                        icon2: Icon(Icons.calendar_month_rounded),
+                        icon2: IconButton(onPressed: (){}, icon: Icon(Icons.calendar_month_outlined)),
                       ),
                     ],
                   ),
