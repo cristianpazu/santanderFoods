@@ -10,7 +10,7 @@ class Menu extends StatelessWidget {
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
-        color: Color(0x411DDB),
+        color: const Color.fromRGBO(50, 30, 124, 5),
         child: Column(
           children: [
             SizedBox(
