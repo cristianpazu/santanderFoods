@@ -13,7 +13,7 @@ class _ScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    var duration = const Duration(seconds: 34);
+    var duration = const Duration(seconds: 4);
     Future.delayed(duration, () {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (context) {
@@ -38,7 +38,7 @@ class _ScreenState extends State<SplashScreen> {
               height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/santanderplacess.png'),
+                  image: AssetImage('assets/santanderplacesimg.png'),
                   fit: BoxFit.cover,
                 ),
               ),
