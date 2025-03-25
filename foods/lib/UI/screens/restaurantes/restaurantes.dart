@@ -92,27 +92,37 @@ class Restaurantes extends StatelessWidget {
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_restaurantes'];
 
+                      
+ 
                     return GridView.builder(
                       padding: EdgeInsets.all(10),
+                      shrinkWrap:
+                          true, // Asegura que el GridView solo ocupe el espacio necesario
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: nombres.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
                             2, // Número de columnas en la cuadrícula
                       ),
                       itemBuilder: (context, index) {
                         final restaurant = nombres[index];
-                        final restaurantInfo = restaurant['informacion'][0];
-
-                        return cardWidget3(
-                          colors: Color.fromARGB(255, 145, 2, 2),
-                          altura: 210,
+                        final restaurantInfo =
+                            restaurant['nombres'];
+                            final restaurantImage =
+                            restaurant['image'];
+                    print(restaurantInfo);
+                        return cardWidget4(
+                          colors: Color.fromARGB(255, 255, 255, 255),
+                          altura: 10,
+                             redireccionamiento:Menu_restaurantes(),
                           image: Image.asset(
-                            'assets/coctel-cuba-libre.jpg',
+                           restaurantImage,
                             fit: BoxFit.contain,
                           ),
-                          texto: restaurantInfo['nombres'],
+                          texto: restaurantInfo,
                         );
-
+                    
                         /* ListView.builder(
                       shrinkWrap: true,
                       itemCount: nombres.length,

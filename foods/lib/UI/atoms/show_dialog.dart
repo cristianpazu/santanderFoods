@@ -70,3 +70,44 @@ class Dialogs {
     );
   }
 }
+
+//
+class InformacionDialogos {
+  String? nombre;
+  String? direccion;
+  String? telefono;
+
+  InformacionDialogos(this.nombre, this.direccion, this.telefono);
+
+  Future<void> informacion(context) async {
+    
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(nombre!),
+          content: SingleChildScrollView(
+              child: Column(
+            children: [
+              Row(
+                children: [Text('direccion: $direccion')],
+              ),
+              Row(
+                children: [Text('telefono: $telefono')],
+              ),
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

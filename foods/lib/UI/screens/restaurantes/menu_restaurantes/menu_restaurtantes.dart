@@ -1,14 +1,90 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
+import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/atoms/textfield.dart';
 import 'package:foods/Utils/titutlos.dart';
 
 class Menu_restaurantes extends StatelessWidget {
   const Menu_restaurantes({Key? key}) : super(key: key);
 
+ Future<List<dynamic>> loadJson() async {
+    String jsonString = await rootBundle.loadString('assets/places2.json');
+    List<dynamic> jsonResponse = json.decode(jsonString);
+    return jsonResponse;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Color.fromRGBO(50, 30, 124, 5),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    height: 220,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    child: Image.asset(
+                      'assets/lugar.jpg',
+                      fit: BoxFit.cover,
+                      opacity: AlwaysStoppedAnimation(0.6),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 155, left: 30),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(80)),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(80)),
+                          child: Image.asset(
+                            'assets/solar.jpeg',
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 225, left: 300),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(80)),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                            InformacionDialogos(
+                                    'El solar', '23qeweq', '1231231231')
+                                .informacion(context);
+                          },
+                          icon: Icon(Icons.info_outline)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    /*Scaffold(
       body: Container(
         color: Color(0xC4411DDB),
         child: SingleChildScrollView(
@@ -163,6 +239,6 @@ class Menu_restaurantes extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ); */
   }
 }
