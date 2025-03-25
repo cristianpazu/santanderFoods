@@ -10,17 +10,26 @@ import 'package:foods/Utils/titutlos.dart';
 class Menu_restaurantes extends StatelessWidget {
   const Menu_restaurantes({Key? key}) : super(key: key);
 
- Future<List<dynamic>> loadJson() async {
+  Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/places2.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     return jsonResponse;
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: FutureBuilder<List<dynamic>>(
+                  future: loadJson(), // Cargamos el JSON
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else if (!snapshot.hasData) {
+                      return Center(child: Text('No hay datos disponibles'));
+                    } else { 
+                      return Container(
         height: double.infinity,
         width: double.infinity,
         color: Color.fromRGBO(50, 30, 124, 5),
@@ -78,11 +87,18 @@ class Menu_restaurantes extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+               ]
+                 )
+                 )
+                 );  
+                 } }
+                 )); }  }
+
+                     
+                    
+               
+
+
 
     /*Scaffold(
       body: Container(
@@ -240,5 +256,4 @@ class Menu_restaurantes extends StatelessWidget {
         ),
       ),
     ); */
-  }
-}
+
