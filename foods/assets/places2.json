@@ -3,6 +3,7 @@
     "nombre": "RESTAURANTES",
     "nombre_restaurantes": [
       {
+        "id": 1,
         "nombres": "El Solar",
         "image": "assets/solar.jpeg",
         "informacion": [
@@ -35,7 +36,8 @@
             ],
             "menu": [
               {
-                "Entradas": [
+                "submenu":"Entradas",
+                "descripcion": [
                   {
                     "nombre": "TENTEMPIE",
                     "descripcion": "2 chorizos, Limón mandarino, 2 mini empanada, 2 mini aborrajado, 2 mini marranita y con ají natural, aji de mani y guacamole.",
@@ -60,63 +62,69 @@
                     "unidades": "0",
                     "precio": "$ 21.000"
                   }
-                ],
-                "Platos fuertes": [
-                  {
-                    "nombre": "PUNTA DE ANCA",
-                    "descripcion": "Tierna carne de res con jugosa capa de grasa, acompañada de arancini de maduro, astillas de yuca frita y ensalada de la casa",
-                    "unidades": "0",
-                    "precio": "$ 40.000"
-                  },
-                  {
-                    "nombre": "PARRILLADA",
-                    "descripcion": "Tierno lomo de res, costilla ahumada, filete de pollo, chorizo, croqueta de yuca, arancini de maduro, papa criolla, ensalada de la casa y salsas tradicionales.",
-                    "unidades": "0",
-                    "precio": "$ 45.000"
-                  },
-                  {
-                    "nombre": "MORRILLO",
-                    "descripcion": "Delicado corte de res entreverado de grasa.",
-                    "unidades": "0",
-                    "precio": "$ 36.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "ARROZ ATOLLADO",
-                    "descripcion": "Panceta brochada con salsa tomate de árbol, chip de plátano, arroz atollado y salsa de cimarrón verde.",
-                    "unidades": "0",
-                    "precio": "$ 32.000"
-                  },
-                  {
-                    "nombre": "PREFERIDO DE NOE",
-                    "descripcion": "Panceta, astilla de yuca, alioli de ajo, ceviche aguacate y mango y de acompañante Ensalada fresca dulce.",
-                    "unidades": "0",
-                    "precio": "$ 35.000"
-                  },
-                  {
-                    "nombre": "MATRIMONIO PERFECTO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  }
-                ]
+                ,
+                {
+                  "submenu":  "Platos fuertes",
+                 "descripcion": [
+                    {
+                      "nombre": "PUNTA DE ANCA",
+                      "descripcion": "Tierna carne de res con jugosa capa de grasa, acompañada de arancini de maduro, astillas de yuca frita y ensalada de la casa",
+                      "unidades": "0",
+                      "precio": "$ 40.000"
+                    },
+                    {
+                      "nombre": "PARRILLADA",
+                      "descripcion": "Tierno lomo de res, costilla ahumada, filete de pollo, chorizo, croqueta de yuca, arancini de maduro, papa criolla, ensalada de la casa y salsas tradicionales.",
+                      "unidades": "0",
+                      "precio": "$ 45.000"
+                    },
+                    {
+                      "nombre": "MORRILLO",
+                      "descripcion": "Delicado corte de res entreverado de grasa.",
+                      "unidades": "0",
+                      "precio": "$ 36.000"
+                    },
+                    {
+                      "nombre": "TORBELLINO DE POLLO",
+                      "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
+                      "unidades": "0",
+                      "precio": "$ 30.000"
+                    },
+                    {
+                      "nombre": "ARROZ ATOLLADO",
+                      "descripcion": "Panceta brochada con salsa tomate de árbol, chip de plátano, arroz atollado y salsa de cimarrón verde.",
+                      "unidades": "0",
+                      "precio": "$ 32.000"
+                    },
+                    {
+                      "nombre": "PREFERIDO DE NOE",
+                      "descripcion": "Panceta, astilla de yuca, alioli de ajo, ceviche aguacate y mango y de acompañante Ensalada fresca dulce.",
+                      "unidades": "0",
+                      "precio": "$ 35.000"
+                    },
+                    {
+                      "nombre": "MATRIMONIO PERFECTO",
+                      "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
+                      "unidades": "0",
+                      "precio": "$ 30.000"
+                    },
+                    {
+                      "nombre": "TORBELLINO DE POLLO",
+                      "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
+                      "unidades": "0",
+                      "precio": "$ 30.000"
+                    }
+                  ]
+                }
+              ]
               }
+              
             ]
           }
         ]
       },
       {
+        "id": 2,
         "nombres": "La brasa",
         "image": "assets/brasa.jpg",
         "informacion": [
@@ -152,6 +160,7 @@
         ]
       },
       {
+        "id": 3,
         "nombres": "Jito's Food And Drink",
         "image": "assets/jitos.png",
         "informacion": [
@@ -657,6 +666,7 @@
         ]
       },
       {
+        "id": 4,
         "nombres": "Plaza Central",
         "image": "assets/plazacentral.jpeg",
         "informacion": [
@@ -692,6 +702,7 @@
         ]
       },
       {
+        "id": 5,
         "nombres": "Mi comia",
         "image": "assets/micomia.jpg",
         "informacion": [
@@ -1022,6 +1033,7 @@
         ]
       },
       {
+        "id": 6,
         "nombres": "Aqui es Quilichao",
         "image": "assets/aqui.JPG",
         "informacion": [
@@ -1062,6 +1074,7 @@
         ]
       },
       {
+        "id": 7,
         "nombres": "La barra campestre",
         "image": "assets/barraca.JPG",
         "informacion": [
@@ -1101,6 +1114,7 @@
         ]
       },
       {
+        "id": 8,
         "nombres": "El calabozo parrilla bar",
         "image": "assets/calabozo.jpg",
         "informacion": [
@@ -1227,22 +1241,46 @@
                 "submenu": "Carnes",
                 "descripcion": [
                   {
-                    "nombre": "Nachos Revolcados",
-                    "descripcion": "Carne desmechada o pollo, frijol refrito, maíz, queso doble crema, queso cheddar, pico de gallo y guacamole, sobre totopos crocantes.",
+                    "nombre": "Chicharrón horneado",
+                    "descripcion": "Panceta (chicharrón carnudo) llevada al horno, para alcanzar su punto crocante y jugoso. Escoge yucas, criollas, maduro o verduras.",
                     "unidades": "0",
-                    "precio": "25,000"
+                    "precio": "27.900"
                   },
                   {
-                    "nombre": "Nachos Revolcados Ranch",
-                    "descripcion": "Carne de res al pastor, chorizo, tocineta, queso doble crema, queso cheddar, pico de gallo y guacamole, sobre totopos crocantes.",
+                    "nombre": "Costillas San Luis BBQ",
+                    "descripcion": "Tiernas costillas de cerdo cocinadas a fuego lento y bañadas en salsa BBQ de la casa. Escoge yucas,criollas, maduro o verduras.",
                     "unidades": "0",
-                    "precio": "26,000"
+                    "precio": "35.900"
                   },
                   {
-                    "nombre": "Super Nachos",
-                    "descripcion": "Bandeja grande con totopos crocantes de maíz, pollo, carne al pastor, tocineta, pico de gallo, queso cheddar y frijol refrito.",
+                    "nombre": "Lomo de cerdo estilo chimichurri",
+                    "descripcion": "Lomo de cerdo sellado a fuego alto, bañado con chimichurri estilo Argentino. Escoge yucas, criollas, maduro o verduras.",
                     "unidades": "0",
-                    "precio": "28,500"
+                    "precio": "27.900"
+                  },
+                  {
+                    "nombre": "Clásico de chatas",
+                    "descripcion": "Lomo redondo de res sellado y salteado en mantequilla con romero, al estilo más tradicional.Escoge yucas, criollas, maduro o verduras.",
+                    "unidades": "0",
+                    "precio": "31.900"
+                  },
+                  {
+                    "nombre": "Pechuga de pollo gratinada",
+                    "descripcion": "Pechuga de pollo salteada en mantequilla con ajo y gratinada con queso mozzarella. Escoge yucas, criollas, maduro o verduras.",
+                    "unidades": "0",
+                    "precio": "27.900"
+                  },
+                  {
+                    "nombre": "Lomo de cerdo estilo chimichurri",
+                    "descripcion": "Lomo de cerdo sellado a fuego alto, bañado con chimichurri estilo Argentino. Escoge yucas, criollas, maduro o verduras.",
+                    "unidades": "0",
+                    "precio": "27.900"
+                  },
+                  {
+                    "nombre": "Lomo de cerdo estilo chimichurri",
+                    "descripcion": "Lomo de cerdo sellado a fuego alto, bañado con chimichurri estilo Argentino. Escoge yucas, criollas, maduro o verduras.",
+                    "unidades": "0",
+                    "precio": "27.900"
                   }
                 ]
               },
@@ -1657,6 +1695,7 @@
 
 
       {
+        "id": 9,
         "nombres": "La casa de pedro",
         "image": "assets/solar.jpeg",
         "informacion": [
@@ -1771,6 +1810,7 @@
         ]
       },
       {
+        "id": 10,
         "nombres": "RUBIMAR",
         "image": "assets/rubymar.jpg",
         "informacion": [
@@ -1885,6 +1925,7 @@
         ]
       },
       {
+        "id": 11,
         "nombres": "El sendero picnic",
         "image": "assets/senderopicnic.png",
         "informacion": [
@@ -1999,6 +2040,7 @@
         ]
       },
       {
+        "id": 12,
         "nombres": "La parrilla",
         "image": "assets/parrilla.jpg",
         "informacion": [
@@ -2113,6 +2155,7 @@
         ]
       },
       {
+        "id": 13,
         "nombres": "AMBROSIA GOURMET",
         "image": "assets/ambriosa.jpg",
         "informacion": [
@@ -2227,6 +2270,7 @@
         ]
       },
       {
+        "id": 14,
         "nombres": "La Sazón del Pacifico",
         "image": "assets/sazonpacifico.jpg",
         "informacion": [
@@ -2341,6 +2385,7 @@
         ]
       },
       {
+        "id": 15,
         "nombres": "Patacos gourmet & grill",
         "image": "assets/solar.jpeg",
         "informacion": [
@@ -2455,6 +2500,7 @@
         ]
       },
       {
+        "id": 16,
         "nombres": "Las Delicias De Chiqui",
         "image": "assets/delicisas.JPG",
         "informacion": [
@@ -2569,6 +2615,7 @@
         ]
       },
       {
+        "id": 17,
         "nombres": "El Sabor De Mi Tierra Clemita",
         "image": "assets/solar.jpeg",
         "informacion": [
@@ -2683,6 +2730,7 @@
         ]
       },
       {
+        "id": 18,
         "nombres": "Maderos & Carbón",
         "image": "assets/maderosyparrilla.jpg",
         "informacion": [
@@ -2812,6 +2860,7 @@
         ]
       },
       {
+        "id": 19,
         "nombres": "Donde Toño",
         "image": "assets/solar.jpeg",
         "informacion": [
@@ -2844,90 +2893,15 @@
             ],
             "menu": [
               {
-                "Entradas": [
-                  {
-                    "nombre": "TENTEMPIE",
-                    "descripcion": "2 chorizos, Limón mandarino, 2 mini empanada, 2 mini aborrajado, 2 mini marranita y con ají natural, aji de mani y guacamole.",
-                    "unidades": "0",
-                    "precio": "$ 21.000"
-                  },
-                  {
-                    "nombre": "EMPANADAS",
-                    "descripcion": "Ají natural, ai maní y guacamole.",
-                    "unidades": "7 unds",
-                    "precio": "$ 21.000"
-                  },
-                  {
-                    "nombre": "ABORRAJADOS",
-                    "descripcion": "Aborrajados  de maduro guayabo con carne con hogao",
-                    "unidades": "6 unds",
-                    "precio": "$ 21.000"
-                  },
-                  {
-                    "nombre": "MARINEROS",
-                    "descripcion": "4 anillos de calamar panko y coco, 1 chorizo Y salsa vérmelo.",
-                    "unidades": "0",
-                    "precio": "$ 21.000"
-                  }
-                ],
-                "Platos fuertes": [
-                  {
-                    "nombre": "PUNTA DE ANCA",
-                    "descripcion": "Tierna carne de res con jugosa capa de grasa, acompañada de arancini de maduro, astillas de yuca frita y ensalada de la casa",
-                    "unidades": "0",
-                    "precio": "$ 40.000"
-                  },
-                  {
-                    "nombre": "PARRILLADA",
-                    "descripcion": "Tierno lomo de res, costilla ahumada, filete de pollo, chorizo, croqueta de yuca, arancini de maduro, papa criolla, ensalada de la casa y salsas tradicionales.",
-                    "unidades": "0",
-                    "precio": "$ 45.000"
-                  },
-                  {
-                    "nombre": "MORRILLO",
-                    "descripcion": "Delicado corte de res entreverado de grasa.",
-                    "unidades": "0",
-                    "precio": "$ 36.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "ARROZ ATOLLADO",
-                    "descripcion": "Panceta brochada con salsa tomate de árbol, chip de plátano, arroz atollado y salsa de cimarrón verde.",
-                    "unidades": "0",
-                    "precio": "$ 32.000"
-                  },
-                  {
-                    "nombre": "PREFERIDO DE NOE",
-                    "descripcion": "Panceta, astilla de yuca, alioli de ajo, ceviche aguacate y mango y de acompañante Ensalada fresca dulce.",
-                    "unidades": "0",
-                    "precio": "$ 35.000"
-                  },
-                  {
-                    "nombre": "MATRIMONIO PERFECTO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  }
-                ]
+                
               }
             ]
           }
         ]
       }
     ]
-  }
-],
+  },
+
 {
   "nombre": "GYM"
 },
@@ -2939,6 +2913,6 @@
 },
 {
   "nombre": "PANADERIAS"
-},
 }
+
 ]

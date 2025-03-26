@@ -11,17 +11,10 @@ class dialogs extends StatelessWidget {
   }
 }*/
 class Dialogs {
-  String? titulos;
-  String? titulos1;
-  String? titulos2;
-  String? titulos3;
-  String? titulos4;
-  String? titulos5;
-  String? titulos6;
-  String? titulos7;
+    final Map<String, String> horarios; 
+  
 
-  Dialogs(this.titulos, this.titulos1, this.titulos2, this.titulos3,
-      this.titulos4, this.titulos5, this.titulos6, this.titulos7);
+  Dialogs(this.horarios);
 
   Future<void> calendarios(context) async {
     print('object');
@@ -30,33 +23,20 @@ class Dialogs {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(titulos!),
+          title: Text('CALENDARIO DE APERTURA'),
           content: SingleChildScrollView(
               child: Column(
-            children: [
-              Row(
-                children: [Text('Lunes: $titulos1')],
-              ),
-              Row(
-                children: [Text('Martes: $titulos2')],
-              ),
-              Row(
-                children: [Text('Miercoles: $titulos3')],
-              ),
-              Row(
-                children: [Text('Jueves: $titulos4')],
-              ),
-              Row(
-                children: [Text('Viernes: $titulos5')],
-              ),
-              Row(
-                children: [Text('Sabado: $titulos6')],
-              ),
-              Row(
-                children: [Text('Domingo: $titulos7')],
+              children: horarios.entries.map((entry) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(entry.key, style: TextStyle(fontWeight: FontWeight.bold)), // Día
+                    Text(entry.value), // Horario
+                  ],
+                );
+              }).toList(),
               )
-            ],
-          )),
+          ),
           actions: <Widget>[
             TextButton(
               child: const Text('OK'),
