@@ -62,7 +62,8 @@
                     "unidades": "0",
                     "precio": "$ 21.000"
                   }
-                ,
+                ]
+              },
                 {
                   "submenu":  "Platos fuertes",
                  "descripcion": [
@@ -116,8 +117,8 @@
                     }
                   ]
                 }
-              ]
-              }
+              
+              
               
             ]
           }

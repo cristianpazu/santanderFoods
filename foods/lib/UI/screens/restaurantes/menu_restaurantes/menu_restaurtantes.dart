@@ -8,16 +8,32 @@ import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/atoms/textfield.dart';
 import 'package:foods/Utils/titutlos.dart';
 
-class Menu_restaurantes extends StatelessWidget {
+class Menu_restaurantes extends StatefulWidget {
   final int id;
 
   const Menu_restaurantes({Key? key, required this.id}) : super(key: key);
 
+  @override
+  State<Menu_restaurantes> createState() => _Menu_restaurantesState();
+}
+
+
+
+
+
+class _Menu_restaurantesState extends State<Menu_restaurantes> {
   Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/places2.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     return jsonResponse;
   }
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +60,9 @@ class Menu_restaurantes extends StatelessWidget {
                       child: Text('Categoría RESTAURANTES no encontrada'));
                 }
 
-                // Find the restaurant with id 1 (El Solar)
                 var restaurante =
                     restaurantesCategoria['nombre_restaurantes'].firstWhere(
-                  (restaurante) => restaurante['id'] == 1,
+                  (restaurante) => restaurante['id'] == widget.id,
                   orElse: () => null,
                 );
 
@@ -58,7 +73,7 @@ class Menu_restaurantes extends StatelessWidget {
 
                 // Access the restaurant's details
                 var nombre = restaurante['nombres'];
-                var imagen = restaurante['image'];
+                var imagen = restaurante['id'];
                 var informacion = restaurante['informacion'];
 
                 // Now you can access the specific restaurant details like "El Solar"
@@ -66,8 +81,8 @@ class Menu_restaurantes extends StatelessWidget {
                 var contacto = informacion[0]['contacto'];
                 var horario = informacion[0]['horario'];
 
-               var menu = restaurante['informacion'][0]['menu'];
-
+                var menu = restaurante['informacion'][0]['menu'];
+                print('imagen: $imagen');
 
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
@@ -156,24 +171,67 @@ class Menu_restaurantes extends StatelessWidget {
                       Container(
                         child: Column(
                           children: menu.map<Widget>((submenu) {
-                           var submenuName = submenu['submenu'];
-print('object $submenuName');
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 250),
-                              child: Container(
-                                height: 50,
-                                width: 150,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(80),
-                                      bottomRight: Radius.circular(80)),
-                                  color: const Color.fromARGB(255, 255, 255, 255),
+                            var submenuName = submenu[
+                                'submenu']; // Accedemos al nombre del submenu
+                            // Esto debería imprimir el nombre del submenu
+                            var descripcionList = submenu['descripcion'];
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 250),
+                                  child: Container(
+                                    height: 50,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(80),
+                                        bottomRight: Radius.circular(80),
+                                      ),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          submenuName), // Mostramos el nombre del submenu
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                SizedBox(height: 40),
+
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children:
+                                        descripcionList.map<Widget>((plato) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            right:
+                                                10.0),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth:
+                                                  200), 
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              cardWidget3(
+                                                colors: Color(0xFFF6F6),
+                                                altura: 200,
+                                                texto: '${plato['nombre']}',
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(), // Convertimos la lista de descripciones en una lista de widgets
+                                  ),
+                                ),
+                                // Convertimos la lista de descripciones en una lista de widgets
+                                SizedBox(height: 20),
+                              ],
                             );
-                          
-                          }
-                          ),
+                          }).toList(), // Asegúrate de llamar a toList() para que se convierta en una lista de widgets
                         ),
                       )
                     ])));

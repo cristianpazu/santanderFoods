@@ -61,7 +61,7 @@ class Restaurantes extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Textfields(
-                          texto: 'Buscar restaurantes....',
+                          texto: 'Buscar restaurantes....', validator: (value) {  },
                         ),
                       ),
                     ],
@@ -111,11 +111,14 @@ class Restaurantes extends StatelessWidget {
                             restaurant['nombres'];
                             final restaurantImage =
                             restaurant['image'];
+                            final idRestaurantes =
+                            restaurant['id'];
                     print(restaurantInfo);
+                    print('idRestaurantes $idRestaurantes  ---- $restaurantInfo');
                         return cardWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
-                             redireccionamiento:Menu_restaurantes(),
+                             redireccionamiento:Menu_restaurantes(id: idRestaurantes,),
                           image: Image.asset(
                            restaurantImage,
                             fit: BoxFit.contain,

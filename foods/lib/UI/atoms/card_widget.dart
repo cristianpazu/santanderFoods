@@ -158,12 +158,12 @@ class cardWidget3 extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Container(
-                      height: 110,
+                      height: 100,
                       width: 112,
                       color: Colors.white,
                       child: image),
                 ),
-                UiTexto(texto: 'nombre: $texto', tamanioTexto: 'md')
+                UiTexto(texto: 'nombre: $texto',maxLines: 2, tamanioTexto: 'md')
                     .textoRobotoLight2(),
               ],
             ),
