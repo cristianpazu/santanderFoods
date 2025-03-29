@@ -119,7 +119,7 @@ class cardWidget2 extends StatelessWidget {
 class cardWidget3 extends StatelessWidget {
   Image? image;
   String? texto;
-
+ String? subTexto;
   double? ancho;
   double? altura;
   Color? colors;
@@ -129,6 +129,7 @@ class cardWidget3 extends StatelessWidget {
       {super.key,
       this.image,
       this.texto,
+      this.subTexto,
       this.ancho,
       this.altura,
       this.colors,
@@ -163,8 +164,27 @@ class cardWidget3 extends StatelessWidget {
                       color: Colors.white,
                       child: image),
                 ),
-                UiTexto(texto: 'nombre: $texto',maxLines: 2, tamanioTexto: 'md')
-                    .textoRobotoLight2(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    color: Colors.amber,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: UiTexto(texto: 'nombre: $texto',maxLines: 2, tamanioTexto: 'md')
+                              .textoRobotoLight2(),
+                        ),
+                         Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: UiTexto(texto: 'precio: $subTexto',maxLines: 2, tamanioTexto: 'md')
+                        .textoRobotoLight2(),
+                      ),
+                      ],
+                    ),
+                  ),
+                ),
+                   
               ],
             ),
           ),
@@ -230,6 +250,80 @@ class cardWidget4 extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//restaurantes
+//comidass
+class cardWidgetRestaurant extends StatelessWidget {
+  Image? image;
+  String? texto;
+  String? subTexto;
+  double? ancho;
+  double? altura;
+  Color? colors;
+
+  cardWidgetRestaurant(
+      {super.key,
+      this.image,
+      this.texto,
+      this.subTexto,
+      this.ancho,
+      this.altura,
+      this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 15,
+      shadowColor:const Color.fromARGB(255, 170, 141, 53),
+      child: InkWell(
+        onTap: () {
+         /* Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                 
+                },
+              ));*/
+        },
+        child: Container(
+          width: ancho,
+          height: altura,
+          decoration: BoxDecoration(
+              color: colors,
+              borderRadius: BorderRadius.all(Radius.circular(9))),
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(1.5),
+                child: Container(
+                    height: 110, 
+                    width: 112, 
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))
+                    ), 
+                    child: image),
+              ),
+              Padding(
+                
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 110,
+                  color: Colors.green,
+                  child: UiTexto(texto: texto,overflow: TextOverflow.ellipsis,maxLines: 2 ,tamanioTexto: 'md').textoRobotoLight2()),
+              ),
+               Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Container(child: UiTexto(texto: subTexto, tamanioTexto: 'md').textoRobotoLight2()),
+               ),
+            ],
           ),
         ),
       ),

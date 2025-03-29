@@ -17,23 +17,18 @@ class Menu_restaurantes extends StatefulWidget {
   State<Menu_restaurantes> createState() => _Menu_restaurantesState();
 }
 
-
-
-
-
 class _Menu_restaurantesState extends State<Menu_restaurantes> {
+  bool hasShownModal = false;
   Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/places2.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     return jsonResponse;
   }
 
-@override
+  @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +68,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
 
                 // Access the restaurant's details
                 var nombre = restaurante['nombres'];
-                var imagen = restaurante['id'];
+                var id = restaurante['id'];
                 var informacion = restaurante['informacion'];
 
                 // Now you can access the specific restaurant details like "El Solar"
@@ -82,11 +77,34 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                 var horario = informacion[0]['horario'];
 
                 var menu = restaurante['informacion'][0]['menu'];
-                print('imagen: $imagen');
+                print('id: $id');
 
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
                 };
+
+                var image = restaurante['informacion'][0]['menu'][0];
+
+                print('imagess $image');
+
+                if (!hasShownModal) {
+                  WidgetsBinding.instance?.addPostFrameCallback((_) {
+                    setState(() {
+                      hasShownModal = true; // Marca que ya se mostró el modal
+                    });
+
+                    // Verifica si alguna de las imágenes está vacía y muestra el modal si es necesario
+                    var hasImage = menu.any((submenu) {
+                      return submenu['image'] != null &&
+                          submenu['image'].isNotEmpty;
+                    });
+
+                    if (!hasImage) {
+                      showImageModal(
+                          context); // Si no hay imágenes, muestra el modal
+                    }
+                  });
+                }
 
                 return Container(
                     height: double.infinity,
@@ -171,10 +189,10 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                       Container(
                         child: Column(
                           children: menu.map<Widget>((submenu) {
-                            var submenuName = submenu[
-                                'submenu']; // Accedemos al nombre del submenu
-                            // Esto debería imprimir el nombre del submenu
+                            var submenuName = submenu['submenu'];
                             var descripcionList = submenu['descripcion'];
+                            var image = submenu['image'];
+
                             return Column(
                               children: [
                                 Padding(
@@ -204,24 +222,32 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                     children:
                                         descripcionList.map<Widget>((plato) {
                                       return Padding(
-                                        padding: const EdgeInsets.only(
-                                            right:
-                                                10.0),
-                                        child: Container(
-                                          constraints: BoxConstraints(
-                                              maxWidth:
-                                                  200), 
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              cardWidget3(
-                                                colors: Color(0xFFF6F6),
-                                                altura: 200,
-                                                texto: '${plato['nombre']}',
-                                              ),
-                                            ],
-                                          ),
+                                        padding:
+                                            const EdgeInsets.only(right: 10.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            cardWidgetRestaurant(
+                                              colors: Colors.white,
+                                              altura: 230,
+                                              texto: '${plato['nombre']}',
+                                              subTexto: '${plato['precio']}',
+                                            ), /*
+                                            cardWidgetRestaurant(
+                                             // colors: Color.fromARGB(216, 128, 9, 9),
+                                             
+                                              texto: '${plato['nombre']}',
+                                              subTexto: '${plato['precio']}',
+                                            ) */
+                                            /* cardWidget3(
+                                              colors: Color.fromARGB(216, 128, 9, 9),
+                                              altura: 200,
+                                              ancho: 150,
+                                              texto: '${plato['nombre']}',
+                                              subTexto: '${plato['precio']}',
+                                            ), */
+                                          ],
                                         ),
                                       );
                                     }).toList(), // Convertimos la lista de descripciones en una lista de widgets
@@ -238,10 +264,31 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
               }
             }));
   }
+
+  void showImageModal(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Información'),
+          content: Text(
+              'Por el momento no hay imágenes de referencia del producto.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cerrar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
                      
-                    
+                  
                
 
 
