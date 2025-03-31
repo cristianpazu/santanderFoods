@@ -41,28 +41,28 @@
                   {
                     "nombre": "TENTEMPIE",
                     "descripcion": "2 chorizos, Limón mandarino, 2 mini empanada, 2 mini aborrajado, 2 mini marranita y con ají natural, aji de mani y guacamole.",
-                    "image":"",
+                    "image":"assets/TENTEMPIE.png",
                     "unidades": "0",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "EMPANADAS",
                     "descripcion": "Ají natural, ai maní y guacamole.",
-                    "image":"",
+                    "image":"assets/empanada.png",
                     "unidades": "7 unds",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "ABORRAJADOS",
                     "descripcion": "Aborrajados  de maduro guayabo con carne con hogao",
-                    "image":"",
+                    "image":"assets/aborrajados.png",
                     "unidades": "6 unds",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "MARINEROS",
                     "descripcion": "4 anillos de calamar panko y coco, 1 chorizo Y salsa vérmelo.",
-                    "image":"",
+                    "image":"assets/MARINEROS.png",
                     "unidades": "0",
                     "precio": "$ 21.000"
                   }
@@ -74,42 +74,42 @@
                     {
                       "nombre": "PUNTA DE ANCA",
                       "descripcion": "Tierna carne de res con jugosa capa de grasa, acompañada de arancini de maduro, astillas de yuca frita y ensalada de la casa",
-                      "image":"",
+                      "image":"assets/PUNTA_DE_ANCA.png",
                       "unidades": "0",
                       "precio": "$ 40.000"
                     },
                     {
                       "nombre": "PARRILLADA",
                       "descripcion": "Tierno lomo de res, costilla ahumada, filete de pollo, chorizo, croqueta de yuca, arancini de maduro, papa criolla, ensalada de la casa y salsas tradicionales.",
-                      "image":"",
+                      "image":"assets/PARRILLADA.png",
                       "unidades": "0",
                       "precio": "$ 45.000"
                     },
                     {
                       "nombre": "MORRILLO",
                       "descripcion": "Delicado corte de res entreverado de grasa.",
-                      "image":"",
+                      "image":"assets/MORRILLO.png",
                       "unidades": "0",
                       "precio": "$ 36.000"
                     },
                     {
                       "nombre": "TORBELLINO DE POLLO",
                       "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                      "image":"",
+                      "image":"assets/TORBELLINO_DE_POLLO.png",
                       "unidades": "0",
                       "precio": "$ 30.000"
                     },
                     {
                       "nombre": "ARROZ ATOLLADO",
                       "descripcion": "Panceta brochada con salsa tomate de árbol, chip de plátano, arroz atollado y salsa de cimarrón verde.",
-                      "image":"",
+                      "image":"assets/ARROZ_ATOLLADO.png",
                       "unidades": "0",
                       "precio": "$ 32.000"
                     },
                     {
                       "nombre": "PREFERIDO DE NOE",
                       "descripcion": "Panceta, astilla de yuca, alioli de ajo, ceviche aguacate y mango y de acompañante Ensalada fresca dulce.",
-                      "image":"",
+                      "image":"assets/PREFERIDO_DE_NOE.png",
                       "unidades": "0",
                       "precio": "$ 35.000"
                     },
@@ -379,36 +379,43 @@
                 "descripcion": [
                   {
                     "nombre": "Quesadillas",
+                   "image":"",
                     "descripcion": "Tortilla grande de harina, queso doble crema, queso cheddar, crema de leche, pico de gallo, guacamole y relleno de pollo y champiñones.",
                     "precio": "0"
                   },
                   {
                     "nombre": "Pollo y Champiñones",
+                    "image":"",
                     "descripcion": "-",
                     "precio": "23,000"
                   },
                   {
                     "nombre": "Jito’s Sweet",
+                    "image":"",
                     "descripcion": "Pollo, tocineta, maduro, papas a la francesa y gaseosa 192 ml.",
                     "precio": "24,000"
                   },
                   {
                     "nombre": "Mexicana",
+                    "image":"",
                     "descripcion": "Carne, chorizo, tocineta, frijol, refrito, maíz dulce.",
                     "precio": "26,000"
                   },
                   {
                     "nombre": "De Mar",
+                    "image":"",
                     "descripcion": "Maíz dulce, camarón salteado y crema de camarón.",
                     "precio": "30,000"
                   },
                   {
                     "nombre": "Hawaiana",
+                    "image":"",
                     "descripcion": "0",
                     "precio": "22,500"
                   },
                   {
                     "nombre": "Quesadilla XL",
+                    "image":"",
                     "descripcion": "Dos tortillas de harina grandes bien doradas, pollo, carne, tocineta, maíz dulce, queso doble crema, queso cheddar, guacamole y crema de leche.",
                     "precio": "32,000"
                   }
@@ -419,21 +426,25 @@
                 "descripcion": [
                   {
                     "nombre": "Sencilla",
+                    "image":"",
                     "descripcion": "Pan, carne a la plancha, jamon, queso, tocinetas y salsas.",
                     "precio": "14,500"
                   },
                   {
                     "nombre": "JITO'S",
+                    "image":"",
                     "descripcion": "Pan, carne a la plancha, tocineta, queso cheddar, frijol refrito, jamon, ripio, piña calada, queso doble crema, pico de gallo, tomate, guacamole",
                     "precio": "Personal : 18,500 Combo : 23,000"
                   },
                   {
                     "nombre": "Al pastor",
+                    "image":"",
                     "descripcion": "Pan, carne de res al pastor en tiras, aguacate, tomate, lechuga crespa, aros de cebolla apanados, queso americano, queso cheddar y salsa verde",
                     "precio": "Personal : 21,000 Combo : 24,000"
                   },
                   {
                     "nombre": "Crispy",
+                    "image":"",
                     "descripcion": "Pechyga apanada, jamon, tomate, queso doble crfeam, lechuga crespa, queso americano, miel mostaza, sour cream",
                     "precio": "Personal : 21,000 Combo : 24,000"
                   }
@@ -444,16 +455,19 @@
                 "descripcion": [
                   {
                     "nombre": "Parrillada ranchera",
+                    "image":"",
                     "descripcion": "Pollom costilla, chorizo, carne de res,yuca, papa criolla, pico de gallo, nachos y limon.",
                     "precio": "38,000"
                   },
                   {
                     "nombre": "Punta de anca",
+                    "image":"",
                     "descripcion": "acompañado de maduro, papa al vapor, salsa tatemada, ensalada, piña asada",
                     "precio": "40,000"
                   },
                   {
                     "nombre": "Pollo crille gratinado",
+                   "image":"",
                     "descripcion": "Filete de poollo a la parrilla, papa rustica, ensalada fresca",
                     "precio": "Personal : 21,000 Combo : 24,000"
                   }
@@ -465,16 +479,19 @@
                   {
                     "nombre": "Burrito Mixto",
                     "descripcion": "Tortilla de harina mediana, pollo, carne, frijol refrito, pico de gallo, guacamole, queso doble crema en su cubierta, acompañados de papas a la francesa 192 ml.",
+                    "image":"",
                     "precio": "24,500"
                   },
                   {
                     "nombre": "Burrito al Pastor",
                     "descripcion": "Tortilla de harina, rellena de carne de res al pastor, cebolla, maíz dulce, tocineta, aguacate, frijol refrito, queso doble crema en su cubierta, pico de gallo y acompañado de gaseosa a la francesa 192 ml.",
+                    "image":"",
                     "precio": "24,000"
                   },
                   {
                     "nombre": "Burrito Tex-Mex",
                     "descripcion": "Tortilla de harina grande, rellena de arroz, carne de pollo en trozos, frijol refrito, pimentón crocante y cebolla salteados, queso doble crema en su cubierta, pico de gallo, acompañado de papas a la francesa.",
+                    "image":"",
                     "precio": "28,000"
                   }
                 ]
@@ -485,31 +502,37 @@
                   {
                     "nombre": "Ribs BBQ",
                     "descripcion": "Costillas de cerdo St. Louis en salsa BBQ acompañadas de papas rústicas y pico de gallo.",
+                    "image":"",
                     "precio": "38,000"
                   },
                   {
                     "nombre": "Maduro Jito’s",
                     "descripcion": "Maduro asado relleno de tocineta, queso doble crema, camarón salteado y maíz dulce.",
+                    "image":"",
                     "precio": "32,000"
                   },
                   {
                     "nombre": "Maduro Ranchero",
                     "descripcion": "Maduro asado relleno de tocineta, queso doble crema, chorizo, maíz y carne al pastor.",
+                    "image":"",
                     "precio": "32,000"
                   },
                   {
                     "nombre": "Lomo Jito’s",
                     "descripcion": "Maduro asado relleno de tocineta, queso doble crema, chorizo, maíz y carne al pastor.",
+                    "image":"",
                     "precio": "35,000"
                   },
                   {
                     "nombre": "Camarones Apanados",
                     "descripcion": "0",
+                    "image":"",
                     "precio": "40,000"
                   },
                   {
                     "nombre": "Salmón Jito’s",
                     "descripcion": "Salmón a la plancha y aros de calamar apanados en salsa tártara, acompañado de puré de papas crocantes y ensalada rústica de aguacate.",
+                    "image":"",
                     "precio": "38,000"
                   }
                 ]
@@ -520,11 +543,13 @@
                   {
                     "nombre": "Mini Quesadilla",
                     "descripcion": "Tortilla de harina pequeña, queso cheddar, queso doble crema, pollo, carne, crema de leche, pico de gallo, acompañado de papas a la francesa y gaseosa 192 ml.",
+                    "image":"",
                     "precio": "18,000"
                   },
                   {
                     "nombre": "Combo Alitas",
                     "descripcion": "4 piezas de alitas apanadas, jugo hit de caja, papa a la francesa y helado.",
+                    "image":"",
                     "precio": "20,000"
                   }
                 ]
@@ -535,16 +560,19 @@
                   {
                     "nombre": "Tropical",
                     "descripcion": "Pollo desmechado, batavia, piña, jamón, queso mozzarella, vinagreta y acompañado de chips de maíz.",
+                    "image":"",
                     "precio": "20,000"
                   },
                   {
                     "nombre": "Camarón",
                     "descripcion": "Batavia, camarones salteados, aguacate, maíz dulce, cilantro, vinagreta, acompañado de chips de maíz.",
+                    "image":"",
                     "precio": "29,000"
                   },
                   {
                     "nombre": "Mexicana",
                     "descripcion": "Carne de res al pastor, tocineta, aguacate, maíz dulce, batavia, tomate cherry, vinagreta, acompañada de totopos de maíz y queso americano.",
+                    "image":"",
                     "precio": "28,000"
                   }
                 ]
@@ -555,11 +583,13 @@
                   {
                     "nombre": "Pollo",
                     "descripcion": "Jamón, maíz, queso, mayonesa, pollo, salsas.",
+                    "image":"",
                     "precio": "Personal: 18,000 / Combo: 21,000"
                   },
                   {
                     "nombre": "Mexicana",
                     "descripcion": "Tomate, lechuga, chorizo, tocineta, carne desmechada, jamón, queso, maíz dulce, jalapeños.",
+                    "image":"",
                     "precio": "Personal: 21,000 / Combo: 24,000"
                   }
                 ]
@@ -570,6 +600,7 @@
                   {
                     "nombre": "Jugos Naturales",
                     "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
+                    "image":"",
                     "precios": {
                       "En Agua": "7,000",
                       "En Leche": "9,000",
@@ -583,6 +614,7 @@
                       {
                         "nombre": "Jugos Naturales",
                         "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
+                        "image":"",
                         "precios": {
                           "En Agua": "7,000",
                           "En Leche": "9,000",
@@ -592,6 +624,8 @@
                       },
                       {
                         "nombre": "Limonadas",
+                        "desripcion": "",
+                        "image":"",
                         "precios": {
                           "Natural": "8,000",
                           "Hierbabuena": "10,000",
@@ -603,11 +637,13 @@
                       {
                         "nombre": "Soda de Frutas",
                         "descripcion": "Sabores: Manzana y kiwi - Tamarindo y limón - Piña y limón",
+                        "image":"",
                         "precio": "12,000"
                       },
                       {
                         "nombre": "Infusiones",
                         "descripcion": "(Bebidas calientes)limon y hierba buena-piña naranja y limon-maracuya fresa ylimon, cereza fresa y mora",
+                        "image":"",
                         "precio": {
                           "Normal": "11,000",
                           "con licor": "12,000"
@@ -616,6 +652,7 @@
                       {
                         "nombre": "Cervezas",
                         "descripcion": "",
+                        "image":"",
                         "precios": {
                           "Normal": "5,000",
                           "Michelada": "7,000"
@@ -624,6 +661,7 @@
                       {
                         "nombre": "Corona",
                         "descripcion": "",
+                        "image":"",
                         "precios": {
                           "Normal": "8,000",
                           "Michelada": "9,500"
@@ -637,6 +675,7 @@
                       {
                         "nombre": "Mojitos",
                         "descripcion": "",
+                        "image":"",
                         "precios": {
                           "Clásico": "15,000",
                           "Acapulco": "18,000",
@@ -646,6 +685,7 @@
                       {
                         "nombre": "Margaritas",
                         "descripcion": "",
+                        "image":"",
                         "precios": {
                           "Tradicional": "18,000",
                           "Mango Biche": "19,000",
@@ -663,41 +703,49 @@
                       {
                         "nombre": "Papa A La Francesa",
                         "descripcion": "",
+                        "image":"",
                         "precio": "9,000"
                       },
                       {
                         "nombre": "Nachos Con Queso Cheddar",
                         "descripcion": "",
+                        "image":"",
                         "precio": "10,000"
                       },
                       {
                         "nombre": "Porción Solo Nachos",
                         "descripcion": "",
+                        "image":"",
                         "precio": "7,000"
                       },
                       {
                         "nombre": "Maíz Dulce",
                         "descripcion": "",
+                        "image":"",
                         "precio": "3,000"
                       },
                       {
                         "nombre": "Queso Cheddar",
                         "descripcion": "",
+                        "image":"",
                         "precio": "4,000"
                       },
                       {
                         "nombre": "Tocineta X2",
                         "descripcion": "",
+                        "image":"",
                         "precio": "5,000"
                       },
                       {
                         "nombre": "Pollo O Carne",
                         "descripcion": "",
+                        "image":"",
                         "precio": "7,000"
                       },
                       {
                         "nombre": "Piña Calada",
                         "descripcion": "",
+                        "image":"",
                         "precio": "8,000"
                       }
                     ]

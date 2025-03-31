@@ -305,6 +305,7 @@ class cardWidgetRestaurant extends StatelessWidget {
                 nombre: texto,
                 decripcion: descripcion,
                 precio: precio,
+                image: image,
               );
             },
           );
@@ -329,7 +330,7 @@ class cardWidgetRestaurant extends StatelessWidget {
                             topRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                             bottomRight: Radius.circular(15))),
-                    child: image == null
+                    child: image!.isNotEmpty || image == "null"
                         ? ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
                             child:
@@ -369,44 +370,16 @@ class cardWidgetRestaurant extends StatelessWidget {
 }
 //
 
-void showRecipeModal(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (context) {
-      return Container(
-        width: 300,
-        height: 200,
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Este es un Modal Personalizado',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cierra el modal
-              },
-              child: Text('Cerrar'),
-            ),
-          ],
-        ),
-      );
-    },
-  );
-}
+
 
 //
 class CustomModal extends StatelessWidget {
   String? nombre;
   String? decripcion;
   String? precio;
+  String? image;
 
-  CustomModal({super.key, this.nombre, this.decripcion, this.precio});
+  CustomModal({super.key,  this.image,this.nombre, this.decripcion, this.precio});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -460,10 +433,18 @@ class CustomModal extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(80))),
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(80)),
-                      child: Image.asset(
-                        'assets/proximamente.jpg',
-                        fit: BoxFit.contain,
-                      )),
+                      child: image!.isNotEmpty  || image == "null"
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child:
+                                Image.asset(image ?? 'assets/proximamente.jpg'),
+                          )
+                        : Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          ),
+                      
+                      ),
                 ),
               ),
               //
@@ -474,30 +455,26 @@ class CustomModal extends StatelessWidget {
                 ).textoRobotoLight3(),
               ),
 
-              /* Positioned(
-                top: 30,
-                right: 65,
-              child: UiTexto(
-                      texto: '$nombre',
-                    ).textoRobotoLight3()),
+              Padding(
+                padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
+                child: Container(
              
-          Positioned(
-                top: 180,
-                right: 15,
-              child: Container(
-                color: Colors.amber,
-                child: UiTexto(
-                        texto: '$decripcion',
-                        maxLines: 4
-                      ).textoRobotoLight4(),
-              )), */
-
-              /* ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Cierra el modal
-                      },
-                      child: Text('Cerrar'),
-                    ),*/
+                  
+                  child: UiTexto(
+                    texto: '$decripcion',
+                  ).textoRobotoLight4(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 260, right: 50, left: 50),
+                child: Container(
+             
+                  
+                  child: UiTexto(
+                    texto: '$precio',
+                  ).textoRobotoLight4(),
+                ),
+              ),
             ],
           ),
         ),

@@ -69,9 +69,9 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                 // Access the restaurant's details
                 var nombre = restaurante['nombres'];
                 var id = restaurante['id'];
-                var images = restaurante['image'] ?? 'assets/no_image';
+                var imageRestaurant = restaurante['image'];
                 var informacion = restaurante['informacion'];
-print('images $images');
+
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
@@ -137,14 +137,13 @@ print('images $images');
                                     BorderRadius.all(Radius.circular(80)),
                                 color: const Color.fromARGB(255, 255, 255, 255),
                               ),
-                              child: images != null && images.isNotEmpty
-        ?  ClipRRect(
+                              child: ClipRRect(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(80)),
                                   child: Image.asset(
-                                    images,
+                                    imageRestaurant,
                                     fit: BoxFit.contain,
-                                  )) : Icon(Icons.image, size: 80),
+                                  )),
                             ),
                           ),
                           Padding(
@@ -195,6 +194,8 @@ print('images $images');
                             var descripcionList = submenu['descripcion'];
                             var image = submenu['image'];
 
+                          
+
                             return Column(
                               children: [
                                 Padding(
@@ -223,6 +224,7 @@ print('images $images');
                                   child: Row(
                                     children:
                                         descripcionList.map<Widget>((plato) {
+                                            print('>>>>>>>>>>>>>>>>>>>>>>>> ${plato['image']} ');
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
@@ -231,15 +233,25 @@ print('images $images');
                                               CrossAxisAlignment.start,
                                           children: [
                                             cardWidgetRestaurant(
-                                              image: image,
                                               colors: Colors.white,
-                                              altura: 180,
-                                              texto: '${plato['nombre']}',
+                                              altura: 230,
+                                              texto: '${plato['nombre']}' ,
                                               descripcion: '${plato['descripcion']}',
-                                              precio: '${plato['precio']}',
-                                              //subTexto: '${plato['precio']}',
-                                              //icons: Icon(Icons.info_outline_rounded),
-                                            )
+                                              precio:  ' ${plato['precio']}  ' , 
+                                              image: '${plato['image']}' ,                                        ), /*
+                                            cardWidgetRestaurant(
+                                             // colors: Color.fromARGB(216, 128, 9, 9),
+                                             
+                                              texto: '${plato['nombre']}',
+                                              subTexto: '${plato['precio']}',
+                                            ) */
+                                            /* cardWidget3(
+                                              colors: Color.fromARGB(216, 128, 9, 9),
+                                              altura: 200,
+                                              ancho: 150,
+                                              texto: '${plato['nombre']}',
+                                              subTexto: '${plato['precio']}',
+                                            ), */
                                           ],
                                         ),
                                       );
@@ -284,4 +296,162 @@ print('images $images');
                   
                
 
+
+
+    /*Scaffold(
+      body: Container(
+        color: Color(0xC4411DDB),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            //BorderRadius.only(bottomLeft: Radius.circular(90))
+                            BorderRadius.only(
+                                bottomLeft: Radius.circular(90),
+                                bottomRight: Radius.circular(90))),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        offset: Offset(0, 4),
+                        blurRadius: 6,
+                      ),
+                    ],
+                  ),
+                  child: Textfields(
+                    texto: 'Buscar comida....',
+                  ),
+                ),
+              ),
+              //
+            Padding(
+              padding: const EdgeInsets.only(left: 1, right: 220),
+              child: Container(
+              
+                width: 210,
+                height: 30,
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
+                ),
+                child: UiTexto(texto: 'Cocteles').textoRobotoLight2(),
+              ),
+            ),
+          
+              //
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/coctel-cuba-libre.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                    cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/coctel-daiquiri.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                     cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/coctel-el-solar.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                     cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/coctel-margarita-maracuya.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                     cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/coctel-sex-on-the-beach.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                  ],
+                ),
+              ),
+              //
+ Padding(
+              padding: const EdgeInsets.only(left: 1, right: 220),
+              child: Container(
+              
+                width: 210,
+                height: 30,
+                decoration: BoxDecoration(
+                    color: const Color.fromRGBO(255, 193, 7, 1),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
+                ),
+                child: UiTexto(texto: 'Almuerzos').textoRobotoLight2(),
+              ),
+            ),
+              //
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/triologia-de-carnes.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                    cardWidget3(
+                      colors: Color(0xFFF6F6),
+                      altura: 210,
+                      image: Image.asset(
+                        'assets/delicioso-lomo-viche.jpg',
+                        fit: BoxFit.contain,
+                      ),
+                      texto: 'Coctel',
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ); */
 
