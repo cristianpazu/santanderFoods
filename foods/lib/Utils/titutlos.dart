@@ -124,5 +124,24 @@ class UiTexto{
       maxLines: maxLines,
     );
   }
+   Widget textoRobotoLight4() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.monomaniacOne(fontSize: 12),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
+  }
+
+  Widget textoRobotoLight5() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.monomaniacOne(fontSize: 30,color: Color.fromRGBO(50, 30, 124, 5)),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
+  }
 }
  

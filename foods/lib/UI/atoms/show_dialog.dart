@@ -71,7 +71,10 @@ class InformacionDialogos {
               child: Column(
             children: [
               Row(
-                children: [Text('direccion: $direccion')],
+                children: [Container(
+                  color: Colors.amber,
+                  width: 200,
+                  child: Text('direccion: $direccion', maxLines: 2,))],
               ),
               Row(
                 children: [Text('telefono: $telefono')],
@@ -87,6 +90,63 @@ class InformacionDialogos {
             ),
           ],
         );
+      },
+    );
+  }
+}
+
+//informacion de la comida
+class InformacionComidaDialogos {
+  String? nombre;
+  String? direccion;
+  String? telefono;
+
+  InformacionComidaDialogos(this.nombre, this.direccion, this.telefono);
+
+  Future<void> informacionComida(context) async {
+    
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+  title: Text(nombre!),
+  content: SingleChildScrollView(
+    child: Container(
+      width: double.infinity, // Toma todo el ancho disponible
+      child: Stack(
+        children: [
+          Container(
+            height: 10,
+            width: 10,
+            color: Colors.amber,
+          ),
+        ],
+      ),
+    ),
+  ));
+  
+         /*AlertDialog(
+          title: Text(nombre!),
+          content: SingleChildScrollView(
+              child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                width: 10,
+                color: Colors.amber,
+              )
+            ],
+          )),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el diálogo
+              },
+            ),
+          ],
+        );*/
       },
     );
   }

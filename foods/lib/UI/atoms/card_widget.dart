@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/titutlos.dart';
 
 class cardWidget extends StatelessWidget {
@@ -119,7 +120,7 @@ class cardWidget2 extends StatelessWidget {
 class cardWidget3 extends StatelessWidget {
   Image? image;
   String? texto;
- String? subTexto;
+  String? subTexto;
   double? ancho;
   double? altura;
   Color? colors;
@@ -172,19 +173,24 @@ class cardWidget3 extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: UiTexto(texto: 'nombre: $texto',maxLines: 2, tamanioTexto: 'md')
+                          child: UiTexto(
+                                  texto: 'nombre: $texto',
+                                  maxLines: 2,
+                                  tamanioTexto: 'md')
                               .textoRobotoLight2(),
                         ),
-                         Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: UiTexto(texto: 'precio: $subTexto',maxLines: 2, tamanioTexto: 'md')
-                        .textoRobotoLight2(),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: UiTexto(
+                                  texto: 'precio: $subTexto',
+                                  maxLines: 2,
+                                  tamanioTexto: 'md')
+                              .textoRobotoLight2(),
+                        ),
                       ],
                     ),
                   ),
                 ),
-                   
               ],
             ),
           ),
@@ -243,9 +249,11 @@ class cardWidget4 extends StatelessWidget {
                       child: image),
                 ),
                 Container(
-                  
                   padding: EdgeInsets.only(left: 8, right: 8),
-                  child: UiTexto(texto: 'nombre: $texto', maxLines: 2,tamanioTexto: 'md')
+                  child: UiTexto(
+                          texto: 'nombre: $texto',
+                          maxLines: 2,
+                          tamanioTexto: 'md')
                       .textoRobotoLight2(),
                 ),
               ],
@@ -257,72 +265,239 @@ class cardWidget4 extends StatelessWidget {
   }
 }
 
-
 //restaurantes
 //comidass
 class cardWidgetRestaurant extends StatelessWidget {
-  Image? image;
+  String? image;
   String? texto;
-  String? subTexto;
+  String? subtexto;
+  String? precio;
+  String? descripcion;
   double? ancho;
   double? altura;
   Color? colors;
+  Widget? icons;
 
   cardWidgetRestaurant(
       {super.key,
       this.image,
       this.texto,
-      this.subTexto,
+      this.subtexto,
+      this.precio,
+      this.descripcion,
       this.ancho,
       this.altura,
-      this.colors});
+      this.colors,
+      this.icons});
 
   @override
   Widget build(BuildContext context) {
+    print('||||||||||||||||||||||||||||||||||| $image');
     return Card(
       elevation: 15,
-      shadowColor:const Color.fromARGB(255, 170, 141, 53),
+      shadowColor: const Color.fromARGB(255, 170, 141, 53),
       child: InkWell(
         onTap: () {
-         /* Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                 
-                },
-              ));*/
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomModal(
+                nombre: texto,
+                decripcion: descripcion,
+                precio: precio,
+              );
+            },
+          );
         },
         child: Container(
           width: ancho,
           height: altura,
           decoration: BoxDecoration(
               color: colors,
-              borderRadius: BorderRadius.all(Radius.circular(9))),
-          child: Column(
+              borderRadius: BorderRadius.all(Radius.circular(19))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(1.5),
+                  child: Container(
+                    height: 110,
+                    width: 112,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15))),
+                    child: image == null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child:
+                                Image.asset(image ?? 'assets/proximamente.jpg'),
+                          )
+                        : Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: 110,
+                      child: UiTexto(
+                              texto: texto,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              tamanioTexto: 'md')
+                          .textoRobotoLight4()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      child: UiTexto(
+                              texto: subtexto, maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2()),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+//
+
+void showRecipeModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return Container(
+        width: 300,
+        height: 200,
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Este es un Modal Personalizado',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Cierra el modal
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+//
+class CustomModal extends StatelessWidget {
+  String? nombre;
+  String? decripcion;
+  String? precio;
+
+  CustomModal({super.key, this.nombre, this.decripcion, this.precio});
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        width: 350,
+        height: 450,
+        child: Container(
+          child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.all(1.5),
-                child: Container(
-                    height: 110, 
-                    width: 112, 
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15))
-                    ), 
-                    child: image),
-              ),
-              Padding(
-                
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 110,
-                  color: Colors.green,
-                  child: UiTexto(texto: texto,overflow: TextOverflow.ellipsis,maxLines: 2 ,tamanioTexto: 'md').textoRobotoLight2()),
+                  height: 450,
+                  width: 500,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  child: Column(
+                    children: [
+                      /* Text('$nombre'),
+                      Text('$decripcion'),
+                      Text('$precio'),*/
+                    ],
+                  ),
+                ),
               ),
-               Padding(
-                 padding: const EdgeInsets.all(8.0),
-                 child: Container(child: UiTexto(texto: subTexto, tamanioTexto: 'md').textoRobotoLight2()),
-               ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(50, 30, 124, 5),
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(20))),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(top: 100, left: 100),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(80))),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(80)),
+                      child: Image.asset(
+                        'assets/proximamente.jpg',
+                        fit: BoxFit.contain,
+                      )),
+                ),
+              ),
+              //
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 50),
+                child: UiTexto(
+                  texto: '$nombre',
+                ).textoRobotoLight3(),
+              ),
+
+              /* Positioned(
+                top: 30,
+                right: 65,
+              child: UiTexto(
+                      texto: '$nombre',
+                    ).textoRobotoLight3()),
+             
+          Positioned(
+                top: 180,
+                right: 15,
+              child: Container(
+                color: Colors.amber,
+                child: UiTexto(
+                        texto: '$decripcion',
+                        maxLines: 4
+                      ).textoRobotoLight4(),
+              )), */
+
+              /* ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Cierra el modal
+                      },
+                      child: Text('Cerrar'),
+                    ),*/
             ],
           ),
         ),

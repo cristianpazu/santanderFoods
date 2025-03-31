@@ -142,33 +142,44 @@
         "image": "assets/brasa.jpg",
         "informacion": [
           {
-            "nombre": "El Solar",
-            "direccion": "Cra 11 #5-69, Santander de Quilichao, Cauca",
-            "contacto": "319 3317892",
+            "nombre": "La brasa",
+            "direccion": "a 10-100, Cl 6 #10-2, Santander de Quilichao, Cauca",
+            "contacto": "(602) 829 2902",
             "horario": [
               {
-                "Lunes": "CERRADO"
+                "Lunes": "Abierto las 24 horas"
               },
               {
-                "Martes": "11:30a.m a 10p.m."
+                "Martes": "Abierto las 24 horas"
               },
               {
-                "Miercoles": "11:30a.m a 10p.m."
+                "Miercoles": "Abierto las 24 horas"
               },
               {
-                "Jueves": "11:30a.m a 10p.m."
+                "Jueves": "Abierto las 24 horas"
               },
               {
-                "Viernes": "11:30a.m a 12p.m."
+                "Viernes": "Abierto las 24 horas"
               },
               {
-                "Sabado": "11:30a.m a 12p.m."
+                "Sabado": "Abierto las 24 horas"
               },
               {
-                "Domingo": "11:30a.m a 10p.m."
+                "Domingo": "Abierto las 24 horas"
               }
             ],
-            "menu": []
+            "menu": [{
+              "submenu": "Entradas",
+                "descripcion": [
+                  {
+                    "nombre": "Arroz a la Marinero",
+                    "descripcion": "Personal",
+                    "image":"",
+                    "unidades": "",
+                    "precio": "20,000"
+                  }
+                   ]
+            }]
           }
         ]
       },
@@ -729,7 +740,19 @@
                 "Domingo": "11:30a.m a 10p.m."
               }
             ],
-            "menu": []
+            "menu": [{
+              "submenu": "Entradas",
+                "descripcion": [
+                  {
+                    "nombre": "Arroz a la Marinero",
+                    "descripcion": "Personal",
+                    "image":"",
+                    "unidades": "",
+                    "precio": "20,000"
+                  }
+                ]
+              }
+            ]
           }
         ]
       },
@@ -1142,7 +1165,17 @@
             "menu": [
               {
                 
-                
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "Patacones con suero consteño",
+                    "descripcion": "Patacones de plátano verde fritos,acompañados de suero costeño.",
+                    "image":"",
+                    "unidades": "",
+                    "precio": "11.900"
+                  }
+                  
+                ]
               }
             ]
           }
@@ -1182,7 +1215,18 @@
             ],
             "menu": [
               {
-                
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "Patacones con suero consteño",
+                    "descripcion": "Patacones de plátano verde fritos,acompañados de suero costeño.",
+                    "image":"",
+                    "unidades": "",
+                    "precio": "11.900"
+                  }
+                  
+                ]
+              
               }
             ]
           }

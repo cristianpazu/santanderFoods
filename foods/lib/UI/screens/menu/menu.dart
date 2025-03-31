@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -18,11 +19,11 @@ class Menu extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  color: const Color.fromRGBO(50, 30, 124, 5),
+                  color:  const Color.fromRGBO(50, 30, 124, 5),
                   child: Column(
                     children: [
                       Container(
-                        height: 220,
+                        height: 200,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 255, 255, 255),

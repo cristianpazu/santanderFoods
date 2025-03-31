@@ -61,7 +61,7 @@ class Restaurantes extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Textfields(
-                          texto: 'Buscar restaurantes....', validator: (value) {  },
+                          texto: 'Buscar restaurantes....',
                         ),
                       ),
                     ],
@@ -92,205 +92,43 @@ class Restaurantes extends StatelessWidget {
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_restaurantes'];
 
-                      
- 
                     return GridView.builder(
                       padding: EdgeInsets.all(10),
                       shrinkWrap:
                           true, // Asegura que el GridView solo ocupe el espacio necesario
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: nombres.length,
-                      gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
                             2, // Número de columnas en la cuadrícula
                       ),
                       itemBuilder: (context, index) {
                         final restaurant = nombres[index];
-                        final restaurantInfo =
-                            restaurant['nombres'];
-                            final restaurantImage =
-                            restaurant['image'];
-                            final idRestaurantes =
-                            restaurant['id'];
-                    print(restaurantInfo);
-                    print('idRestaurantes $idRestaurantes  ---- $restaurantInfo');
+                        final restaurantInfo = restaurant['nombres'];
+                        final restaurantImage = restaurant['image'];
+                        final idRestaurantes = restaurant['id'];
+                        print(restaurantInfo);
+                        print(
+                            'idRestaurantes $idRestaurantes  ---- $restaurantInfo');
                         return cardWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
-                             redireccionamiento:Menu_restaurantes(id: idRestaurantes,),
+                          redireccionamiento: Menu_restaurantes(
+                            id: idRestaurantes,
+                          ),
                           image: Image.asset(
-                           restaurantImage,
+                            restaurantImage,
                             fit: BoxFit.contain,
                           ),
                           texto: restaurantInfo,
                         );
-                    
-                        /* ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: nombres.length,
-                      itemBuilder: (context, index) {
-                        var restaurante = nombres[index];
-                        return Column(
-                          children: [
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(children: [
-                                cardWidget3(
-                                  colors: Color.fromARGB(255, 145, 2, 2),
-                                  altura: 210,
-                                  image: Image.asset(
-                                    'assets/coctel-cuba-libre.jpg',
-                                    fit: BoxFit.contain,
-                                  ),
-                                  texto: restaurante['nombres'],
-                                )
-                              ]),
-                            ),
-                          ],
-                        ); */
-                        /*Card(
-                            margin: EdgeInsets.all(10),
-                            elevation: 5,
-                            child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  restaurante['nombres'],
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
-                                )));*/
                       },
                     );
-
-                    /* Column(
-                children: [
-                  SingleChildScrollView(
-                     scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: data.map((item){
-                        return cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-cuba-libre.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: item['nombre'],
-                    );
-
-                      }).toList()
-                    ),
-                  ),
-                ],
-                  
-              ); */
                   }
                 })
           ],
         ),
       ),
-    )
-
-        /*
-        
-        
-        cardWidget3(
-                        colors: Color(0xFFF6F6),
-                        altura: 210,
-                        image: Image.asset(
-                          'assets/coctel-cuba-libre.jpg',
-                          fit: BoxFit.contain,
-                        ),
-                        texto: item[],
-                      ),
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        Container(
-        color: Color.fromRGBO(50, 30, 124, 5),
-        child: Column(
-          children: [
-            Container(
-              height: 210,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      BorderRadius.only(bottomLeft: Radius.circular(120))),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      offset: Offset(0, 4),
-                      blurRadius: 6,
-                    ),
-                  ],
-                ),
-                child: Textfields(
-                  texto: 'Buscar restaurantes....',
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      cardWidget2(
-                       redireccionamiento:Menu_restaurantes(),
-                        colors: Color(0xFFF6F6),
-                        altura: 210,
-                        image: Image.asset(
-                          'assets/solar.jpeg',
-                          fit: BoxFit.contain,
-                        ),
-                        texto: 'SOLAR',
-                        icon2: IconButton(onPressed: (){
-                          
-                          Dialogs('HORARIOS','Cerrado' ,'	11:30 a.m a 10p. m' ,' 11:30a.m. a 10p. m' ,'	11:30a.m a 10p.m','	11:30 a.m a 10p.m','	11:30a.m a 10p.m','	11:30a.m a 10p.m').calendarios(context);
-                        }, icon: Icon(Icons.calendar_month_outlined)),
-                      ),
-                      SizedBox(
-                        width: 11,
-                      ),
-                      cardWidget2(
-                        colors: Color(0xFFF6F6),
-                        altura: 210,
-                        image: Image.asset(
-                          'assets/casape.png',
-                          fit: BoxFit.contain,
-                        ),
-                        texto: 'C. de \n Pedro',
-                        icon2: IconButton(onPressed: (){}, icon: Icon(Icons.calendar_month_outlined)),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),*/
-        );
+    ));
   }
 }
