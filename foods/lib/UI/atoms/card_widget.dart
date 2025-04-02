@@ -292,7 +292,8 @@ class cardWidgetRestaurant extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('||||||||||||||||||||||||||||||||||| $image');
+    print('||||||||||||||||||||||||||||||||||| ${image == "null"} ');
+    print('|||||||||||||||||||<<<<<<<<<<<<<<<<<<<<<|| ${image} ');
     return Card(
       elevation: 15,
       shadowColor: const Color.fromARGB(255, 170, 141, 53),
@@ -301,12 +302,14 @@ class cardWidgetRestaurant extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
+                     print('entre aquiiiiiiiiiiiiii');
               return CustomModal(
                 nombre: texto,
                 decripcion: descripcion,
                 precio: precio,
                 image: image,
               );
+              
             },
           );
         },
@@ -330,16 +333,20 @@ class cardWidgetRestaurant extends StatelessWidget {
                             topRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                             bottomRight: Radius.circular(15))),
-                    child: image!.isNotEmpty || image == "null"
+
+                     
+                    child:image != "null" && image!.isNotEmpty 
                         ? ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
                             child:
-                                Image.asset(image ?? 'assets/proximamente.jpg'),
+                                Image.asset(image!),
                           )
-                        : Image.asset(
+                        : ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child: Image.asset(
                             'assets/proximamente.jpg',
                             fit: BoxFit.contain,
-                          ),
+                          )),
                   ),
                 ),
                 Padding(
@@ -433,12 +440,12 @@ class CustomModal extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(80))),
                   child: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(80)),
-                      child: image!.isNotEmpty  || image == "null"
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(80)),
-                            child:
-                                Image.asset(image ?? 'assets/proximamente.jpg'),
-                          )
+                      child:image != null && image!.isNotEmpty 
+                        ? //ClipRRect(
+                           // borderRadius: BorderRadius.all(Radius.circular(80)),
+                            //child:
+                                Image.asset(image!)
+                         // )
                         : Image.asset(
                             'assets/proximamente.jpg',
                             fit: BoxFit.contain,

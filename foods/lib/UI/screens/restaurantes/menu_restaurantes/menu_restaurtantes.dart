@@ -22,6 +22,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
   Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/places2.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
+    print('jsonResponse $jsonResponse');
     return jsonResponse;
   }
 
@@ -78,7 +79,6 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                 var horario = informacion[0]['horario'];
 
                 var menu = restaurante['informacion'][0]['menu'];
-                print('id: $id');
 
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
@@ -96,8 +96,18 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
 
                     // Verifica si alguna de las imágenes está vacía y muestra el modal si es necesario
                     var hasImage = menu.any((submenu) {
-                      return submenu['image'] != null &&
-                          submenu['image'].isNotEmpty;
+                      var descripcionList = submenu['descripcion'];
+                      List<String> imagesFood = [];
+
+                      for (var i = 0; i < descripcionList.length; i++) {
+                        var image = descripcionList[i]['image'];
+
+                        if (image != null && image.isNotEmpty) {
+                          imagesFood.add(image);
+                        }
+                      }
+
+                      return imagesFood.isNotEmpty;
                     });
 
                     if (!hasImage) {
@@ -194,7 +204,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                             var descripcionList = submenu['descripcion'];
                             var image = submenu['image'];
 
-                          
+                            print("imageimage ${image}");
 
                             return Column(
                               children: [
@@ -224,7 +234,8 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                   child: Row(
                                     children:
                                         descripcionList.map<Widget>((plato) {
-                                            print('>>>>>>>>>>>>>>>>>>>>>>>> ${plato['image']} ');
+                                      print(
+                                          '>>>>>>>>>>>>>>>>>>>>>>>> ${plato['image']} ');
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
@@ -235,10 +246,12 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                             cardWidgetRestaurant(
                                               colors: Colors.white,
                                               altura: 230,
-                                              texto: '${plato['nombre']}' ,
-                                              descripcion: '${plato['descripcion']}',
-                                              precio:  ' ${plato['precio']}  ' , 
-                                              image: '${plato['image']}' ,                                        ), /*
+                                              texto: '${plato['nombre']}',
+                                              descripcion:
+                                                  '${plato['descripcion']}',
+                                              precio: ' ${plato['precio']}  ',
+                                              image: '${plato['image']}',
+                                            ), /*
                                             cardWidgetRestaurant(
                                              // colors: Color.fromARGB(216, 128, 9, 9),
                                              
