@@ -473,7 +473,7 @@ class CustomModal extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 260, right: 50, left: 50),
+                padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
                 child: Container(
              
                   
