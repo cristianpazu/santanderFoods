@@ -34,7 +34,7 @@
                 "Domingo": "08:00 a.m a 01:00 p.m."
               }
             ],
-            "Tarifas": [
+            "tarifas": [
               {
                 "submenu": "Tarifas del gym",
                 "descripcion": [
@@ -55,7 +55,7 @@
                   },
                   {
                     "nombre": "Entreno diario",
-                    "descripcion": "",
+                    "descripcion": "--",
                     "precio": "$ 15.000"
                   },
                   {
@@ -70,7 +70,7 @@
                   },
                   {
                     "nombre": "Plan fuerza publica",
-                    "descripcion": "",
+                    "descripcion": "--",
                     "precio": "$ 65.000"
                   },
                   {
@@ -172,15 +172,18 @@
       {
         "id": 2,
         "nombres": "Gimnasios Luiyan",
-        "image": "assets/GYM/luiya_gym.jpg",
+        "image": "assets/luiya_gym.jpg",
         "informacion": [
           {
             "nombre": "Gimnasios Luiyan",
             "direccion": "calle 9a No16-91 barrio la victoria sede principal, Santander de Quilichao, Colombia",
             "contacto": "sin numero",
             "horario": [
+              {
+                "Lunes": "05:00 a.m a 10:00 p.m."
+              }
             ],
-            "Tarifas": [
+            "tarifas": [
               {
                 "submenu": "Tarifas del gym",
                 "descripcion": [
@@ -213,7 +216,7 @@
       {
         "id": 3,
         "nombres": "AFE GYM",
-        "image": "assets/GYM/luiya_gym.jpg",
+        "image": "assets/luiya_gym.jpg",
         "informacion": [
           {
             "nombre": "AFE GYM",
@@ -242,7 +245,7 @@
                 "Domingo": "07:00 a.m a 01:00 p.m."
               }
             ],
-            "Tarifas": [
+            "tarifas": [
               {
                 "submenu": "Tarifas del gym",
                 "descripcion": [

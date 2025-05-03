@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/show_dialog.dart';
+import 'package:foods/UI/screens/menu/menu.dart';
 import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/titutlos.dart';
@@ -10,6 +11,7 @@ class cardWidget extends StatelessWidget {
   double? ancho;
   double? altura;
   Color? colors;
+   Widget? redireccionamiento;
 
   cardWidget(
       {super.key,
@@ -17,7 +19,8 @@ class cardWidget extends StatelessWidget {
       this.texto,
       this.ancho,
       this.altura,
-      this.colors});
+      this.colors,
+        this.redireccionamiento});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class cardWidget extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Restaurantes(),
+                builder: (context) => redireccionamiento ?? Menu(),
               ));
         },
         child: Container(
@@ -483,6 +486,116 @@ class CustomModal extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+//Card de GYM
+class cardWidgetGym extends StatelessWidget {
+  String? image;
+  String? texto;
+  String? subtexto;
+  String? precio;
+  String? descripcion;
+  double? ancho;
+  double? altura;
+  Color? colors;
+  Widget? icons;
+
+  cardWidgetGym(
+      {super.key,
+      this.image,
+      this.texto,
+      this.subtexto,
+      this.precio,
+      this.descripcion,
+      this.ancho,
+      this.altura,
+      this.colors,
+      this.icons});
+
+  @override
+  Widget build(BuildContext context) {
+    print('||||||||||||||||||||||||||||||||||| ${image == "null"} ');
+    print('|||||||||||||||||||<<<<<<<<<<<<<<<<<<<<<|| ${image} ');
+    return Card(
+      elevation: 15,
+      shadowColor: const Color.fromARGB(255, 170, 141, 53),
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+                     print('entre aquiiiiiiiiiiiiii');
+              return CustomModal(
+                nombre: texto,
+                decripcion: descripcion,
+                precio: precio,
+                image: image,
+              );
+              
+            },
+          );
+        },
+        child: Container(
+          width: ancho,
+          height: altura,
+          decoration: BoxDecoration(
+              color: colors,
+              borderRadius: BorderRadius.all(Radius.circular(19))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(1.5),
+                  child: Container(
+                    height: 110,
+                    width: 112,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15))),
+
+                     
+                    child:image != "null" && image!.isNotEmpty 
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child:
+                                Image.asset(image!),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child: Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: 110,
+                      child: UiTexto(
+                              texto: texto,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              tamanioTexto: 'md')
+                          .textoRobotoLight4()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      child: UiTexto(
+                              texto: subtexto, maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2()),
+                ),
+              ],
+            ),
           ),
         ),
       ),

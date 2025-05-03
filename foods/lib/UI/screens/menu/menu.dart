@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/UI/screens/gym/gym.dart';
+import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
 
 class Menu extends StatelessWidget {
@@ -66,6 +68,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'RESTAURANTES',
+                                redireccionamiento: Restaurantes(),
                               ),
                               SizedBox(
                                 width: 35,
@@ -78,6 +81,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'GYM',
+                                redireccionamiento: Gym(),
                               ),
                             ],
                           ),

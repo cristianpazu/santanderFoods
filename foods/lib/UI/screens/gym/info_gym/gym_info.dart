@@ -4,31 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/show_dialog.dart';
-import 'package:foods/UI/atoms/show_dialog.dart';
-import 'package:foods/UI/atoms/textfield.dart';
-import 'package:foods/Utils/titutlos.dart';
 
-class Menu_restaurantes extends StatefulWidget {
+class gym_info extends StatefulWidget {
   final int id;
 
-  const Menu_restaurantes({Key? key, required this.id}) : super(key: key);
+  const gym_info({Key? key, required this.id}) : super(key: key);
 
   @override
-  State<Menu_restaurantes> createState() => _Menu_restaurantesState();
+  State<gym_info> createState() => _gym_infoState();
 }
 
-class _Menu_restaurantesState extends State<Menu_restaurantes> {
-  bool hasShownModal = false;
+class _gym_infoState extends State<gym_info> {
   Future<List<dynamic>> loadJson() async {
-    String jsonString = await rootBundle.loadString('assets/places2.json');
+    String jsonString = await rootBundle.loadString('assets/gym.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     print('jsonResponse $jsonResponse');
     return jsonResponse;
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -46,49 +37,43 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
               } else {
                 List<dynamic> categorias = snapshot.data!;
 
-                var restaurantesCategoria = categorias.firstWhere(
-                  (categoria) => categoria['nombre'] == 'RESTAURANTES',
+                var gymCategoria = categorias.firstWhere(
+                  (categoria) => categoria['nombre'] == 'GYM',
                   orElse: () => null,
                 );
-
-                if (restaurantesCategoria == null) {
-                  return Center(
-                      child: Text('Categoría RESTAURANTES no encontrada'));
+                if (gymCategoria == null) {
+                  return Center(child: Text('Categoría GYM no encontrada'));
                 }
 
-                var restaurante =
-                    restaurantesCategoria['nombre_restaurantes'].firstWhere(
-                  (restaurante) => restaurante['id'] == widget.id,
+                var gyms = gymCategoria['nombre_gimasios'].firstWhere(
+                  (gymnasio) => gymnasio['id'] == widget.id,
                   orElse: () => null,
                 );
 
-                if (restaurante == null) {
-                  return Center(
-                      child: Text('Restaurante con id 1 no encontrado'));
+                if (gyms == null) {
+                  return Center(child: Text('Gimnasio con id 1 no encontrado'));
                 }
 
                 // Access the restaurant's details
-                var nombre = restaurante['nombres'];
-                var id = restaurante['id'];
-                var imageRestaurant = restaurante['image'];
-                var informacion = restaurante['informacion'];
+                var nombre = gyms['nombres'];
+                var id = gyms['id'];
+                //var imageRestaurant = gyms['image'];
+                var informacion = gyms['informacion'];
 
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
                 var horario = informacion[0]['horario'];
 
-                var menu = restaurante['informacion'][0]['menu'];
-
+                var menu = gyms['informacion'][0]['tarifas'];
+                print('menu|||||||||||||||||||||||||||||||| $menu');
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
                 };
 
-                var image = restaurante['informacion'][0]['menu'][0];
+                // var image = gyms['informacion'][0]['menu'][0];
 
-                print('imagess $image');
-
-                if (!hasShownModal) {
+                /*     if (!hasShownModal) {
                   WidgetsBinding.instance?.addPostFrameCallback((_) {
                     setState(() {
                       hasShownModal = true; // Marca que ya se mostró el modal
@@ -114,8 +99,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                       showImageModal(
                           context); // Si no hay imágenes, muestra el modal
                     }
-                  });
-                }
+                  }); */
 
                 return Container(
                     height: double.infinity,
@@ -129,8 +113,10 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                             height: 220,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 255, 255, 255),
-                            ),
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(20),
+                                    bottomRight: Radius.circular(20))),
                             child: Image.asset(
                               'assets/lugar.jpg',
                               fit: BoxFit.cover,
@@ -138,7 +124,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 155, left: 30),
+                            padding: const EdgeInsets.only(top: 155, left: 125),
                             child: Container(
                               width: 150,
                               height: 150,
@@ -150,13 +136,15 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                               child: ClipRRect(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(80)),
-                                  child: Image.asset(
-                                    imageRestaurant,
-                                    fit: BoxFit.contain,
-                                  )),
+                                  child: Container()
+                                  //Image.asset(
+                                  //  imageRestaurant,
+                                  // fit: BoxFit.contain,
+                                  //)
+                                  ),
                             ),
                           ),
-                          Padding(
+                          /* Padding(
                             padding: const EdgeInsets.only(top: 225, left: 300),
                             child: Container(
                               width: 50,
@@ -168,10 +156,10 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                               ),
                               child: IconButton(
                                   onPressed: () {
-                                    InformacionDialogos(
+                                  /*  InformacionDialogos(
                                             nombre, direccion, contacto)
                                         .informacion(context);
-                                  },
+                                 */ },
                                   icon: Icon(Icons.info_outline)),
                             ),
                           ),
@@ -187,11 +175,11 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                               ),
                               child: IconButton(
                                   onPressed: () {
-                                    Dialogs(horarios).calendarios(context);
+                                  //  Dialogs(horarios).calendarios(context);
                                   },
                                   icon: Icon(Icons.calendar_month_outlined)),
                             ),
-                          ),
+                          ), */
                         ],
                       ),
                       SizedBox(
@@ -202,9 +190,9 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                           children: menu.map<Widget>((submenu) {
                             var submenuName = submenu['submenu'];
                             var descripcionList = submenu['descripcion'];
-                            var image = submenu['image'];
+                           
 
-                            print("imageimage ${image}");
+                            print("submenuName ${descripcionList}");
 
                             return Column(
                               children: [
@@ -228,13 +216,13 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                   ),
                                 ),
                                 SizedBox(height: 40),
-
+/*
                                 SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children:
                                         descripcionList.map<Widget>((plato) {
-                                      
+                                          print('plato $plato');
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
@@ -242,14 +230,13 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            cardWidgetRestaurant(
+                                            cardWidgetGym(
                                               colors: Colors.white,
                                               altura: 230,
                                               texto: '${plato['nombre']}',
-                                              descripcion:
-                                                  '${plato['descripcion']}',
-                                              precio: ' ${plato['precio']}  ',
-                                              image: '${plato['image']}',
+                                              descripcion:'${plato['descripcion']}',
+                                              precio: '${plato['precio']} ',
+                                             
                                             ), /*
                                             cardWidgetRestaurant(
                                              // colors: Color.fromARGB(216, 128, 9, 9),
@@ -269,201 +256,38 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                       );
                                     }).toList(), // Convertimos la lista de descripciones en una lista de widgets
                                   ),
-                                ),
+                                ), */
                                 // Convertimos la lista de descripciones en una lista de widgets
                                 SizedBox(height: 20),
                               ],
                             );
-                          }).toList(), // Asegúrate de llamar a toList() para que se convierta en una lista de widgets
+                          }).toList(),
+                          // Asegúrate de llamar a toList() para que se convierta en una lista de widgets
                         ),
                       )
                     ])));
               }
             }));
-  }
 
-  void showImageModal(context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Información'),
-          content: Text(
-              'Por el momento no hay imágenes de referencia del producto.'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-                     
-                  
-               
-
-
-
-    /*Scaffold(
-      body: Container(
-        color: Color(0xC4411DDB),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            //BorderRadius.only(bottomLeft: Radius.circular(90))
-                            BorderRadius.only(
-                                bottomLeft: Radius.circular(90),
-                                bottomRight: Radius.circular(90))),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        offset: Offset(0, 4),
-                        blurRadius: 6,
-                      ),
-                    ],
-                  ),
-                  child: Textfields(
-                    texto: 'Buscar comida....',
-                  ),
-                ),
-              ),
-              //
-            Padding(
-              padding: const EdgeInsets.only(left: 1, right: 220),
-              child: Container(
-              
-                width: 210,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: Colors.amber,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
-                ),
-                child: UiTexto(texto: 'Cocteles').textoRobotoLight2(),
-              ),
-            ),
-          
-              //
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-cuba-libre.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                    cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-daiquiri.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                     cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-el-solar.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                     cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-margarita-maracuya.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                     cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/coctel-sex-on-the-beach.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                  ],
-                ),
-              ),
-              //
- Padding(
-              padding: const EdgeInsets.only(left: 1, right: 220),
-              child: Container(
-              
-                width: 210,
-                height: 30,
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(255, 193, 7, 1),
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
-                ),
-                child: UiTexto(texto: 'Almuerzos').textoRobotoLight2(),
-              ),
-            ),
-              //
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/triologia-de-carnes.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                    cardWidget3(
-                      colors: Color(0xFFF6F6),
-                      altura: 210,
-                      image: Image.asset(
-                        'assets/delicioso-lomo-viche.jpg',
-                        fit: BoxFit.contain,
-                      ),
-                      texto: 'Coctel',
-                    ),
-                  ],
-                ),
+    void showImageModal(context) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Información'),
+            content: Text(
+                'Por el momento no hay imágenes de referencia del producto.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cerrar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
             ],
-          ),
-        ),
-      ),
-    ); */
-
+          );
+        },
+      );
+    }
+  }
+}

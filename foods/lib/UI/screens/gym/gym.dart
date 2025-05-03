@@ -3,29 +3,28 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
-import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/atoms/textfield.dart';
-import 'package:foods/UI/screens/restaurantes/menu_restaurantes/menu_restaurtantes.dart';
+import 'package:foods/UI/screens/gym/info_gym/gym_info.dart';
 import 'package:foods/Utils/titutlos.dart';
 
-class Restaurantes extends StatelessWidget {
-  const Restaurantes({super.key});
-/*
-  Future<Map<String, dynamic>> loadJson() async {
-   String jsonString = await rootBundle.loadString('assets/places3.json');
-    Map<String, dynamic> jsonResponse = json.decode(jsonString);
-    return jsonResponse;
-  } */
-
-  Future<List<dynamic>> loadJson() async {
-    String jsonString = await rootBundle.loadString('assets/places2.json');
-    List<dynamic> jsonResponse = json.decode(jsonString);
-    return jsonResponse;
-  }
+class Gym extends StatefulWidget {
+ const Gym({super.key});
 
   @override
+  State<Gym> createState() => _GymState();
+}
+
+class _GymState extends State<Gym> {
+
+   Future<List<dynamic>> loadJson() async {
+    String jsonString = await rootBundle.loadString('assets/gym.json');
+    List<dynamic> jsonResponse = json.decode(jsonString);
+    print('jsonResponse $jsonResponse');
+    return jsonResponse;
+  }
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   return Scaffold(
         body: Container(
       height: double.infinity,
       width: double.infinity,
@@ -45,10 +44,14 @@ class Restaurantes extends StatelessWidget {
                         decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 255, 255, 255),
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(120))),
+                                bottomLeft: Radius.circular(120),
+                                 bottomRight: Radius.circular(120)
+                                )),
                         child: ClipRRect(
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(120)),
+                                bottomLeft: Radius.circular(120),
+                                bottomRight: Radius.circular(120)
+                                ),
                             child: Image.asset(
                               'assets/resta.jpeg',
                               fit: BoxFit.cover,
@@ -61,7 +64,7 @@ class Restaurantes extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Textfields(
-                          texto: 'Buscar restaurantes....',
+                          texto: 'Buscar gym....',
                         ),
                       ),
                     ],
@@ -71,7 +74,7 @@ class Restaurantes extends StatelessWidget {
                     top: 30,
                     right: 190,
                     child: UiTexto(
-                      texto: 'RESTAURANTES',
+                      texto: 'GYM',
                     ).textoRobotoLight3()),
               ],
             ),
@@ -98,9 +101,9 @@ class Restaurantes extends StatelessWidget {
                     List<dynamic> categorias = snapshot.data!;
 
                     var restaurantesCategoria = categorias.firstWhere(
-                        (categoria) => categoria['nombre'] == 'RESTAURANTES');
+                        (categoria) => categoria['nombre'] == 'GYM');
                     List<dynamic> nombres =
-                        restaurantesCategoria['nombre_restaurantes'];
+                        restaurantesCategoria['nombre_gimasios'];
 
                     return GridView.builder(
                       padding: EdgeInsets.all(10),
@@ -113,24 +116,22 @@ class Restaurantes extends StatelessWidget {
                             2, // Número de columnas en la cuadrícula
                       ),
                       itemBuilder: (context, index) {
-                        final restaurant = nombres[index];
-                        final restaurantInfo = restaurant['nombres'];
-                        final restaurantImage = restaurant['image'];
-                        final idRestaurantes = restaurant['id'];
-                        print(restaurantInfo);
-                        print(
-                            'idRestaurantes $idRestaurantes  ---- $restaurantInfo');
+                        final gym = nombres[index];
+                        final gymInfo = gym['nombres'];
+                        final gymImage = gym['image'];
+                        final idGym = gym['id'];
+                      print('saddddddd $idGym');
                         return cardWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
-                          redireccionamiento: Menu_restaurantes(
-                            id: idRestaurantes,
-                          ),
                           image: Image.asset(
-                            restaurantImage,
+                            gymImage,
                             fit: BoxFit.contain,
                           ),
-                          texto: restaurantInfo,
+                          texto: gymInfo,
+                          redireccionamiento: gym_info(
+                            id: idGym,
+                          ),
                         );
                       },
                     );
