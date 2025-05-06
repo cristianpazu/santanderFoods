@@ -53,7 +53,7 @@ class _GymState extends State<Gym> {
                                 bottomRight: Radius.circular(120)
                                 ),
                             child: Image.asset(
-                              'assets/resta.jpeg',
+                              'assets/gyms.jpg',
                               fit: BoxFit.cover,
                               opacity: AlwaysStoppedAnimation(0.6),
                             )),

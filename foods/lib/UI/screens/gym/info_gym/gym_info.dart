@@ -19,7 +19,6 @@ class _gym_infoState extends State<gym_info> {
   Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/gym.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
-    print('jsonResponse $jsonResponse');
     return jsonResponse;
   }
 
@@ -60,15 +59,14 @@ class _gym_infoState extends State<gym_info> {
                 var id = gyms['id'];
                 var imageRestaurant = gyms['image'];
                 var informacion = gyms['informacion'];
-                print(
-                    'imageRestaurantimageRestaurantimageRestaurant $imageRestaurant');
+             
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
                 var horario = informacion[0]['horario'];
 
                 var menu = gyms['informacion'][0]['tarifas'];
-                print('menu|||||||||||||||||||||||||||||||| $menu');
+               
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
                 };
@@ -162,10 +160,7 @@ class _gym_infoState extends State<gym_info> {
                                   child: Center(
                                     child: Text('PLANES'),
                                   )
-                                  //Image.asset(
-                                  //  imageRestaurant,
-                                  // fit: BoxFit.contain,
-                                  //)
+                                 
                                   ),
                             ),
                           ),
@@ -179,9 +174,6 @@ class _gym_infoState extends State<gym_info> {
                           children: menu.map<Widget>((submenu) {
                             var submenuName = submenu['submenu'];
                             var descripcionList = submenu['descripcion'];
-
-                            print("submenuName ${descripcionList}");
-
                             return Column(
                               children: [
                                 Padding(
@@ -201,33 +193,41 @@ class _gym_infoState extends State<gym_info> {
                                               children: [
                                                 Container(
                                                   width: 250,
-                                                 decoration: BoxDecoration(
-                                                  color: Color.fromRGBO(50, 30, 124, 5),
-                                                  borderRadius: BorderRadius.circular(20)
-                                                 ),
-
+                                                  decoration: BoxDecoration(
+                                                      color: Color.fromRGBO(
+                                                          50, 30, 124, 5),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
                                                   child: Column(
                                                     children: [
                                                       UiTexto(
-                                  texto: '${plato['nombre']}',
-                                  maxLines: 2,
-                                  tamanioTexto: 'md')
-                              .textoRobotoLight6(),
-                               UiTexto(
-                                  texto: '${plato['descripcion']}',
-                                  maxLines: 2,
-                                  tamanioTexto: 'md')
-                              .textoRobotoLight6(),
-                               UiTexto(
-                                  texto: '${plato['precio']}',
-                                  maxLines: 2,
-                                  tamanioTexto: 'md')
-                              .textoRobotoLight6(),
-                                                     
+                                                              texto:
+                                                                  '${plato['nombre']}',
+                                                              maxLines: 2,
+                                                              tamanioTexto:
+                                                                  'md')
+                                                          .textoRobotoLight6(),
+                                                      UiTexto(
+                                                              texto:
+                                                                  '${plato['descripcion']}',
+                                                              maxLines: 2,
+                                                              tamanioTexto:
+                                                                  'md')
+                                                          .textoRobotoLight6(),
+                                                      UiTexto(
+                                                              texto:
+                                                                  '${plato['precio']}',
+                                                              maxLines: 2,
+                                                              tamanioTexto:
+                                                                  'md')
+                                                          .textoRobotoLight6(),
                                                     ],
                                                   ),
                                                 ),
-                                                SizedBox(height: 5,)
+                                                SizedBox(
+                                                  height: 5,
+                                                )
                                               ],
                                             ),
                                           );
