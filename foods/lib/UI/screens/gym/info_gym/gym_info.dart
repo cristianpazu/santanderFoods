@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/show_dialog.dart';
+import 'package:foods/Utils/titutlos.dart';
 
 class gym_info extends StatefulWidget {
   final int id;
@@ -57,9 +58,10 @@ class _gym_infoState extends State<gym_info> {
                 // Access the restaurant's details
                 var nombre = gyms['nombres'];
                 var id = gyms['id'];
-                //var imageRestaurant = gyms['image'];
+                var imageRestaurant = gyms['image'];
                 var informacion = gyms['informacion'];
-
+                print(
+                    'imageRestaurantimageRestaurantimageRestaurant $imageRestaurant');
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
@@ -136,7 +138,30 @@ class _gym_infoState extends State<gym_info> {
                               child: ClipRRect(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(80)),
-                                  child: Container()
+                                  child: //Container()
+                                      Image.asset(
+                                    imageRestaurant,
+                                    fit: BoxFit.contain,
+                                  )),
+                            ),
+                          ),
+                          //
+                          Padding(
+                            padding: const EdgeInsets.only(top: 320, left: 125),
+                            child: Container(
+                              width: 150,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(80)),
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
+                              child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(80)),
+                                  child: Center(
+                                    child: Text('PLANES'),
+                                  )
                                   //Image.asset(
                                   //  imageRestaurant,
                                   // fit: BoxFit.contain,
@@ -144,42 +169,6 @@ class _gym_infoState extends State<gym_info> {
                                   ),
                             ),
                           ),
-                          /* Padding(
-                            padding: const EdgeInsets.only(top: 225, left: 300),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80)),
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                              ),
-                              child: IconButton(
-                                  onPressed: () {
-                                  /*  InformacionDialogos(
-                                            nombre, direccion, contacto)
-                                        .informacion(context);
-                                 */ },
-                                  icon: Icon(Icons.info_outline)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 225, left: 200),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80)),
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                              ),
-                              child: IconButton(
-                                  onPressed: () {
-                                  //  Dialogs(horarios).calendarios(context);
-                                  },
-                                  icon: Icon(Icons.calendar_month_outlined)),
-                            ),
-                          ), */
                         ],
                       ),
                       SizedBox(
@@ -190,74 +179,62 @@ class _gym_infoState extends State<gym_info> {
                           children: menu.map<Widget>((submenu) {
                             var submenuName = submenu['submenu'];
                             var descripcionList = submenu['descripcion'];
-                           
 
                             print("submenuName ${descripcionList}");
 
                             return Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 250),
-                                  child: Container(
-                                    height: 50,
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(80),
-                                        bottomRight: Radius.circular(80),
-                                      ),
-                                      color: const Color.fromARGB(
-                                          255, 255, 255, 255),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                          submenuName), // Mostramos el nombre del submenu
-                                    ),
-                                  ),
-                                ),
+                                    padding: const EdgeInsets.only(
+                                        right: 20, left: 20),
+                                    child: Card(
+                                        child: ExpansionTile(
+                                      title: Text(submenuName),
+                                      children: <Widget>[
+                                        ...descripcionList.map<Widget>((plato) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 250,
+                                                 decoration: BoxDecoration(
+                                                  color: Color.fromRGBO(50, 30, 124, 5),
+                                                  borderRadius: BorderRadius.circular(20)
+                                                 ),
+
+                                                  child: Column(
+                                                    children: [
+                                                      UiTexto(
+                                  texto: '${plato['nombre']}',
+                                  maxLines: 2,
+                                  tamanioTexto: 'md')
+                              .textoRobotoLight6(),
+                               UiTexto(
+                                  texto: '${plato['descripcion']}',
+                                  maxLines: 2,
+                                  tamanioTexto: 'md')
+                              .textoRobotoLight6(),
+                               UiTexto(
+                                  texto: '${plato['precio']}',
+                                  maxLines: 2,
+                                  tamanioTexto: 'md')
+                              .textoRobotoLight6(),
+                                                     
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(height: 5,)
+                                              ],
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ],
+                                    ))),
                                 SizedBox(height: 40),
-/*
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children:
-                                        descripcionList.map<Widget>((plato) {
-                                          print('plato $plato');
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            cardWidgetGym(
-                                              colors: Colors.white,
-                                              altura: 230,
-                                              texto: '${plato['nombre']}',
-                                              descripcion:'${plato['descripcion']}',
-                                              precio: '${plato['precio']} ',
-                                             
-                                            ), /*
-                                            cardWidgetRestaurant(
-                                             // colors: Color.fromARGB(216, 128, 9, 9),
-                                             
-                                              texto: '${plato['nombre']}',
-                                              subTexto: '${plato['precio']}',
-                                            ) */
-                                            /* cardWidget3(
-                                              colors: Color.fromARGB(216, 128, 9, 9),
-                                              altura: 200,
-                                              ancho: 150,
-                                              texto: '${plato['nombre']}',
-                                              subTexto: '${plato['precio']}',
-                                            ), */
-                                          ],
-                                        ),
-                                      );
-                                    }).toList(), // Convertimos la lista de descripciones en una lista de widgets
-                                  ),
-                                ), */
-                                // Convertimos la lista de descripciones en una lista de widgets
                                 SizedBox(height: 20),
                               ],
                             );
@@ -268,26 +245,5 @@ class _gym_infoState extends State<gym_info> {
                     ])));
               }
             }));
-
-    void showImageModal(context) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Información'),
-            content: Text(
-                'Por el momento no hay imágenes de referencia del producto.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Cerrar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
   }
 }
