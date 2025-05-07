@@ -11,7 +11,7 @@ class cardWidget extends StatelessWidget {
   double? ancho;
   double? altura;
   Color? colors;
-   Widget? redireccionamiento;
+  Widget? redireccionamiento;
 
   cardWidget(
       {super.key,
@@ -20,7 +20,7 @@ class cardWidget extends StatelessWidget {
       this.ancho,
       this.altura,
       this.colors,
-        this.redireccionamiento});
+      this.redireccionamiento});
 
   @override
   Widget build(BuildContext context) {
@@ -253,11 +253,9 @@ class cardWidget4 extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 8, right: 8),
-                  child: UiTexto(
-                          texto: 'nombre: $texto',
-                          maxLines: 2,
-                          tamanioTexto: 'md')
-                      .textoRobotoLight2(),
+                  child:
+                      UiTexto(texto: '$texto', maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2(),
                 ),
               ],
             ),
@@ -305,14 +303,12 @@ class cardWidgetRestaurant extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-                     print('entre aquiiiiiiiiiiiiii');
-              return CustomModal(
+              return CustomModal2(
                 nombre: texto,
                 decripcion: descripcion,
                 precio: precio,
                 image: image,
               );
-              
             },
           );
         },
@@ -325,6 +321,9 @@ class cardWidgetRestaurant extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(
+                  height: 5.5,
+                ),
                 Padding(
                   padding: EdgeInsets.all(1.5),
                   child: Container(
@@ -336,20 +335,17 @@ class cardWidgetRestaurant extends StatelessWidget {
                             topRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                             bottomRight: Radius.circular(15))),
-
-                     
-                    child:image != "null" && image!.isNotEmpty 
+                    child: image != "null" && image!.isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
-                            child:
-                                Image.asset(image!),
+                            child: Image.asset(image!),
                           )
                         : ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
                             child: Image.asset(
-                            'assets/proximamente.jpg',
-                            fit: BoxFit.contain,
-                          )),
+                              'assets/proximamente.jpg',
+                              fit: BoxFit.contain,
+                            )),
                   ),
                 ),
                 Padding(
@@ -380,8 +376,6 @@ class cardWidgetRestaurant extends StatelessWidget {
 }
 //
 
-
-
 //
 class CustomModal extends StatelessWidget {
   String? nombre;
@@ -389,7 +383,8 @@ class CustomModal extends StatelessWidget {
   String? precio;
   String? image;
 
-  CustomModal({super.key,  this.image,this.nombre, this.decripcion, this.precio});
+  CustomModal(
+      {super.key, this.image, this.nombre, this.decripcion, this.precio});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -428,13 +423,15 @@ class CustomModal extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(50, 30, 124, 5),
                       borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
                           bottomRight: Radius.circular(20),
                           bottomLeft: Radius.circular(20))),
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.only(top: 100, left: 100),
+                padding: const EdgeInsets.only(top: 100, left: 115),
                 child: Container(
                   width: 100,
                   height: 100,
@@ -442,19 +439,18 @@ class CustomModal extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(80))),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(80)),
-                      child:image != null && image!.isNotEmpty 
+                    borderRadius: BorderRadius.all(Radius.circular(80)),
+                    child: image != null && image!.isNotEmpty
                         ? //ClipRRect(
-                           // borderRadius: BorderRadius.all(Radius.circular(80)),
-                            //child:
-                                Image.asset(image!)
-                         // )
+                        // borderRadius: BorderRadius.all(Radius.circular(80)),
+                        //child:
+                        Image.asset(image!)
+                        // )
                         : Image.asset(
                             'assets/proximamente.jpg',
                             fit: BoxFit.contain,
                           ),
-                      
-                      ),
+                  ),
                 ),
               ),
               //
@@ -468,8 +464,6 @@ class CustomModal extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(
-             
-                  
                   child: UiTexto(
                     texto: '$decripcion',
                   ).textoRobotoLight4(),
@@ -478,8 +472,6 @@ class CustomModal extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
                 child: Container(
-             
-                  
                   child: UiTexto(
                     texto: '$precio',
                   ).textoRobotoLight4(),
@@ -529,14 +521,13 @@ class cardWidgetGym extends StatelessWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-                     print('entre aquiiiiiiiiiiiiii');
+              print('entre aquiiiiiiiiiiiiii');
               return CustomModal(
                 nombre: texto,
                 decripcion: descripcion,
                 precio: precio,
                 image: image,
               );
-              
             },
           );
         },
@@ -560,20 +551,17 @@ class cardWidgetGym extends StatelessWidget {
                             topRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                             bottomRight: Radius.circular(15))),
-
-                     
-                    child:image != "null" && image!.isNotEmpty 
+                    child: image != "null" && image!.isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
-                            child:
-                                Image.asset(image!),
+                            child: Image.asset(image!),
                           )
                         : ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
                             child: Image.asset(
-                            'assets/proximamente.jpg',
-                            fit: BoxFit.contain,
-                          )),
+                              'assets/proximamente.jpg',
+                              fit: BoxFit.contain,
+                            )),
                   ),
                 ),
                 Padding(
@@ -596,6 +584,113 @@ class cardWidgetGym extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomModal2 extends StatelessWidget {
+  String? nombre;
+  String? decripcion;
+  String? precio;
+  String? image;
+
+  CustomModal2(
+      {super.key, this.image, this.nombre, this.decripcion, this.precio});
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        width: 350,
+        height: 450,
+        child: Container(
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 450,
+                  width: 500,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  child: Column(
+                    children: [
+                      /* Text('$nombre'),
+                      Text('$decripcion'),
+                      Text('$precio'),*/
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 150,
+                  width: 320,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(249, 73, 59, 121),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                          bottomRight: Radius.circular(40),
+                          bottomLeft: Radius.circular(40))),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: UiTexto(
+                        texto: '$nombre',
+                      ).textoRobotoLight3(),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 100, left: 115),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(80))),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(80)),
+                    child: image != null && image!.isNotEmpty
+                        ? //ClipRRect(
+                        // borderRadius: BorderRadius.all(Radius.circular(80)),
+                        //child:
+                        Image.asset(image!)
+                        // )
+                        : Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
+                child: Container(
+                  child: UiTexto(
+                    texto: '$decripcion',
+                  ).textoRobotoLight4(),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
+                child: Container(
+                  child: UiTexto(
+                    texto: '$precio',
+                  ).textoRobotoLight4(),
+                ),
+              ),
+            ],
           ),
         ),
       ),

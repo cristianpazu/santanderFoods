@@ -209,7 +209,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                             return Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 250),
+                                  padding: const EdgeInsets.only(right: 260),
                                   child: Container(
                                     height: 50,
                                     width: 150,
@@ -221,9 +221,9 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                       color: const Color.fromARGB(
                                           255, 255, 255, 255),
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                          submenuName), // Mostramos el nombre del submenu
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 10.0),
+                                      child: Text(submenuName),
                                     ),
                                   ),
                                 ),
@@ -234,7 +234,6 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                   child: Row(
                                     children:
                                         descripcionList.map<Widget>((plato) {
-                                      
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),

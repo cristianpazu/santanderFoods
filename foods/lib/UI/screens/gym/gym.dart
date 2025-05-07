@@ -8,23 +8,23 @@ import 'package:foods/UI/screens/gym/info_gym/gym_info.dart';
 import 'package:foods/Utils/titutlos.dart';
 
 class Gym extends StatefulWidget {
- const Gym({super.key});
+  const Gym({super.key});
 
   @override
   State<Gym> createState() => _GymState();
 }
 
 class _GymState extends State<Gym> {
-
-   Future<List<dynamic>> loadJson() async {
+  Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/gym.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
     print('jsonResponse $jsonResponse');
     return jsonResponse;
   }
+
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
         body: Container(
       height: double.infinity,
       width: double.infinity,
@@ -45,13 +45,11 @@ class _GymState extends State<Gym> {
                             color: const Color.fromARGB(255, 255, 255, 255),
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(120),
-                                 bottomRight: Radius.circular(120)
-                                )),
+                                bottomRight: Radius.circular(120))),
                         child: ClipRRect(
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(120),
-                                bottomRight: Radius.circular(120)
-                                ),
+                                bottomRight: Radius.circular(120)),
                             child: Image.asset(
                               'assets/gyms.jpg',
                               fit: BoxFit.cover,
@@ -82,17 +80,7 @@ class _GymState extends State<Gym> {
                 future: loadJson(), // Cargamos el JSON
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child:
-                   /* Container(
-                   height: 80,
-                   width: 80
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(80)),
-                        child: Image.asset('assets/comer-unscreen.gif')),
-                    ) */
-                   CircularProgressIndicator()
-                     
-                     );
+                    return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   } else if (!snapshot.hasData) {
@@ -108,19 +96,19 @@ class _GymState extends State<Gym> {
                     return GridView.builder(
                       padding: EdgeInsets.all(10),
                       shrinkWrap:
-                          true, // Asegura que el GridView solo ocupe el espacio necesario
+                          true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: nombres.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:
-                            2, // Número de columnas en la cuadrícula
+                            2,
                       ),
                       itemBuilder: (context, index) {
                         final gym = nombres[index];
                         final gymInfo = gym['nombres'];
                         final gymImage = gym['image'];
                         final idGym = gym['id'];
-                      print('saddddddd $idGym');
+                        print('saddddddd $idGym');
                         return cardWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
