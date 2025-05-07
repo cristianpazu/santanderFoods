@@ -622,9 +622,22 @@ class CustomModal2 extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(40))),
                   child: Column(
                     children: [
-                      /* Text('$nombre'),
-                      Text('$decripcion'),
-                      Text('$precio'),*/
+                    Padding(
+                padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
+                child: Container(
+                  child: UiTexto(
+                    texto: '$decripcion',
+                  ).textoRobotoLight4(),
+                ),
+              ), 
+              SizedBox(height: 10,),
+               Container(
+                
+                 child: UiTexto(
+                   texto: '$precio',
+                 ).textoRobotoLight4(),
+               ),
+                     
                     ],
                   ),
                 ),
@@ -674,14 +687,14 @@ class CustomModal2 extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
+             /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(
                   child: UiTexto(
                     texto: '$decripcion',
                   ).textoRobotoLight4(),
                 ),
-              ),
+              ), 
               Padding(
                 padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
                 child: Container(
@@ -689,7 +702,7 @@ class CustomModal2 extends StatelessWidget {
                     texto: '$precio',
                   ).textoRobotoLight4(),
                 ),
-              ),
+              ),*/
             ],
           ),
         ),

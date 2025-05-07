@@ -222,8 +222,11 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                           255, 255, 255, 255),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 10.0),
-                                      child: Text(submenuName),
+                                      padding: const EdgeInsets.only(
+                                          left: 3.0, top: 10.0),
+                                      child: UiTexto(
+                                        texto: '$submenuName',
+                                      ).textoRobotoLight4(),
                                     ),
                                   ),
                                 ),
@@ -244,25 +247,11 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                             cardWidgetRestaurant(
                                               colors: Colors.white,
                                               altura: 230,
-                                              texto: '${plato['nombre']}',
-                                              descripcion:
-                                                  '${plato['descripcion']}',
-                                              precio: ' ${plato['precio']}  ',
-                                              image: '${plato['image']}',
-                                            ), /*
-                                            cardWidgetRestaurant(
-                                             // colors: Color.fromARGB(216, 128, 9, 9),
-                                             
-                                              texto: '${plato['nombre']}',
-                                              subTexto: '${plato['precio']}',
-                                            ) */
-                                            /* cardWidget3(
-                                              colors: Color.fromARGB(216, 128, 9, 9),
-                                              altura: 200,
-                                              ancho: 150,
-                                              texto: '${plato['nombre']}',
-                                              subTexto: '${plato['precio']}',
-                                            ), */
+                                              texto:      '${plato['nombre']}',
+                                              descripcion:'${plato['descripcion']}',
+                                              precio:     '${plato['precio']}  ',
+                                              image:      '${plato['image']}',
+                                            ),
                                           ],
                                         ),
                                       );

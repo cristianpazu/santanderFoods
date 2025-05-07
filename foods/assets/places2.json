@@ -2105,92 +2105,35 @@
             ],
             "menu": [
               {
-                "Entradas": [
+                "submenu": "Entradas",
+                "descripcion": [
                   {
                     "nombre": "TENTEMPIE",
                     "descripcion": "2 chorizos, Limón mandarino, 2 mini empanada, 2 mini aborrajado, 2 mini marranita y con ají natural, aji de mani y guacamole.",
-                    "image": "",
+                    "image": "assets/TENTEMPIE.png",
                     "unidades": "0",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "EMPANADAS",
                     "descripcion": "Ají natural, ai maní y guacamole.",
-                    "image": "",
+                    "image": "assets/empanada.png",
                     "unidades": "7 unds",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "ABORRAJADOS",
                     "descripcion": "Aborrajados  de maduro guayabo con carne con hogao",
-                    "image": "",
+                    "image": "assets/aborrajados.png",
                     "unidades": "6 unds",
                     "precio": "$ 21.000"
                   },
                   {
                     "nombre": "MARINEROS",
                     "descripcion": "4 anillos de calamar panko y coco, 1 chorizo Y salsa vérmelo.",
-                    "image": "",
+                    "image": "assets/MARINEROS.png",
                     "unidades": "0",
                     "precio": "$ 21.000"
-                  }
-                ],
-                "Platos fuertes": [
-                  {
-                    "nombre": "PUNTA DE ANCA",
-                    "descripcion": "Tierna carne de res con jugosa capa de grasa, acompañada de arancini de maduro, astillas de yuca frita y ensalada de la casa",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 40.000"
-                  },
-                  {
-                    "nombre": "PARRILLADA",
-                    "descripcion": "Tierno lomo de res, costilla ahumada, filete de pollo, chorizo, croqueta de yuca, arancini de maduro, papa criolla, ensalada de la casa y salsas tradicionales.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 45.000"
-                  },
-                  {
-                    "nombre": "MORRILLO",
-                    "descripcion": "Delicado corte de res entreverado de grasa.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 36.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "ARROZ ATOLLADO",
-                    "descripcion": "Panceta brochada con salsa tomate de árbol, chip de plátano, arroz atollado y salsa de cimarrón verde.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 32.000"
-                  },
-                  {
-                    "nombre": "PREFERIDO DE NOE",
-                    "descripcion": "Panceta, astilla de yuca, alioli de ajo, ceviche aguacate y mango y de acompañante Ensalada fresca dulce.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 35.000"
-                  },
-                  {
-                    "nombre": "MATRIMONIO PERFECTO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
-                  },
-                  {
-                    "nombre": "TORBELLINO DE POLLO",
-                    "descripcion": "Rollos de pollo salsa de maíz dulce y uchuvas con pan francés mantequilla de ajo y finas hierbas.",
-                    "image": "",
-                    "unidades": "0",
-                    "precio": "$ 30.000"
                   }
                 ]
               }
