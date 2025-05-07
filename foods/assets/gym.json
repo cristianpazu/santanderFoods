@@ -216,7 +216,7 @@
       {
         "id": 3,
         "nombres": "AFE GYM",
-        "image": "assets/luiya_gym.jpg",
+        "image": "assets/afegym.png",
         "informacion": [
           {
             "nombre": "AFE GYM",
@@ -268,6 +268,194 @@
                     "nombre": "Plan 4",
                     "descripcion": "",
                     "precio": "$ 60.000"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "nombres": "GIMNASIO BEST BODY GYM",
+        "image": "assets/afegym.png",
+        "informacion": [
+          {
+            "nombre": "GIMNASIO BEST BODY GYM",
+            "direccion": "a 1a-144, Cra. 6 #1a-2",
+            "contacto": "311 6333232",
+            "horario": [
+              {
+                "Lunes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "nombres": "Hit Fitness",
+        "image": "assets/hitFitness.jpg",
+        "informacion": [
+          {
+            "nombre": "Hit Fitness",
+            "direccion": "a 1a-144, Cra. 6 #1a-2",
+            "contacto": "312 2487333",
+            "horario": [
+              {
+                "Lunes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "06:00 a.m a 02:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "nombres": "Fenix GYM",
+        "image": "assets/fenixgym.png",
+        "informacion": [
+          {
+            "nombre": "Fenix GYM",
+            "direccion": "Cl. 2 Sur #9A - 41, Santander de Quilichao, Cauca",
+            "contacto": "312 2487333",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m - 12 p.m a 1:30 p.m. -09:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Sabado": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "nombres": "BLACK POWER GYM (BPG)",
+        "image": "assets/BPG.png",
+        "informacion": [
+          {
+            "nombre": "BLACK POWER GYM (BPG)",
+            "direccion": "Calle 14 & Carrera 16, Santander de Quilichao, Cauca",
+            "contacto": "310 7234563",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
                   }
                 ]
               }
