@@ -126,8 +126,8 @@ class UiTexto{
   }
    Widget textoRobotoLight4() {
     return Text(
-      texto ?? '',
-      style: GoogleFonts.monomaniacOne(fontSize: 12),
+      texto?.toUpperCase() ?? '',
+      style: GoogleFonts.monomaniacOne(fontSize: 12, ),
       textAlign: alineacionTexto ?? TextAlign.left,
       overflow: overflow ?? TextOverflow.visible,
       maxLines: maxLines,
@@ -146,7 +146,8 @@ class UiTexto{
   Widget textoRobotoLight6() {
     return Text(
       texto ?? '',
-      style: GoogleFonts.monomaniacOne(fontSize: 18,color: const Color.fromARGB(255, 255, 255, 255)),
+      style:TextStyle(
+            fontFamily: 'Roboto-Medium',fontSize: 18,color: const Color.fromARGB(255, 255, 255, 255)),
       
       textAlign: alineacionTexto ?? TextAlign.left,
       overflow: overflow ?? TextOverflow.visible,
