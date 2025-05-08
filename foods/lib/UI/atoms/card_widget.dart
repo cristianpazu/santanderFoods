@@ -710,3 +710,92 @@ class CustomModal2 extends StatelessWidget {
     );
   }
 }
+
+// card de infor categoria
+class cardWidgetCategoria extends StatelessWidget {
+  Image? image;
+  String? texto;
+  String? subtexto;
+  String? precio;
+  String? descripcion;
+  double? ancho;
+  double? altura;
+  Color? colors;
+  Widget? icons;
+
+  cardWidgetCategoria(
+      {super.key,
+      this.image,
+      this.texto,
+      this.subtexto,
+      this.precio,
+      this.descripcion,
+      this.ancho,
+      this.altura,
+      this.colors,
+      this.icons});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Card(
+      elevation: 15,
+      shadowColor: const Color.fromARGB(255, 255, 255, 255),
+      child: InkWell(
+        onTap: () {
+         
+        },
+        child: Container(
+          width: ancho,
+          height: altura,
+          decoration: BoxDecoration(
+              color: colors,
+              borderRadius: BorderRadius.all(Radius.circular(19))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(1.5),
+                  child: Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 18, 216, 0),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15))),
+                    child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child: image,
+                          )
+                        
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: 110,
+                      child: UiTexto(
+                              texto: texto,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              tamanioTexto: 'md')
+                          .textoRobotoLight4()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      child: UiTexto(
+                              texto: subtexto, maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2()),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -59,20 +59,17 @@ class _gym_infoState extends State<gym_info> {
                 var id = gyms['id'];
                 var imageRestaurant = gyms['image'];
                 var informacion = gyms['informacion'];
-             
+
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
                 var horario = informacion[0]['horario'];
 
                 var menu = gyms['informacion'][0]['tarifas'];
-               
+
                 Map<String, String> horarios = {
                   for (var dia in informacion[0]['horario']) ...dia
                 };
-
-                // var image = gyms['informacion'][0]['menu'][0];
-
                 /*     if (!hasShownModal) {
                   WidgetsBinding.instance?.addPostFrameCallback((_) {
                     setState(() {
@@ -159,9 +156,7 @@ class _gym_infoState extends State<gym_info> {
                                       BorderRadius.all(Radius.circular(80)),
                                   child: Center(
                                     child: Text('PLANES'),
-                                  )
-                                 
-                                  ),
+                                  )),
                             ),
                           ),
                         ],

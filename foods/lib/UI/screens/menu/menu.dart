@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/UI/screens/comidasRapidas/comidasRapidasInfo.dart';
 import 'package:foods/UI/screens/gym/gym.dart';
 import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
@@ -104,6 +105,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'COMIDAS \n RAPIDAS',
+                                redireccionamiento: Comidas_rapidas(),
                               ),
                               SizedBox(
                                 width: 35,
