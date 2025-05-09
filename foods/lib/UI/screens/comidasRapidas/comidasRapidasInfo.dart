@@ -93,10 +93,8 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_categoria'];
 
-                    return Container(
+                    return SizedBox(
                       height: 150,
-                      width: double.infinity,
-                      color: Colors.amber,
                       child: ListView.builder(
                         itemCount: nombres.length,
                         scrollDirection: Axis.horizontal,
@@ -105,16 +103,19 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                           final categoriaInfo = categoria['nombre_categoria'];
                           final categoriaImage = categoria['image'];
                       
-                          return Container(
-                            height: 15,
-                            width: 10,
-                            color: Colors.blue,
-                          );
-                          /* cardWidgetCategoria(
+                          return  Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: cardWidgetCategoria(
+                              colors: const Color.fromARGB(255, 255, 255, 255),
+                              ancho: 85,
+                              altura: 150,
                               image: Image.asset(
-                            categoriaImage,
-                            fit: BoxFit.contain,
-                          )); */
+                              categoriaImage,
+                              fit: BoxFit.cover,
+                            ),
+                            texto:categoriaInfo ,
+                            ),
+                          ); 
                         },
                       ),
                     );

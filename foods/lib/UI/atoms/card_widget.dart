@@ -622,22 +622,23 @@ class CustomModal2 extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(40))),
                   child: Column(
                     children: [
-                    Padding(
-                padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
-                child: Container(
-                  child: UiTexto(
-                    texto: '$decripcion',
-                  ).textoRobotoLight4(),
-                ),
-              ), 
-              SizedBox(height: 10,),
-               Container(
-                
-                 child: UiTexto(
-                   texto: '$precio',
-                 ).textoRobotoLight4(),
-               ),
-                     
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 200, right: 50, left: 50),
+                        child: Container(
+                          child: UiTexto(
+                            texto: '$decripcion',
+                          ).textoRobotoLight4(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: UiTexto(
+                          texto: '$precio',
+                        ).textoRobotoLight4(),
+                      ),
                     ],
                   ),
                 ),
@@ -687,7 +688,7 @@ class CustomModal2 extends StatelessWidget {
                   ),
                 ),
               ),
-             /* Padding(
+              /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(
                   child: UiTexto(
@@ -737,44 +738,42 @@ class cardWidgetCategoria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(30), // Bordes redondeados (opcional)
+      ),
       elevation: 15,
-      shadowColor: const Color.fromARGB(255, 255, 255, 255),
+      
       child: InkWell(
-        onTap: () {
-         
-        },
+        onTap: () {},
         child: Container(
           width: ancho,
           height: altura,
           decoration: BoxDecoration(
               color: colors,
-              borderRadius: BorderRadius.all(Radius.circular(19))),
+              borderRadius: BorderRadius.all(Radius.circular(30))),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(1.5),
+                  padding: EdgeInsets.all(10.5),
                   child: Container(
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 18, 216, 0),
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15),
-                            bottomLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(15))),
-                    child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(80)),
-                            child: image,
-                          )
-                        
-                  ),
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
+                              bottomLeft: Radius.circular(50),
+                              bottomRight: Radius.circular(50))),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(80)),
+                        child: image,
+                      )),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Container(
                       width: 110,
                       child: UiTexto(
