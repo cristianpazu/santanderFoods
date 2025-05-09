@@ -22,6 +22,14 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
     return jsonResponse;
   }
 
+  Future<List<dynamic>> loadJsonComidaRapida() async {
+    String jsonString =
+        await rootBundle.loadString('assets/comidasRapidas.json');
+    List<dynamic> jsonResponse = json.decode(jsonString);
+    print('jsonResponse $jsonResponse');
+    return jsonResponse;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,29 +102,46 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                         restaurantesCategoria['nombre_categoria'];
 
                     return SizedBox(
-                      height: 150,
-                      child: ListView.builder(
-                        itemCount: nombres.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          final categoria = nombres[index];
-                          final categoriaInfo = categoria['nombre_categoria'];
-                          final categoriaImage = categoria['image'];
-                      
-                          return  Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: cardWidgetCategoria(
-                              colors: const Color.fromARGB(255, 255, 255, 255),
-                              ancho: 85,
-                              altura: 150,
-                              image: Image.asset(
-                              categoriaImage,
-                              fit: BoxFit.cover,
+                      height: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              child: UiTexto(texto: 'Categorias')
+                                  .textoRobotoLight7(),
                             ),
-                            texto:categoriaInfo ,
+                          ),
+                          SizedBox(
+                            height: 150,
+                            child: ListView.builder(
+                              itemCount: nombres.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                final categoria = nombres[index];
+                                final categoriaInfo =
+                                    categoria['nombre_categoria'];
+                                final categoriaImage = categoria['image'];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: cardWidgetCategoria(
+                                    colors: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    ancho: 85,
+                                    altura: 150,
+                                    image: Image.asset(
+                                      categoriaImage,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    texto: categoriaInfo,
+                                  ),
+                                );
+                              },
                             ),
-                          ); 
-                        },
+                          ),
+                        ],
                       ),
                     );
                     /*GridView.builder(
@@ -160,7 +185,58 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                       },
                     ); */
                   }
-                })
+                }),
+
+            /////////////////////////////////
+
+            FutureBuilder<List<dynamic>>(
+                future: loadJsonComidaRapida(), // Cargamos el JSON
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData) {
+                    return Center(child: Text('No hay datos disponibles'));
+                  } else {
+                    List<dynamic> categorias = snapshot.data!;
+
+                    var restaurantesCategoria = categorias.firstWhere(
+                      (categoria) => categoria['nombre'] == 'COMIDAS RAPIDAS',
+                      orElse: () => null,
+                    );
+
+                    List<dynamic> nombres =
+                        restaurantesCategoria['nombre_comida_rapida'];
+
+                    return GridView.builder(
+                      padding: EdgeInsets.all(10),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: nombres.length,
+                      scrollDirection: Axis.vertical,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      ),
+                      itemBuilder: (context, index) {
+                        final categoria = nombres[index];
+                        final categoriaInfo = categoria['nombres'];
+                        final categoriaImage = categoria['image'];
+                        print('>>>>>>>>>>>>>> $categoriaInfo');
+
+                        return cardWidget4(
+                          colors: Color.fromARGB(255, 255, 255, 255),
+                          altura: 10,
+                          image: Image.asset(
+                            categoriaImage,
+                            fit: BoxFit.contain,
+                          ),
+                          texto: categoriaInfo,
+                        );
+                      },
+                    );
+                  }
+                }),
           ],
         ),
       ),

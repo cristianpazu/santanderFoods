@@ -154,5 +154,15 @@ class UiTexto{
       maxLines: maxLines,
     );
   }
+
+  Widget textoRobotoLight7() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.monomaniacOne(fontSize: 18,color:  Color.fromARGB(255, 255, 255, 255)),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
+  }
 }
  
