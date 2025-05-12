@@ -200,7 +200,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                     return Center(child: Text('No hay datos disponibles'));
                   } else {
                     List<dynamic> categorias = snapshot.data!;
-
+print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
                     var restaurantesCategoria = categorias.firstWhere(
                       (categoria) => categoria['nombre'] == 'COMIDAS RAPIDAS',
                       orElse: () => null,
@@ -208,7 +208,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
 
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_comida_rapida'];
-
+  print('>>nombres>>>>>>>>nombres>>>> $nombres');
                     return GridView.builder(
                       padding: EdgeInsets.all(10),
                       shrinkWrap: true,
@@ -217,6 +217,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                       scrollDirection: Axis.vertical,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
+                        
                       ),
                       itemBuilder: (context, index) {
                         final categoria = nombres[index];
@@ -224,9 +225,9 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                         final categoriaImage = categoria['image'];
                         print('>>>>>>>>>>>>>> $categoriaInfo');
 
-                        return cardWidget4(
+                        return cardComidaRapidasWidget(
                           colors: Color.fromARGB(255, 255, 255, 255),
-                          altura: 10,
+                          
                           image: Image.asset(
                             categoriaImage,
                             fit: BoxFit.contain,

@@ -798,3 +798,70 @@ class cardWidgetCategoria extends StatelessWidget {
     );
   }
 }
+//comidas rapidas
+class cardComidaRapidasWidget extends StatelessWidget {
+  Image? image;
+  String? texto;
+
+  double? ancho;
+  double? altura;
+  Color? colors;
+  Widget? redireccionamiento;
+
+  cardComidaRapidasWidget(
+      {super.key,
+      this.image,
+      this.texto,
+      this.ancho,
+      this.altura,
+      this.colors,
+      this.redireccionamiento});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card( 
+      color: Colors.blue,
+      elevation: 5,
+      child: InkWell(
+        onTap: () {
+       /*   Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => redireccionamiento!,
+              ));*/
+        },
+        child: Container(
+          width: 20,
+          height: 20,
+          decoration: BoxDecoration(
+            
+              color: Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.all(Radius.circular(9))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(80)),
+                    child: Container(
+                        height: 110,
+                        width: 112,
+                        color: Colors.white,
+                        child: image),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 8, right: 8),
+                  child:
+                      UiTexto(texto: '$texto', maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2(),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
