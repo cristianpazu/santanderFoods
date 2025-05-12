@@ -85,26 +85,7 @@
                    
                   ]
                 },
-                {
-                  "submenu": "Tarifas del gym anual",
-                  "descripcion": [
-                    {
-                      "nombre": "Plan integral",
-                      "descripcion": "paga 12 meses x",
-                      "precio": "$ 720.000"
-                    },
-                    {
-                      "nombre": "Plan especial",
-                      "descripcion": "paga 12 meses x",
-                      "precio": "$ 550.000"
-                    },
-                    {
-                      "nombre": "Plan pareja",
-                      "descripcion": "paga 12 meses x",
-                      "precio": "$ 680.000"
-                    }
-                  ]
-                },
+               
                 
                 {
                     "submenu": "FAVORITAS DE SIEMPRE",

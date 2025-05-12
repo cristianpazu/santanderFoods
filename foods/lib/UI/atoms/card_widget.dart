@@ -824,11 +824,11 @@ class cardComidaRapidasWidget extends StatelessWidget {
       elevation: 5,
       child: InkWell(
         onTap: () {
-       /*   Navigator.push(
+          Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => redireccionamiento!,
-              ));*/
+              ));
         },
         child: Container(
           width: 20,
@@ -859,6 +859,237 @@ class cardComidaRapidasWidget extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+// card comida de testaurane
+class cardWidgetComidasRapidas extends StatelessWidget {
+  String? image;
+  String? texto;
+  String? subtexto;
+  String? precio;
+  String? descripcion;
+  double? ancho;
+  double? altura;
+  Color? colors;
+  Widget? icons;
+
+  cardWidgetComidasRapidas(
+      {super.key,
+      this.image,
+      this.texto,
+      this.subtexto,
+      this.precio,
+      this.descripcion,
+      this.ancho,
+      this.altura,
+      this.colors,
+      this.icons});
+
+  @override
+  Widget build(BuildContext context) {
+    print('||||||||||||||||||||||||||||||||||| ${image == "null"} ');
+    print('|||||||||||||||||||<<<<<<<<<<<<<<<<<<<<<|| ${image} ');
+    return Card(
+      elevation: 15,
+      shadowColor: const Color.fromARGB(255, 170, 141, 53),
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomModal3(
+                nombre: texto,
+                decripcion: descripcion,
+                precio: precio,
+                image: image,
+              );
+            },
+          );
+        },
+        child: Container(
+          width: ancho,
+          height: altura,
+          decoration: BoxDecoration(
+              color: colors,
+              borderRadius: BorderRadius.all(Radius.circular(19))),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5.5,
+                ),
+                Padding(
+                  padding: EdgeInsets.all(1.5),
+                  child: Container(
+                    height: 110,
+                    width: 112,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15),
+                            bottomRight: Radius.circular(15))),
+                    child: image != "null" && image!.isNotEmpty
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child: Image.asset(image!),
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(80)),
+                            child: Image.asset(
+                              'assets/proximamente.jpg',
+                              fit: BoxFit.contain,
+                            )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      width: 110,
+                      child: UiTexto(
+                              texto: texto,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              tamanioTexto: 'md')
+                          .textoRobotoLight4()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      child: UiTexto(
+                              texto: subtexto, maxLines: 2, tamanioTexto: 'md')
+                          .textoRobotoLight2()),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+// comidas rapidas
+class CustomModal3 extends StatelessWidget {
+  String? nombre;
+  String? decripcion;
+  String? precio;
+  String? image;
+
+  CustomModal3(
+      {super.key, this.image, this.nombre, this.decripcion, this.precio});
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        width: 350,
+        height: 450,
+        child: Container(
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 450,
+                  width: 500,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40))),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 200, right: 50, left: 50),
+                        child: Container(
+                          child: UiTexto(
+                            texto: '$decripcion',
+                          ).textoRobotoLight4(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: UiTexto(
+                          texto: '$precio',
+                        ).textoRobotoLight4(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 150,
+                  width: 320,
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(249, 73, 59, 121),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                          bottomRight: Radius.circular(40),
+                          bottomLeft: Radius.circular(40))),
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: UiTexto(
+                        texto: '$nombre',
+                      ).textoRobotoLight3(),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 100, left: 115),
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(80))),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(80)),
+                    child:Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          ), /* image != null && image!.isNotEmpty
+                        ? //ClipRRect(
+                        // borderRadius: BorderRadius.all(Radius.circular(80)),
+                        //child:
+                        Image.asset(image!)
+                        // )
+                        : Image.asset(
+                            'assets/proximamente.jpg',
+                            fit: BoxFit.contain,
+                          ), */
+                  ),
+                ),
+              ),
+              /* Padding(
+                padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
+                child: Container(
+                  child: UiTexto(
+                    texto: '$decripcion',
+                  ).textoRobotoLight4(),
+                ),
+              ), 
+              Padding(
+                padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
+                child: Container(
+                  child: UiTexto(
+                    texto: '$precio',
+                  ).textoRobotoLight4(),
+                ),
+              ),*/
+            ],
           ),
         ),
       ),

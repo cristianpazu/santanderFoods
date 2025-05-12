@@ -105,7 +105,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'COMIDAS \n RAPIDAS',
-                                redireccionamiento: Comidas_rapidas(),
+                                redireccionamiento: Comidas_rapidas_info(),
                               ),
                               SizedBox(
                                 width: 35,

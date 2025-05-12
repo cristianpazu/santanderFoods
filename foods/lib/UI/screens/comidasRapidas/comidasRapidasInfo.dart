@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/UI/screens/comidasRapidas/comidas_rapidas/comida_rapidas.dart';
 import 'package:foods/UI/screens/gym/info_gym/gym_info.dart';
 import 'package:foods/Utils/titutlos.dart';
 
-class Comidas_rapidas extends StatefulWidget {
-  const Comidas_rapidas({super.key});
+class Comidas_rapidas_info extends StatefulWidget {
+  const Comidas_rapidas_info({super.key});
 
   @override
-  State<Comidas_rapidas> createState() => _ComidasRapidastate();
+  State<Comidas_rapidas_info> createState() => _ComidasRapidastate();
 }
 
-class _ComidasRapidastate extends State<Comidas_rapidas> {
+class _ComidasRapidastate extends State<Comidas_rapidas_info> {
   Future<List<dynamic>> loadJson() async {
     String jsonString = await rootBundle.loadString('assets/categoria.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
@@ -59,7 +60,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                                 bottomLeft: Radius.circular(120),
                                 bottomRight: Radius.circular(120)),
                             child: Image.asset(
-                              'assets/gyms.jpg',
+                              'assets/comidasrapidaslogos.jpg',
                               fit: BoxFit.cover,
                               opacity: AlwaysStoppedAnimation(0.6),
                             )),
@@ -73,6 +74,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas> {
                           texto: 'Buscar comidas rapidas....',
                         ),
                       ),
+                      
                     ],
                   ),
                 ),
@@ -223,15 +225,18 @@ print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
                         final categoria = nombres[index];
                         final categoriaInfo = categoria['nombres'];
                         final categoriaImage = categoria['image'];
-                        print('>>>>>>>>>>>>>> $categoriaInfo');
+                         final idRestaurantes = categoria['id'];
+                        print('>>>>>>>>>>>>>> $idRestaurantes');
 
                         return cardComidaRapidasWidget(
+                         
                           colors: Color.fromARGB(255, 255, 255, 255),
                           
                           image: Image.asset(
                             categoriaImage,
                             fit: BoxFit.contain,
                           ),
+                          redireccionamiento: comidas_rapidas(id: idRestaurantes),
                           texto: categoriaInfo,
                         );
                       },
