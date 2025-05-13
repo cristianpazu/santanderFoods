@@ -19,18 +19,8 @@
       },
       {
         "id": 3,
-        "nombre_categoria": "Pizza",
-        "image":"assets/pizza.jpeg"
-      },
-      {
-        "id": 3,
-        "nombre_categoria": "Pizza",
-        "image":"assets/pizza.jpeg"
-      },
-      {
-        "id": 3,
-        "nombre_categoria": "Pizza",
-        "image":"assets/pizza.jpeg"
+        "nombre_categoria": "alitas",
+        "image":"assets/alitas.jpg"
       }
       
     ]

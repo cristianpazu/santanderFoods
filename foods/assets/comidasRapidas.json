@@ -265,8 +265,606 @@
               ]
             }
           ]
+        },
+        {
+          "id": 2,
+          "nombres": "QuiliAlitas",
+          "image": "assets/quilialitas.jpeg",
+          "CATEGORIAS": {
+            "id":1,
+            "nombre_categoria": "alitas"
+          },
+          "informacion": [
+            {
+              "nombre": "QuiliAlitas",
+              "direccion": "Villa Luisa, Cl. 20 #14-12, Santander de Quilichao, Cauca",
+              "contacto": "313 5493813",
+              "horario": [
+                {
+                  "Lunes": "05:30 p.m a 10:30 p.m."
+                },
+                {
+                  "Martes": "05:30 p.m a 10:30 p.m."
+                },
+                {
+                  "Miercoles": "05:30 p.m a 10:30 p.m."
+                },
+                {
+                  "Jueves": "05:30 p.m a 10:30 p.m."
+                },
+                {
+                  "Viernes": "05:00 p.m a 10:00 p.m."
+                },
+                {
+                  "Sabado": "05:00 p.m a 11:30 p.m."
+                },
+                {
+                  "Domingo": "05:00 p.m a 11:30 p.m."
+                }
+              ],
+              "menu": [
+                {
+                  "submenu": "Alitas BBQ",
+                  "descripcion": [
+                    {
+                      "nombre": "Alitas x 4",
+                      "descripcion": "Piezas de alitas BBQ X 4 + papas a la francesa",
+                      "precio": "$ 18.000",
+                      "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                    },
+                    {
+                      "nombre": "Alitas x 6",
+                      "descripcion": "Piezas de alitas BBQ X 6 + papas a la francesa",
+                      "precio": "$ 23.000",
+                      "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                    },
+                    {
+                      "nombre": "Alitas x 8",
+                      "descripcion": "Piezas de alitas BBQ X 8 + papas a la francesa",
+                      "precio": "$ 31.000",
+                      "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                    },
+                    {
+                      "nombre": "Alitas x 12",
+                      "descripcion": "Piezas de alitas BBQ X 12 + papas a la francesa",
+                      "precio": "$ 41.500",
+                      "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                    },
+                    {
+                      "nombre": "Alitas x 24",
+                      "descripcion": "Piezas de alitas BBQ X 24 + papas a la francesa +  gaseosa litro 1/2",
+                      "precio": "$ 71.500",
+                      "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                    }
+                    
+                   
+                  ]
+                },
+               
+                
+                {
+                    "submenu": "Combos",
+                    "descripcion": [
+                      {
+                        "nombre": "Combos 200 gr",
+                        "descripcion": "Costilla ahumada 200 gr + 4 piezas de alitas + papas a la francesa",
+                        "precio": "$31.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Combos 300 gr",
+                        "descripcion": "Costilla ahumada 300 gr + 6 piezas de alitas + papas a la francesa",
+                        "precio": "$41.500",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Combos 400 gr",
+                        "descripcion": "Costilla ahumada 400 gr + 8 piezas de alitas + papas a la francesa",
+                        "precio": "$52.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Combos 600 gr",
+                        "descripcion": "Costilla ahumada 600 gr + 12 piezas de alitas + papas a la francesa + gaseosa 1.5 lts",
+                        "precio": "$71.500",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      }
+                    ]
+                  },
+                  {
+                    "submenu": "Costilla",
+                    "descripcion": [
+                      {
+                        "nombre": "Costilla 200 gr",
+                        "descripcion": "Costilla ahumada 200 gr + papas a la francesa",
+                        "precio": "18.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Costilla 200 gr",
+                        "descripcion": "Costilla ahumada 200 gr + papas a la francesa",
+                        "precio": "18.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Costilla 400 gr",
+                        "descripcion": "Costilla ahumada 400 gr + papas a la francesa",
+                        "precio": "31.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      },
+                      {
+                        "nombre": "Costilla 600 gr",
+                        "descripcion": "Costilla ahumada 600 gr + papas a la francesa",
+                        "precio": "39.000",
+                        "salsas":[
+                        {
+                          "id": 1,
+                          "nombre": "miel mostaza"
+                        },
+                        {
+                          "id": 2,
+                          "nombre":"BBQ lulo"
+                        },
+                        {
+                          "id": 3,
+                          "nombre":"BBQ maracuya"
+                        },
+                        {
+                          "id": 4,
+                          "nombre":"frutos salvajes"
+                        },
+                        {
+                          "id":5,
+                          "nombre":"Bufalo tradicional"
+                        },
+                        {
+                          "id":6,
+                          "nombre":"Bufalo principante"
+                        },{
+                          "id":7,
+                          "nombre":"Bufalo experto"
+                        }
+                        
+                      ]
+                      }
+                      
+                 
+                    ]
+                  },
+                  {
+                    "submenu": "Bebidas",
+                    "descripcion": [
+                      {
+                        "nombre": "Gaseosa",
+                        "descripcion": "Gaseosa de  400 ml",
+                        "precio": "4.500"
+                      },
+                      {
+                        "nombre": "Gaseosa",
+                        "descripcion": "Gaseosa de  1.5 lts",
+                        "precio": "8.500"
+                      },
+                      {
+                        "nombre": "Jugo Hit",
+                        "descripcion": "Jugo Hit personal 500 ml",
+                        "precio": "4.000"
+                      },
+                      {
+                        "nombre": "Jugo Hit",
+                        "descripcion": "Jugo Hit tetrapack",
+                        "precio": "6.500"
+                      },
+                      {
+                        "nombre": "Jugo Hit",
+                        "descripcion": "Jugo Hit tetrapack",
+                        "precio": "6.500"
+                      },
+                      {
+                        "nombre": "Limonada natural",
+                        "descripcion": "Limonada natural (Las limonadas para llevar tienen un costo adicional de $1.000)",
+                        "precio": "9.500"
+                      },
+                      {
+                        "nombre": "Limonada de mango",
+                        "descripcion": "Limonada de mango (Las limonadas para llevar tienen un costo adicional de $1.000)",
+                        "precio": "11.000"
+                      },
+                      {
+                        "nombre": "Limonada de coco",
+                        "descripcion": "Limonada de coco (Las limonadas para llevar tienen un costo adicional de $1.000)",
+                        "precio": "12.000"
+                      },
+                      {
+                        "nombre": "Limonada de cerezada",
+                        "descripcion": "Limonada de cerezada (Las limonadas para llevar tienen un costo adicional de $1.000)",
+                        "precio": "11.000"
+                      },
+                      {
+                        "nombre": "Agua",
+                        "descripcion": "agua",
+                        "precio": "4.500"
+                      },
+                      {
+                        "nombre": "Soda",
+                        "descripcion": "soda",
+                        "precio": "4.000"
+                      },
+                      {
+                        "nombre": "aguila light",
+                        "descripcion": "aguila light",
+                        "precio": "5.500"
+                      },
+                      {
+                        "nombre": "Club colombia",
+                        "descripcion": "Club colombia",
+                        "precio": "5.500"
+                      }
+                      ,
+                      {
+                        "nombre": "Poker",
+                        "descripcion": "Poker",
+                        "precio": "5.500"
+                      },
+                      {
+                        "nombre": "Corana extra",
+                        "descripcion": "Corana extra",
+                        "precio": "7.500"
+                      }
+                 
+                    ]
+                  }
+              ]
+            }
+          ]
         }
-       
         
        
         
