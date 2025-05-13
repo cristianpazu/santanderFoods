@@ -31,6 +31,23 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
     return jsonResponse;
   }
 
+  Map<String, List<Map<String, dynamic>>> _agruparPorCategoria(
+      List<dynamic> items) {
+    Map<String, List<Map<String, dynamic>>> grupos = {};
+
+    for (var item in items) {
+      final idCategoria = item['CATEGORIAS']['nombre_categoria'];
+
+      if (!grupos.containsKey(idCategoria)) {
+        grupos[idCategoria] = [];
+      }
+
+      grupos[idCategoria]!.add(item as Map<String, dynamic>);
+    }
+
+    return grupos;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +91,6 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                           texto: 'Buscar comidas rapidas....',
                         ),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -103,8 +119,9 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_categoria'];
 
-                    return SizedBox(
+                    return Container(
                       height: 200,
+                      
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -115,7 +132,8 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                                   .textoRobotoLight7(),
                             ),
                           ),
-                          SizedBox(
+                          Container(
+                            
                             height: 150,
                             child: ListView.builder(
                               itemCount: nombres.length,
@@ -202,7 +220,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                     return Center(child: Text('No hay datos disponibles'));
                   } else {
                     List<dynamic> categorias = snapshot.data!;
-print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
+                    print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
                     var restaurantesCategoria = categorias.firstWhere(
                       (categoria) => categoria['nombre'] == 'COMIDAS RAPIDAS',
                       orElse: () => null,
@@ -210,8 +228,69 @@ print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
 
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_comida_rapida'];
-  print('>>nombres>>>>>>>>nombres>>>> $nombres');
-                    return GridView.builder(
+                    print('>>nombres>>>>>>>>nombres>>>> $nombres');
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ..._agruparPorCategoria(nombres).entries.map(
+                            (entry) {
+                              final idCategoria = entry.key;
+                              final items = entry.value;
+                              print('||||||||||||||||||||>>>>>>>>>>>>>>>>>>> ${entry.key}');
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                    child: Text(
+                                      'Categoría $idCategoria',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 180,
+                                  
+                                    child: ListView.builder(
+                                      itemCount: items.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        final categoria = items[index];
+                                        final categoriaInfo =
+                                            categoria['nombres'];
+                                        final categoriaInfoREstaura =
+                                            categoria['CATEGORIAS']['nombre_categoria'];
+                                        final categoriaImage =
+                                            categoria['image'];
+                                        final idRestaurantes = categoria['id'];
+                                        print(
+                                            '>>>>>categoriaInfoREstaura>>>>>>>>> $categoriaInfo');
+
+                                        return cardComidaRapidasWidget(
+                                          colors: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          image: Image.asset(
+                                            categoriaImage,
+                                            fit: BoxFit.contain,
+                                          ),
+                                          redireccionamiento: comidas_rapidas(
+                                              id: idRestaurantes),
+                                          texto: categoriaInfo,
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        ]);
+
+                    /*  GridView.builder(
                       padding: EdgeInsets.all(10),
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
@@ -240,7 +319,7 @@ print('>>nombres>>>>>>>>nombrecategoriass>>>> $categorias');
                           texto: categoriaInfo,
                         );
                       },
-                    );
+                    ); */
                   }
                 }),
           ],

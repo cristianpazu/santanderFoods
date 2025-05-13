@@ -18,7 +18,19 @@
         "image":"assets/pizza.jpeg"
       },
       {
-        "id": 3,
+        "id": 4,
+        "nombre_categoria": "alitas",
+        "image":"assets/alitas.jpg"
+      }
+      ,
+      {
+        "id": 6,
+        "nombre_categoria": "alitas",
+        "image":"assets/alitas.jpg"
+      }
+      ,
+      {
+        "id": 7,
         "nombre_categoria": "alitas",
         "image":"assets/alitas.jpg"
       }

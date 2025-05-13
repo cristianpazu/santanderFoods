@@ -831,8 +831,8 @@ class cardComidaRapidasWidget extends StatelessWidget {
               ));
         },
         child: Container(
-          width: 20,
-          height: 20,
+          width: 120,
+          height: 120,
           decoration: BoxDecoration(
             
               color: Color.fromARGB(255, 255, 255, 255),
@@ -876,6 +876,7 @@ class cardWidgetComidasRapidas extends StatelessWidget {
   double? altura;
   Color? colors;
   Widget? icons;
+  Widget? checkboxs;
 
   cardWidgetComidasRapidas(
       {super.key,
@@ -887,7 +888,8 @@ class cardWidgetComidasRapidas extends StatelessWidget {
       this.ancho,
       this.altura,
       this.colors,
-      this.icons});
+      this.icons,
+      this.checkboxs});
 
   @override
   Widget build(BuildContext context) {
@@ -906,6 +908,7 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                 decripcion: descripcion,
                 precio: precio,
                 image: image,
+                check: checkboxs,
               );
             },
           );
@@ -964,6 +967,14 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                               texto: subtexto, maxLines: 2, tamanioTexto: 'md')
                           .textoRobotoLight2()),
                 ),
+                
+                 /* Checkbox(
+                        tristate: true, // Example with tristate
+                        value: true,
+                        onChanged: (bool? newValue) {
+                          
+                        },
+                      ), */
               ],
             ),
           ),
@@ -978,9 +989,10 @@ class CustomModal3 extends StatelessWidget {
   String? decripcion;
   String? precio;
   String? image;
+  Widget? check;
 
   CustomModal3(
-      {super.key, this.image, this.nombre, this.decripcion, this.precio});
+      {super.key, this.image, this.nombre, this.decripcion, this.precio, this.check});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -1021,6 +1033,7 @@ class CustomModal3 extends StatelessWidget {
                           texto: '$precio',
                         ).textoRobotoLight4(),
                       ),
+                      
                     ],
                   ),
                 ),
@@ -1073,6 +1086,15 @@ class CustomModal3 extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding( padding: const EdgeInsets.only(top: 350),
+              child: Container(
+                
+                height: 150,
+                width: 350,
+                child: check,
+              ),
+              )
+               //if (check != null) check!,
               /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(

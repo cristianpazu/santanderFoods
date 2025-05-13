@@ -8,24 +8,21 @@ import 'package:foods/UI/atoms/textfield.dart';
 import 'package:foods/Utils/titutlos.dart';
 
 class comidas_rapidas extends StatefulWidget {
-    final int id;
-  const comidas_rapidas({super.key,required this.id});
+  final int id;
+  const comidas_rapidas({super.key, required this.id});
 
   @override
   State<comidas_rapidas> createState() => _comidas_rapidasState();
 }
 
 class _comidas_rapidasState extends State<comidas_rapidas> {
-
-
   Future<List<dynamic>> loadJsonComidaRapida() async {
     String jsonString =
         await rootBundle.loadString('assets/comidasRapidas.json');
     List<dynamic> jsonResponse = json.decode(jsonString);
-    print('jsonResponse>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><|||||||||| $jsonResponse');
+
     return jsonResponse;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +65,7 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                 var id = restaurante['id'];
                 var imageRestaurant = restaurante['image'];
                 var informacion = restaurante['informacion'];
-
+                print('object<<<<<<<<<<<<<<<<<<<<< $informacion');
                 // Now you can access the specific restaurant details like "El Solar"
                 var direccion = informacion[0]['direccion'];
                 var contacto = informacion[0]['contacto'];
@@ -84,7 +81,7 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
 
                 print('imagess $image');
 
-            /*    if (!hasShownModal) {
+                /*    if (!hasShownModal) {
                   WidgetsBinding.instance?.addPostFrameCallback((_) {
                     setState(() {
                       hasShownModal = true; // Marca que ya se mostró el modal
@@ -164,9 +161,9 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                               ),
                               child: IconButton(
                                   onPressed: () {
-                                   // InformacionDialogos(
-                                     //       nombre, direccion, contacto)
-                                      //  .informacion(context);
+                                    // InformacionDialogos(
+                                    //       nombre, direccion, contacto)
+                                    //  .informacion(context);
                                   },
                                   icon: Icon(Icons.info_outline)),
                             ),
@@ -199,7 +196,8 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                             var submenuName = submenu['submenu'];
                             var descripcionList = submenu['descripcion'];
                             var image = submenu['image'];
-
+                            var salsa = submenu['salsas'];
+                            print('salsa>>>>>>>>>>>>>> $salsa');
                             print("imageimage ${image}");
 
                             return Column(
@@ -233,6 +231,8 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                   child: Row(
                                     children:
                                         descripcionList.map<Widget>((plato) {
+                                      var salsas = {plato['salsas']};
+
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
@@ -243,10 +243,26 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                             cardWidgetComidasRapidas(
                                               colors: Colors.white,
                                               altura: 230,
-                                              texto:      '${plato['nombre']}',
-                                              descripcion:'${plato['descripcion']}',
-                                              precio:     '${plato['precio']}  ',
-                                              image:      '${plato['image']}',
+                                              texto: '${plato['nombre']}',
+                                              descripcion:
+                                                  '${plato['descripcion']}',
+                                              precio: '${plato['precio']}  ',
+                                              image: '${plato['image']}',
+                                              checkboxs: plato['salsas'] != null
+    ? SingleChildScrollView(
+      child: Column(
+          children: (plato['salsas'] as List)
+              .map<Widget>((salsa) => CheckboxListTile(
+                    title: Text(salsa['nombre']),
+                    value: false, // o usa estado externo
+                    onChanged: (bool? value) {
+                      // manejar selección si quieres
+                    },
+                  ))
+              .toList(),
+        ),
+    )
+    : null,
                                             ),
                                           ],
                                         ),
@@ -287,4 +303,3 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
     );
   }
 }
- 
