@@ -744,7 +744,6 @@ class cardWidgetCategoria extends StatelessWidget {
             BorderRadius.circular(30), // Bordes redondeados (opcional)
       ),
       elevation: 15,
-      
       child: InkWell(
         onTap: () {},
         child: Container(
@@ -798,6 +797,7 @@ class cardWidgetCategoria extends StatelessWidget {
     );
   }
 }
+
 //comidas rapidas
 class cardComidaRapidasWidget extends StatelessWidget {
   Image? image;
@@ -819,7 +819,7 @@ class cardComidaRapidasWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card( 
+    return Card(
       color: Colors.blue,
       elevation: 5,
       child: InkWell(
@@ -834,7 +834,6 @@ class cardComidaRapidasWidget extends StatelessWidget {
           width: 120,
           height: 120,
           decoration: BoxDecoration(
-            
               color: Color.fromARGB(255, 255, 255, 255),
               borderRadius: BorderRadius.all(Radius.circular(9))),
           child: SingleChildScrollView(
@@ -843,7 +842,7 @@ class cardComidaRapidasWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(80)),
+                    borderRadius: BorderRadius.all(Radius.circular(80)),
                     child: Container(
                         height: 110,
                         width: 112,
@@ -865,6 +864,7 @@ class cardComidaRapidasWidget extends StatelessWidget {
     );
   }
 }
+
 // card comida de testaurane
 class cardWidgetComidasRapidas extends StatelessWidget {
   String? image;
@@ -967,8 +967,8 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                               texto: subtexto, maxLines: 2, tamanioTexto: 'md')
                           .textoRobotoLight2()),
                 ),
-                
-                 /* Checkbox(
+
+                /* Checkbox(
                         tristate: true, // Example with tristate
                         value: true,
                         onChanged: (bool? newValue) {
@@ -983,6 +983,7 @@ class cardWidgetComidasRapidas extends StatelessWidget {
     );
   }
 }
+
 // comidas rapidas
 class CustomModal3 extends StatelessWidget {
   String? nombre;
@@ -992,7 +993,12 @@ class CustomModal3 extends StatelessWidget {
   Widget? check;
 
   CustomModal3(
-      {super.key, this.image, this.nombre, this.decripcion, this.precio, this.check});
+      {super.key,
+      this.image,
+      this.nombre,
+      this.decripcion,
+      this.precio,
+      this.check});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -1033,7 +1039,6 @@ class CustomModal3 extends StatelessWidget {
                           texto: '$precio',
                         ).textoRobotoLight4(),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -1070,10 +1075,10 @@ class CustomModal3 extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(80))),
                   child: ClipRRect(
                     borderRadius: BorderRadius.all(Radius.circular(80)),
-                    child:Image.asset(
-                            'assets/proximamente.jpg',
-                            fit: BoxFit.contain,
-                          ), /* image != null && image!.isNotEmpty
+                    child: Image.asset(
+                      'assets/proximamente.jpg',
+                      fit: BoxFit.contain,
+                    ), /* image != null && image!.isNotEmpty
                         ? //ClipRRect(
                         // borderRadius: BorderRadius.all(Radius.circular(80)),
                         //child:
@@ -1086,15 +1091,16 @@ class CustomModal3 extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding( padding: const EdgeInsets.only(top: 350),
-              child: Container(
-                
-                height: 150,
-                width: 350,
-                child: check,
-              ),
+              if (check != null && check is! Container)
+              Padding(
+                padding: const EdgeInsets.only(top: 285, left: 15, right: 15),
+                child: Container(
+                  height: 150,
+                  width: 305,
+                  child: check,
+                ),
               )
-               //if (check != null) check!,
+              //if (check != null) check!,
               /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(
@@ -1113,6 +1119,150 @@ class CustomModal3 extends StatelessWidget {
               ),*/
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// comidas rapidas v2
+class CustomModal4 extends StatelessWidget {
+  String? nombre;
+  String? decripcion;
+  String? precio;
+  String? image;
+  Widget? check;
+
+  CustomModal4(
+      {super.key,
+      this.image,
+      this.nombre,
+      this.decripcion,
+      this.precio,
+      this.check});
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        width: 350,
+        height: 450,
+        child: Column(
+          children: [
+            Container(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 450,
+                      width: 500,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(40))),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 200, right: 50, left: 50),
+                            child: Container(
+                              child: UiTexto(
+                                texto: '$decripcion',
+                              ).textoRobotoLight4(),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: UiTexto(
+                              texto: '$precio',
+                            ).textoRobotoLight4(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 150,
+                      width: 320,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(249, 73, 59, 121),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(40),
+                              topRight: Radius.circular(40),
+                              bottomRight: Radius.circular(40),
+                              bottomLeft: Radius.circular(40))),
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: UiTexto(
+                            texto: '$nombre',
+                          ).textoRobotoLight3(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 100, left: 115),
+                    child: Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(80))),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(80)),
+                        child: Image.asset(
+                          'assets/proximamente.jpg',
+                          fit: BoxFit.contain,
+                        ), /* image != null && image!.isNotEmpty
+                            ? //ClipRRect(
+                            // borderRadius: BorderRadius.all(Radius.circular(80)),
+                            //child:
+                            Image.asset(image!)
+                            // )
+                            : Image.asset(
+                                'assets/proximamente.jpg',
+                                fit: BoxFit.contain,
+                              ), */
+                      ),
+                    ),
+                  ),
+                   ]
+                  )
+            ),
+                  Container(
+                    color: Colors.amber,
+                    height: 250,
+                    width: 350,
+                    child: check,
+                  )
+                  //if (check != null) check!,
+                  /* Padding(
+                    padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
+                    child: Container(
+                      child: UiTexto(
+                        texto: '$decripcion',
+                      ).textoRobotoLight4(),
+                    ),
+                  ), 
+                  Padding(
+                    padding: const EdgeInsets.only(top: 300, right: 50, left: 50),
+                    child: Container(
+                      child: UiTexto(
+                        texto: '$precio',
+                      ).textoRobotoLight4(),
+                    ),
+                  ),*/
+                ],
+              
+         
         ),
       ),
     );

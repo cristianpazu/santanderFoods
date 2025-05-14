@@ -269,7 +269,7 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                                             .toList(),
                                                       ),
                                                     )
-                                                  : Container(),
+                                                  : null,
                                             ),
                                           ],
                                         ),
