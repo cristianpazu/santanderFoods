@@ -24,6 +24,8 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
     return jsonResponse;
   }
 
+  Map<String, bool> checkboxStates = {};
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -241,36 +243,20 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             cardWidgetComidasRapidas(
-                                              colors: Colors.white,
-                                              altura: 230,
-                                              texto: '${plato['nombre']}',
-                                              descripcion:
-                                                  '${plato['descripcion']}',
-                                              precio: '${plato['precio']}  ',
-                                              image: '${plato['image']}',
-                                              checkboxs: plato['salsas'] != null
-                                                  ? SingleChildScrollView(
-                                                      child: Column(
-                                                        children: (plato[
-                                                                    'salsas']
-                                                                as List)
-                                                            .map<Widget>((salsa) =>
-                                                                CheckboxListTile(
-                                                                  title: Text(salsa[
-                                                                      'nombre']),
-                                                                  value:
-                                                                      false, // o usa estado externo
-                                                                  onChanged:
-                                                                      (bool?
-                                                                          value) {
-                                                                    // manejar selección si quieres
-                                                                  },
-                                                                ))
-                                                            .toList(),
-                                                      ),
-                                                    )
-                                                  : null,
-                                            ),
+                                                colors: Colors.white,
+                                                altura: 230,
+                                                texto: '${plato['nombre']}',
+                                                descripcion:
+                                                    '${plato['descripcion']}',
+                                                precio: '${plato['precio']}  ',
+                                                image: '${plato['image']}',
+                                                checkboxs: plato['salsas'] !=
+                                                        null
+                                                    ? List<
+                                                            Map<String,
+                                                                dynamic>>.from(
+                                                        plato['salsas'])
+                                                    : null),
                                           ],
                                         ),
                                       );

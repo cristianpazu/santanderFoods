@@ -240,6 +240,56 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  /*Padding(
+                                  padding: const EdgeInsets.only(right: 260),
+                                  child: Container(
+                                    height: 50,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(80),
+                                        bottomRight: Radius.circular(80),
+                                      ),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 3.0, top: 10.0),
+                                      child: UiTexto(
+                                        texto: '$submenuName',
+                                      ).textoRobotoLight4(),
+                                    ),
+                                  ),
+                                ), */
+                                 SizedBox(height: 20),
+
+Padding(
+                                  padding: const EdgeInsets.only(right: 260),
+                                  child: Container(
+                                    height: 50,
+                                    width: 150,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topRight: Radius.circular(80),
+                                        bottomRight: Radius.circular(80),
+                                      ),
+                                      color: const Color.fromARGB(
+                                          255, 255, 255, 255),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 3.0, top: 10.0),
+                                      child: UiTexto(
+                                        texto: '$idCategoria',
+                                      ).textoRobotoLight4(),
+                                    ),
+                                  ),
+                                ),
+ SizedBox(height: 20),
+
+
+/*
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 8),
@@ -251,7 +301,10 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ),
+                                  ), */
+
+
+
                                   Container(
                                     height: 180,
                                   

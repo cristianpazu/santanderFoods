@@ -866,7 +866,7 @@ class cardComidaRapidasWidget extends StatelessWidget {
 }
 
 // card comida de testaurane
-class cardWidgetComidasRapidas extends StatelessWidget {
+class cardWidgetComidasRapidas extends StatefulWidget {
   String? image;
   String? texto;
   String? subtexto;
@@ -876,8 +876,8 @@ class cardWidgetComidasRapidas extends StatelessWidget {
   double? altura;
   Color? colors;
   Widget? icons;
-  Widget? checkboxs;
-
+  final List<Map<String, dynamic>>? checkboxs;
+String? keyItem;
   cardWidgetComidasRapidas(
       {super.key,
       this.image,
@@ -889,12 +889,32 @@ class cardWidgetComidasRapidas extends StatelessWidget {
       this.altura,
       this.colors,
       this.icons,
-      this.checkboxs});
+      this.checkboxs,
+      this.keyItem,});
+
+  @override
+  State<cardWidgetComidasRapidas> createState() => _cardWidgetComidasRapidasState();
+}
+
+class _cardWidgetComidasRapidasState extends State<cardWidgetComidasRapidas> {
+
+     Map<String, bool> checkboxStates = {}; //
+
+ 
+  @override
+  void initState() {
+    super.initState();
+    // Inicializamos los estados de los checkboxes
+    widget.checkboxs?.forEach((salsa) {
+      String key = '${widget.keyItem}_${salsa['nombre']}';
+      checkboxStates[key] = false; // Estado inicial es desmarcado
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    print('||||||||||||||||||||||||||||||||||| ${image == "null"} ');
-    print('|||||||||||||||||||<<<<<<<<<<<<<<<<<<<<<|| ${image} ');
+    print('||||||||||||||||||||||||||||||||||| ${widget.image == "null"} ');
+    print('|||||||||||||||||||<<<<<<<<<<<<<<<<<<<<<|| ${widget.image} ');
     return Card(
       elevation: 15,
       shadowColor: const Color.fromARGB(255, 170, 141, 53),
@@ -904,20 +924,39 @@ class cardWidgetComidasRapidas extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return CustomModal3(
-                nombre: texto,
-                decripcion: descripcion,
-                precio: precio,
-                image: image,
-                check: checkboxs,
+                nombre: widget.texto,
+                decripcion: widget.descripcion,
+                precio: widget.precio,
+                image: widget.image,
+                check: widget.checkboxs,
+                keyItem: widget.keyItem,
+                /*!= null
+                    ? SingleChildScrollView(
+                      child: Column(
+                          children: widget.checkboxs!.map((salsa) {
+                              String key = '${widget.keyItem}_${salsa['nombre']}';
+                            return CheckboxListTile(
+                              title: Text(salsa['nombre']),
+                              value:  checkboxStates[key] ?? false,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                   checkboxStates[key] = value!;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                    )
+                    : null, */
               );
             },
           );
         },
         child: Container(
-          width: ancho,
-          height: altura,
+          width: widget.ancho,
+          height: widget.altura,
           decoration: BoxDecoration(
-              color: colors,
+              color: widget.colors,
               borderRadius: BorderRadius.all(Radius.circular(19))),
           child: SingleChildScrollView(
             child: Column(
@@ -936,10 +975,10 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                             topRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15),
                             bottomRight: Radius.circular(15))),
-                    child: image != "null" && image!.isNotEmpty
+                    child: widget.image != "null" && widget.image!.isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
-                            child: Image.asset(image!),
+                            child: Image.asset(widget.image!),
                           )
                         : ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(80)),
@@ -954,7 +993,7 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                   child: Container(
                       width: 110,
                       child: UiTexto(
-                              texto: texto,
+                              texto: widget.texto,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               tamanioTexto: 'md')
@@ -964,7 +1003,7 @@ class cardWidgetComidasRapidas extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                       child: UiTexto(
-                              texto: subtexto, maxLines: 2, tamanioTexto: 'md')
+                              texto: widget.subtexto, maxLines: 2, tamanioTexto: 'md')
                           .textoRobotoLight2()),
                 ),
 
@@ -985,12 +1024,13 @@ class cardWidgetComidasRapidas extends StatelessWidget {
 }
 
 // comidas rapidas
-class CustomModal3 extends StatelessWidget {
+class CustomModal3 extends StatefulWidget {
   String? nombre;
   String? decripcion;
   String? precio;
   String? image;
-  Widget? check;
+    final List<Map<String, dynamic>>? check;
+      final String? keyItem;
 
   CustomModal3(
       {super.key,
@@ -998,7 +1038,28 @@ class CustomModal3 extends StatelessWidget {
       this.nombre,
       this.decripcion,
       this.precio,
-      this.check});
+      this.check,
+      this.keyItem});
+
+  @override
+  State<CustomModal3> createState() => _CustomModal3State();
+}
+
+class _CustomModal3State extends State<CustomModal3> {
+
+
+Map<String, bool> checkboxStates = {};
+
+ @override
+  void initState() {
+    super.initState();
+    widget.check?.forEach((salsa) {
+      String key = '${widget.keyItem}_${salsa['nombre']}';
+      checkboxStates[key] = false;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -1027,7 +1088,7 @@ class CustomModal3 extends StatelessWidget {
                             top: 200, right: 50, left: 50),
                         child: Container(
                           child: UiTexto(
-                            texto: '$decripcion',
+                            texto: '${widget.decripcion}',
                           ).textoRobotoLight4(),
                         ),
                       ),
@@ -1036,7 +1097,7 @@ class CustomModal3 extends StatelessWidget {
                       ),
                       Container(
                         child: UiTexto(
-                          texto: '$precio',
+                          texto: '${widget.precio}',
                         ).textoRobotoLight4(),
                       ),
                     ],
@@ -1059,7 +1120,7 @@ class CustomModal3 extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: UiTexto(
-                        texto: '$nombre',
+                        texto: '${widget.nombre}',
                       ).textoRobotoLight3(),
                     ),
                   ),
@@ -1091,15 +1152,41 @@ class CustomModal3 extends StatelessWidget {
                   ),
                 ),
               ),
-              if (check != null && check is! Container)
-              Padding(
+             // if (widget.check != null && widget.check is! Container)
+               Padding(
+              padding: const EdgeInsets.only(top: 285, left: 15, right: 15),
+              child: Container(
+                height: 150,
+                width: 305,
+                child: widget.check != null
+                    ? SingleChildScrollView(
+                        child: Column(
+                          children: widget.check!.map((salsa) {
+                            String key = '${widget.keyItem}_${salsa['nombre']}';
+                            return CheckboxListTile(
+                              title: Text(salsa['nombre']),
+                              value: checkboxStates[key] ?? false,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  checkboxStates[key] = value!;
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      )
+                    : Container(),
+              ),
+            )
+            
+             /* Padding(
                 padding: const EdgeInsets.only(top: 285, left: 15, right: 15),
                 child: Container(
                   height: 150,
                   width: 305,
-                  child: check,
+                  child: widget.check,
                 ),
-              )
+              ) */
               //if (check != null) check!,
               /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
