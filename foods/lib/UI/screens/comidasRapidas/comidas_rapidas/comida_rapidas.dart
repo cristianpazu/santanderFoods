@@ -232,7 +232,7 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                     children:
                                         descripcionList.map<Widget>((plato) {
                                       var salsas = {plato['salsas']};
-
+                                      print('||1111111222222222 $salsa');
                                       return Padding(
                                         padding:
                                             const EdgeInsets.only(right: 10.0),
@@ -249,20 +249,27 @@ class _comidas_rapidasState extends State<comidas_rapidas> {
                                               precio: '${plato['precio']}  ',
                                               image: '${plato['image']}',
                                               checkboxs: plato['salsas'] != null
-    ? SingleChildScrollView(
-      child: Column(
-          children: (plato['salsas'] as List)
-              .map<Widget>((salsa) => CheckboxListTile(
-                    title: Text(salsa['nombre']),
-                    value: false, // o usa estado externo
-                    onChanged: (bool? value) {
-                      // manejar selección si quieres
-                    },
-                  ))
-              .toList(),
-        ),
-    )
-    : null,
+                                                  ? SingleChildScrollView(
+                                                      child: Column(
+                                                        children: (plato[
+                                                                    'salsas']
+                                                                as List)
+                                                            .map<Widget>((salsa) =>
+                                                                CheckboxListTile(
+                                                                  title: Text(salsa[
+                                                                      'nombre']),
+                                                                  value:
+                                                                      false, // o usa estado externo
+                                                                  onChanged:
+                                                                      (bool?
+                                                                          value) {
+                                                                    // manejar selección si quieres
+                                                                  },
+                                                                ))
+                                                            .toList(),
+                                                      ),
+                                                    )
+                                                  : Container(),
                                             ),
                                           ],
                                         ),
