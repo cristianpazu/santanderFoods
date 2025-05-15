@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textfield.dart';
+import 'package:foods/UI/screens/comidasRapidas/comidasRapidasInfoCategoria.dart';
 import 'package:foods/UI/screens/comidasRapidas/comidas_rapidas/comida_rapidas.dart';
 import 'package:foods/UI/screens/gym/info_gym/gym_info.dart';
 import 'package:foods/Utils/titutlos.dart';
@@ -47,6 +48,23 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
 
     return grupos;
   }
+
+  Widget? _getPantallaPorCategoria(int idCategoria) {
+    print('idCategoria $idCategoria');
+  switch (idCategoria) {
+    case 1:
+      return Comidasrapidasinfocategoria(id: 1);
+    case 2:
+      return Comidasrapidasinfocategoria(id: 2);
+    case 3:
+      return Comidasrapidasinfocategoria(id: 3);
+       case 4:
+      return Comidasrapidasinfocategoria(id: 4);
+    // Agrega más casos según necesites
+    default:
+      return null; // O alguna pantalla de "no encontrada"
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -142,8 +160,10 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                                 final categoria = nombres[index];
                                 final categoriaInfo =
                                     categoria['nombre_categoria'];
+                                     final idCategoria =
+                                    categoria['id'];
                                 final categoriaImage = categoria['image'];
-
+ print('>>nombres>>>>>>>>nombres>>>> $idCategoria');
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 20),
                                   child: cardWidgetCategoria(
@@ -156,6 +176,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                                       fit: BoxFit.cover,
                                     ),
                                     texto: categoriaInfo,
+                                    redireccionamiento: _getPantallaPorCategoria(idCategoria),
                                   ),
                                 );
                               },
@@ -228,7 +249,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
 
                     List<dynamic> nombres =
                         restaurantesCategoria['nombre_comida_rapida'];
-                    print('>>nombres>>>>>>>>nombres>>>> $nombres');
+                   
                     return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

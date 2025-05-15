@@ -366,6 +366,7 @@ class cardWidgetRestaurant extends StatelessWidget {
                               texto: subtexto, maxLines: 2, tamanioTexto: 'md')
                           .textoRobotoLight2()),
                 ),
+
               ],
             ),
           ),
@@ -688,6 +689,26 @@ class CustomModal2 extends StatelessWidget {
                   ),
                 ),
               ),
+
+              //
+                 Padding(
+                 padding: const EdgeInsets.only(
+                            top: 380, right: 40, left: 50),
+                  child: Container(
+                    height: 50,
+                    width: 250,
+                    decoration: BoxDecoration( 
+                        color: const Color.fromARGB(249, 73, 59, 121),
+                      borderRadius: BorderRadius.circular(30)),
+                  
+                      child: Stack(
+                        children: [
+                          UiTexto(
+                                  texto: 'subtexto', maxLines: 2, tamanioTexto: 'md')
+                              .textoRobotoLight2(),
+                        ],
+                      )),
+                ),
               /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
                 child: Container(
@@ -723,6 +744,7 @@ class cardWidgetCategoria extends StatelessWidget {
   double? altura;
   Color? colors;
   Widget? icons;
+  Widget? redireccionamiento;
 
   cardWidgetCategoria(
       {super.key,
@@ -734,7 +756,8 @@ class cardWidgetCategoria extends StatelessWidget {
       this.ancho,
       this.altura,
       this.colors,
-      this.icons});
+      this.icons,
+      this.redireccionamiento});
 
   @override
   Widget build(BuildContext context) {
@@ -745,7 +768,13 @@ class cardWidgetCategoria extends StatelessWidget {
       ),
       elevation: 15,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          redireccionamiento!;  Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => redireccionamiento!,
+              ));
+        },
         child: Container(
           width: ancho,
           height: altura,
