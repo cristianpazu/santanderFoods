@@ -694,20 +694,44 @@ class CustomModal2 extends StatelessWidget {
                  Padding(
                  padding: const EdgeInsets.only(
                             top: 380, right: 40, left: 50),
-                  child: Container(
-                    height: 50,
-                    width: 250,
-                    decoration: BoxDecoration( 
-                        color: const Color.fromARGB(249, 73, 59, 121),
-                      borderRadius: BorderRadius.circular(30)),
-                  
-                      child: Stack(
-                        children: [
-                          UiTexto(
-                                  texto: 'subtexto', maxLines: 2, tamanioTexto: 'md')
-                              .textoRobotoLight2(),
-                        ],
-                      )),
+                  child: InkWell(
+                    onTap: () {
+                      
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 250,
+                      decoration: BoxDecoration( 
+                          color: const Color.fromARGB(249, 73, 59, 121),
+                        borderRadius: BorderRadius.circular(30)),
+                    
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 190.0, top: 3),
+                              child: Container(
+                                width: 45,
+                                height:45,
+                             
+                                decoration: BoxDecoration(
+                                     color: Colors.white,
+                                  borderRadius: BorderRadius.circular(60)
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: UiTexto(
+                                      texto: 'ADD CART', maxLines: 2, tamanioTexto: 'md')
+                                  .textoRobotoLight4(),
+                            ),
+
+                            Padding(
+                                  padding: const EdgeInsets.only(left: 203.0, top: 13),
+                              child: Icon(Icons.add_shopping_cart_outlined),
+                            )
+                          ],
+                        )),
+                  ),
                 ),
               /* Padding(
                 padding: const EdgeInsets.only(top: 200, right: 50, left: 50),
@@ -1097,15 +1121,17 @@ Map<String, bool> checkboxStates = {};
         borderRadius: BorderRadius.circular(20),
       ),
       child: Container(
+      
         width: 350,
-        height: 450,
+        height: 500,
         child: Container(
+          
           child: Stack(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: 450,
+                  height: 500,
                   width: 500,
                   decoration: BoxDecoration(
                       color: Colors.white,
@@ -1206,8 +1232,44 @@ Map<String, bool> checkboxStates = {};
                       )
                     : Container(),
               ),
-            )
-            
+            ), 
+            Padding(
+              padding: const EdgeInsets.only(left: 40,top:440),
+              child: Container(
+                        height: 50,
+                        width: 250,
+                        decoration: BoxDecoration( 
+                            color: const Color.fromARGB(249, 73, 59, 121),
+                          borderRadius: BorderRadius.circular(30)),
+                      
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 190.0, top: 3),
+                                child: Container(
+                                  width: 45,
+                                  height:45,
+                               
+                                  decoration: BoxDecoration(
+                                       color: Colors.white,
+                                    borderRadius: BorderRadius.circular(60)
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: UiTexto(
+                                        texto: 'ADD CART', maxLines: 2, tamanioTexto: 'md')
+                                    .textoRobotoLight4(),
+                              ),
+              
+                              Padding(
+                                    padding: const EdgeInsets.only(left: 203.0, top: 13),
+                                child: Icon(Icons.add_shopping_cart_outlined),
+                              )
+                            ],
+                          )),
+            ),
+                  
              /* Padding(
                 padding: const EdgeInsets.only(top: 285, left: 15, right: 15),
                 child: Container(
@@ -1233,6 +1295,7 @@ Map<String, bool> checkboxStates = {};
                   ).textoRobotoLight4(),
                 ),
               ),*/
+              
             ],
           ),
         ),
