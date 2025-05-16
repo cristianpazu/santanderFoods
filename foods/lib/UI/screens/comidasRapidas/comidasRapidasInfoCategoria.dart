@@ -26,7 +26,7 @@ class _Comidasrapidasinfocategoriastate extends State<Comidasrapidasinfocategori
 }
 
   
- Future<List<dynamic>> obtenerProductosPorCategoria(int categoriaId) async {
+Future<Map<String, dynamic>>  obtenerProductosPorCategoria(int categoriaId) async {
   List<dynamic> categorias = await loadJsonComidaRapida();
 
   // Filtrar los productos que corresponden a la categoría seleccionada
@@ -36,15 +36,24 @@ class _Comidasrapidasinfocategoriastate extends State<Comidasrapidasinfocategori
   );
 
   List<dynamic> productosCategoria = [];
+   List<dynamic> nombreCategoria = [];
   
   if (categoriaSeleccionada != null) {
+     
     var productos = categoriaSeleccionada['nombre_comida_rapida'];
     productosCategoria = productos.where((producto) {
       return producto['CATEGORIAS']['id'] == categoriaId;
     }).toList();
+     nombreCategoria = productos.where((nombrecategorias) {
+      return nombrecategorias['CATEGORIAS']['nombre_categoria'] == categoriaId;
+    }).toList();
   }
-  print('>>nombres>>>>>>>>nomasddddddddddddd');
-  return productosCategoria;
+  print('>>nombres>>>>>>>>nomasdddddddddddddproductosCategoriaproductosCategoria $productosCategoria');
+//  return productosCategoria;
+  return {
+    'nombreCategoria': nombreCategoria,
+    'productos': productosCategoria,
+  };
 }
 
 
@@ -58,7 +67,49 @@ Widget build(BuildContext context) {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            FutureBuilder<List<dynamic>>(
+            Stack(
+              children: [
+                Container(
+                  color: const Color.fromRGBO(50, 30, 124, 5),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 220,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(120))),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(120)),
+                            child: Image.asset(
+                              'assets/resta.jpeg',
+                              fit: BoxFit.cover,
+                              opacity: AlwaysStoppedAnimation(0.6),
+                            )),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Textfields(
+                          texto: 'Buscar....',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                    top: 30,
+                    right: 190,
+                    child: UiTexto(
+                      texto: 'RESTAURANTES',
+                    ).textoRobotoLight3()),
+              ],
+            ),
+            FutureBuilder<Map<String, dynamic>>(
               future: obtenerProductosPorCategoria(widget.id), // Usamos el ID de la categoría seleccionada
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -68,15 +119,17 @@ Widget build(BuildContext context) {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return Center(child: Text('No hay productos disponibles'));
                 } else {
-                  List<dynamic> productos = snapshot.data!;
-
+                 List<dynamic> productos = snapshot.data!['productos'];
+     Map<String, dynamic>  nombreCategoria = productos[0]['CATEGORIAS'];
+     String cc = nombreCategoria['nombre_categoria'];
+print('aassaasasasas $cc');
                   return Column(
                     children: [
                       SizedBox(height: 20),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
-                          'Productos de la categoría ${widget.id}',
+                          'Productos de la categoría ${cc}',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
