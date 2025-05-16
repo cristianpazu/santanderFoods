@@ -244,7 +244,7 @@ class _Menu_restaurantesState extends State<Menu_restaurantes> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            cardWidgetRestaurant(
+                                            cardRestaurantesWidget(
                                               colors: Colors.white,
                                               altura: 230,
                                               texto:      '${plato['nombre']}',

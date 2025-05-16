@@ -120,7 +120,7 @@ class Restaurantes extends StatelessWidget {
                         print(restaurantInfo);
                         print(
                             'idRestaurantes $idRestaurantes  ---- $restaurantInfo');
-                        return cardWidget4(
+                        return cardMenuRestauranteWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
                           redireccionamiento: Menu_restaurantes(

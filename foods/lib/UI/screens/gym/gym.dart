@@ -109,7 +109,7 @@ class _GymState extends State<Gym> {
                         final gymImage = gym['image'];
                         final idGym = gym['id'];
                         print('saddddddd $idGym');
-                        return cardWidget4(
+                        return cardMenuRestauranteWidget4(
                           colors: Color.fromARGB(255, 255, 255, 255),
                           altura: 10,
                           image: Image.asset(

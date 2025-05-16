@@ -204,7 +204,7 @@ class cardWidget3 extends StatelessWidget {
 }
 
 //comidass
-class cardWidget4 extends StatelessWidget {
+class cardMenuRestauranteWidget4 extends StatelessWidget {
   Image? image;
   String? texto;
 
@@ -213,7 +213,7 @@ class cardWidget4 extends StatelessWidget {
   Color? colors;
   Widget? redireccionamiento;
 
-  cardWidget4(
+  cardMenuRestauranteWidget4(
       {super.key,
       this.image,
       this.texto,
@@ -268,7 +268,7 @@ class cardWidget4 extends StatelessWidget {
 
 //restaurantes
 //comidass
-class cardWidgetRestaurant extends StatelessWidget {
+class cardRestaurantesWidget extends StatelessWidget {
   String? image;
   String? texto;
   String? subtexto;
@@ -279,7 +279,7 @@ class cardWidgetRestaurant extends StatelessWidget {
   Color? colors;
   Widget? icons;
 
-  cardWidgetRestaurant(
+  cardRestaurantesWidget(
       {super.key,
       this.image,
       this.texto,
@@ -329,7 +329,9 @@ class cardWidgetRestaurant extends StatelessWidget {
                   child: Container(
                     height: 110,
                     width: 112,
+                    
                     decoration: BoxDecoration(
+                      
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             topRight: Radius.circular(15),
