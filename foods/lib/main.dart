@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/screens/splashs/splash_screen.dart';
 
+import 'v2/headers/headers_curvo_splash.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +18,12 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
     
-      home: const SplashScreen(),
+      home: 
+      HomeWidget(
+      height: double.infinity,
+      childs: Container(),
+    )
+      //const SplashScreen(),
     );
   }
 }
