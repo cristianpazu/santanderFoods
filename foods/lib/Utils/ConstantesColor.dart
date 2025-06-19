@@ -9,4 +9,5 @@ abstract class ConstantesColorTema {
   static const int rojo = 0xffBF1426;
   static const int verde = 0xFF60A21A;
   static const int fondoFormulario = 0xffFAFAFA;
+  static const int fondoColorAppbar = 0xFF241D54;
 }

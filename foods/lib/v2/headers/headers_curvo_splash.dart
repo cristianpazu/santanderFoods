@@ -26,11 +26,19 @@ class HomeWidget extends StatelessWidget {
             size: Size(size.width, height), painter: HeaderPainterTop()),
       
 
+Padding(
+  padding: const EdgeInsets.only(top: 333,left: 110 ),
+  child: Container(
+    width: 200,
+    child: Image.asset('assets/santanderplacesimg.png')),
+),
+
+
         Padding(
-          padding: const EdgeInsets.only(top: 3, bottom: 78, left: 4),
+          padding: const EdgeInsets.only(top: 3, bottom: 40,),
           child: CustomPaint(
             size: Size(size.width, height),
-            painter: HeaderPainter2(),
+            painter: HeaderPainterBottom2(),
           ),
         ),
         CustomPaint(
@@ -63,11 +71,19 @@ class HeaderPainterBottom extends CustomPainter {
 
     path.moveTo(size.width, size.height * 0.45);
 
-    path.quadraticBezierTo(size.width * 0.95, size.height * 0.65,
-        size.width * 0.55, size.height * 0.65);
+    path.quadraticBezierTo(
+      size.width * 0.95, 
+      size.height * 0.67,
+      size.width * 0.62, 
+      size.height * 0.65);
 
     path.quadraticBezierTo(
-        size.width * 0.12, size.height * 0.65, 0, size.height * 0.9);
+        size.width * 0.12, 
+        size.height * 0.65, 
+        0, 
+        size.height * 0.9);
+    
+    
     path.lineTo(0, size.height * 1);
     path.lineTo(size.width, size.height);
 
@@ -80,7 +96,7 @@ class HeaderPainterBottom extends CustomPainter {
   }
 }
 
-class HeaderPainter2 extends CustomPainter {
+class HeaderPainterBottom2 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final lapiz = new Paint();
@@ -99,8 +115,11 @@ class HeaderPainter2 extends CustomPainter {
 
     path.moveTo(size.width, size.height * 0.45);
 
-    path.quadraticBezierTo(size.width * 0.95, size.height * 0.65,
-        size.width * 0.55, size.height * 0.65);
+    path.quadraticBezierTo(
+      size.width * 0.95, 
+      size.height * 0.65,
+      size.width * 0.55, 
+      size.height * 0.65);
 
     path.quadraticBezierTo(
         size.width * 0.12, size.height * 0.65, 0, size.height * 0.9);
@@ -137,13 +156,17 @@ class HeaderPainterTop extends CustomPainter {
     path.lineTo(0, size.height * 0.55);
 
     path.quadraticBezierTo(
-      size.width * 0.25, 
-      size.height * 0.33,
+      size.width * 0.12, 
+      size.height * 0.30,
         size.width * 0.5, 
         size.height * 0.35);
 
     path.quadraticBezierTo(
-        size.width * 0.85, size.height * 0.367, size.width, size.height * 0.1);
+        size.width * 0.95,
+        size.height * 0.39, 
+        size.width, 
+        size.height * 0.1);
+        
     path.lineTo(size.width, 0);
 /*
   path.quadraticBezierTo(
@@ -201,11 +224,17 @@ class HeaderPainterTop2 extends CustomPainter {
 
     path.lineTo(0, size.height * 0.55);
 
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.33,
-        size.width * 0.5, size.height * 0.35);
+    path.quadraticBezierTo(
+      size.width * 0.12, 
+      size.height * 0.30,
+        size.width * 0.5, 
+        size.height * 0.35);
 
     path.quadraticBezierTo(
-        size.width * 0.85, size.height * 0.367, size.width, size.height * 0.1);
+        size.width * 0.95,
+        size.height * 0.39, 
+        size.width, 
+        size.height * 0.1);
     path.lineTo(size.width, 0);
 /*
   path.quadraticBezierTo(
