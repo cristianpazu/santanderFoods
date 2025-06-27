@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods/UI/screens/splashs/splash.dart';
 import 'package:foods/UI/screens/splashs/splash_screen.dart';
 import 'package:foods/v2/menu/menu.dart';
 
@@ -19,7 +20,9 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
     
-      home: menuHome()/*
+      home: Splash() 
+      //menuHome()
+      /*
       Container(
         color: Colors.white,
         child: HomeWidget(

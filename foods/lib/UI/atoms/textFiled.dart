@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Textfields extends StatelessWidget {
+class Textfields2 extends StatelessWidget {
 
    String? texto;
-  
+   final TextEditingController controller;
+  final ValueChanged<String> onChanged;
 
-   Textfields({super.key, this.texto,  });
+   Textfields2({super.key, this.texto,  required this.controller,
+    required this.onChanged,});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-     
+      controller: controller,
+      onChanged: onChanged,
       decoration: InputDecoration(
         hintText: texto,
          filled: true,

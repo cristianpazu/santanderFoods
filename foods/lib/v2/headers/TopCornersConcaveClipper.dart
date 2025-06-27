@@ -1,34 +1,42 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-class TopCornersHornClipper extends CustomClipper<Path> {
-  final double hornHeight;
-
-  TopCornersHornClipper({this.hornHeight = 30});
-
+class AppBarPainterBottom extends CustomPainter {
   @override
-  Path getClip(Size size) {
-    final path = Path();
+  void paint(Canvas canvas, Size size) {
+    final lapiz = new Paint();
 
-    path.moveTo(0, size.height);         // abajo a la izquierda
-    path.lineTo(0, 0);                   // sube a la esquina
+
+    lapiz.style = PaintingStyle.stroke;
+    lapiz.strokeWidth = 20;
+
+    final path = new Path();
+
+    path.moveTo(size.width, size.height * 0.45);
+
     path.quadraticBezierTo(
-      0, -hornHeight,                   // punto de control elevado (pico)
-      hornHeight, 0,                    // finaliza en la línea horizontal
-    );
-
-    path.lineTo(size.width - hornHeight, 0); // línea horizontal
+      size.width * 0.95, 
+      size.height * 0.67,
+      size.width * 0.62, 
+      size.height * 0.65);
 
     path.quadraticBezierTo(
-      size.width, -hornHeight,         // pico derecho
-      size.width, 0,
-    );
+        size.width * 0.12, 
+        size.height * 0.65, 
+        0, 
+        size.height * 0.9);
+    
+    
+    path.lineTo(0, size.height * 1);
+    path.lineTo(size.width, size.height);
 
-    path.lineTo(size.width, size.height); // cierra abajo
-    path.close();
-
-    return path;
+    canvas.drawPath(path, lapiz);
   }
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
 }
+
+
+
