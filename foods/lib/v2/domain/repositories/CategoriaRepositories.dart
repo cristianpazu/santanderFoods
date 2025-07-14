@@ -2,7 +2,7 @@
 
 import 'package:foods/v2/domain/entities/categoria.dart';
 
-abstract class Restauranterepositories {
+abstract class Categoriarepositories {
 
 
 Future<List<Categoria>> getAllCategorias();

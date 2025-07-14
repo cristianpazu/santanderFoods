@@ -1,6 +1,6 @@
 import 'package:foods/v2/domain/entities/categoria.dart';
-
-abstract class RestaurantesInterface{
+//Interface
+abstract class CategoriaDatasourceInterface{
 
   Future<List<Categoria>> getAllCategorias();
 

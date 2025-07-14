@@ -10,9 +10,9 @@ class Categoria {
  });
 
  factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
-  id: json["id"], 
-  nombreCategoria: json["nombre_categoria"], 
-  image: json["image"]);
+  id: json["id"] ?? 0, 
+  nombreCategoria: json["nombre_categoria"] ?? "", 
+  image: json["image"] ?? "" );
 
   Map<String, dynamic> toJson() =>{
     "id":id,
@@ -31,6 +31,9 @@ class Categoria {
     id: id ??  this.id, 
     nombreCategoria: nombreCategoria ?? this.nombreCategoria, image: image ?? this.image);
 
-
+ @override
+  String toString() {
+    return 'Categoria(id: $id, nombreCategoria: $nombreCategoria, image: $image)';
+  }
 
 }
