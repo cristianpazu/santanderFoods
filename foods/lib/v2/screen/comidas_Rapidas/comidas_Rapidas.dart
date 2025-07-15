@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/Utils/titutlos.dart';
-import 'package:foods/v2/presentation/notifiers/categoria_notifier.dart';
+import 'package:foods/v2/presentation/notifiers/Categoria_notifiers/categoria_notifier.dart';
 
 class ComidasRapidas extends ConsumerStatefulWidget {
   const ComidasRapidas({super.key});
@@ -18,6 +18,7 @@ class _ComidasRapidasState extends ConsumerState {
   void initState() {
     super.initState();
     ref.read(categoriaProvider.notifier).loadCategoria();
+     print('111111ssss1111111111 ${categoriaProvider.notifier}');
   }
 
 

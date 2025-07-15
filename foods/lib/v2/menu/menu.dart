@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/UI/atoms/textfield.dart';
-import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
+import 'package:foods/UI/screens/restaurantes/restaurantess.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/tarjetasInfoMenu.dart';
 import 'package:foods/v2/headers/TopCornersConcaveClipper.dart';

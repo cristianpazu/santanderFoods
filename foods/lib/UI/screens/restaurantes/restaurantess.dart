@@ -8,8 +8,8 @@ import 'package:foods/UI/atoms/textfield.dart';
 import 'package:foods/UI/screens/restaurantes/menu_restaurantes/menu_restaurtantes.dart';
 import 'package:foods/Utils/titutlos.dart';
 
-class Restaurantes extends StatelessWidget {
-  const Restaurantes({super.key});
+class Restaurantess extends StatelessWidget {
+  const Restaurantess({super.key});
 /*
   Future<Map<String, dynamic>> loadJson() async {
    String jsonString = await rootBundle.loadString('assets/places3.json');

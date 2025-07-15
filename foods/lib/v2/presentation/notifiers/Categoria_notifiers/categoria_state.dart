@@ -1,4 +1,4 @@
-import 'package:foods/v2/domain/entities/categoria.dart';
+import 'package:foods/v2/domain/entities/categorias/categoria.dart';
 
 class CategoriaState {
   final bool isLoding;
@@ -16,7 +16,7 @@ CategoriaState copyWith({
   List<Categoria>? categoria,
 }) => CategoriaState(
   isLoding: isLoding ?? this.isLoding,
-  categorias: categorias ?? this.categorias
+  categorias: categoria ?? this.categorias
 );
 
 

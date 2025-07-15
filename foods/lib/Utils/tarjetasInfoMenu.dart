@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
+import 'package:foods/UI/screens/restaurantes/restaurantess.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/RestautantesPrincipales.dart';
+import 'package:foods/widgets/MenuWidget.dart';
 
 class TarjetaInfo {
   final String texto;
@@ -18,36 +20,36 @@ final List<TarjetaInfo> tarjetas = [
   TarjetaInfo(
     texto: 'Restaurantes',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restautantesprincipales(),
   ),
   TarjetaInfo(
     texto: 'Cafeterías',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
   TarjetaInfo(
     texto: 'Bares',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
   TarjetaInfo(
     texto: 'Heladerías',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
    TarjetaInfo(
     texto: 'Heladerías',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
    TarjetaInfo(
     texto: 'Heladerías',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
    TarjetaInfo(
     texto: 'Heladerías',
     imagenPath: 'assets/hamburguesa.png',
-    redireccionamiento: Restaurantes(),
+    redireccionamiento: Restaurantess(),
   ),
 ];

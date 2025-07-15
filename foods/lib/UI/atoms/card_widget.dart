@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/show_dialog.dart';
 import 'package:foods/UI/screens/menu/menu.dart';
-import 'package:foods/UI/screens/restaurantes/restaurantes.dart';
+import 'package:foods/UI/screens/restaurantes/restaurantess.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/titutlos.dart';
 

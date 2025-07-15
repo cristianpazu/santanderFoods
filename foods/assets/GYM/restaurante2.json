@@ -559,9 +559,12 @@
                     {
                       "nombre": "Jugos Naturales",
                       "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
-                      "precio": 
-                        "En Agua 7,000, En Leche 9,000, Jarra En Agua 17,000, Jarra En Leche 22,000"
-                      
+                      "precios": {
+                        "En Agua": "7,000",
+                        "En Leche": "9,000",
+                        "Jarra En Agua": "17,000",
+                        "Jarra En Leche": "22,000"
+                      }
                     },
                     {
                       "submenu": "Bebidas",
@@ -569,15 +572,22 @@
                         {
                           "nombre": "Jugos Naturales",
                           "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
-                          "precios": 
-                            "En Agua 7,000, En Leche 9,000, Jarra En Agua 17,000, Jarra En Leche 22,000"
-                          
+                          "precios": {
+                            "En Agua": "7,000",
+                            "En Leche": "9,000",
+                            "Jarra En Agua": "17,000",
+                            "Jarra En Leche": "22,000"
+                          }
                         },
                         {
                           "nombre": "Limonadas",
-                          "precios": 
-                            "Natural 8,000, Hierbabuena 10,000,Coco 12,000,  Cerezada 12,000, Mango Biche 12,000"
-                          
+                          "precios": {
+                            "Natural": "8,000",
+                            "Hierbabuena": "10,000",
+                            "Coco": "12,000",
+                            "Cerezada": "12,000",
+                            "Mango Biche": "12,000"
+                          }
                         },
                         {
                           "nombre": "Soda de Frutas",
@@ -587,22 +597,26 @@
                         {
                           "nombre": "Infusiones",
                           "descripcion": "(Bebidas calientes)limon y hierba buena-piña naranja y limon-maracuya fresa ylimon, cereza fresa y mora",
-                          "precio": "Normal 11,000 con licor 12,000"
-                          
+                          "precio": {
+                            "Normal": "11,000",
+                            "con licor": "12,000"
+                          }
                         },
                         {
                           "nombre": "Cervezas",
                           "descripcion": "",
-                          "precios": 
-                            "Normal 5,000 Michelada 7,000"
-                          
+                          "precios": {
+                            "Normal": "5,000",
+                            "Michelada": "7,000"
+                          }
                         },
                         {
                           "nombre": "Corona",
                           "descripcion": "",
-                          "precios": 
-                            "Normal 8,000  Michelada 9,500"
-                          
+                          "precios": {
+                            "Normal": "8,000",
+                            "Michelada": "9,500"
+                          }
                         }
                       ]
                     },
@@ -612,16 +626,23 @@
                         {
                           "nombre": "Mojitos",
                           "descripcion": "",
-                          "precios": 
-                            "Clásico 15,000 Acapulco 18,000, Cancún 18,000"
-                          
+                          "precios": {
+                            "Clásico": "15,000",
+                            "Acapulco": "18,000",
+                            "Cancún": "18,000"
+                          }
                         },
                         {
                           "nombre": "Margaritas",
                           "descripcion": "",
-                          "precios": 
-                            "Tradicional 18,000, Mango Biche 19,000 Maracumango 19,000 , Shot Tequila 15,000 Copa de Vino 15,000, Tablazo de Tequila 13,000"
-                          
+                          "precios": {
+                            "Tradicional": "18,000",
+                            "Mango Biche": "19,000",
+                            "Maracumango": "19,000",
+                            "Shot Tequila": "15,000",
+                            "Copa de Vino": "15,000",
+                            "Tablazo de Tequila": "13,000"
+                          }
                         }
                       ]
                     },
@@ -1655,8 +1676,12 @@
                     {
                       "nombre": "Jugos Naturales",
                       "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
-                      "precios": "En Agua 7,000, en Leche 9,000, Jarra En Agua 17,000, Jarra En Leche 22,000"
-                      
+                      "precios": {
+                        "En Agua": "7,000",
+                        "En Leche": "9,000",
+                        "Jarra En Agua": "17,000",
+                        "Jarra En Leche": "22,000"
+                      }
                     },
                     {
                       "submenu": "Bebidas",
@@ -1664,13 +1689,22 @@
                         {
                           "nombre": "Jugos Naturales",
                           "descripcion": "Sabores: Mora, Mango, Lulo, Fresa, Guanábana, Piña, Maracuyá, Uva.",
-                          "precios": "En Agua 7,000,en Leche 9,000, Jarra En Agua 17,000, Jarra En Leche 22,000"
-                          
+                          "precios": {
+                            "En Agua": "7,000",
+                            "En Leche": "9,000",
+                            "Jarra En Agua": "17,000",
+                            "Jarra En Leche": "22,000"
+                          }
                         },
                         {
                           "nombre": "Limonadas",
-                          "precios": "Natural 8,000, Hierbabuena 10,000, Coco 12,000, Cerezada 12,000,Mango Biche 12,000"
-                          
+                          "precios": {
+                            "Natural": "8,000",
+                            "Hierbabuena": "10,000",
+                            "Coco": "12,000",
+                            "Cerezada": "12,000",
+                            "Mango Biche": "12,000"
+                          }
                         },
                         {
                           "nombre": "Soda de Frutas",
@@ -1688,14 +1722,18 @@
                         {
                           "nombre": "Cervezas",
                           "descripcion": "",
-                          "precios": "Normal 5,000, Michelada 7,000"
-                          
+                          "precios": {
+                            "Normal": "5,000",
+                            "Michelada": "7,000"
+                          }
                         },
                         {
                           "nombre": "Corona",
                           "descripcion": "",
-                          "precios": "Normal 8,000, Michelada 9,500"
-                          
+                          "precios": {
+                            "Normal": "8,000",
+                            "Michelada": "9,500"
+                          }
                         }
                       ]
                     },
@@ -1705,16 +1743,23 @@
                         {
                           "nombre": "Mojitos",
                           "descripcion": "",
-                          "precios": 
-                            "Clásico 15,000, Acapulco 18,000, Cancún 18,000"
-                          
+                          "precios": {
+                            "Clásico": "15,000",
+                            "Acapulco": "18,000",
+                            "Cancún": "18,000"
+                          }
                         },
                         {
                           "nombre": "Margaritas",
                           "descripcion": "",
-                          "precios": 
-                            "Tradicional 18,000, Mango Biche 19,000, Maracumango 19,000, Shot Tequila 15,000, Copa de Vino 15,000, Tablazo de Tequila 13,000"
-                          
+                          "precios": {
+                            "Tradicional": "18,000",
+                            "Mango Biche": "19,000",
+                            "Maracumango": "19,000",
+                            "Shot Tequila": "15,000",
+                            "Copa de Vino": "15,000",
+                            "Tablazo de Tequila": "13,000"
+                          }
                         }
                       ]
                     },

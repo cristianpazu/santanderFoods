@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:foods/v2/domain/datasource-servicesInterface/CategoriaDatasource.dart';
-import 'package:foods/v2/domain/entities/categoria.dart';
+import 'package:foods/v2/domain/entities/categorias/categoria.dart';
 
 
 class CategoriaDatasourceimpl extends CategoriaDatasourceInterface {
