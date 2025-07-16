@@ -22,9 +22,14 @@ class Informacion {
         nombre: json["nombre"],
         direccion: json["direccion"],
         contacto: json["contacto"],
-        horario: List<Horario>.from(json["horario"].map((x) => Horario.fromJson(x))),
-        menu: List<Menu>.from(json["menu"].map((x) => Menu.fromJson(x))),
-    );
+      horario: json["horario"] == null
+      ? []
+      : List<Horario>.from(json["horario"].map((x) => Horario.fromJson(x))),
+  menu: json["menu"] == null
+      ? []
+      : List<Menu>.from(json["menu"].map((x) => Menu.fromJson(x))),
+);
+   
 
     Map<String, dynamic> toJson() => {
         "nombre": nombre,

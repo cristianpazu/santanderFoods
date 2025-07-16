@@ -18,7 +18,7 @@ class _ComidasRapidasState extends ConsumerState {
   void initState() {
     super.initState();
     ref.read(categoriaProvider.notifier).loadCategoria();
-     print('111111ssss1111111111 ${categoriaProvider.notifier}');
+    
   }
 
 
@@ -26,7 +26,7 @@ class _ComidasRapidasState extends ConsumerState {
   Widget build(BuildContext context) {
 
 final categoriaLista = ref.watch(categoriaProvider);
- print('1111111111111111 ${categoriaLista.categorias.length}');
+ 
     return SizedBox(
   height: 150,
       child:   ListView.builder(
@@ -34,7 +34,7 @@ final categoriaLista = ref.watch(categoriaProvider);
     itemCount: categoriaLista.categorias.length,
     itemBuilder: (context, index) {
       final categoria = categoriaLista.categorias[index]; 
-      print('1111111111111111 $categoria');
+     
       return Padding(
         padding: const EdgeInsets.only(right: 10),
         child: cardWidgetCategoria(

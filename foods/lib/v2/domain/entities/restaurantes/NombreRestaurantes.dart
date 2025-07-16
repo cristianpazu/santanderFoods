@@ -18,8 +18,11 @@ class NombreRestaurante {
         id: json["id"],
         nombres: json["nombres"],
         image: json["image"],
-        informacion: List<Informacion>.from(json["informacion"].map((x) => Informacion.fromJson(x))),
-    );
+      informacion: json["informacion"] == null
+      ? []
+      : List<Informacion>.from(json["informacion"].map((x) => Informacion.fromJson(x))),
+);
+   
 
     Map<String, dynamic> toJson() => {
         "id": id,
@@ -27,4 +30,9 @@ class NombreRestaurante {
         "image": image,
         "informacion": List<dynamic>.from(informacion.map((x) => x.toJson())),
     };
+
+    @override
+String toString() {
+  return 'NombreRestaurante(id: $id, nombres: $nombres, image: $image)';
+}
 }

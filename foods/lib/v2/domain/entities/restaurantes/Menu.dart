@@ -13,9 +13,10 @@ class Menu {
 
     factory Menu.fromJson(Map<String, dynamic> json) => Menu(
         submenu: json["submenu"],
-        descripcion: json["descripcion"] == null ? [] : List<MenuDescripcion>.from(json["descripcion"]!.map((x) => MenuDescripcion.fromJson(x))),
-       
-    );
+         descripcion: json["descripcion"] == null
+      ? []
+      : List<MenuDescripcion>.from(json["descripcion"]!.map((x) => MenuDescripcion.fromJson(x))),
+);
 
     Map<String, dynamic> toJson() => {
         "submenu": submenu,

@@ -12,7 +12,11 @@ class Restaurantes {
 
     factory Restaurantes.fromJson(Map<String, dynamic> json) => Restaurantes(
         nombre: json["nombre"],
-        nombreRestaurantes: List<NombreRestaurante>.from(json["nombre_restaurantes"].map((x) => NombreRestaurante.fromJson(x))),
+         nombreRestaurantes: json["nombre_restaurantes"] == null
+      ? []
+      : List<NombreRestaurante>.from(
+          json["nombre_restaurantes"].map((x) => NombreRestaurante.fromJson(x))),
+
     );
 
     Map<String, dynamic> toJson() => {
@@ -29,4 +33,9 @@ class Restaurantes {
   )=> Restaurantes(
     nombre: nombre ??  this.nombre, 
     nombreRestaurantes: nombreRestaurantes ?? this.nombreRestaurantes);
+
+    @override
+String toString() {
+  return 'Restaurantes(nombre: $nombre, nombreRestaurantes: $nombreRestaurantes)';
+}
 }
