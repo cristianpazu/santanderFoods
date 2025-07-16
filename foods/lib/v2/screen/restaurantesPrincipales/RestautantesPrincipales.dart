@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
+import 'package:foods/widgets/MenuComidas.dart';
 import 'package:foods/widgets/MenuWidget.dart';
 
 class Restautantesprincipales extends ConsumerStatefulWidget {
@@ -67,6 +68,9 @@ final restaurantNombre = restaurante.nombreRestaurantes?[index].nombres;
             fit: BoxFit.contain,
           ),
           texto: restaurante.nombres,
+          redireccionamiento: Menucomidas(
+            
+          )
         );
       },
     ));

@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:foods/v2/domain/datasource-servicesInterface/ProductoDatasource.dart';
+import 'package:foods/v2/domain/datasource-servicesInterface/RestaurantesDatasource.dart';
+import 'package:foods/v2/domain/entities/restaurantes/Informacion.dart';
 import 'package:foods/v2/domain/entities/restaurantes/Restaurantes.dart';
 
 class RestauranteDatasourceImpl  extends RestaurantesDatasource{
@@ -50,6 +51,12 @@ List<Restaurantes> restaurantes = restauranteJson
 
 print('restaurtassssssssssss $restaurantes');
   return restaurantes; */
+  }
+
+  @override
+  Future<Informacion> getRestauranteById(int Id) {
+    // TODO: implement getRestauranteById
+    throw UnimplementedError();
   }
 
 
