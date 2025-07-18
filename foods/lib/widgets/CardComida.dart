@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/Utils/titutlos.dart';
 
 class Cardcomida extends StatefulWidget {
-String images;
-String nombreComida;
+  String images;
+  String? nombreComida;
+  double ancho;
 
-
-   Cardcomida(this.images,this.nombreComida);
+  Cardcomida(this.images, this.nombreComida, this.ancho);
 
   @override
   State<Cardcomida> createState() => _CardcomidaState();
@@ -20,7 +21,7 @@ class _CardcomidaState extends State<Cardcomida> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: double.infinity,
+        width: widget.ancho,
         height: 120,
         decoration: BoxDecoration(
           color: Color(ConstantesColorTema.fondoColorAppbar),
@@ -55,17 +56,18 @@ class _CardcomidaState extends State<Cardcomida> {
             Row(
               children: [
                 SizedBox(
-                  width: 1,
+                  width: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: 150,
-                    height: 100,
-                    color: Colors.blue,
-                    child: Text('${widget.nombreComida}')
-                    //Text('SALCHIPAPA CON ARROZ'),
-                  ),
+                      width: 150,
+                      height: 100,
+                      child: UiTexto(texto: '${widget.nombreComida}')
+                          .textoRobotoLight2()
+
+                      //Text('SALCHIPAPA CON ARROZ'),
+                      ),
                 ),
               ],
             ),
@@ -73,12 +75,12 @@ class _CardcomidaState extends State<Cardcomida> {
             Row(
               children: [
                 SizedBox(
-                  width: 1,
+                  width: 10,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: 100,
+                    width: 50,
                     height: 100,
                     child: IconButton(
                       onPressed: () {
@@ -89,9 +91,9 @@ class _CardcomidaState extends State<Cardcomida> {
                       },
                       icon: Icon(
                         isFavorite
-                            ? Icons.favorite_rounded // si está activado
+                            ? Icons.bookmark // si está activado
                             : Icons
-                                .favorite_border_rounded, // si está desactivado
+                                .bookmark_outline_sharp, // si está desactivado
                         color: Colors.white,
                         size: 32,
                       ),

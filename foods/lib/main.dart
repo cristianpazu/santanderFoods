@@ -4,6 +4,7 @@ import 'package:foods/UI/screens/splashs/splash.dart';
 import 'package:foods/UI/screens/splashs/splash_screen.dart';
 import 'package:foods/v2/menu/menu.dart';
 import 'package:foods/v2/screen/comidas_Rapidas/comidas_Rapidas.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
 import 'package:foods/v2/screen/restaurantesPrincipales/RestautantesPrincipales.dart';
 import 'package:foods/v2/screen/restaurantesPrincipales/MenuComidas.dart';
 import 'package:foods/widgets/MenuWidget.dart';
@@ -64,8 +65,9 @@ class MenuResponsive extends StatelessWidget {
         ],
         child: widget!,
       ),
-      home:// Menucomidas(),
-       Restautantesprincipales(), 
+      home:Detallecomida()
+      // Menucomidas(),
+        // Restautantesprincipales(), 
       // menuHome(),
     );
   }

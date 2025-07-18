@@ -5,7 +5,8 @@ import 'package:foods/widgets/appbars.dart';
 class Appbarcomidas extends StatelessWidget {
 
   Widget child;
-   Appbarcomidas(this.child);
+  String image;
+   Appbarcomidas(this.child, this.image);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,24 @@ class Appbarcomidas extends StatelessWidget {
                         ),
                       ),
                       //
-                  
+                   Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(
+                          25), // Mitad del tamaño para hacerlo circular
+                      image: DecorationImage(
+                        image: AssetImage('${image}'),
+                        fit: BoxFit.cover, // Ajusta la imagen sin deformarla
+                      ),
+                    ),
+                  ),
+                ),
+                  //
+
                        Padding(
                         padding: const EdgeInsets.only(left: 10, top: 30),
                         child: Container(
