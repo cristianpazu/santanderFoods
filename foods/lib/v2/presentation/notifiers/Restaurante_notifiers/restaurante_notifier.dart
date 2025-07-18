@@ -27,6 +27,7 @@ final RestaurantesRepositories restaurantesRepositories;
 required this.restaurantesRepositories
   }):super(ResturanteState()){
     loadRestaurante();
+  //  loadRestauranteId( Id);
   }
 
 
@@ -45,5 +46,22 @@ required this.restaurantesRepositories
     state = state.copyWith(
         isLoding: false, restaurante: [...state.restaurantes!, ...restaurantes]);
   }
+  //
+
+  /* Future loadRestauranteId(int id) async {
+    if (state.isLoding == true) return;
+
+    state = state.copyWith(isLoding: true);
+
+    final restaurantes2 = await restaurantesRepositories.getRestauranteById(id);
+   
+    if (restaurantes2.isEmpty) {
+      state = state.copyWith(isLoding: false);
+      return;
+    }
+
+    state = state.copyWith(
+        isLoding: false, restaurante: [...state.restaurantes!, ...restaurantes2]);
+  } */
 
 }

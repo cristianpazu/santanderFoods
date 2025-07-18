@@ -179,7 +179,7 @@ class AppbarMen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        appBarHomeMenu(),
+        appBarHomeMenu(Container()),
         Padding(
           padding: const EdgeInsets.only(top: 215, right: 30, left: 30),
           child: Textfields2(

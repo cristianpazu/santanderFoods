@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:foods/v2/domain/datasource-servicesInterface/RestaurantesDatasource.dart';
 import 'package:foods/v2/domain/entities/restaurantes/Informacion.dart';
+import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
 import 'package:foods/v2/domain/entities/restaurantes/Restaurantes.dart';
 
 class RestauranteDatasourceImpl  extends RestaurantesDatasource{
@@ -54,10 +55,66 @@ print('restaurtassssssssssss $restaurantes');
   }
 
   @override
-  Future<Informacion> getRestauranteById(int Id) {
-    // TODO: implement getRestauranteById
-    throw UnimplementedError();
+  Future<List<NombreRestaurante>> getRestauranteById(int Id)async {
+   
+    String jsonString = await rootBundle.loadString('assets/placesrestaurante.json');
+ /*   List<dynamic> jsonResponse = json.decode(jsonString);
+    print('qqqqqqqqqqqqqqqq $Id');
+ print('qqqqqqqqqqqqqqqq $jsonResponse');
+
+
+
+  // Convertir a objetos
+  List<NombreRestaurante> nombreRestaurantes = jsonResponse.map((itemS) {
+
+   
+    return NombreRestaurante.fromJson(itemS);
+  }).toList();
+
+  print('Lista completa: $nombreRestaurantes'); */
+
+///////
+
+// Acceder a la lista de restaurantes
+List<dynamic> jsonResponXse = json.decode(jsonString);
+print('Lista jsonResponXse: $jsonResponXse');
+//List<dynamic> restaurantesJson = jsonResponXse['nombre_restaurantes'];
+
+// Mapear a objetos NombreRestaurante
+List<Restaurantes> nombreRestauranteSs = jsonResponXse.map((item) {
+  return Restaurantes.fromJson(item);
+}).toList();
+
+print('||||||||||||||||||||||------------||||||||||||: $nombreRestauranteSs');
+
+// Filtrar por ID
+List<NombreRestaurante> restaurantesFiltrsadods = nombreRestauranteSs
+      .expand((r) => (r.nombreRestaurantes)!.cast<NombreRestaurante>())
+    .where((rest) => rest.id == Id)
+    .toList();
+    print('|||||||||||||ddddddddd-||||||||||||: ${restaurantesFiltrsadods}');
+
+
+
+
+
+
+
+/////
+
+
+
+
+
+
+
+/*
+
+  // Filtrar por ID
+  List<NombreRestaurante> restaurantesFiltrados = nombreRestaurantes.where((r) => r.id == Id).toList();
+
+  print('Restaurantes filtrados por ID: $restaurantesFiltrados'); */
+
+  return restaurantesFiltrsadods;
   }
-
-
- }
+   }

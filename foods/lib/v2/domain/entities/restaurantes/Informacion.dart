@@ -38,4 +38,9 @@ class Informacion {
         "horario": List<dynamic>.from(horario.map((x) => x.toJson())),
         "menu": List<dynamic>.from(menu.map((x) => x.toJson())),
     };
+
+      @override
+  String toString() {
+    return 'Informacion(nombre: $nombre, direccion: $direccion, contacto: $contacto)';
+  }
 }

@@ -15,9 +15,9 @@ class NombreRestaurante {
     });
 
     factory NombreRestaurante.fromJson(Map<String, dynamic> json) => NombreRestaurante(
-        id: json["id"],
-        nombres: json["nombres"],
-        image: json["image"],
+        id: json["id"] ?? 0,
+        nombres: json["nombres"]?? "",
+        image: json["image"] ?? "",
       informacion: json["informacion"] == null
       ? []
       : List<Informacion>.from(json["informacion"].map((x) => Informacion.fromJson(x))),
@@ -33,6 +33,8 @@ class NombreRestaurante {
 
     @override
 String toString() {
-  return 'NombreRestaurante(id: $id, nombres: $nombres, image: $image)';
+ final infoStr = informacion.map((i) => i.toString()).join(', ');
+  return 'NombreRestaurante(id: $id, nombres: $nombres, image: $image, informacion: [$infoStr])';
+
 }
 }

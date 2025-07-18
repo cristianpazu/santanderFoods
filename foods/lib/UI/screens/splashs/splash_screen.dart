@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/screens/menu/menu.dart';
+import 'package:foods/v2/headers/headers_curvo_splash.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,7 +26,11 @@ class _ScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return HomeWidget(
+      height: double.infinity,
+      childs: Container(),
+    );
+    /* Scaffold(
         body: Container(
       color: const Color.fromRGBO(50, 30, 124, 5),
       width: double.infinity,
@@ -46,6 +51,6 @@ class _ScreenState extends State<SplashScreen> {
           )
         ],
       ),
-    ));
+    )); */
   }
 }

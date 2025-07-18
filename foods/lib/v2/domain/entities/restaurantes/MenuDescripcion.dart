@@ -36,4 +36,8 @@ class MenuDescripcion {
   
         "submenu": submenu,
     };
+     @override
+  String toString() {
+    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio, submenu: $submenu)';
+  }
 }

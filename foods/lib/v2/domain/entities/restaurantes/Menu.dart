@@ -23,4 +23,8 @@ class Menu {
         "descripcion": descripcion == null ? [] : List<dynamic>.from(descripcion!.map((x) => x.toJson())),
         
     };
+      @override
+  String toString() {
+    return 'Menu(submenu: $submenu, descripcion: $descripcion)';
+  }
 }

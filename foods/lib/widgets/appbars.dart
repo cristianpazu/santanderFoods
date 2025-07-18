@@ -3,6 +3,9 @@ import 'package:foods/Utils/ConstantesColor.dart';
 
 class appBarHomeMenu extends StatelessWidget {
 
+Widget child;
+
+  appBarHomeMenu(this.child); 
  
 
   @override
@@ -16,6 +19,7 @@ class appBarHomeMenu extends StatelessWidget {
       ),
       width: double.infinity,
       height: 250,
+      child: child,
      
     );
   }

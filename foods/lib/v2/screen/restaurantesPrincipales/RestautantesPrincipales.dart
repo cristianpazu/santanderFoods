@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
-import 'package:foods/widgets/MenuComidas.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/MenuComidas.dart';
 import 'package:foods/widgets/MenuWidget.dart';
 
 class Restautantesprincipales extends ConsumerStatefulWidget {
@@ -55,6 +55,9 @@ final restaurantNombre = restaurante.nombreRestaurantes?[index].nombres;
 
         final restaurante = todosLosRestaurantes[index];
         
+     print('object ${restaurante.id}');
+
+
         /*
         final restaurantNombre = restaurant[index].nombres;
         final restauranteImage = restaurant[index].image; 
@@ -69,7 +72,7 @@ final restaurantNombre = restaurante.nombreRestaurantes?[index].nombres;
           ),
           texto: restaurante.nombres,
           redireccionamiento: Menucomidas(
-            
+            idRestaurante: restaurante.id,
           )
         );
       },
