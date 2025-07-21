@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/v2/domain/entities/item/items.dart';
 import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
 import 'package:intl/intl.dart';
@@ -9,123 +10,147 @@ class CarritoPage extends ConsumerStatefulWidget {
   const CarritoPage({Key? key}) : super(key: key);
 
   @override
- _CarritoPageState createState() => _CarritoPageState();
+  _CarritoPageState createState() => _CarritoPageState();
 }
 
 class _CarritoPageState extends ConsumerState<CarritoPage> {
   @override
   Widget build(BuildContext context) {
     final carrito = ref.watch(itemsStateNotifier);
-  final String phone = '573217780678'; 
-final formatter = NumberFormat('#,##0.00', 'es_ES');
+    final String phone = '573217780678';
+    final formatter = NumberFormat('#,##0.00', 'es_ES');
 
-double total = carrito.fold(0, (suma, itemState) {
-  final precioStr = itemState.menuDescripcion.isNotEmpty
-      ? itemState.menuDescripcion.first.precio ?? '0'
-      : '0';
+    double total = carrito.fold(0, (suma, itemState) {
+      final precioStr = itemState.menuDescripcion.isNotEmpty
+          ? itemState.menuDescripcion.first.precio ?? '0'
+          : '0';
 
-  print('precioStr original: "$precioStr"');
+      print('precioStr original: "$precioStr"');
 
-  // Limpia el string: quita puntos, cambia coma decimal a punto, quita símbolos y espacios
-  final limpio = precioStr
-      .replaceAll('.', '') // Quitar puntos de miles
-      .replaceAll(',', '.') // Cambiar coma decimal por punto
-      .replaceAll(RegExp(r'[^0-9.]'), '') // Quitar todo excepto números y punto
-      .trim();
+      // Limpia el string: quita puntos, cambia coma decimal a punto, quita símbolos y espacios
+      final limpio = precioStr
+          .replaceAll('.', '') // Quitar puntos de miles
+          .replaceAll(',', '.') // Cambiar coma decimal por punto
+          .replaceAll(
+              RegExp(r'[^0-9.]'), '') // Quitar todo excepto números y punto
+          .trim();
 
-  print('precioStr limpio para parsear: "$limpio"');
+      print('precioStr limpio para parsear: "$limpio"');
 
-  final precio = double.tryParse(limpio) ?? 0;
+      final precio = double.tryParse(limpio) ?? 0;
 
-  print('precio parsed: $precio');
+      print('precio parsed: $precio');
 
-  return suma + precio;
-});
+      return suma + precio;
+    });
 
-print('total sin formatear: $total');
+    print('total sin formatear: $total');
 
-String totalFormateado = formatter.format(total);
+    String totalFormateado = formatter.format(total);
 
-print('total formateado: $totalFormateado');
+    print('total formateado: $totalFormateado');
 
+    Future<void> _openWhatsApp() async {
+      // Construir el mensaje con los productos
+      String message = '🛒 *Pedido desde la app:*\n\n';
 
- Future<void> _openWhatsApp() async {
-  // Construir el mensaje con los productos
-  String message = '🛒 *Pedido desde la app:*\n\n';
+      for (var itemState in carrito) {
+        final item = itemState.menuDescripcion.first;
+        final nombre = item.nombre ?? '';
+        final descripcion = item.descripcion ?? '';
+        final precio = item.precio ?? '';
 
-  for (var itemState in carrito) {
-    final item = itemState.menuDescripcion.first;
-    final nombre = item.nombre ?? '';
-    final descripcion = item.descripcion ?? '';
-    final precio = item.precio ?? '';
+        message += '• *$nombre* - $descripcion\n  Precio: \$${precio}\n\n';
+      }
 
-    message += '• *$nombre* - $descripcion\n  Precio: \$${precio}\n\n';
-  }
+      message += '🧾 *Total:* \$${totalFormateado}';
 
-  message += '🧾 *Total:* \$${totalFormateado}';
+      final Uri whatsappUrl = Uri.parse(
+        'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
+      );
 
-  final Uri whatsappUrl = Uri.parse(
-    'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
-  );
+      if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
+        throw Exception('No se pudo abrir WhatsApp');
+      }
+    }
 
-  if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
-    throw Exception('No se pudo abrir WhatsApp');
-  }
-}
     return Scaffold(
       appBar: AppBar(title: Text('Carrito')),
       body: carrito.isEmpty
           ? Center(child: Text('No hay productos en el carrito.'))
           : Column(
-           children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: carrito.length,
-                  itemBuilder: (context, index) {
-                  final itemState = carrito[index];
-final item = itemState.menuDescripcion.first;
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: carrito.length,
+                    separatorBuilder: (context, index) => SizedBox(height: 18),
+                    itemBuilder: (context, index) {
+                      final itemState = carrito[index];
+                      final item = itemState.menuDescripcion.first;
 
-print('itemitemitem ${item.precio}');
-                    return ListTile(
-                      leading: Image.asset(item.image ?? ''),
-                      title: Text(item.nombre ?? ''),
-                      subtitle: Text(item.descripcion ?? ''),
-                      trailing: Text('\$${item.precio}'),
-                    );
-                  },
+                
+                      print('itemitemitem ${item.precio}');
+                      return Container(
+                        color: Color(ConstantesColorTema.fondoColorAppbar),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: Image.asset(item.image ?? ''),
+                              title: Text(item.nombre ?? ''),
+                              subtitle: Text(item.descripcion ?? ''),
+                              trailing: Column(
+                                children: [
+                                  Text('\$${item.precio}'),
+                                  Container(
+                                    height: 40,
+                                    width: 40,
+                                    color: Colors.red,
+                                    child: Center(
+                                        child: IconButton(
+                                            onPressed: () {
+                                              ref
+                                                  .read(itemsStateNotifier
+                                                      .notifier)
+                                                  .eliminarItems(item);
+                                            },
+                                            icon: Icon(Icons
+                                                .delete_forever_outlined))),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
 
+                    //
+                  ),
                   //
-
-                  
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Total:',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text('\$${totalFormateado}',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ),
                 //
-                
-                 ),
-                  Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
-                  children: [
-                    
-                    Text('Total:',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text('\$${totalFormateado}',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                  ],
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _openWhatsApp,
+                    child: Text('Abrir WhatsApp'),
+                  ),
                 ),
-              ),
-              //
-             Center(
-          child: ElevatedButton(
-            onPressed: _openWhatsApp,
-            child: Text('Abrir WhatsApp'),
-          ),
-        ),
-            ],
-          ),
+              ],
+            ),
     );
     /* Scaffold(
       appBar: AppBar(

@@ -33,6 +33,7 @@ class Menucomidas extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController _searchController = TextEditingController();
     final productState = ref.watch(nombrerestauranteProvider(idRestaurante));
+    final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
 
     if (productState.isLoding!) {
       return const CircularProgressIndicator();
@@ -45,7 +46,7 @@ class Menucomidas extends ConsumerWidget {
     final List<NombreRestaurante> todosLosRestaurantes =
         productState.nombrerestuarante!.cast<NombreRestaurante>().toList();
 
-print(productState.id);
+    print(productState.id);
 
     final imagenRestaurante = todosLosRestaurantes.isNotEmpty
         ? todosLosRestaurantes.first.image ?? 'assets/proximamente.jpg'
@@ -71,8 +72,19 @@ print(productState.id);
                       builder: (context) => CarritoPage(),
                     ));
               },
-              child: Center(
-                child: Icon(Icons.shopping_cart_outlined),
+              child: Stack(
+                children: [
+                  Positioned(
+                      child: Container(
+                    width: 20,
+                    height: 16,
+                    color: Colors.amber,
+                    child: Center(child: Text('$cantidadEnCarrito')),
+                  )),
+                  Center(
+                    child: Icon(Icons.shopping_cart_outlined),
+                  ),
+                ],
               ),
             ),
           ),
@@ -94,13 +106,11 @@ print(productState.id);
               itemBuilder: (context, index) {
                 //  final productStatess = todosLosRestaurantes[index];
                 final menuSate = menus[index];
-                final descrpconmenu = menuSate
-                    .descripcion;
-                    
+                final descrpconmenu = menuSate.descripcion;
 
 //                      final idss = productStatess
-  //                  .id; 
-  /*
+                //                  .id;
+                /*
                 final nombreComida = menus[index].descripcion;
                 final nombres = nombreComida![index].nombre; */
 
@@ -142,7 +152,6 @@ print(productState.id);
                           final item = descrpconmenu[subIndex];
 
                           final Items itemss = Items(
-                            
                             nombre: item.nombre,
                             descripcion: item.descripcion,
                             precio: item.precio,
