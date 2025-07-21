@@ -3,7 +3,13 @@ import 'package:foods/Utils/tarjetasInfoMenu.dart';
 import 'package:foods/widgets/TarjetainfoComida.dart';
 
 class Detallecomida extends StatelessWidget {
-  const Detallecomida({super.key});
+   String images;
+    String nombreComida;
+  String descripcion;
+  String valor;
+   Widget agregarComida;
+  
+   Detallecomida(this.images, this.nombreComida, this.descripcion, this.valor,this.agregarComida);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +17,11 @@ class Detallecomida extends StatelessWidget {
       body: Column(
         children: [
         TarjetainfoComida(
-          
+          images,
+          nombreComida,
+          descripcion,
+          valor,
+          agregarComida
         )
         ],
       ),

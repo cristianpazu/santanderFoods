@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
+import 'package:foods/v2/screen/item/CarritoPage.dart';
 import 'package:foods/widgets/appbars.dart';
 
 class Appbarcomidas extends StatelessWidget {
 
   Widget child;
   String image;
-   Appbarcomidas(this.child, this.image);
+   Widget? redireccionamiento;
+   Appbarcomidas(this.child, this.image, this.redireccionamiento);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,9 @@ class Appbarcomidas extends StatelessWidget {
                           child: Center(
                             child: IconButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
+                                onPressed: () {
+                                   Navigator.pop(context); 
+                                },
                                 icon: Icon(Icons.arrow_back_rounded)),
                           ),
                         ),
@@ -63,12 +67,20 @@ class Appbarcomidas extends StatelessWidget {
                               color: Colors.white,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(40))),
-                          child: Center(
-                            child: IconButton(
-                                padding: EdgeInsets.zero,
-                                onPressed: () {},
-                                icon: Icon(Icons.shopping_cart_outlined)),
-                          ),
+                          child: redireccionamiento,/* InkWell(
+                            
+                            onTap: () {
+                              print('Carrito icon pressed');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>CarritoPage() ,
+              ));
+        },
+                            child: Center(
+                              child: Icon(Icons.shopping_cart_outlined),
+                            ),
+                          ), */
                         ),
                       ),
                     ],

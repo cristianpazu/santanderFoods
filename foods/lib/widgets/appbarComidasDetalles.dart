@@ -31,7 +31,7 @@ class Appbarcomidasdetalles extends StatelessWidget {
                         child: Center(
                           child: IconButton(
                               padding: EdgeInsets.zero,
-                              onPressed: () {},
+                              onPressed: () {   Navigator.pop(context); },
                               icon: Icon(Icons.arrow_back_rounded)),
                         ),
                       ),

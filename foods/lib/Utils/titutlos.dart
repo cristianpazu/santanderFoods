@@ -164,5 +164,25 @@ class UiTexto{
       maxLines: maxLines,
     );
   }
+
+  Widget textoRobotoLightText() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.inter(fontSize: 18,color: Color.fromRGBO(50, 30, 124, 5)),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
+  }
+
+  Widget textoRobotoLightTextLight() {
+    return Text(
+      texto ?? '',
+      style: GoogleFonts.interTight(fontSize: 18,color: Color.fromRGBO(50, 30, 124, 5)),
+      textAlign: alineacionTexto ?? TextAlign.left,
+      overflow: overflow ?? TextOverflow.visible,
+      maxLines: maxLines,
+    );
+  }
 }
  

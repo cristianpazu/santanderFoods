@@ -3,10 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/v2/domain/entities/item/items.dart';
+import 'package:foods/v2/domain/entities/restaurantes/MenuDescripcion.dart';
 import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
 import 'package:foods/v2/menu/menu.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/nombre_restaurante_notifier.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
+import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+import 'package:foods/v2/screen/item/CarritoPage.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
 import 'package:foods/widgets/CardComida.dart';
 import 'package:foods/widgets/appbarComidas.dart';
 import 'package:foods/widgets/appbars.dart';
@@ -36,15 +41,15 @@ class Menucomidas extends ConsumerWidget {
     final menus = productState.informacion?.menu ?? [];
 
     final horarios = productState.informacion?.horario ?? [];
-  
 
     final List<NombreRestaurante> todosLosRestaurantes =
         productState.nombrerestuarante!.cast<NombreRestaurante>().toList();
 
-final imagenRestaurante = todosLosRestaurantes.isNotEmpty
-    ? todosLosRestaurantes.first.image ?? 'assets/proximamente.jpg'
-    : 'assets/proximamente.jpg';
+print(productState.id);
 
+    final imagenRestaurante = todosLosRestaurantes.isNotEmpty
+        ? todosLosRestaurantes.first.image ?? 'assets/proximamente.jpg'
+        : 'assets/proximamente.jpg';
 
     final submenusUnicos =
         menus.map((menu) => menu.submenu ?? '').toSet().toList();
@@ -52,14 +57,24 @@ final imagenRestaurante = todosLosRestaurantes.isNotEmpty
       body: Column(
         children: [
           Appbarcomidas(
-            
             Textfields2(
-              
               controller: _searchController,
               onChanged: (value) {},
-              
             ),
-            imagenRestaurante
+            imagenRestaurante,
+            InkWell(
+              onTap: () {
+                print('Carrito icon pressed');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CarritoPage(),
+                    ));
+              },
+              child: Center(
+                child: Icon(Icons.shopping_cart_outlined),
+              ),
+            ),
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -77,10 +92,13 @@ final imagenRestaurante = todosLosRestaurantes.isNotEmpty
               scrollDirection: Axis.vertical,
               itemCount: menus.length,
               itemBuilder: (context, index) {
-                //  final productStatess = todosLosRestaurantes[index];
+                  final productStatess = todosLosRestaurantes[index];
                 final menuSate = menus[index];
                 final descrpconmenu = menuSate
-                    .descripcion; /*
+                    .descripcion;
+                    
+                      final idss = productStatess
+                    .id; /*
                 final nombreComida = menus[index].descripcion;
                 final nombres = nombreComida![index].nombre; */
 
@@ -95,26 +113,6 @@ final imagenRestaurante = todosLosRestaurantes.isNotEmpty
                     SizedBox(
                       height: 20,
                     ),
-
-/*
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: menus.map((menu) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: chipAll(menu.submenu ?? ''),
-                          );
-                        }).toList(),
-                      ),
-                    ), */
-
-                    /* Row(
-                    
-                      children: [
-                        chipAll( menuSate.submenu ?? '')
-                      ],
-                    ), */
                     SizedBox(
                       height: 10,
                     ),
@@ -140,34 +138,47 @@ final imagenRestaurante = todosLosRestaurantes.isNotEmpty
                         physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, subIndex) {
                           final item = descrpconmenu[subIndex];
-                          final imagePath = item.image == "" ?  'assets/proximamente.jpg' : item.image;
-                          
+
+                          final Items itemss = Items(
+                            id: idss,
+                            nombre: item.nombre,
+                            descripcion: item.descripcion,
+                            precio: item.precio,
+                            unidades: item.unidades,
+                            image: item
+                                .image, // Si quieres incluir la imagen también
+                            // O lo que corresponda en tu caso
+                          );
+
+                          print('item $item');
+                          final imagePath = item.image == ""
+                              ? 'assets/proximamente.jpg'
+                              : item.image;
 
                           return Cardcomida(
-                            
-                           imagePath!,
-                            '${item.nombre}',
-                            screenWidth,
-                          );
+                              imagePath!,
+                              '${item.nombre}',
+                              screenWidth,
+                              Detallecomida(
+                                imagePath,
+                                '${item.nombre}',
+                                '${item.descripcion}',
+                                '${item.precio}',
+                                ElevatedButton(
+                                  onPressed: () {
+                                    ref
+                                        .read(itemsStateNotifier.notifier)
+                                        .agregarItems(itemss);
+                                  },
+                                  child: Text('Agregar Producto'),
+                                ),
+                              ));
                         }),
                   ],
                 );
               },
             ),
           ),
-
-          /* Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40),
-                  topRight: Radius.circular(40)
-                )
-              ),
-            
-            ),
-          ),*/
         ],
       ),
     );
