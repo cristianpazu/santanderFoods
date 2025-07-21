@@ -88,46 +88,118 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
                       final itemState = carrito[index];
                       final item = itemState.menuDescripcion.first;
 
-                
                       print('itemitemitem ${item.precio}');
-                      return Container(
-                        color: Color(ConstantesColorTema.fondoColorAppbar),
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: Image.asset(item.image ?? ''),
-                              title: Text(item.nombre ?? ''),
-                              subtitle: Text(item.descripcion ?? ''),
-                              trailing: Column(
-                                children: [
-                                  Text('\$${item.precio}'),
-                                  Container(
-                                    height: 40,
-                                    width: 40,
-                                    color: Colors.red,
-                                    child: Center(
-                                        child: IconButton(
-                                            onPressed: () {
-                                              ref
-                                                  .read(itemsStateNotifier
-                                                      .notifier)
-                                                  .eliminarItems(item);
-                                            },
-                                            icon: Icon(Icons
-                                                .delete_forever_outlined))),
-                                  )
-                                ],
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          color: Color(ConstantesColorTema.fondoColorAppbar),
+                          ),
+                          height: 200,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Image.asset(item.image ?? ''),
+                                  title: Text(item.nombre ?? ''),
+                                  subtitle: Text(item.descripcion ?? ''),
+                                  trailing: Container(
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                    color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text('\$${item.precio}'),
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                    
+                                          child: Center(
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    ref
+                                                        .read(itemsStateNotifier
+                                                            .notifier)
+                                                        .eliminarItems(item);
+                                                  },
+                                                  icon: Icon(Icons
+                                                      .delete_forever_outlined))),
+                                        ),
+                                       
+                                        /*Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                                Text('data'),
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ) */
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
+
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      color: Colors.blue,
+                                      child: Center(child: Icon(Icons.add)),
+                                    ),
+SizedBox(width: 50,),
+                                     Container(
+                                      width: 50,
+                                      height: 50,
+                                      color: Colors.blue,
+                                      child: Center(child: Icon(Icons.remove)),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
 
                     //
                   ),
+
+
+
+
+                  
                   //
                 ),
+
+
+
+
+
+
+
+
+
+
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(

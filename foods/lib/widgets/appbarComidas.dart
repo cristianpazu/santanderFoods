@@ -56,29 +56,31 @@ class Appbarcomidas extends StatelessWidget {
                 ),
                 //
 
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 30),
-                  child: Container(
-                    height: 50,
-                    width: 25,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(40))),
-                    child:
-                        redireccionamiento, /* InkWell(
-                            
-                            onTap: () {
-                              print('Carrito icon pressed');
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>CarritoPage() ,
-              ));
-        },
-                            child: Center(
-                              child: Icon(Icons.shopping_cart_outlined),
-                            ),
-                          ), */
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 30),
+                    child: Container(
+                      height: 50,
+                      width: 25,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(40))),
+                      child:
+                          redireccionamiento, /* InkWell(
+                              
+                              onTap: () {
+                                print('Carrito icon pressed');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                  builder: (context) =>CarritoPage() ,
+                                ));
+                          },
+                              child: Center(
+                                child: Icon(Icons.shopping_cart_outlined),
+                              ),
+                            ), */
+                    ),
                   ),
                 ),
               ],
