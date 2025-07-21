@@ -87,7 +87,7 @@ final item = itemState.menuDescripcion.first;
 
 print('itemitemitem ${item.precio}');
                     return ListTile(
-                      leading: Image.network(item.image ?? ''),
+                      leading: Image.asset(item.image ?? ''),
                       title: Text(item.nombre ?? ''),
                       subtitle: Text(item.descripcion ?? ''),
                       trailing: Text('\$${item.precio}'),

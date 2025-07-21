@@ -17,7 +17,9 @@ void agregarItems(Items item){
 print('dsadasdas $item');
 state = [
   ...state,
- ItemState(id: item.id!,isLoding: false, menuDescripcion:_convertirAMenuDescripcion(item) )
+ ItemState(
+  //id: item.id!
+ isLoding: false, menuDescripcion:_convertirAMenuDescripcion(item) )
 ];
 
  

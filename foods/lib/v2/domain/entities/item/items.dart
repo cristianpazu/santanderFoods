@@ -1,5 +1,5 @@
 class Items {
-  int? id;
+  //int? id;
   String? nombre;
   dynamic descripcion;
   String? image;
@@ -7,7 +7,7 @@ class Items {
   String? precio;
 
   Items({
-    this.id,
+//    this.id,
     this.nombre,
     required this.descripcion,
     this.image,
@@ -16,7 +16,7 @@ class Items {
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(
-        id: json["id"],
+      //  id: json["id"],
         nombre: json["nombre"],
         descripcion: json["descripcion"],
         image: json["image"],
@@ -25,7 +25,7 @@ class Items {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+      //  "id": id,
         "nombre": nombre,
         "descripcion": descripcion,
         "image": image,

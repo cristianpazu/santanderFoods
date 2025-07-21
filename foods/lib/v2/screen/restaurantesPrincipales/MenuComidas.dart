@@ -92,13 +92,15 @@ print(productState.id);
               scrollDirection: Axis.vertical,
               itemCount: menus.length,
               itemBuilder: (context, index) {
-                  final productStatess = todosLosRestaurantes[index];
+                //  final productStatess = todosLosRestaurantes[index];
                 final menuSate = menus[index];
                 final descrpconmenu = menuSate
                     .descripcion;
                     
-                      final idss = productStatess
-                    .id; /*
+
+//                      final idss = productStatess
+  //                  .id; 
+  /*
                 final nombreComida = menus[index].descripcion;
                 final nombres = nombreComida![index].nombre; */
 
@@ -140,7 +142,7 @@ print(productState.id);
                           final item = descrpconmenu[subIndex];
 
                           final Items itemss = Items(
-                            id: idss,
+                            
                             nombre: item.nombre,
                             descripcion: item.descripcion,
                             precio: item.precio,
