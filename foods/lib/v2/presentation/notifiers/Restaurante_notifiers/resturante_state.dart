@@ -4,13 +4,13 @@ import 'package:foods/v2/domain/entities/restaurantes/Restaurantes.dart';
 
 
 class ResturanteState {
-  final bool? isLoding;
-  final List<Restaurantes>? restaurantes;
+  final bool isLoding;
+  final List<Restaurantes> restaurante;
 
 
   ResturanteState({
     this.isLoding = false,
-    this.restaurantes = const [], 
+    this.restaurante = const [], 
 });
 
 ResturanteState copyWith({
@@ -18,7 +18,7 @@ ResturanteState copyWith({
   List<Restaurantes>? restaurante,
 }) => ResturanteState(
   isLoding: isLoding ?? this.isLoding,
-  restaurantes: restaurante ?? this.restaurantes
+  restaurante: restaurante ?? this.restaurante
 );
 
 

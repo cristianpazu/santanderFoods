@@ -36,6 +36,7 @@ required this.restaurantesRepositories
 
     state = state.copyWith(isLoding: true);
 
+    await Future.delayed(Duration(seconds: 5));  
     final restaurantes = await restaurantesRepositories.consultarRestaurantes();
    
     if (restaurantes.isEmpty) {
@@ -44,7 +45,7 @@ required this.restaurantesRepositories
     }
 
     state = state.copyWith(
-        isLoding: false, restaurante: [...state.restaurantes!, ...restaurantes]);
+        isLoding: false, restaurante: [...state.restaurante, ...restaurantes]);
   }
   //
 

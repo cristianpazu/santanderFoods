@@ -29,11 +29,7 @@ class TarjetainfoComida extends StatelessWidget {
                         width: 290,
                         child: UiTexto(texto: nombreComida, maxLines: 2)
                             .textoRobotoLight5()),
-                    Container(
-                      height: 10,
-                      width: 10,
-                      color: Colors.green,
-                    )
+                    
                   ],
                 ),
                 Row(
@@ -48,11 +44,12 @@ class TarjetainfoComida extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     UiTexto(texto: 'Total a pagar').textoRobotoLightTextLight(),
+                      
                     Row(
                       children: [
                         UiTexto(texto: valor).textoRobotoLight5(),
                         SizedBox(
-                          width: 150,
+                          width: 90,
                         ),
                         //  UiTexto(texto: 'sadsa').textoRobotoLight5(),
                        agregarComida

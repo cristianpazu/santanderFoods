@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/widgets/appbars.dart';
+import 'package:foods/widgets/appbarsDetalleComida.dart';
 
 class Appbarcomidasdetalles extends StatelessWidget {
   String image;
@@ -37,7 +38,7 @@ class Appbarcomidasdetalles extends StatelessWidget {
                       ),
                     ),
                     //
-
+    
                     //
                   ],
                 ),

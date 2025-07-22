@@ -21,11 +21,50 @@ state = [
   //id: item.id!
  isLoding: false, menuDescripcion:_convertirAMenuDescripcion(item) )
 ];
+}
+//
 
- 
+void incrementarUnidades(String nombre) {
+  state = state.map((itemState) {
+    final updatedMenuDescripcion = itemState.menuDescripcion.map((menuItem) {
+      if (menuItem.nombre == nombre) {
+        return menuItem.copyWith(
+          unidadesPedir: (menuItem.unidadesPedir ?? 0) + 1,
+        );
+      }
+      return menuItem;
+    }).toList();
+
+    return itemState.copyWith(menuDescripcion: updatedMenuDescripcion);
+  }).toList();
 }
 
 
+
+void decrementarUnidades(String nombre) {
+  state = state.map((itemState) {
+    final updatedMenuDescripcion = itemState.menuDescripcion.map((menuItem) {
+      if (menuItem.nombre == nombre) {
+        final nuevasUnidades = (menuItem.unidadesPedir ?? 1) - 1;
+        if (nuevasUnidades <= 0) return menuItem; // Evita ir a negativo
+        return menuItem.copyWith(unidadesPedir: nuevasUnidades);
+      }
+      return menuItem;
+    }).toList();
+
+    return itemState.copyWith(menuDescripcion: updatedMenuDescripcion);
+  }).toList();
+}
+
+
+
+//
+
+void actualizarValor(){}
+
+
+
+//
 void eliminarItems(MenuDescripcion item) {
   state = state
       .map((itemState) {

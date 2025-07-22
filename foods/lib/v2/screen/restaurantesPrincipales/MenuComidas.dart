@@ -36,7 +36,8 @@ class Menucomidas extends ConsumerWidget {
     final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
 
     if (productState.isLoding!) {
-      return const CircularProgressIndicator();
+      return Image.network(
+          'https://i.pinimg.com/originals/c4/cb/9a/c4cb9abc7c69713e7e816e6a624ce7f8.gif'); // const CircularProgressIndicator();
     }
 
     final menus = productState.informacion?.menu ?? [];
@@ -176,6 +177,11 @@ class Menucomidas extends ConsumerWidget {
                                 '${item.descripcion}',
                                 '${item.precio}',
                                 ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(
+                                          ConstantesColorTema.fondoColorAppbar),
+                                      foregroundColor:
+                                          Color(ConstantesColorTema.blanco)),
                                   onPressed: () {
                                     ref
                                         .read(itemsStateNotifier.notifier)

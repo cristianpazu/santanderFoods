@@ -6,6 +6,7 @@ class MenuDescripcion {
     String? precio;
  
     String? submenu;
+    int? unidadesPedir;
 
     MenuDescripcion({
         this.nombre,
@@ -15,6 +16,7 @@ class MenuDescripcion {
         this.precio,
    
         this.submenu,
+        this.unidadesPedir,
     });
 
     factory MenuDescripcion.fromJson(Map<String, dynamic> json) => MenuDescripcion(
@@ -23,8 +25,8 @@ class MenuDescripcion {
         image: json["image"],
         unidades: json["unidades"],
         precio: json["precio"],
-       
         submenu: json["submenu"],
+        unidadesPedir: json["unidadesPedir"]
     );
 
     Map<String, dynamic> toJson() => {
@@ -33,9 +35,32 @@ class MenuDescripcion {
         "image": image,
         "unidades": unidades,
         "precio": precio,
-  
         "submenu": submenu,
+        "unidadesPedir": unidadesPedir
     };
+
+    MenuDescripcion copyWith({
+String? nombre,
+    dynamic descripcion,
+    String? image,
+    String? unidades,
+    String? precio,
+ 
+    String? submenu,
+    int? unidadesPedir,
+    }) {
+return MenuDescripcion(
+   nombre: nombre ?? this.nombre,
+        descripcion: descripcion ?? this.descripcion,
+        image: image ?? this.image,
+        unidades: unidades ?? this.unidades,
+        precio: precio ?? this.precio,
+        submenu: submenu ?? this.submenu,
+        unidadesPedir: unidadesPedir ?? this.unidadesPedir
+);
+    }
+
+
      @override
   String toString() {
     return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio, submenu: $submenu)';
