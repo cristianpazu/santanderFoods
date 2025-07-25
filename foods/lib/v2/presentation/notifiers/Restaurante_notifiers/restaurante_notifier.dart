@@ -26,7 +26,7 @@ final RestaurantesRepositories restaurantesRepositories;
   RestauranteNotifier({
 required this.restaurantesRepositories
   }):super(ResturanteState()){
-    loadRestaurante();
+   // loadRestaurante();
   //  loadRestauranteId( Id);
   }
 

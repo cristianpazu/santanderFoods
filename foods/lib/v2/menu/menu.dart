@@ -61,7 +61,10 @@ TextEditingController _searchController = TextEditingController();
                               altura: 180,
                               image: Image.asset(tarjeta.imagenPath, fit: BoxFit.contain),
                               texto: tarjeta.texto,
-                              redireccionamiento: tarjeta.redireccionamiento,
+                              redireccionamiento: 
+                              
+                              
+                               tarjeta.redireccionamiento,
                             ),
                           );
                         }).toList(),

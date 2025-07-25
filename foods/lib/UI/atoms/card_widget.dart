@@ -11,7 +11,7 @@ class cardWidget extends StatelessWidget {
   double? ancho;
   double? altura;
   Color? colors;
-  Widget? redireccionamiento;
+  Widget redireccionamiento;
 
   cardWidget(
       {super.key,
@@ -20,7 +20,7 @@ class cardWidget extends StatelessWidget {
       this.ancho,
       this.altura,
       this.colors,
-      this.redireccionamiento});
+     required this.redireccionamiento});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class cardWidget extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => redireccionamiento ?? Menu(),
+                builder: (context) => redireccionamiento,
               ));
         },
         child: Container(
@@ -47,7 +47,7 @@ class cardWidget extends StatelessWidget {
                 child: Container(
                     height: 110, width: 112, color: Colors.white, child: image),
               ),
-              UiTexto(texto: texto, tamanioTexto: 'md').textoRobotoLight2(),
+              UiTexto(texto: texto, tamanioTexto: 'md').textoRobotoLightTextLight(),
             ],
           ),
         ),

@@ -31,7 +31,9 @@ class MenuWidget extends ConsumerWidget {
                   child: Center(
                     child: IconButton(
                         padding: EdgeInsets.zero,
-                        onPressed: () {},
+                        onPressed: () {
+  Navigator.of(context).pop();
+                        },
                         icon: Icon(Icons.arrow_back_rounded)),
                   ),
                 ),

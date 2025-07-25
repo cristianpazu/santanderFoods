@@ -13,7 +13,16 @@ class ItemStateNotifiers extends StateNotifier<List<ItemState>> {
 
 ItemStateNotifiers(): super([]);
 
-void agregarItems(Items item){
+bool agregarItems(Items item){
+ final yaExiste = state.any((itemState) =>
+  itemState.menuDescripcion.any((menu) =>
+    menu.nombre?.toLowerCase().trim() == item.nombre?.toLowerCase().trim()));
+
+  if (yaExiste) {
+    return false; // Ya existe, no lo agrega
+  }
+
+
 print('dsadasdas $item');
 state = [
   ...state,
@@ -21,6 +30,7 @@ state = [
   //id: item.id!
  isLoding: false, menuDescripcion:_convertirAMenuDescripcion(item) )
 ];
+return true;
 }
 //
 

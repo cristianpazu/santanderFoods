@@ -6,15 +6,16 @@
           "id": 1,
           "nombres": "Salchi King",
           "image": "assets/salchiking.png",
+          "direccion": "carrera 11 # 12-52 zona franca containers",
+              "contacto": "312 8483993",
           "CATEGORIAS": {
             "id":1,
             "nombre_categoria": "salchipapa"
           },
           "informacion": [
             {
-              "nombre": "Salchi King",
-              "direccion": "carrera 11 # 12-52 zona franca containers",
-              "contacto": "312 8483993",
+             
+              
               "horario": [
                 {
                   "Lunes": "04:00 p.m a 12:00 a.m."
@@ -270,15 +271,15 @@
           "id": 2,
           "nombres": "QuiliAlitas",
           "image": "assets/quilialitas.jpeg",
+             "direccion": "Villa Luisa, Cl. 20 #14-12, Santander de Quilichao, Cauca",
+              "contacto": "313 5493813",
           "CATEGORIAS": {
             "id":4,
             "nombre_categoria": "alitas"
           },
           "informacion": [
             {
-              "nombre": "QuiliAlitas",
-              "direccion": "Villa Luisa, Cl. 20 #14-12, Santander de Quilichao, Cauca",
-              "contacto": "313 5493813",
+           
               "horario": [
                 {
                   "Lunes": "05:30 p.m a 10:30 p.m."
@@ -885,17 +886,18 @@
 
         {
           "id": 3,
-          "nombres": "PACOS",
+           "nombre": "𝗣𝗔𝗖𝗢'𝗦 - 𝗔𝗿𝘁𝗲𝘀𝗮𝗻𝗮𝗹 𝗕𝘂𝗿𝗴𝗲𝗿",
           "image": "assets/pacos.jpg",
+             "direccion": "Carrera 11 # 7-70 Saman Plaza",
+              "contacto": "313 5493813",
           "CATEGORIAS": {
             "id":2,
             "nombre_categoria": "hamburguesas"
           },
           "informacion": [
             {
-              "nombre": "𝗣𝗔𝗖𝗢'𝗦 - 𝗔𝗿𝘁𝗲𝘀𝗮𝗻𝗮𝗹 𝗕𝘂𝗿𝗴𝗲𝗿",
-              "direccion": "Carrera 11 # 7-70 Saman Plaza",
-              "contacto": "313 5493813",
+             
+           
               "horario": [
                 {
                   "Lunes": "05:30 p.m a 10:30 p.m."
@@ -1376,15 +1378,15 @@
           "id": 4,
           "nombres": "Pinle",
           "image": "assets/pacos.jpg",
+            "direccion": "Carrera 11 # 7-70 Saman Plaza",
+              "contacto": "322 8774292",
           "CATEGORIAS": {
             "id":2,
             "nombre_categoria": "hamburguesas"
           },
           "informacion": [
             {
-              "nombre": "Pinle",
-              "direccion": "Carrera 11 # 7-70 Saman Plaza",
-              "contacto": "322 8774292",
+            
               "horario": [
                 {
                   "Lunes": "05:30 p.m a 10:30 p.m."

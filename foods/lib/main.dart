@@ -69,8 +69,9 @@ class MenuResponsive extends StatelessWidget {
       ),
       home:// CarritoPage()
       // Menucomidas(),
-         Restautantesprincipales(), 
-      // menuHome(),
+         //Restautantesprincipales(), 
+      
+      menuHome(),
     );
   }
 } 

@@ -118,6 +118,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'HOTELES',
+                                redireccionamiento: Comidas_rapidas_info(),
                               ),
                             ],
                           ),
@@ -140,6 +141,7 @@ class Menu extends StatelessWidget {
                                   fit: BoxFit.contain,
                                 ),
                                 texto: 'PANADERIAS',
+                                redireccionamiento: Comidas_rapidas_info(),
                               ),
                               SizedBox(
                                 width: 35,

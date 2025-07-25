@@ -127,7 +127,7 @@ class UiTexto{
    Widget textoRobotoLight4() {
     return Text(
       texto?.toUpperCase() ?? '',
-      style: GoogleFonts.monomaniacOne(fontSize: 12, ),
+      style: GoogleFonts.monomaniacOne(fontSize: 12, color: Color.fromRGBO(255, 255, 255, 0.984)),
       textAlign: alineacionTexto ?? TextAlign.left,
       overflow: overflow ?? TextOverflow.visible,
       maxLines: maxLines,

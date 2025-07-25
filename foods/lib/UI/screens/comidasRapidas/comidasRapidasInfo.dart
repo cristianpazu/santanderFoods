@@ -163,7 +163,7 @@ class _ComidasRapidastate extends State<Comidas_rapidas_info> {
                                      final idCategoria =
                                     categoria['id'];
                                 final categoriaImage = categoria['image'];
- print('>>nombres>>>>>>>>nombres>>>> $idCategoria');
+                                    print('>>nombres>>>>>>>>nombres>>>> $idCategoria');
                                 return Padding(
                                   padding: const EdgeInsets.only(right: 20),
                                   child: cardWidgetCategoria(
