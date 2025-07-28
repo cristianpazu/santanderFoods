@@ -24,10 +24,10 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
       final precioStr = itemState.menuDescripcion.isNotEmpty
           ? itemState.menuDescripcion.first.precio ?? '0'
           : '0';
-  final menuItem = itemState.menuDescripcion.first;
+      final menuItem = itemState.menuDescripcion.first;
       print('precioStr original: "$precioStr"');
 
-       final unidades = menuItem.unidadesPedir ?? 1;
+      final unidades = menuItem.unidadesPedir ?? 1;
 
       // Limpia el string: quita puntos, cambia coma decimal a punto, quita símbolos y espacios
       final limpio = precioStr
@@ -44,7 +44,7 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
       print('precio parsed: $precio');
 
       return suma + (precio * unidades);
-    }); 
+    });
 
     print('total sin formatear: $total');
 
@@ -61,9 +61,10 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
         final nombre = item.nombre ?? '';
         final descripcion = item.descripcion ?? '';
         final precio = item.precio ?? '';
-         final unidades = item.unidadesPedir ?? 1;
+        final unidades = item.unidadesPedir ?? 1;
 
-        message += '• *$nombre* - $descripcion\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';
+        message +=
+            '• *$nombre* - $descripcion\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';
       }
 
       message += '🧾 *Total:* \$${totalFormateado}';
@@ -92,147 +93,40 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
                       final item = itemState.menuDescripcion.first;
 
                       print('itemitemitem ${item.precio}');
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color(ConstantesColorTema.fondoColorAppbar),
-                          ),
-                          height: 200,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: ListTile(
-                                  leading: Image.asset(item.image ?? ''),
-                                  title: Text(item.nombre ?? ''),
-                                  subtitle: Text(item.descripcion ?? ''),
-                                  trailing: Container(
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Text('\$${item.precio}'),
-                                        Container(
-                                          height: 40,
-                                          width: 40,
-                                          child: Center(
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    ref
-                                                        .read(itemsStateNotifier
-                                                            .notifier)
-                                                        .eliminarItems(item);
-                                                  },
-                                                  icon: Icon(Icons
-                                                      .delete_forever_outlined))),
-                                        ),
-
-                                        /*Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Container(
-                                                  width: 10,
-                                                  height: 10,
-                                                  color: Colors.amber,
-                                                ),
-                                                Text('data'),
-                                                Container(
-                                                  width: 10,
-                                                  height: 10,
-                                                  color: Colors.amber,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ) */
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:BorderRadius.circular(20), 
-                                      color: Colors.blue,
-                                      ),
-                                      width: 50,
-                                      height: 50,
-                                      child: Center(child: IconButton(onPressed: (){
-                                        ref.read(itemsStateNotifier.notifier).incrementarUnidades(item.nombre!);
-                                      }, icon: Icon(Icons.add))),
-                                    ),
-                                    SizedBox(
-                                      width: 25,
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      width: 50,
-                                      color: Colors.green,
-                                      child: Center(
-                                        child: Text(' ${item.unidadesPedir  ?? 1}'),
-                                      ),
-                                    ),
-
-                                     SizedBox(
-                                      width: 25,
-                                    ),
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                   decoration: BoxDecoration(
-                                        borderRadius:BorderRadius.circular(20), 
-                                      color: Colors.blue,
-                                      ),
-                                      child: Center(child:IconButton(onPressed: (){
-                                          ref.read(itemsStateNotifier.notifier).decrementarUnidades(item.nombre!);
-                                      }, icon: Icon(Icons.remove),)),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                      return ListTile(
+                        leading: Image.asset(
+                            item.image ?? 'assets/proximamente.jpg'),
+                        title: Text(item.nombre ?? ''),
+                        subtitle: Text(item.descripcion ?? ''),
+                        trailing: Text('\$${item.precio}'),
                       );
                     },
 
                     //
                   ),
-
+),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Total:',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text('\$${totalFormateado}',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ),
                   //
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Total:',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                      Text('\$${totalFormateado}',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
-                    ],
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: _openWhatsApp,
+                      child: Text('Abrir WhatsApp'),
+                    ),
                   ),
-                ),
-                //
-                Center(
-                  child: ElevatedButton(
-                    onPressed: _openWhatsApp,
-                    child: Text('Abrir WhatsApp'),
-                  ),
-                ),
+                
               ],
             ),
     );

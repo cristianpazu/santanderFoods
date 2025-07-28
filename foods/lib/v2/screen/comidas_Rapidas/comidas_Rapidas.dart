@@ -5,6 +5,8 @@ import 'package:foods/UI/screens/comidasRapidas/comidasRapidasInfoCategoria.dart
 import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/titutlos.dart';
 import 'package:foods/v2/presentation/notifiers/Categoria_notifiers/categoria_notifier.dart';
+import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/comida_rapida_notifiers.dart';
+import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
 import 'package:foods/widgets/MenuWidget.dart';
 
 class ComidasRapidas extends ConsumerStatefulWidget {
@@ -15,15 +17,42 @@ class ComidasRapidas extends ConsumerStatefulWidget {
 }
 
 class _ComidasRapidasState extends ConsumerState {
+   int? _categoriaSeleccionadaId;
   @override
   void initState() {
     super.initState();
+     WidgetsBinding.instance.addPostFrameCallback((_) {
     ref.read(categoriaProvider.notifier).loadCategoria();
+    ref.read(comidaRapidaProvider.notifier).loadComidaRapidas();
+  });
+    //ref.read(categoriaProvider.notifier).loadCategoria();
+   // ref.read(comidaRapidaProvider.notifier).loadComidaRapidas();
   }
 
   @override
   Widget build(BuildContext context) {
     final categoriaLista = ref.watch(categoriaProvider);
+     final comidaRapida = ref.watch(comidaRapidaProvider);
+
+print(comidaRapida.comidaRapida);
+final todasLasComidas = comidaRapida.comidaRapida
+    .expand((comidaRapidas) => comidaRapidas.nombreComidaRapida)
+    .toList();
+
+
+   final comidasFiltradas = _categoriaSeleccionadaId == null
+    ? todasLasComidas
+    : todasLasComidas
+        .where((comida) => comida.categorias.id == _categoriaSeleccionadaId)
+        .toList();
+
+
+
+
+
+
+
+
 
     Widget? _getPantallaPorCategoria(int idCategoria) {
       print('idCategoria $idCategoria');
@@ -87,6 +116,37 @@ class _ComidasRapidasState extends ConsumerState {
             },
           ),
         ),
+
+        //
+
+
+        //
+
+Column(
+    children: [
+        
+      // Mostrar las comidas filtradas
+      ...comidasFiltradas.map((comida) =>
+      cardComidaRapidasWidget(
+                                colors: Color.fromARGB(255, 255, 255, 255),
+                                image: Image.asset(
+                                  comida.image,
+                                  fit: BoxFit.contain,
+                                ),
+                              //  redireccionamiento: comidas_rapidas(id: idProducto),
+                                texto: comida.nombres,
+                              ),
+      /* ListTile(
+            leading: Image.asset(comida.image, width: 50),
+            title: Text(comida.nombres ?? ''),
+            subtitle: Text(comida.categorias.nombreCategoria),
+          ) */
+          
+          ),
+    ],
+  )
+
+
       ],
     ));
   }
