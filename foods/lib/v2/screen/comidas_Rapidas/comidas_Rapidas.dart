@@ -8,7 +8,7 @@ import 'package:foods/v2/presentation/notifiers/Categoria_notifiers/categoria_no
 import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/comida_rapida_notifiers.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
 import 'package:foods/widgets/MenuWidget.dart';
-
+import 'package:collection/collection.dart';
 class ComidasRapidas extends ConsumerStatefulWidget {
   const ComidasRapidas({super.key});
 
@@ -33,7 +33,16 @@ class _ComidasRapidasState extends ConsumerState {
   Widget build(BuildContext context) {
     final categoriaLista = ref.watch(categoriaProvider);
      final comidaRapida = ref.watch(comidaRapidaProvider);
+final todasLasComidas = comidaRapida.comidaRapida
+    .expand((e) => e.nombreComidaRapida)
+    .toList();
 
+      final comidasAgrupadasPorCategoria = groupBy(
+    todasLasComidas,
+    (comida) => comida.categorias.nombreCategoria,
+  );
+
+/*
 print(comidaRapida.comidaRapida);
 final todasLasComidas = comidaRapida.comidaRapida
     .expand((comidaRapidas) => comidaRapidas.nombreComidaRapida)
@@ -44,7 +53,7 @@ final todasLasComidas = comidaRapida.comidaRapida
     ? todasLasComidas
     : todasLasComidas
         .where((comida) => comida.categorias.id == _categoriaSeleccionadaId)
-        .toList();
+        .toList(); */
 
 
 
@@ -121,30 +130,60 @@ final todasLasComidas = comidaRapida.comidaRapida
 
 
         //
-
-Column(
-    children: [
+Expanded(
+  child: SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: comidasAgrupadasPorCategoria.entries.map((entry) {
+        final nombreCategoria = entry.key;
+        final comidas = entry.value;
+    
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Título de categoría
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+              child: Text(
+                nombreCategoria,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
         
-      // Mostrar las comidas filtradas
-      ...comidasFiltradas.map((comida) =>
-      cardComidaRapidasWidget(
-                                colors: Color.fromARGB(255, 255, 255, 255),
-                                image: Image.asset(
-                                  comida.image,
-                                  fit: BoxFit.contain,
-                                ),
-                              //  redireccionamiento: comidas_rapidas(id: idProducto),
-                                texto: comida.nombres,
-                              ),
-      /* ListTile(
-            leading: Image.asset(comida.image, width: 50),
-            title: Text(comida.nombres ?? ''),
-            subtitle: Text(comida.categorias.nombreCategoria),
-          ) */
-          
-          ),
-    ],
-  )
+            // Carrusel horizontal de tarjetas
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0), // margen izquierdo para separar del borde
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: comidas.map((comida) => Padding(
+                    padding: const EdgeInsets.only(right: 12.0), // Espacio entre tarjetas
+                    child: cardComidaRapidasWidget(
+                      colors: Colors.white,
+                      image: Image.asset(comida.image, fit: BoxFit.contain),
+                      texto: comida.nombres,
+                    ),
+                  )).toList(),
+                ),
+              ),
+            ),
+        
+            const SizedBox(height: 16.0), // Espacio inferior entre categorías
+          ],
+        );
+      }).toList(),
+    ),
+  ),
+)
+
+
+
+
+
+
+
+
+
 
 
       ],
