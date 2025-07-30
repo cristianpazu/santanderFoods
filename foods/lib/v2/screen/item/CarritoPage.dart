@@ -62,9 +62,10 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
         final descripcion = item.descripcion ?? '';
         final precio = item.precio ?? '';
         final unidades = item.unidadesPedir ?? 1;
+        final salsas = item.salsasSeleccionadas;
 
         message +=
-            '• *$nombre* - $descripcion\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';
+            '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';
       }
 
       message += '🧾 *Total:* \$${totalFormateado}';
@@ -92,14 +93,133 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
                       final itemState = carrito[index];
                       final item = itemState.menuDescripcion.first;
 
-                      print('itemitemitem ${item.precio}');
-                      return ListTile(
+
+                      print('itemitemitem ${item.salsasSeleccionadas}');
+                      return  Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(ConstantesColorTema.fondoColorAppbar),
+                          ),
+                          height: 200,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Image.asset(  (item.image != null && item.image!.isNotEmpty)
+      ? item.image!
+      : 'assets/proximamente.jpg'),
+                                  title: Text(item.nombre ?? ''),
+                                  subtitle: Text(item.descripcion ?? ''),
+                                  trailing: Container(
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text('\$${item.precio}'),
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                          child: Center(
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    ref
+                                                        .read(itemsStateNotifier
+                                                            .notifier)
+                                                        .eliminarItems(item);
+                                                  },
+                                                  icon: Icon(Icons
+                                                      .delete_forever_outlined))),
+                                        ),
+
+                                        /*Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                                Text('data'),
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ) */
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:BorderRadius.circular(20), 
+                                      color: Colors.blue,
+                                      ),
+                                      width: 50,
+                                      height: 50,
+                                      child: Center(child: IconButton(onPressed: (){
+                                        ref.read(itemsStateNotifier.notifier).incrementarUnidades(item.nombre!);
+                                      }, icon: Icon(Icons.add))),
+                                    ),
+                                    SizedBox(
+                                      width: 25,
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      width: 50,
+                                      color: Colors.green,
+                                      child: Center(
+                                        child: Text(' ${item.unidadesPedir  ?? 1}'),
+                                      ),
+                                    ),
+
+                                     SizedBox(
+                                      width: 25,
+                                    ),
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                   decoration: BoxDecoration(
+                                        borderRadius:BorderRadius.circular(20), 
+                                      color: Colors.blue,
+                                      ),
+                                      child: Center(child:IconButton(onPressed: (){
+                                          ref.read(itemsStateNotifier.notifier).decrementarUnidades(item.nombre!);
+                                      }, icon: Icon(Icons.remove),)),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )); /*ListTile(
                         leading: Image.asset(
-                            item.image ?? 'assets/proximamente.jpg'),
+                            item.image ??  'assets/proximamente.jpg',),
                         title: Text(item.nombre ?? ''),
-                        subtitle: Text(item.descripcion ?? ''),
+                        subtitle: Column(
+                          children: [
+                            Text(item.descripcion ?? ''),
+                            if (item.salsasSeleccionadas != null)
+                            Text('Salsas: ${item.salsasSeleccionadas!.join(', ')}'),
+                          ],
+                        ),
                         trailing: Text('\$${item.precio}'),
-                      );
+                      ); */
                     },
 
                     //
