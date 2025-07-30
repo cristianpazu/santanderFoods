@@ -5,6 +5,7 @@ class Items {
   String? unidades;
   String? precio;
   int? unidadesPedir;
+   List<String>? salsasSeleccionadas;
 
   Items({
     this.nombre,
@@ -12,7 +13,8 @@ class Items {
     this.image,
     this.unidades,
     this.precio,
-    this.unidadesPedir
+    this.unidadesPedir,
+     this.salsasSeleccionadas,
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(
@@ -22,7 +24,10 @@ class Items {
         image: json["image"],
         unidades: json["unidades"],
         precio: json["precio"],
-        unidadesPedir: json["unidadesPedir"]
+        unidadesPedir: json["unidadesPedir"],
+        salsasSeleccionadas: json["salsasSeleccionadas"] != null
+            ? List<String>.from(json["salsasSeleccionadas"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,6 +38,7 @@ class Items {
         "unidades": unidades,
         "precio": precio,
         "unidadesPedir": unidadesPedir,
+          "salsasSeleccionadas": salsasSeleccionadas,
       };
 
 
@@ -44,6 +50,7 @@ class Items {
     String? precio,
   
     int? unidadesPedir,
+    List<String>? salsasSeleccionadas,
   }) {
     return Items(
       nombre: nombre ?? this.nombre,
@@ -53,12 +60,13 @@ class Items {
       precio: precio ?? this.precio,
 
       unidadesPedir: unidadesPedir ?? this.unidadesPedir,
+      salsasSeleccionadas: salsasSeleccionadas ?? this.salsasSeleccionadas,
     );
   }
 
 
   @override
   String toString() {
-    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio)';
+    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion,salsasSeleccionadas: $salsasSeleccionadas, image: $image, unidades: $unidades, precio: $precio)';
   }
 }

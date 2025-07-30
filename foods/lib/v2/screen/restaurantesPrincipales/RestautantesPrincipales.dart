@@ -49,69 +49,73 @@ print('<<<<<<<<<<<<<<<<<<< ${restauranteState.restaurante}');
 
   print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<1111111$cargando');
     return MenuWidget(
-      Expanded(
-        child: GridView.builder(
-        padding: EdgeInsets.all(20),
-      //  shrinkWrap: true, // Asegura que el GridView solo ocupe el espacio necesario
-        //physics: NeverScrollableScrollPhysics(),
-            physics: AlwaysScrollableScrollPhysics(),
-        itemCount:itemCount,
-           // todosLosRestaurantes.length, //restauranteState.restaurantes!.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // Número de columnas en la cuadrícula
-        ),
-        itemBuilder: (context, index) {
-          /*final restaurante = restauranteState.restaurantes![index];
-        final restaurantNombre = restaurante.nombreRestaurantes?[index].nombres;
-          final restauranteImage = restaurante.nombreRestaurantes?[index].image; 
-           print('NombreRestaurantes de un restaurante  : ${restaurantNombre}');*/
-          print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<${cargando}');
-          if (cargando) {
-           print('1111111111111111111 $cargando');
-            return Container(
-              
-              margin: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color:  Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Center(
-                child:Center(child: Image.asset('assets/cargando.gif', 
-        fit: BoxFit.contain,)),
-              ),
-            );
-          }
-         
-          /*if (todosLosRestaurantes.isEmpty) {
-            return Image.network('https://i.pinimg.com/originals/c4/cb/9a/c4cb9abc7c69713e7e816e6a624ce7f8.gif');
+      Column(
+        children: [
+          Expanded(
+            child: GridView.builder(
+            padding: EdgeInsets.all(20),
+          //  shrinkWrap: true, // Asegura que el GridView solo ocupe el espacio necesario
+            //physics: NeverScrollableScrollPhysics(),
+                physics: AlwaysScrollableScrollPhysics(),
+            itemCount:itemCount,
+               // todosLosRestaurantes.length, //restauranteState.restaurantes!.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // Número de columnas en la cuadrícula
+            ),
+            itemBuilder: (context, index) {
+              /*final restaurante = restauranteState.restaurantes![index];
+            final restaurantNombre = restaurante.nombreRestaurantes?[index].nombres;
+              final restauranteImage = restaurante.nombreRestaurantes?[index].image; 
+               print('NombreRestaurantes de un restaurante  : ${restaurantNombre}');*/
+              print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<${cargando}');
+              if (cargando) {
+               print('1111111111111111111 $cargando');
+                return Container(
+                  
+                  margin: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color:  Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child:Center(child: Image.asset('assets/cargando.gif', 
+            fit: BoxFit.contain,)),
+                  ),
+                );
+              }
+             
+              /*if (todosLosRestaurantes.isEmpty) {
+                return Image.network('https://i.pinimg.com/originals/c4/cb/9a/c4cb9abc7c69713e7e816e6a624ce7f8.gif');
+                
+                 //CircularProgressIndicator();
+              } */
             
-             //CircularProgressIndicator();
-          } */
-        
-          final restaurante = todosLosRestaurantes[index];
-          
-             //print('object ${todosLosRestaurantes.length}');
-        
-        
-          /*
-          final restaurantNombre = restaurant[index].nombres;
-          final restauranteImage = restaurant[index].image; 
-          print(restaurantId);
-          print('restaurant>>>>>>>>> $restaurant  ---- $restaurantId');*/
-          return cardMenuRestauranteWidget4(
-            colors: Color.fromARGB(255, 255, 255, 255),
-            altura: 10,
-            image: Image.asset(
-              restaurante.image ?? '',
-              fit: BoxFit.contain,
-            ),
-            texto: restaurante.nombres,
-            redireccionamiento: Menucomidas(
-              idRestaurante: restaurante.id,
-            )
-          );
-        },
-            ),
+              final restaurante = todosLosRestaurantes[index];
+              
+                 //print('object ${todosLosRestaurantes.length}');
+            
+            
+              /*
+              final restaurantNombre = restaurant[index].nombres;
+              final restauranteImage = restaurant[index].image; 
+              print(restaurantId);
+              print('restaurant>>>>>>>>> $restaurant  ---- $restaurantId');*/
+              return cardMenuRestauranteWidget4(
+                colors: Color.fromARGB(255, 255, 255, 255),
+                altura: 10,
+                image: Image.asset(
+                  restaurante.image ?? '',
+                  fit: BoxFit.contain,
+                ),
+                texto: restaurante.nombres,
+                redireccionamiento: Menucomidas(
+                  idRestaurante: restaurante.id,
+                )
+              );
+            },
+                ),
+          ),
+        ],
       ));
   }
 }

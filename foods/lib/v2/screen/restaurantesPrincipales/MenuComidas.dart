@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:foods/UI/atoms/card_widget.dart';
-import 'package:foods/UI/atoms/textFiled.dart';
-import 'package:foods/Utils/ConstantesColor.dart';
-import 'package:foods/v2/domain/entities/item/items.dart';
-import 'package:foods/v2/domain/entities/restaurantes/MenuDescripcion.dart';
-import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
-import 'package:foods/v2/menu/menu.dart';
-import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/nombre_restaurante_notifier.dart';
-import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
-import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
-import 'package:foods/v2/screen/item/CarritoPage.dart';
-import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
-import 'package:foods/widgets/CardComida.dart';
-import 'package:foods/widgets/appbarComidas.dart';
-import 'package:foods/widgets/appbars.dart';
 import 'package:foods/widgets/chipsAll.dart';
+import 'package:foods/widgets/CardComida.dart';
+import 'package:foods/UI/atoms/textFiled.dart';
+import 'package:foods/widgets/appbarComidas.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/v2/screen/item/CarritoPage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v2/domain/entities/item/items.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
+import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
+import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/nombre_restaurante_notifier.dart';
 
 class Menucomidas extends ConsumerWidget {
   final int idRestaurante;
@@ -105,7 +100,7 @@ class Menucomidas extends ConsumerWidget {
                 children: submenusUnicos.map((submenu) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: chipAll(submenu),
+                    child: chipAll(submenu,(){}),
                   );
                 }).toList(),
               ),
@@ -126,12 +121,12 @@ class Menucomidas extends ConsumerWidget {
                   final nombres = nombreComida![index].nombre; */
         
         //print('<nombres> ${nombres}}');
-        
-                  print('<descripcion> ${menus.length}}');
+      
         
                   final screenWidth = MediaQuery.of(context).size.width;
         
                   return Column(
+                   
                     children: [
                       SizedBox(
                         height: 20,
@@ -185,9 +180,40 @@ class Menucomidas extends ConsumerWidget {
                                   imagePath,
                                   '${item.nombre}',
                                   '${item.descripcion}',
-                               null,
+                               [],
                                   '${item.precio}',
-                                  ElevatedButton(
+                                  (List<String> salsasSeleccionadas) {
+    return ElevatedButton(
+      onPressed: () {
+        final itemConSalsas = Items(
+          nombre: item.nombre,
+          descripcion: item.descripcion,
+          precio: item.precio,
+          unidades: item.unidades,
+          image: item.image,
+          salsasSeleccionadas: salsasSeleccionadas,
+        );
+
+        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(agregado
+                ? '✅ Producto añadido con salsas: ${salsasSeleccionadas.join(', ')}'
+                : '⚠️ Ya está en el carrito'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(ConstantesColorTema.fondoColorAppbar),
+        foregroundColor: Color(ConstantesColorTema.blanco),
+      ),
+      child: Text('Agregar Producto'),
+    );
+  },
+)
+                      /*  ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Color(
                                             ConstantesColorTema.fondoColorAppbar),
@@ -211,8 +237,9 @@ class Menucomidas extends ConsumerWidget {
                                       );
                                     },
                                     child: Text('Agregar Producto'),
-                                  ),
-                                ));
+                                  ), */
+                               // )
+                                );
                           }),
                     ],
                   );

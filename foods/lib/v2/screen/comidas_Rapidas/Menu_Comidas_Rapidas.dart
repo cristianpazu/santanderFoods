@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:foods/UI/atoms/card_widget.dart';
-import 'package:foods/UI/atoms/textFiled.dart';
-import 'package:foods/Utils/ConstantesColor.dart';
-import 'package:foods/v2/domain/entities/comidas_rapidas/NombreComidaRapidas.dart';
-import 'package:foods/v2/domain/entities/item/items.dart';
-import 'package:foods/v2/domain/entities/restaurantes/MenuDescripcion.dart';
-import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
-import 'package:foods/v2/menu/menu.dart';
-import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
-import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/nombre_restaurante_notifier.dart';
-import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
-import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
-import 'package:foods/v2/screen/item/CarritoPage.dart';
-import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
-import 'package:foods/widgets/CardComida.dart';
-import 'package:foods/widgets/appbarComidas.dart';
-import 'package:foods/widgets/appbars.dart';
 import 'package:foods/widgets/chipsAll.dart';
+import 'package:foods/UI/atoms/textFiled.dart';
+import 'package:foods/widgets/CardComida.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/widgets/appbarComidas.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v2/screen/item/CarritoPage.dart';
+import 'package:foods/v2/domain/entities/item/items.dart';
+import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/NombreComidaRapidas.dart';
+import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
 
 class MenucomidasRapidas extends ConsumerWidget {
   final int idRestaurante;
@@ -34,39 +27,28 @@ class MenucomidasRapidas extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController _searchController = TextEditingController();
-    final productState = ref.watch(nombreComidaRapidaRestauranteProvider(idRestaurante));
+    final productState =
+        ref.watch(nombreComidaRapidaRestauranteProvider(idRestaurante));
     final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
-      print('productState.isLoding ${productState.isLoding}');
 
     if (productState.isLoding!) {
-      print('productState.isLoding ${productState.isLoding}');
       return Scaffold(
-
         body: Center(
-          child: Image.asset(
-               'assets/proximamente.jpg'),
+          child: Image.asset('assets/proximamente.jpg'),
         ),
       ); // const CircularProgressIndicator();
     }
 
     final menus = productState.menuComidaRapidas ?? [];
-
-  
- 
-          print('<element> ${menus}}');
-
-
     final List<NombreComidaRapida> todosLosRestaurantes =
         productState.nombreComidaRapida!.cast<NombreComidaRapida>().toList();
-
-
 
     final imagenRestaurante = todosLosRestaurantes.isNotEmpty
         ? todosLosRestaurantes.first.image ?? 'assets/proximamente.jpg'
         : 'assets/proximamente.jpg';
 
     final submenusUnicos =
-        menus.map((menu) => menu.submenu ?? '').toSet().toList(); 
+        menus.map((menu) => menu.submenu ?? '').toSet().toList();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -79,7 +61,6 @@ class MenucomidasRapidas extends ConsumerWidget {
               imagenRestaurante,
               InkWell(
                 onTap: () {
-                  print('Carrito icon pressed');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -108,30 +89,20 @@ class MenucomidasRapidas extends ConsumerWidget {
                 children: submenusUnicos.map((submenu) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: chipAll(submenu),
+                    child: chipAll(submenu, () {}),
                   );
                 }).toList(),
               ),
-            ), 
-
-            
+            ),
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: menus.length,
                 itemBuilder: (context, index) {
-                  //  final productStatess = todosLosRestaurantes[index];
                   final menuSate = menus[index];
-           
-
                   final descrpconmenu = menuSate.descripcion;
-        
-                           print('<descrpconmenu> ${menus.length}}');
-        
-                
-        
                   final screenWidth = MediaQuery.of(context).size.width;
-        
+
                   return Column(
                     children: [
                       SizedBox(
@@ -140,8 +111,6 @@ class MenucomidasRapidas extends ConsumerWidget {
                       SizedBox(
                         height: 10,
                       ),
-
-                      
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
@@ -153,15 +122,10 @@ class MenucomidasRapidas extends ConsumerWidget {
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                         ),
-                      ), 
-
-                      
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-
-
-
                       ListView.builder(
                           itemCount: descrpconmenu!.length,
                           shrinkWrap:
@@ -170,56 +134,85 @@ class MenucomidasRapidas extends ConsumerWidget {
                           itemBuilder: (context, subIndex) {
                             final item = descrpconmenu[subIndex];
 
-
-
-
-final salsasMapList = item.salsas?.map((salsa) => salsa.toJson()).toList();
-
-
-
-
-
                           
-                             // final item = items.image[index];
-                           final Items itemss = Items(
-                              nombre: item.nombre,
-                              descripcion: item.descripcion,
-                              precio: item.precio,
-                              //unidades: item.unidades,
-                              image: item
-                                  .image, // Si quieres incluir la imagen también
-                              // O lo que corresponda en tu caso
-                            ); 
-        
+
+                            final salsasMapList = item.salsas
+                                ?.map((salsa) => salsa.toJson())
+                                .toList();
+                            final Items itemss = Items(
+                                nombre: item.nombre,
+                                descripcion: item.descripcion,
+                                precio: item.precio,
+                                unidades: item.unidades,
+                                image: item.image,
+                                salsasSeleccionadas: item.salsas
+                                    ?.where((s) => s.nombre != null)
+                                    .map((s) => s.nombre!)
+                                    .toList());
+
+
                             final imagePath = item.image == ""
                                 ? 'assets/proximamente.jpg'
                                 : item.image;
-        
+                            print(item.image == "");
                             return Cardcomida(
                                 'assets/proximamente.jpg',
-                                '${item.nombre}' ?? '',
+                                item.nombre,
                                 screenWidth,
-                         
-
-                               Detallecomida(
+                                Detallecomida(
                                   'assets/proximamente.jpg',
-                                  '${item.nombre}',
-                                  '${item.descripcion}',
-                                 salsasMapList,
-                                  '${item.precio}',
-                                  ElevatedButton(
+                                  item.nombre,
+                                  item.descripcion,
+                                  salsasMapList,
+                                  item.precio,
+                                  (List<String> salsasSeleccionadas) {
+    return ElevatedButton(
+      onPressed: () {
+        final itemConSalsas = Items(
+          nombre: item.nombre,
+          descripcion: item.descripcion,
+          precio: item.precio,
+          unidades: item.unidades,
+          image: item.image,
+          salsasSeleccionadas: salsasSeleccionadas,
+        );
+
+        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas);
+
+
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(agregado
+             ? '✅ Se añadió exitosamente al carrito'
+                                                : '⚠️ El producto ya está en el carrito',),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(ConstantesColorTema.fondoColorAppbar),
+        foregroundColor: Color(ConstantesColorTema.blanco),
+      ),
+      child: Text('Agregar Producto'),
+    );
+  },
+)
+                                  /*ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Color(
-                                            ConstantesColorTema.fondoColorAppbar),
+                                            ConstantesColorTema
+                                                .fondoColorAppbar),
                                         foregroundColor:
                                             Color(ConstantesColorTema.blanco)),
                                     onPressed: () {
+                                      print('agregado ${itemss}');
                                       final agregado = ref
                                           .read(itemsStateNotifier.notifier)
-                                          .agregarItems(itemss); 
-        
-                                      print('agregado $agregado');
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          .agregarItems(itemss);
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
                                           content: Text(
                                             agregado
@@ -231,20 +224,15 @@ final salsasMapList = item.salsas?.map((salsa) => salsa.toJson()).toList();
                                       );
                                     },
                                     child: Text('Agregar Producto'),
-                                  ),
-                                ) 
-                                
+                                  ), */
+                                //)
                                 );
-                          }), 
-                          
-                          
-                          
-                       
+                          }),
                     ],
                   );
                 },
               ),
-            ), 
+            ),
           ],
         ),
       ),

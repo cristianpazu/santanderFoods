@@ -1,7 +1,6 @@
-import 'package:foods/UI/screens/restaurantes/restaurantess.dart';
+
 import 'package:foods/v2/domain/entities/restaurantes/Informacion.dart';
 import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
-import 'package:foods/v2/domain/entities/restaurantes/Restaurantes.dart';
 
 
 

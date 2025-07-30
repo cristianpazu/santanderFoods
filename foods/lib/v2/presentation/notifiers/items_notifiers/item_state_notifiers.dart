@@ -23,13 +23,13 @@ bool agregarItems(Items item){
   }
 
 
-print('dsadasdas $item');
 state = [
   ...state,
  ItemState(
   //id: item.id!
  isLoding: false, menuDescripcion:_convertirAMenuDescripcion(item) )
 ];
+print('item.salsasSeleccionadas ${item}');
 return true;
 }
 //
@@ -80,7 +80,10 @@ void eliminarItems(MenuDescripcion item) {
       .map((itemState) {
         // Filtra el producto dentro de `menuDescripcion`
         final updatedMenuDescripcion = itemState.menuDescripcion
-            .where((menuItem) => menuItem.nombre != item.nombre)
+          .where((menuItem) {
+              print('Comparando: ${menuItem.nombre} != ${item.nombre}');
+              return menuItem.nombre != item.nombre;
+            })
             .toList();
 
         // Si la lista `menuDescripcion` está vacía, eliminamos este `ItemState` de la lista.
@@ -118,6 +121,7 @@ List<MenuDescripcion> _convertirAMenuDescripcion(Items item) {
         unidades: item.unidades,
         precio: item.precio,
         submenu: null, // O lo que sea relevante aquí
+       salsasSeleccionadas: item.salsasSeleccionadas
       )
     ];
   }

@@ -7,6 +7,7 @@ class MenuDescripcion {
  
     String? submenu;
     int? unidadesPedir;
+    List<String>? salsasSeleccionadas;
 
     MenuDescripcion({
         this.nombre,
@@ -17,6 +18,7 @@ class MenuDescripcion {
    
         this.submenu,
         this.unidadesPedir,
+        this.salsasSeleccionadas
     });
 
     factory MenuDescripcion.fromJson(Map<String, dynamic> json) => MenuDescripcion(
@@ -26,7 +28,10 @@ class MenuDescripcion {
         unidades: json["unidades"],
         precio: json["precio"],
         submenu: json["submenu"],
-        unidadesPedir: json["unidadesPedir"]
+        unidadesPedir: json["unidadesPedir"],
+         salsasSeleccionadas: json["salsasSeleccionadas"] == null
+            ? null
+            : List<String>.from(json["salsasSeleccionadas"]),
     );
 
     Map<String, dynamic> toJson() => {
@@ -36,7 +41,8 @@ class MenuDescripcion {
         "unidades": unidades,
         "precio": precio,
         "submenu": submenu,
-        "unidadesPedir": unidadesPedir
+        "unidadesPedir": unidadesPedir,
+        "salsasSeleccionadas": salsasSeleccionadas,
     };
 
     MenuDescripcion copyWith({
@@ -48,6 +54,7 @@ String? nombre,
  
     String? submenu,
     int? unidadesPedir,
+        List<String>? salsasSeleccionadas,
     }) {
 return MenuDescripcion(
    nombre: nombre ?? this.nombre,
@@ -56,13 +63,15 @@ return MenuDescripcion(
         unidades: unidades ?? this.unidades,
         precio: precio ?? this.precio,
         submenu: submenu ?? this.submenu,
-        unidadesPedir: unidadesPedir ?? this.unidadesPedir
+        unidadesPedir: unidadesPedir ?? this.unidadesPedir,
+         salsasSeleccionadas:
+          salsasSeleccionadas ?? this.salsasSeleccionadas,
 );
     }
 
 
      @override
   String toString() {
-    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio, submenu: $submenu)';
+    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio, submenu: $submenu, salsasSeleccionadas: $salsasSeleccionadas)';
   }
 }
