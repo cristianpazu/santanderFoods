@@ -8,7 +8,7 @@ class TarjetainfoComida extends StatelessWidget {
   String descripcion;
   String valor;
   String images;
-  Widget salsas;
+  Widget? salsas;
   Widget agregarComida;
   TarjetainfoComida(
       this.images, this.nombreComida, this.descripcion,this.salsas, this.valor, this.agregarComida);
@@ -44,7 +44,7 @@ class TarjetainfoComida extends StatelessWidget {
 //
 Column(
   children: [
-salsas
+salsas!
   ],
 ),
 

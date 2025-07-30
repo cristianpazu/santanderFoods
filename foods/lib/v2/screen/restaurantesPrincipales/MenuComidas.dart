@@ -185,7 +185,7 @@ class Menucomidas extends ConsumerWidget {
                                   imagePath,
                                   '${item.nombre}',
                                   '${item.descripcion}',
-                                  Container(),
+                               null,
                                   '${item.precio}',
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(

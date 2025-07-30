@@ -173,38 +173,7 @@ class MenucomidasRapidas extends ConsumerWidget {
 
 
 
-Widget salsasWidget = const SizedBox.shrink(); // Widget vacío por defecto
-
-if (item.salsas != null && item.salsas!.isNotEmpty) {
-  salsasWidget = Container(
-    margin: const EdgeInsets.symmetric(vertical: 8.0),
-    padding: const EdgeInsets.all(12.0),
-    decoration: BoxDecoration(
-      color: Colors.grey[200],
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Salsas disponibles:',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 6,
-          children: item.salsas!
-              .map((salsa) => Chip(
-                    label: Text('salsa'),
-                    backgroundColor: Colors.orange[100],
-                  ))
-              .toList(),
-        ),
-      ],
-    ),
-  );
-}
+final salsasMapList = item.salsas?.map((salsa) => salsa.toJson()).toList();
 
 
 
@@ -236,7 +205,7 @@ if (item.salsas != null && item.salsas!.isNotEmpty) {
                                   'assets/proximamente.jpg',
                                   '${item.nombre}',
                                   '${item.descripcion}',
-                                  salsasWidget,
+                                 salsasMapList,
                                   '${item.precio}',
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
