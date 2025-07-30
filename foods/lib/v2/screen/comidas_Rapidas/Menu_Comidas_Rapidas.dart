@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/UI/atoms/card_widget.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/NombreComidaRapidas.dart';
 import 'package:foods/v2/domain/entities/item/items.dart';
 import 'package:foods/v2/domain/entities/restaurantes/MenuDescripcion.dart';
 import 'package:foods/v2/domain/entities/restaurantes/NombreRestaurantes.dart';
 import 'package:foods/v2/menu/menu.dart';
+import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/nombre_restaurante_notifier.dart';
 import 'package:foods/v2/presentation/notifiers/Restaurante_notifiers/restaurante_notifier.dart';
 import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
@@ -17,10 +19,10 @@ import 'package:foods/widgets/appbarComidas.dart';
 import 'package:foods/widgets/appbars.dart';
 import 'package:foods/widgets/chipsAll.dart';
 
-class Menucomidas extends ConsumerWidget {
+class MenucomidasRapidas extends ConsumerWidget {
   final int idRestaurante;
 
-  const Menucomidas({super.key, required this.idRestaurante});
+  const MenucomidasRapidas({super.key, required this.idRestaurante});
 
 /*
 @override
@@ -32,7 +34,7 @@ class Menucomidas extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     TextEditingController _searchController = TextEditingController();
-    final productState = ref.watch(nombrerestauranteProvider(idRestaurante));
+    final productState = ref.watch(nombreComidaRapidaRestauranteProvider(idRestaurante));
     final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
       print('productState.isLoding ${productState.isLoding}');
 
@@ -41,29 +43,30 @@ class Menucomidas extends ConsumerWidget {
       return Scaffold(
 
         body: Center(
-          child: Image.network(
-              'https://i.pinimg.com/originals/c4/cb/9a/c4cb9abc7c69713e7e816e6a624ce7f8.gif'),
+          child: Image.asset(
+               'assets/proximamente.jpg'),
         ),
       ); // const CircularProgressIndicator();
     }
 
-    final menus = productState.informacion?.menu ?? [];
+    final menus = productState.menuComidaRapidas ?? [];
 
-    final horarios = productState.informacion?.horario ?? [];
+  
+ 
+          print('<element> ${menus}}');
 
-    final List<NombreRestaurante> todosLosRestaurantes =
-        productState.nombrerestuarante!.cast<NombreRestaurante>().toList();
 
-    print('todosLosRestaurantes $todosLosRestaurantes');
+    final List<NombreComidaRapida> todosLosRestaurantes =
+        productState.nombreComidaRapida!.cast<NombreComidaRapida>().toList();
+
+
 
     final imagenRestaurante = todosLosRestaurantes.isNotEmpty
         ? todosLosRestaurantes.first.image ?? 'assets/proximamente.jpg'
         : 'assets/proximamente.jpg';
 
     final submenusUnicos =
-        menus.map((menu) => menu.submenu ?? '').toSet().toList();
-
-         print('submenusUnicosvsubmenusUnicos $submenusUnicos');
+        menus.map((menu) => menu.submenu ?? '').toSet().toList(); 
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -109,7 +112,9 @@ class Menucomidas extends ConsumerWidget {
                   );
                 }).toList(),
               ),
-            ),
+            ), 
+
+            
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -117,17 +122,13 @@ class Menucomidas extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   //  final productStatess = todosLosRestaurantes[index];
                   final menuSate = menus[index];
+           
+
                   final descrpconmenu = menuSate.descripcion;
         
-        //                      final idss = productStatess
-                  //                  .id;
-                  /*
-                  final nombreComida = menus[index].descripcion;
-                  final nombres = nombreComida![index].nombre; */
+                           print('<descrpconmenu> ${menus.length}}');
         
-        //print('<nombres> ${nombres}}');
-        
-                  print('<descripcion> ${menus.length}}');
+                
         
                   final screenWidth = MediaQuery.of(context).size.width;
         
@@ -139,6 +140,8 @@ class Menucomidas extends ConsumerWidget {
                       SizedBox(
                         height: 10,
                       ),
+
+                      
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
@@ -150,10 +153,15 @@ class Menucomidas extends ConsumerWidget {
                                 fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                         ),
-                      ),
+                      ), 
+
+                      
                       SizedBox(
                         height: 10,
                       ),
+
+
+
                       ListView.builder(
                           itemCount: descrpconmenu!.length,
                           shrinkWrap:
@@ -161,31 +169,74 @@ class Menucomidas extends ConsumerWidget {
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, subIndex) {
                             final item = descrpconmenu[subIndex];
-        
-                            final Items itemss = Items(
+
+
+
+
+Widget salsasWidget = const SizedBox.shrink(); // Widget vacío por defecto
+
+if (item.salsas != null && item.salsas!.isNotEmpty) {
+  salsasWidget = Container(
+    margin: const EdgeInsets.symmetric(vertical: 8.0),
+    padding: const EdgeInsets.all(12.0),
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Salsas disponibles:',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 6,
+          children: item.salsas!
+              .map((salsa) => Chip(
+                    label: Text('salsa'),
+                    backgroundColor: Colors.orange[100],
+                  ))
+              .toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+
+
+
+
+                          
+                             // final item = items.image[index];
+                           final Items itemss = Items(
                               nombre: item.nombre,
                               descripcion: item.descripcion,
                               precio: item.precio,
-                              unidades: item.unidades,
+                              //unidades: item.unidades,
                               image: item
                                   .image, // Si quieres incluir la imagen también
                               // O lo que corresponda en tu caso
-                            );
+                            ); 
         
-                            print('item $item');
                             final imagePath = item.image == ""
                                 ? 'assets/proximamente.jpg'
                                 : item.image;
         
                             return Cardcomida(
-                                imagePath!,
-                                '${item.nombre}',
+                                'assets/proximamente.jpg',
+                                '${item.nombre}' ?? '',
                                 screenWidth,
-                                Detallecomida(
-                                  imagePath,
+                         
+
+                               Detallecomida(
+                                  'assets/proximamente.jpg',
                                   '${item.nombre}',
                                   '${item.descripcion}',
-                                  Container(),
+                                  salsasWidget,
                                   '${item.precio}',
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -196,7 +247,7 @@ class Menucomidas extends ConsumerWidget {
                                     onPressed: () {
                                       final agregado = ref
                                           .read(itemsStateNotifier.notifier)
-                                          .agregarItems(itemss);
+                                          .agregarItems(itemss); 
         
                                       print('agregado $agregado');
                                       ScaffoldMessenger.of(context).showSnackBar(
@@ -212,13 +263,19 @@ class Menucomidas extends ConsumerWidget {
                                     },
                                     child: Text('Agregar Producto'),
                                   ),
-                                ));
-                          }),
+                                ) 
+                                
+                                );
+                          }), 
+                          
+                          
+                          
+                       
                     ],
                   );
                 },
               ),
-            ),
+            ), 
           ],
         ),
       ),

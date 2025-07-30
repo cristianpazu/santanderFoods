@@ -1,4 +1,5 @@
 import 'package:foods/v2/domain/entities/categorias/categoria.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/MenuComidaRapida.dart';
 import 'package:foods/v2/domain/entities/restaurantes/Horario.dart';
 import 'package:foods/v2/domain/entities/restaurantes/Menu.dart';
 
@@ -10,7 +11,7 @@ class NombreComidaRapida {
     String contacto;
     Categoria categorias;
     List<Horario> horario;
-    List<Menu> menu;
+    List<MenuComidaRapidas> menu;
     String? nombre;
 
     NombreComidaRapida({
@@ -39,7 +40,7 @@ factory NombreComidaRapida.fromJson(Map<String, dynamic> json) => NombreComidaRa
         ? List<Horario>.from(json["horario"].map((x) => Horario.fromJson(x)))
         : [],
     menu: json["menu"] != null
-        ? List<Menu>.from(json["menu"].map((x) => Menu.fromJson(x)))
+        ? List<MenuComidaRapidas>.from(json["menu"].map((x) => MenuComidaRapidas.fromJson(x)))
         : [],
     nombre: json["nombre"],
 );

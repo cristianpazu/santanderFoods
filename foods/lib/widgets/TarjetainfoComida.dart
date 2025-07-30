@@ -8,9 +8,10 @@ class TarjetainfoComida extends StatelessWidget {
   String descripcion;
   String valor;
   String images;
+  Widget salsas;
   Widget agregarComida;
   TarjetainfoComida(
-      this.images, this.nombreComida, this.descripcion, this.valor, this.agregarComida);
+      this.images, this.nombreComida, this.descripcion,this.salsas, this.valor, this.agregarComida);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,19 @@ class TarjetainfoComida extends StatelessWidget {
                             .textoRobotoLightText()),
                   ],
                 ),
+//
+Column(
+  children: [
+salsas
+  ],
+),
+
+
+
+
+
+
+                //
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

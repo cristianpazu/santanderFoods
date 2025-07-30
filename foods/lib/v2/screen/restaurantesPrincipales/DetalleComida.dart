@@ -6,10 +6,11 @@ class Detallecomida extends StatelessWidget {
    String images;
     String nombreComida;
   String descripcion;
+  Widget salsas;
   String valor;
    Widget agregarComida;
   
-   Detallecomida(this.images, this.nombreComida, this.descripcion, this.valor,this.agregarComida);
+   Detallecomida(this.images, this.nombreComida, this.descripcion, this.salsas ,this.valor,this.agregarComida);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class Detallecomida extends StatelessWidget {
           images,
           nombreComida,
           descripcion,
+          salsas,
           valor,
           agregarComida
         )

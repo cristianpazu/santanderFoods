@@ -37,9 +37,32 @@ List<ComidaRapidas> restaurantes = datas.map((item) {
   }
 
   @override
-  Future<List<NombreComidaRapida>> getComidaRapidaById(int Id) {
-    // TODO: implement getComidaRapidaById
-    throw UnimplementedError();
+  Future<List<NombreComidaRapida>> getComidaRapidaById(int Id)async {
+ String jsonString = await rootBundle.loadString('assets/comidasRapidas.json');
+ 
+// Acceder a la lista de restaurantes
+List<dynamic> jsonResponXse = json.decode(jsonString);
+print('Lista jsonResponXse: $jsonResponXse');
+//List<dynamic> restaurantesJson = jsonResponXse['nombre_restaurantes'];
+
+// Mapear a objetos NombreRestaurante
+List<ComidaRapidas> nombreRestauranteSs = jsonResponXse.map((item) {
+  return ComidaRapidas.fromJson(item);
+}).toList();
+
+print('||||||||||||||||||||||------------||||||||||||: $nombreRestauranteSs');
+
+// Filtrar por ID
+List<NombreComidaRapida> restaurantesFiltrsadods = nombreRestauranteSs
+      .expand((r) => (r.nombreComidaRapida)!.cast<NombreComidaRapida>())
+    .where((rest) => rest.id == Id)
+    .toList();
+    print('|||||||||||||ddddddddd-||||||||||||: ${restaurantesFiltrsadods.length}');
+
+
+
+
+  return restaurantesFiltrsadods;
   }
 
 

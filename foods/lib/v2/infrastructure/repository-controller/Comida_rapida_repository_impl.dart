@@ -17,7 +17,6 @@ class ComidaRapidaRepositoryImpl extends  Comidarapidarepositories {
 
   @override
   Future<List<NombreComidaRapida>> getComidaRapidaById(int Id) {
-    // TODO: implement getComidaRapidaById
-    throw UnimplementedError();
+   return comidaRapidaDatasourceImpl.getComidaRapidaById(Id);
   }
 }

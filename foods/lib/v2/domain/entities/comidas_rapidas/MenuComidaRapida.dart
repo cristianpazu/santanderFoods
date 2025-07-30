@@ -1,15 +1,15 @@
 import 'package:foods/v2/domain/entities/comidas_rapidas/DescripcionComidaRapida.dart';
 
-class Menu {
+class MenuComidaRapidas {
     String submenu;
     List<DescripcionComidaRapida> descripcion;
 
-    Menu({
+    MenuComidaRapidas({
         required this.submenu,
         required this.descripcion,
     });
 
-    factory Menu.fromJson(Map<String, dynamic> json) => Menu(
+    factory MenuComidaRapidas.fromJson(Map<String, dynamic> json) => MenuComidaRapidas(
         submenu: json["submenu"],
         descripcion: List<DescripcionComidaRapida>.from(json["descripcion"].map((x) => DescripcionComidaRapida.fromJson(x))),
     );
