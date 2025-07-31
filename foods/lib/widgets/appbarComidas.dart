@@ -58,9 +58,9 @@ class Appbarcomidas extends StatelessWidget {
 
                 Container(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 30),
+                    padding: const EdgeInsets.only(left: 10, top: 10),
                     child: Container(
-                      height: 50,
+                      height: 60,
                       width: 25,
                       decoration: BoxDecoration(
                           color: Colors.white,

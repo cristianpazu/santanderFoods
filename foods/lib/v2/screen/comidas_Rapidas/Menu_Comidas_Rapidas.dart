@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods/Utils/titutlos.dart';
 import 'package:foods/widgets/chipsAll.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/widgets/CardComida.dart';
@@ -69,13 +70,19 @@ class MenucomidasRapidas extends ConsumerWidget {
                 },
                 child: Stack(
                   children: [
+                    cantidadEnCarrito > 0? 
                     Positioned(
+                      bottom: 35,
+                      right: 2,
+                      left: 3,
                         child: Container(
-                      width: 20,
-                      height: 16,
-                      color: Colors.amber,
-                      child: Center(child: Text('$cantidadEnCarrito')),
-                    )),
+                      width: 35,
+                      height: 35,
+                     
+                      child: Center(child: UiTexto( texto: '$cantidadEnCarrito').textoRobotoLightTextLight()),
+                    ) 
+                    
+                    ): Container(),
                     Center(
                       child: Icon(Icons.shopping_cart_outlined),
                     ),
@@ -177,7 +184,7 @@ class MenucomidasRapidas extends ConsumerWidget {
           salsasSeleccionadas: salsasSeleccionadas,
         );
 
-        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas);
+        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas,productState.id);
 
 
 
@@ -185,7 +192,7 @@ class MenucomidasRapidas extends ConsumerWidget {
           SnackBar(
             content: Text(agregado
              ? '✅ Se añadió exitosamente al carrito'
-                                                : '⚠️ El producto ya está en el carrito',),
+             : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
             duration: Duration(seconds: 2),
           ),
         );

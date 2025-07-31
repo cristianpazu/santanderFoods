@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/Utils/titutlos.dart';
 import 'package:foods/v2/domain/entities/item/items.dart';
 import 'package:foods/v2/domain/entities/restaurantes/MenuDescripcion.dart';
 import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
@@ -81,9 +82,16 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
         'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
       );
 
+if (await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
+   
+    ref.read(itemsStateNotifier.notifier).limpiarCarrito();
+  } else {
+    throw Exception('No se pudo abrir WhatsApp');
+  }
+/*
       if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
         throw Exception('No se pudo abrir WhatsApp');
-      }
+      } */
     }
 
     return Scaffold(
@@ -110,140 +118,148 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
                                   Color(ConstantesColorTema.fondoColorAppbar),
                             ),
                             height: 200,
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  leading: Image.asset((item.image != null &&
-                                          item.image!.isNotEmpty)
-                                      ? item.image!
-                                      : 'assets/proximamente.jpg'),
-                                  title: Text(item.nombre ?? ''),
-                                  subtitle: Column(
-                                    children: [
-                                      Text(item.descripcion ?? ''),
-                                      if (item.salsasSeleccionadas != null &&
-                                          item.salsasSeleccionadas!
-                                              .isNotEmpty)
-                                        Text(
-                                          'Salsas: ${item.salsasSeleccionadas!.join(', ')}',
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255)),
-                                        ),
-                                    ],
-                                  ),
-                                  trailing: Container(
-                                    height: 200,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: Image.asset((item.image != null &&
+                                            item.image!.isNotEmpty)
+                                        ? item.image!
+                                        : 'assets/proximamente.jpg'),
+                                    title:   UiTexto( texto: item.nombre ?? '').textoRobotoLight7(),
+                                    subtitle: Column(
                                       children: [
-                                        Text('\$${item.precio}'),
+                                        UiTexto( texto:  item.descripcion ?? '').textoRobotoLight7(),
+                                        if (item.salsasSeleccionadas != null &&
+                                            item.salsasSeleccionadas!
+                                                .isNotEmpty)
+                                          Text(
+                                            'Salsas: ${item.salsasSeleccionadas!.join(', ')}',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: const Color.fromARGB(
+                                                    255, 255, 255, 255)),
+                                          ),
+                                      ],
+                                    ),
+                                    trailing: Container(
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text('${item.precio}'),
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            child: Center(
+                                                child: IconButton(
+                                                    onPressed: () {
+                                                      ref
+                                                          .read(
+                                                              itemsStateNotifier
+                                                                  .notifier)
+                                                          .eliminarItems(item);
+                                                    },
+                                                    icon: Icon(Icons
+                                                        .delete_forever_outlined))),
+                                          ),
+                                  
+                                          /*Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                                Text('data'),
+                                                Container(
+                                                  width: 10,
+                                                  height: 10,
+                                                  color: Colors.amber,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ) */
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
                                         Container(
-                                          height: 40,
-                                          width: 40,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.white,
+                                          ),
+                                          width: 50,
+                                          height: 50,
                                           child: Center(
                                               child: IconButton(
                                                   onPressed: () {
                                                     ref
-                                                        .read(
-                                                            itemsStateNotifier
-                                                                .notifier)
-                                                        .eliminarItems(item);
+                                                        .read(itemsStateNotifier
+                                                            .notifier)
+                                                        .incrementarUnidades(
+                                                            item.nombre!);
                                                   },
-                                                  icon: Icon(Icons
-                                                      .delete_forever_outlined))),
+                                                  icon: Icon(Icons.add))),
                                         ),
-                                
-                                        /*Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                width: 10,
-                                                height: 10,
-                                                color: Colors.amber,
-                                              ),
-                                              Text('data'),
-                                              Container(
-                                                width: 10,
-                                                height: 10,
-                                                color: Colors.amber,
-                                              ),
-                                            ],
+                                        SizedBox(
+                                          width: 25,
+                                        ),
+                                        Container(
+                                          height: 50,
+                                          width: 50,
+                                         
+                                          child: Center(
+                                            child: Text(
+                                                '${item.unidadesPedir ?? 1}', 
+                                                
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                              fontSize: 18, fontWeight: FontWeight.bold)
+                                                
+                                                ),
                                           ),
-                                        ],
-                                      ) */
+                                        ),
+                                        SizedBox(
+                                          width: 25,
+                                        ),
+                                        Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                              child: IconButton(
+                                            onPressed: () {
+                                              ref
+                                                  .read(
+                                                      itemsStateNotifier.notifier)
+                                                  .decrementarUnidades(
+                                                      item.nombre!);
+                                            },
+                                            icon: Icon(Icons.remove),
+                                          )),
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue,
-                                        ),
-                                        width: 50,
-                                        height: 50,
-                                        child: Center(
-                                            child: IconButton(
-                                                onPressed: () {
-                                                  ref
-                                                      .read(itemsStateNotifier
-                                                          .notifier)
-                                                      .incrementarUnidades(
-                                                          item.nombre!);
-                                                },
-                                                icon: Icon(Icons.add))),
-                                      ),
-                                      SizedBox(
-                                        width: 25,
-                                      ),
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        color: Colors.green,
-                                        child: Center(
-                                          child: Text(
-                                              ' ${item.unidadesPedir ?? 1}'),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 25,
-                                      ),
-                                      Container(
-                                        width: 50,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          color: Colors.blue,
-                                        ),
-                                        child: Center(
-                                            child: IconButton(
-                                          onPressed: () {
-                                            ref
-                                                .read(
-                                                    itemsStateNotifier.notifier)
-                                                .decrementarUnidades(
-                                                    item.nombre!);
-                                          },
-                                          icon: Icon(Icons.remove),
-                                        )),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             ),
                           )); /*ListTile(
                         leading: Image.asset(

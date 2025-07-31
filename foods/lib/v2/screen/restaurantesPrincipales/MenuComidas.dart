@@ -194,7 +194,7 @@ class Menucomidas extends ConsumerWidget {
           salsasSeleccionadas: salsasSeleccionadas,
         );
 
-        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas);
+        final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(itemConSalsas,productState.id);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

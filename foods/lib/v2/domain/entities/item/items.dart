@@ -1,4 +1,5 @@
 class Items {
+   int? id;
   String? nombre;
   dynamic descripcion;
   String? image;
@@ -8,6 +9,7 @@ class Items {
    List<String>? salsasSeleccionadas;
 
   Items({
+    this.id,
     this.nombre,
     required this.descripcion,
     this.image,
@@ -18,7 +20,7 @@ class Items {
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(
-    
+    id: json["id"],
         nombre: json["nombre"],
         descripcion: json["descripcion"],
         image: json["image"],
@@ -31,7 +33,7 @@ class Items {
       );
 
   Map<String, dynamic> toJson() => {
-      
+      "id":id,
         "nombre": nombre,
         "descripcion": descripcion,
         "image": image,
@@ -43,6 +45,7 @@ class Items {
 
 
        Items copyWith({
+        int? id,
     String? nombre,
     dynamic descripcion,
     String? image,
@@ -53,6 +56,7 @@ class Items {
     List<String>? salsasSeleccionadas,
   }) {
     return Items(
+      id: id ?? this.id,
       nombre: nombre ?? this.nombre,
       descripcion: descripcion ?? this.descripcion,
       image: image ?? this.image,
@@ -67,6 +71,6 @@ class Items {
 
   @override
   String toString() {
-    return 'MenuDescripcion(nombre: $nombre, descripcion: $descripcion,salsasSeleccionadas: $salsasSeleccionadas, image: $image, unidades: $unidades, precio: $precio)';
+    return 'MenuDescripcion(id: $id,  nombre: $nombre, descripcion: $descripcion,salsasSeleccionadas: $salsasSeleccionadas, image: $image, unidades: $unidades, precio: $precio)';
   }
 }
