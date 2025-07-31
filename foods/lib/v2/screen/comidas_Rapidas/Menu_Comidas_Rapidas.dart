@@ -32,9 +32,9 @@ class MenucomidasRapidas extends ConsumerWidget {
     final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
 
     if (productState.isLoding!) {
-      return Scaffold(
+      return Scaffold( 
         body: Center(
-          child: Image.asset('assets/proximamente.jpg'),
+          child: CircularProgressIndicator()
         ),
       ); // const CircularProgressIndicator();
     }

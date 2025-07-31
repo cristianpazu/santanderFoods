@@ -9,7 +9,8 @@ class TarjetainfoComida extends StatelessWidget {
   String valor;
   String images;
   Widget? salsas;
-  Widget agregarComida;
+  //Widget agregarComida;
+ final Widget Function() agregarComida;
   TarjetainfoComida(
       this.images, this.nombreComida, this.descripcion,this.salsas, this.valor, this.agregarComida);
 
@@ -44,7 +45,7 @@ class TarjetainfoComida extends StatelessWidget {
 //
 Column(
   children: [
-salsas!
+  salsas ?? SizedBox.shrink(),
   ],
 ),
 
@@ -66,7 +67,7 @@ salsas!
                           width: 90,
                         ),
                         //  UiTexto(texto: 'sadsa').textoRobotoLight5(),
-                       agregarComida
+                       agregarComida()
                       ],
                     ),
                   ],

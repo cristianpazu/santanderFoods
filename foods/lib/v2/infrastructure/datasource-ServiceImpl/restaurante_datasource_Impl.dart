@@ -12,7 +12,7 @@ class RestauranteDatasourceImpl  extends RestaurantesDatasource{
   @override
   Future<List<Restaurantes>> getAllRestaurantes() async {
 // Cargar el archivo JSON desde los assets
-  String jsonString = await rootBundle.loadString('assets/placesrestaurante.json');
+  String jsonString = await rootBundle.loadString('assets/placesrestaurantes.json');
   final data = json.decode(jsonString); // Esto es una Lista dinámica (List<dynamic>)
 
   
@@ -40,7 +40,7 @@ List<Restaurantes> restaurantes = datas.map((item) {
   return restaurantes;
 
 /*
-   String jsonString = await rootBundle.loadString('assets/placesrestaurante.json');
+   String jsonString = await rootBundle.loadString('assets/placesrestaurantes.json');
     final data = json.decode(jsonString); // esto es List<dynamic>
 
  print('restaurtassssssssssss $data');
@@ -57,7 +57,7 @@ print('restaurtassssssssssss $restaurantes');
   @override
   Future<List<NombreRestaurante>> getRestauranteById(int Id)async {
    
-    String jsonString = await rootBundle.loadString('assets/placesrestaurante.json');
+    String jsonString = await rootBundle.loadString('assets/placesrestaurantes.json');
  /*   List<dynamic> jsonResponse = json.decode(jsonString);
     print('qqqqqqqqqqqqqqqq $Id');
  print('qqqqqqqqqqqqqqqq $jsonResponse');

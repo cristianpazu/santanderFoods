@@ -5,15 +5,18 @@ import 'package:foods/Utils/titutlos.dart';
 class chipAll extends StatelessWidget {
   
   final String? text;
-
-   chipAll(this.text);
+ final VoidCallback? onTap;
+   chipAll(this.text, this.onTap,{super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Chip(
-      backgroundColor: Color(ConstantesColorTema.fondoColorAppbar),
-      label: 
-UiTexto(texto: text ?? '').textoRobotoLight2()
+    return GestureDetector(
+      onTap: onTap,
+      child: Chip(
+        backgroundColor: Color(ConstantesColorTema.fondoColorAppbar),
+        label: 
+      UiTexto(texto: text ?? '').textoRobotoLight2()
+      ),
     );
   }
 }

@@ -168,7 +168,7 @@ class Menucomidas extends ConsumerWidget {
                             );
         
                             print('item $item');
-                            final imagePath = item.image == ""
+                            final imagePath = item.image == "" || item.image ==null
                                 ? 'assets/proximamente.jpg'
                                 : item.image;
         

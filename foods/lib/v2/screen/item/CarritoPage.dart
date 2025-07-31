@@ -61,7 +61,7 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
 
     Future<void> _openWhatsApp() async {
       // Construir el mensaje con los productos
-      String message = '🛒 *Pedido desde la app:*\n\n';
+      String message = '🛒 *Pedido desde la app (SantanderFoods) 🛒  *\n\n';
 
       for (var itemState in carrito) {
         final item = itemState.menuDescripcion.first;

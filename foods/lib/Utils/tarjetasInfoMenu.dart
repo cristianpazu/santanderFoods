@@ -34,7 +34,7 @@ final List<TarjetaInfo> tarjetas = [
     imagenPath: 'assets/hamburguesa.png',
     redireccionamiento: ComidasRapidas(),
   ),
-  TarjetaInfo(
+ /* TarjetaInfo(
     texto: '----------Heladerías',
     imagenPath: 'assets/hamburguesa.png',
     redireccionamiento: Comidas_rapidas_info(),
@@ -53,5 +53,5 @@ final List<TarjetaInfo> tarjetas = [
     texto: 'Heladerías',
     imagenPath: 'assets/hamburguesa.png',
     redireccionamiento: Restaurantess(),
-  ),
+  ), */
 ];
