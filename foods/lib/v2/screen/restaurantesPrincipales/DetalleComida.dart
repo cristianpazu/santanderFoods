@@ -71,11 +71,11 @@ final salsasSeleccionadas = widget.salsas
                       onChanged: (selected) {
                         final yaSeleccionada =
                             _salsasSeleccionadas[id] ?? false;
-                        if (!yaSeleccionada && cantidadSeleccionadas >= 2) {
+                        if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                  'Solo puedes seleccionar hasta 2 salsas'),
+                                  'Solo puedes seleccionar hasta 5 salsas'),
                               duration: Duration(seconds: 2),
                             ),
                           );
