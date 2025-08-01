@@ -70,11 +70,20 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
         final descripcion = item.descripcion ?? '';
         final precio = item.precio ?? '';
         final unidades = item.unidadesPedir ?? 1;
-        final salsas = item.salsasSeleccionadas;
+        final tieneSalsas = item.salsasSeleccionadas != null && item.salsasSeleccionadas!.isNotEmpty;
+final salsas = tieneSalsas ? item.salsasSeleccionadas!.join(', ') : '';
+
+message += '• *$nombre* - $descripcion\n';
+if (tieneSalsas) {
+  message += ' - *Salsas:* $salsas\n';
+}
+message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
+
+        /*final salsas = item.salsasSeleccionadas!= [] ?? '';
 
         message +=
-            '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';
-      }
+            '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';*/
+      } 
 
       message += '🧾 *Total:* \$${totalFormateado}';
 
@@ -82,13 +91,52 @@ class _CarritoPageState extends ConsumerState<CarritoPage> {
         'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
       );
 
+
+       final launched = await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+
+  if (launched) {
+    // Mostrar confirmación al volver de WhatsApp
+    await Future.delayed(const Duration(seconds: 1)); // espera un poco por seguridad
+
+    if (!mounted) return;
+
+    final shouldClear = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('¿Limpiar carrito?'),
+        content: Text('¿Confirmas que enviaste el pedido por WhatsApp y deseas vaciar el carrito?'),
+        actions: [
+          TextButton(
+            child: Text('Cancelar'),
+            onPressed: () => Navigator.of(context).pop(false),
+          ),
+          ElevatedButton(
+            child: Text('Sí, limpiar'),
+            onPressed: () => Navigator.of(context).pop(true),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldClear == true) {
+      ref.read(itemsStateNotifier.notifier).limpiarCarrito();
+    }
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('No se pudo abrir WhatsApp')),
+    );
+  }
+
+
+
+/*
 if (await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
    
     ref.read(itemsStateNotifier.notifier).limpiarCarrito();
   } else {
     throw Exception('No se pudo abrir WhatsApp');
   }
-/*
+
       if (!await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication)) {
         throw Exception('No se pudo abrir WhatsApp');
       } */

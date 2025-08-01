@@ -199,8 +199,8 @@ class Menucomidas extends ConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(agregado
-                ? '✅ Producto añadido con salsas: ${salsasSeleccionadas.join(', ')}'
-                : '⚠️ Ya está en el carrito'),
+               ? '✅ Se añadió exitosamente al carrito'
+             : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
             duration: Duration(seconds: 2),
           ),
         );
