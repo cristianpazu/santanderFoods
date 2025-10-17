@@ -8,6 +8,7 @@ import 'package:foods/v2/screen/item/CarritoPage.dart';
 import 'package:foods/v2/screen/restaurantesPrincipales/DetalleComida.dart';
 import 'package:foods/v2/screen/restaurantesPrincipales/RestautantesPrincipales.dart';
 import 'package:foods/v2/screen/restaurantesPrincipales/MenuComidas.dart';
+import 'package:foods/v3/screen/menu.dart';
 import 'package:foods/widgets/MenuWidget.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
       
         home: //ComidasRapidas() 
-        MenuResponsive()
+       // MenuResponsive()
+      // MenuPage()
+       MyShopPage()
         /*
         Container(
           color: Colors.white,
