@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       
         home: //ComidasRapidas() 
        // MenuResponsive()
-      // MenuPage()
-       MyShopPage()
+       MenuPage()
+       //MyShopPage()
         /*
         Container(
           color: Colors.white,

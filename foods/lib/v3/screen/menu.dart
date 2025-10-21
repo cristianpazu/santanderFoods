@@ -1,68 +1,9 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:add_to_cart_animation/add_to_cart_animation.dart';
-import 'package:add_to_cart_animation/add_to_cart_icon.dart';
-
-class MyShopPage extends StatefulWidget {
-  @override
-  _MyShopPageState createState() => _MyShopPageState();
-}
-
-class _MyShopPageState extends State<MyShopPage> {
-  late Function(GlobalKey) runAddToCartAnimation;
-  final GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
-
-  @override
-  Widget build(BuildContext context) {
-    return AddToCartAnimation(
-      cartKey: cartKey,
-      height: 30,
-      width: 30,
-      opacity: 0.85,
-      dragAnimation: const DragToCartAnimationOptions(
-        rotation: true,
-      ),
-      createAddToCartAnimation: (addToCartAnimationMethod) {
-        runAddToCartAnimation = addToCartAnimationMethod;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            AddToCartIcon(
-              key: cartKey,
-              icon: Icon(Icons.shopping_cart),
-              badgeOptions: BadgeOptions(
-                active: true,
-                backgroundColor: Colors.orange,
-              ),
-            ),
-          ],
-        ),
-        body: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            GlobalKey imageKey = GlobalKey();
-            return ListTile(
-              title: Text('Producto $index'),
-              trailing: Container(
-                key: imageKey,
-                child: GestureDetector(
-                  onTap: () {
-                    runAddToCartAnimation(imageKey);
-                  },
-                  child: Icon(Icons.add_circle, color: Colors.orange, size: 32),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-/*import 'package:flutter/material.dart';
 import 'package:foods/widgets/InfoComida.dart';
 import 'package:foods/widgets/drawer.dart';
+import 'package:foods/widgets/infoComida2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MenuPage extends StatefulWidget {
@@ -145,7 +86,8 @@ class _MenuPageState extends State<MenuPage> {
           ),
           SizedBox(
             height: 10,
-          ),
+          )
+          ,
           Container(
             width: double.infinity,
             height: 80,
@@ -223,7 +165,30 @@ class _MenuPageState extends State<MenuPage> {
                 tarjetaComida(),
               ],
             ),
+          ),
+
+  SizedBox(
+            height: 10,
+          ),
+
+          Hero(
+            tag: 'as',
+            child: Container(
+              width: double.infinity,
+              height: 60,
+              color: Colors.green,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      
+                    ],
+                  )
+                ],
+              ),
+            ),
           )
+
         ],
       )),
 
@@ -280,7 +245,7 @@ class tarjetaComida extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (ctx) => InfoComida(
+      builder: (ctx) => InfoComida2(
       
       ),
     );
@@ -362,4 +327,3 @@ class tarjetaComida extends StatelessWidget {
     );
   }
 }
-*/
