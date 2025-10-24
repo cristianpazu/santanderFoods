@@ -1,6 +1,6 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:foods/v3/screen/controllers/home_controller.dart';
+import 'package:foods/v3/screen/model/Product.dart';
 import 'package:foods/widgets/InfoComida.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/widgets/infoComida2.dart';
@@ -15,10 +15,24 @@ class _MenuPageState extends State<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Clave para manejar el Drawer
 
+  final controller = HomeController();
+ void _onVerticalGesture(DragUpdateDetails details) {
+    if (details.primaryDelta! < -0.7) {
+      controller.changeHomeState(HomeState.cart);
+    } else if (details.primaryDelta! > 12) {
+      controller.changeHomeState(HomeState.normal);
+    }
+  }
 
+final defaultPadding = 20.0;
+ final cartBarHeight = 100.0;
+final headerHeight = 85.0;
 
+final bgColor = Color(0xFFF6F5F2);
+final primaryColor = Color(0xFF40A944);
 
-  
+final panelTransition = Duration(milliseconds: 800);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,8 +100,7 @@ class _MenuPageState extends State<MenuPage> {
           ),
           SizedBox(
             height: 10,
-          )
-          ,
+          ),
           Container(
             width: double.infinity,
             height: 80,
@@ -147,8 +160,14 @@ class _MenuPageState extends State<MenuPage> {
             height: 10,
           ),
           Expanded(
-            child: ListView(
-              
+            child: ListView.builder(
+                itemCount: demo_products.length,
+                itemBuilder: (context, index) => tarjetaComida(
+                      product: demo_products[index],
+                      index: index,
+                      controller: controller,
+                    )
+                /*
               children: [
                 tarjetaComida(),
                 SizedBox(
@@ -163,32 +182,55 @@ class _MenuPageState extends State<MenuPage> {
                   height: 20,
                 ),
                 tarjetaComida(),
-              ],
-            ),
+              ], */
+                ),
           ),
-
-  SizedBox(
+          SizedBox(
             height: 10,
           ),
-
-          Hero(
-            tag: 'as',
-            child: Container(
-              width: double.infinity,
-              height: 60,
-              color: Colors.green,
-              child: Column(
-                children: [
-                  Row(
+          LayoutBuilder(
+           builder: (context, constraints) { 
+            return AnimatedPositioned(
+                     duration: panelTransition,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: controller.homeState == HomeState.normal ? cartBarHeight
+                                : (constraints.maxHeight - cartBarHeight),
+              child: GestureDetector(
+                onVerticalDragUpdate: _onVerticalGesture,
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  color: Colors.green,
+                  child: Column(
                     children: [
-                      
+                      Row(
+                        children: List.generate(
+                    controller.cart.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(right: 2),
+                      child: Hero(
+                        tag: controller.cart[index].product!.title! + "as",
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          backgroundImage:
+                              AssetImage(controller.cart[index].product!.images!),
+                        ),
+                      ),
+                    ),
+                     )
+                      )
                     ],
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
-          )
+            );
 
+           }
+
+
+          )
         ],
       )),
 
@@ -235,27 +277,46 @@ class _MenuPageState extends State<MenuPage> {
 }
 
 class tarjetaComida extends StatelessWidget {
-  const tarjetaComida({
+  final Product product;
+  int index;
+  HomeController? controller;
+  tarjetaComida({
+    required this.product,
+    required this.index,
+    this.controller,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    void _openIconButtonPressed() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (ctx) => InfoComida2(
-      
-      ),
-    );
-  }
+   /* void _openIconButtonPressed() {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (ctx) => InfoComida2(
+          product: product,
+          onProductAdd: () {
+            controller?.addProductToCart(demo_products[index]);
+          },
+        ),
+      );
+    } */
+
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20),
       child: InkWell(
         onTap: () {
-         
-          _openIconButtonPressed();
+         // _openIconButtonPressed();
+             Navigator.push(
+      context,
+         MaterialPageRoute(
+           builder: (context) =>  InfoComida2(
+            product: product,
+            onProductAdd: () {
+              controller?.addProductToCart(demo_products[index]);
+            },
+                   ),
+         ));
         },
         child: Container(
           width: double.infinity,
@@ -291,7 +352,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Nombre del resurante',
+                            product.title2!,
                             style: GoogleFonts.leckerliOne(
                                 fontSize: 10, color: Colors.black),
                           ),
@@ -299,7 +360,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                            product.title3!,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.leckerliOne(
@@ -309,7 +370,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Precio del resurante',
+                            product.title4!,
                             style: GoogleFonts.leckerliOne(
                                 fontSize: 15,
                                 color: Color.fromRGBO(255, 255, 255, 1)),
