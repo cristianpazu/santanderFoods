@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:foods/v3/screen/carrito.dart';
 import 'package:foods/widgets/InfoComida.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/widgets/infoComida2.dart';
@@ -15,10 +14,6 @@ class _MenuPageState extends State<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Clave para manejar el Drawer
 
-
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,8 +81,7 @@ class _MenuPageState extends State<MenuPage> {
           ),
           SizedBox(
             height: 10,
-          )
-          ,
+          ),
           Container(
             width: double.infinity,
             height: 80,
@@ -148,7 +142,6 @@ class _MenuPageState extends State<MenuPage> {
           ),
           Expanded(
             child: ListView(
-              
               children: [
                 tarjetaComida(),
                 SizedBox(
@@ -166,29 +159,52 @@ class _MenuPageState extends State<MenuPage> {
               ],
             ),
           ),
-
-  SizedBox(
+          SizedBox(
             height: 10,
           ),
-
           Hero(
             tag: 'as',
             child: Container(
               width: double.infinity,
-              height: 60,
-              color: Colors.green,
+              height: 90,
+              color: Color.fromRGBO(109, 109, 109, 0.5),
               child: Column(
                 children: [
                   Row(
                     children: [
-                      
+                      Padding(
+                        padding: const EdgeInsets.all(28.0),
+                        child: Text('Precio'),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CarritoPage2(),
+                                ));
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 70,
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 247, 246, 242),
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Text('Carrito'),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   )
                 ],
               ),
             ),
           )
-
         ],
       )),
 
@@ -242,19 +258,17 @@ class tarjetaComida extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void _openIconButtonPressed() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (ctx) => InfoComida2(
-      
-      ),
-    );
-  }
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (ctx) => InfoComida2(),
+      );
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20),
       child: InkWell(
         onTap: () {
-         
           _openIconButtonPressed();
         },
         child: Container(
