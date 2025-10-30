@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CarritoPage2 extends StatefulWidget {
   const CarritoPage2({super.key});
@@ -47,8 +48,8 @@ class _CarritoPage2State extends State<CarritoPage2> {
                 Container(
                   child: Text(
                     'Carrito',
-                    /* style: GoogleFonts.leckerliOne(
-                        fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)), */
+                    style: GoogleFonts.leckerliOne(
+                        fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),
                   ),
                 ),
               ],
@@ -97,7 +98,7 @@ class _CarritoPage2State extends State<CarritoPage2> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(28.0),
-                      child: Text('Precio'),
+                      child: Text(' \$ 20.000'),
                     ),
                     Spacer(),
                     Padding(
@@ -111,7 +112,8 @@ class _CarritoPage2State extends State<CarritoPage2> {
                               color: Color.fromARGB(255, 247, 246, 242),
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
-                            child: Text('Pagar'),
+                            child: Text('Pagar',  style: GoogleFonts.leckerliOne(
+                        fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),),
                           ),
                         ),
                       ),
@@ -143,7 +145,10 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
       child: Container(
         width: double.infinity,
         // height: 110,
-        color: Colors.amber,
+         decoration: BoxDecoration(
+        color: Color.fromRGBO(109, 109, 109, 1),
+                        borderRadius: BorderRadius.circular(20)
+                      ),
         child: Column(
           children: [
             Row(
