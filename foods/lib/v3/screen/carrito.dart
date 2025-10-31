@@ -37,8 +37,7 @@ class _CarritoPage2State extends State<CarritoPage2> {
                     icon: Icon(
                         Icons.arrow_back), // Puedes cambiarlo por otro ícono
                     onPressed: () {
-                                     Navigator.of(context).pop();
-                  
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
@@ -112,8 +111,12 @@ class _CarritoPage2State extends State<CarritoPage2> {
                               color: Color.fromARGB(255, 247, 246, 242),
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
-                            child: Text('Pagar',  style: GoogleFonts.leckerliOne(
-                        fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),),
+                            child: Text(
+                              'Pagar',
+                              style: GoogleFonts.leckerliOne(
+                                  fontSize: 30,
+                                  color: Color.fromRGBO(109, 109, 109, 1)),
+                            ),
                           ),
                         ),
                       ),
@@ -145,10 +148,9 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
       child: Container(
         width: double.infinity,
         // height: 110,
-         decoration: BoxDecoration(
-        color: Color.fromRGBO(109, 109, 109, 1),
-                        borderRadius: BorderRadius.circular(20)
-                      ),
+        decoration: BoxDecoration(
+            color: Color.fromRGBO(109, 109, 109, 1),
+            borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
             Row(
@@ -179,12 +181,18 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         Text(
                           'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
                           maxLines: 10,
+                          textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
                         )
                       ],
                     ),
                   ),
                 ),
+                //
+                ClipOval(
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.delete_forever_outlined))),
               ],
             ),
             SizedBox(
@@ -200,7 +208,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                         padding: const EdgeInsets.only(right: 38.0, left: 38.0, top: 5),
+                        padding: const EdgeInsets.only(
+                            right: 38.0, left: 38.0, top: 5),
                         child: Text('20.000'),
                       ),
 
@@ -226,7 +235,6 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         width: 10,
                       ),
 
-                   
                       Container(
                         width: 50,
                         height: 50,
@@ -262,8 +270,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
             ),
             //
             Container(
-                        height: 10,
-                      ),
+              height: 10,
+            ),
 //
           ],
         ),
