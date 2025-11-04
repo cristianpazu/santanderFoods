@@ -289,7 +289,9 @@ class tarjetaComida extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(245, 233, 233, 1),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: Image.asset('assets/mora.png',    fit: BoxFit.cover,),
                     ),
+                    
                   ),
                   SizedBox(
                     width: 10,
