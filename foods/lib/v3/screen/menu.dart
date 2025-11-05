@@ -1,21 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
+import 'package:foods/v3/entities/NombreComidaRapida2.dart';
+import 'package:foods/v3/entities/descripcionMenu.dart';
+import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
 import 'package:foods/v3/screen/carrito.dart';
 import 'package:foods/widgets/InfoComida.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/widgets/infoComida2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MenuPage extends StatefulWidget {
+class MenuPage extends ConsumerStatefulWidget {
+
+    final int idRestaurante;
+MenuPage(this.idRestaurante);
   @override
-  State<MenuPage> createState() => _MenuPageState();
+ _MenuPageState createState() => _MenuPageState();
 }
 
-class _MenuPageState extends State<MenuPage> {
+class _MenuPageState extends ConsumerState<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Clave para manejar el Drawer
 
+
+
   @override
   Widget build(BuildContext context) {
+final productState = ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante));
+
+print('objectproductState ${productState.menuComidaRapidas?.length}');
+
+ if (productState.isLoding!) {
+      return Scaffold( 
+        body: Center(
+          child: CircularProgressIndicator()
+        ),
+      ); // const CircularProgressIndicator();
+    }
+
+
+    final menus = productState.menuComidaRapidas ?? [];
+
+ //final descrpconmenu = menus.isNotEmpty ? menus[0].descripcion : [];
+//print('objectproductState objectproductState menus ${menus.length}');
+print('objectproductState objectproductState menus ${productState.nombreComidaRapida!.length}');
+
+ final restaurantes = productState.nombreComidaRapida ?? [];
+final allItems = restaurantes.expand((restaurante) {
+  return restaurante.menu.expand((menu) {
+    return (menu.descripcion ?? []).map((item) => {
+      'restaurante': restaurante,
+      'submenu': menu.submenu,
+      'item': item,
+    });
+  });
+}).toList();
+
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: DrawerPage(),
@@ -141,8 +182,29 @@ class _MenuPageState extends State<MenuPage> {
             height: 10,
           ),
           Expanded(
-            child: ListView(
-              children: [
+            child: ListView.builder(
+               itemCount:allItems.length, //descrpconmenu!.length,
+              itemBuilder: (context, index) {
+                //  final menuSate = descrpconmenu[index];
+              final entry = allItems[index];
+      final restaurante = entry['restaurante'] as NombreComidaRapida2;
+      final submenu = entry['submenu'] as String?;
+      final item = entry['item'] as DescripcionMenu;
+               return   Column(
+                 children: [
+                   tarjetaComida(
+                    item.image,
+                    item.nombre,
+                    item.descripcion,
+                    item.precio
+                   ),
+                    SizedBox(
+                  height: 20,
+                ),
+                 ],
+               );
+              }
+             /* children: [
                 tarjetaComida(),
                 SizedBox(
                   height: 20,
@@ -156,7 +218,7 @@ class _MenuPageState extends State<MenuPage> {
                   height: 20,
                 ),
                 tarjetaComida(),
-              ],
+              ], */
             ),
           ),
           SizedBox(
@@ -251,9 +313,17 @@ class _MenuPageState extends State<MenuPage> {
 }
 
 class tarjetaComida extends StatelessWidget {
-  const tarjetaComida({
-    super.key,
-  });
+  String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+
+   tarjetaComida(
+  this.images,
+   this.nombre,
+  this.descripcion,
+  this.precios
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +331,12 @@ class tarjetaComida extends StatelessWidget {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) => InfoComida2(),
+        builder: (ctx) => InfoComida2(
+         this.images,
+  this.nombre,
+  this.descripcion,
+  this.precios
+        ),
       );
     }
 
@@ -289,7 +364,13 @@ class tarjetaComida extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(245, 233, 233, 1),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Image.asset('assets/mora.png',    fit: BoxFit.cover,),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      child: Image.asset(
+                        '${images}' ?? 'assets/mora.png', 
+                      
+                         fit: BoxFit.cover,),
+                    ),
                     ),
                     
                   ),
@@ -307,7 +388,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Nombre del resurante',
+                            nombre ?? '', //'Nombre del resurante',
                             style: GoogleFonts.leckerliOne(
                                 fontSize: 10, color: Colors.black),
                           ),
@@ -315,7 +396,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                            descripcion ?? '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.leckerliOne(
@@ -325,7 +406,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            'Precio del resurante',
+                            precios ?? '',// 'Precio del resurante',
                             style: GoogleFonts.leckerliOne(
                                 fontSize: 15,
                                 color: Color.fromRGBO(255, 255, 255, 1)),

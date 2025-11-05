@@ -1,6 +1,6 @@
 import 'package:foods/v3/entities/menus.dart';
 
-class Nombrehamburguesas {
+class NombreComidaRapida2 {
   int id;
   String? nombres;
   String image;
@@ -9,7 +9,7 @@ class Nombrehamburguesas {
 
   List<Menus> menu;
 
-  Nombrehamburguesas({
+  NombreComidaRapida2({
     required this.id,
     this.nombres,
     required this.image,
@@ -18,13 +18,13 @@ class Nombrehamburguesas {
     required this.menu,
   });
 
-  factory Nombrehamburguesas.fromJson(Map<String, dynamic> json) =>
-      Nombrehamburguesas(
-        id: json["id"],
+  factory NombreComidaRapida2.fromJson(Map<String, dynamic> json) =>
+      NombreComidaRapida2(
+        id: json["id"] ?? 0,
         nombres: json["nombres"],
         image: json["image"],
-        direccion: json["direccion"],
-        contacto: json["contacto"],
+        direccion: json["direccion"] ?? '',
+        contacto: json["contacto"] ?? '',
         menu: json["menu"] != null
             ? List<Menus>.from(json["menu"].map((x) => Menus.fromJson(x)))
             : [],

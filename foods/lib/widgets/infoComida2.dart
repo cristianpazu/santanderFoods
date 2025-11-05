@@ -3,15 +3,42 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InfoComida2 extends StatefulWidget {
-  const InfoComida2({super.key});
+    String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+   InfoComida2( 
+    this.images,
+   this.nombre,
+  this.descripcion,
+  this.precios);
+
+
+
+
 
   @override
-  State<InfoComida2> createState() => _InfoComidaState();
+  State<InfoComida2> createState() => _InfoComidaState(
+    images,
+    nombre,
+    descripcion,
+    precios
+
+  );
 }
 
 class _InfoComidaState extends State<InfoComida2> {
   int valor = 0;
   bool isAddedToCart = false;
+   String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+
+    _InfoComidaState( this.images,
+   this.nombre,
+  this.descripcion,
+  this.precios);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +56,9 @@ class _InfoComidaState extends State<InfoComida2> {
        child: Container(
         child: Hero(
           tag: _carTaf,
-          child: Image.asset('assets/salchipapas.jpg',fit: BoxFit.cover,)),
+          child: Image.asset(images ?? ''//'assets/salchipapas.jpg'
+          
+          ,fit: BoxFit.cover,)),
         /*
          decoration: BoxDecoration(
            image: DecorationImage(
@@ -59,20 +88,20 @@ class _InfoComidaState extends State<InfoComida2> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Nombre del producto',
+                  Text(nombre ?? '',
+                    //'Nombre del producto',
                     style: GoogleFonts.leckerliOne(
                         fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
                   ),
-                  Text(
-                    'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                  Text(descripcion ?? '',
+                   // 'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.leckerliOne(
                         fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
                   ),
-                  Text(
-                    'Precio',
+                  Text( precios ?? '',
+                   // 'Precio',
                     style: GoogleFonts.leckerliOne(
                         fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
                   ),
