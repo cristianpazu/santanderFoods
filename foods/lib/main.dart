@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
       
         home: //ComidasRapidas() 
-       // MenuResponsive()
-       MenuPage()
+        MenuResponsive()
+      // MenuPage()
        //MyShopPage()
         /*
         Container(
@@ -70,11 +70,12 @@ class MenuResponsive extends StatelessWidget {
         ],
         child: widget!,
       ),
-      home:// CarritoPage()
+      home: MenuPage(1)
+      // CarritoPage()
       // Menucomidas(),
          //Restautantesprincipales(), 
       
-      menuHome(),
+     // menuHome(),
     );
   }
 } 
