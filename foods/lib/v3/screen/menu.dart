@@ -136,12 +136,14 @@ final submenusUnicos = allItems
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Expanded(
                 child: ListView.builder(
+                 scrollDirection: Axis.horizontal,
                     itemCount: submenusUnicos.length,
                     itemBuilder: (context, index) {
                        final submenu = submenusUnicos[index];
                           
                          
                       return Row(
+                        
                         children: [
                         Container(
                         height: 40,
@@ -151,6 +153,10 @@ final submenusUnicos = allItems
                             borderRadius: BorderRadius.all(Radius.circular(40))),
                         child: Center(child: Text( submenu ?? '', style: TextStyle(color: Color(ConstantesColorTema2.blanco)) ,)),
                       ),
+                      //
+                        SizedBox(
+                      width: 10,
+                    ),
                         ],
                       );
                     }, ),

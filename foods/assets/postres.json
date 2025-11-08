@@ -38,6 +38,18 @@
               "precio": "$ 40.000"
             }
           ]
+           },{ 
+           "submenu": "Pasteles",
+          "descripcion": [
+            {
+              "nombre": "Postres de banano",
+              "descripcion": "",
+              "image": "assets/mora.png",
+              "unidades": "0",
+              "precio": "$ 12.000"
+            }
+           
+          ]
         }
       ]
     
