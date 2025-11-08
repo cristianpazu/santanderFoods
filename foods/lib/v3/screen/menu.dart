@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
 import 'package:foods/v3/entities/NombreComidaRapida2.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
 import 'package:foods/v3/screen/carrito.dart';
+import 'package:foods/v3/util/colores.dart';
 import 'package:foods/widgets/InfoComida.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/widgets/infoComida2.dart';
@@ -55,7 +57,11 @@ final allItems = restaurantes.expand((restaurante) {
     });
   });
 }).toList();
-
+final submenusUnicos = allItems
+    .map((e) => e['submenu'] as String?)
+    .where((s) => s != null && s.isNotEmpty)
+    .toSet()
+    .toList();
 
     return Scaffold(
       key: _scaffoldKey,
@@ -128,9 +134,50 @@ final allItems = restaurantes.expand((restaurante) {
             height: 80,
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
-              child: SingleChildScrollView(
+              child: Expanded(
+                child: ListView.builder(
+                    itemCount: submenusUnicos.length,
+                    itemBuilder: (context, index) {
+                       final submenu = submenusUnicos[index];
+                          
+                         
+                      return Row(
+                        children: [
+                        Container(
+                        height: 40,
+                        width: 90,
+                        decoration: BoxDecoration(
+                            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
+                            borderRadius: BorderRadius.all(Radius.circular(40))),
+                        child: Center(child: Text( submenu ?? '', style: TextStyle(color: Color(ConstantesColorTema2.blanco)) ,)),
+                      ),
+                        ],
+                      );
+                    }, ),
+              )
+               /* ListView.builder(
+                  itemCount: allItems.length,
+                  itemBuilder: (context, index) {
+                     final entry = allItems[index];
+                        final submenu = entry['submenu'] as String?;
+                        print('submenuZZZZZZZZZZZZZZZZZ $submenu');
+                    return Row(
+                      children: [
+                      Container(
+                      height: 40,
+                      width: 90,
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(109, 109, 109, 0.5),
+                          borderRadius: BorderRadius.all(Radius.circular(40))),
+                      child: Text( ''),
+                    ),
+                      ],
+                    );
+                  }, )*/ /* SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
+                child:   
+              
+                Row(
                   children: [
                     Container(
                       height: 40,
@@ -174,13 +221,16 @@ final allItems = restaurantes.expand((restaurante) {
                       child: Text(''),
                     ),
                   ],
-                ),
+                ), 
               ),
+              */
             ),
           ),
+          //
           SizedBox(
             height: 10,
           ),
+          //
           Expanded(
             child: ListView.builder(
                itemCount:allItems.length, //descrpconmenu!.length,
@@ -190,6 +240,7 @@ final allItems = restaurantes.expand((restaurante) {
       final restaurante = entry['restaurante'] as NombreComidaRapida2;
       final submenu = entry['submenu'] as String?;
       final item = entry['item'] as DescripcionMenu;
+     
                return   Column(
                  children: [
                    tarjetaComida(
@@ -350,7 +401,7 @@ class tarjetaComida extends StatelessWidget {
           width: double.infinity,
           height: 150,
           decoration: BoxDecoration(
-              color: Color.fromRGBO(109, 109, 109, 0.5),
+              color:  Color(ConstantesColorTema2.naraja), //Color.fromRGBO(109, 109, 109, 0.5),
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [

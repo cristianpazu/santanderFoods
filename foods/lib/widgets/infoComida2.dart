@@ -1,5 +1,6 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class InfoComida2 extends StatefulWidget {
@@ -76,7 +77,7 @@ class _InfoComidaState extends State<InfoComida2> {
           child: Container(
             height: height * 0.77,
             decoration: BoxDecoration(
-                color: Color.fromRGBO(109, 109, 109, 1),
+                color: Color(ConstantesColorTema2.blanco),//Color.fromRGBO(109, 109, 109, 1),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
@@ -112,7 +113,7 @@ class _InfoComidaState extends State<InfoComida2> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Color(ConstantesColorTema2.naraja),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
@@ -121,7 +122,7 @@ class _InfoComidaState extends State<InfoComida2> {
                                   valor++;
                                 });
                               },
-                              icon: Icon(Icons.add))),
+                              icon: Icon(Icons.add, color: Color(ConstantesColorTema2.blanco),))),
                       SizedBox(
                         width: 10,
                       ),
@@ -134,7 +135,7 @@ class _InfoComidaState extends State<InfoComida2> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Color(ConstantesColorTema2.naraja),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
@@ -144,7 +145,7 @@ class _InfoComidaState extends State<InfoComida2> {
                                   valor--;
                                 });
                               },
-                              icon: Icon(Icons.remove))),
+                              icon: Icon(Icons.remove,  color: Color(ConstantesColorTema2.blanco)))),
                       SizedBox(
                         width: 80,
                       ),
@@ -153,7 +154,7 @@ class _InfoComidaState extends State<InfoComida2> {
                         width: 150,
                         height: 50,
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Color(ConstantesColorTema2.naraja),
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         child: TextButton(
@@ -173,7 +174,7 @@ class _InfoComidaState extends State<InfoComida2> {
                                 'Agregar',
                                 style: GoogleFonts.leckerliOne(
                                   fontSize: 15,
-                                  color: Color.fromRGBO(109, 109, 109, 1),
+                                  color: Color(ConstantesColorTema2.blanco),//Color.fromRGBO(109, 109, 109, 1),
                                 ),
                               ),
                               // El ícono invisible hasta que se presiona
