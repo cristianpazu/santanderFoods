@@ -13,55 +13,67 @@ import 'package:foods/widgets/infoComida2.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MenuPage extends ConsumerStatefulWidget {
-
-    final int idRestaurante;
-MenuPage(this.idRestaurante);
+  final int idRestaurante;
+  MenuPage(this.idRestaurante);
   @override
- _MenuPageState createState() => _MenuPageState();
+  _MenuPageState createState() => _MenuPageState();
 }
 
 class _MenuPageState extends ConsumerState<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Clave para manejar el Drawer
+  final ScrollController _scrollController = ScrollController();
+  int _selectedSubmenuIndex = 0;
+  final Map<String, double> _submenuOffsets = {};
+  final ScrollController _submenuScrollController = ScrollController();
 
-
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _submenuScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-final productState = ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante));
+    final productState =
+        ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante));
 
-print('objectproductState ${productState.menuComidaRapidas?.length}');
+    print('objectproductState ${productState.menuComidaRapidas?.length}');
 
- if (productState.isLoding!) {
-      return Scaffold( 
-        body: Center(
-          child: CircularProgressIndicator()
-        ),
+    if (productState.isLoding!) {
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator()),
       ); // const CircularProgressIndicator();
     }
 
+    // final menus = productState.menuComidaRapidas ?? [];
 
-    final menus = productState.menuComidaRapidas ?? [];
-
- //final descrpconmenu = menus.isNotEmpty ? menus[0].descripcion : [];
+    //final descrpconmenu = menus.isNotEmpty ? menus[0].descripcion : [];
 //print('objectproductState objectproductState menus ${menus.length}');
-print('objectproductState objectproductState menus ${productState.nombreComidaRapida!.length}');
+    print(
+        'objectproductState objectproductState menus ${productState.nombreComidaRapida!.length}');
 
- final restaurantes = productState.nombreComidaRapida ?? [];
-final allItems = restaurantes.expand((restaurante) {
-  return restaurante.menu.expand((menu) {
-    return (menu.descripcion ?? []).map((item) => {
-      'restaurante': restaurante,
-      'submenu': menu.submenu,
-      'item': item,
-    });
-  });
-}).toList();
-final submenusUnicos = allItems
-    .map((e) => e['submenu'] as String?)
-    .where((s) => s != null && s.isNotEmpty)
-    .toSet()
-    .toList();
+    final restaurantes = productState.nombreComidaRapida ?? [];
+    final allItems = restaurantes.expand((restaurante) {
+      return restaurante.menu.expand((menu) {
+        return (menu.descripcion ?? []).map((item) => {
+              'restaurante': restaurante,
+              'submenu': menu.submenu,
+              'item': item,
+            });
+      });
+    }).toList();
+    final submenusUnicos = allItems
+        .map((e) => e['submenu'] as String?)
+        .where((s) => s != null && s.isNotEmpty)
+        .toSet()
+        .toList();
+
+    final itemsPorSubmenu = {
+      for (var submenu in submenusUnicos)
+        submenu: allItems.where((e) => e['submenu'] == submenu).toList(),
+    };
 
     return Scaffold(
       key: _scaffoldKey,
@@ -131,37 +143,84 @@ final submenusUnicos = allItems
           ),
           Container(
             width: double.infinity,
-            height: 80,
+            height: 40,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              child: Expanded(
-                child: ListView.builder(
-                 scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Expanded(
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
                     itemCount: submenusUnicos.length,
                     itemBuilder: (context, index) {
-                       final submenu = submenusUnicos[index];
-                          
-                         
-                      return Row(
-                        
-                        children: [
-                        Container(
+                      final submenu = submenusUnicos[index];
+                      final bool isSelected = index == _selectedSubmenuIndex;
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedSubmenuIndex = index;
+                          });
+                          // ✅ Al tocar, scrollea automáticamente al grupo
+                          final offset = _submenuOffsets[submenu] ?? 0;
+                          _scrollController.animateTo(
+                            offset,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: Container(
                         height: 40,
-                        width: 90,
-                        decoration: BoxDecoration(
-                            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
-                            borderRadius: BorderRadius.all(Radius.circular(40))),
-                        child: Center(child: Text( submenu ?? '', style: TextStyle(color: Color(ConstantesColorTema2.blanco)) ,)),
-                      ),
-                      //
-                        SizedBox(
-                      width: 10,
-                    ),
-                        ],
+  width: 90,
+  margin: const EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? Color(ConstantesColorTema2.naraja)
+                                : Colors.white,
+                            borderRadius:   BorderRadius.all(Radius.circular(40)),
+                            border: Border.all(
+                              color: Color(ConstantesColorTema2.naraja),
+                              width: 2,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              submenu ?? '',
+                              style: TextStyle(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Color(ConstantesColorTema2.naraja),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                       );
-                    }, ),
-              )
-               /* ListView.builder(
+
+                      /* Row(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 90,
+                            decoration: BoxDecoration(
+                                color: Color(ConstantesColorTema2
+                                    .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(40))),
+                            child: Center(
+                                child: Text(
+                              submenu ?? '',
+                              style: TextStyle(
+                                  color: Color(ConstantesColorTema2.blanco)),
+                            )),
+                          ),
+                          //
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ); */
+                    },
+                  ),
+                )
+                /* ListView.builder(
                   itemCount: allItems.length,
                   itemBuilder: (context, index) {
                      final entry = allItems[index];
@@ -230,7 +289,7 @@ final submenusUnicos = allItems
                 ), 
               ),
               */
-            ),
+                ),
           ),
           //
           SizedBox(
@@ -238,46 +297,130 @@ final submenusUnicos = allItems
           ),
           //
           Expanded(
-            child: ListView.builder(
-               itemCount:allItems.length, //descrpconmenu!.length,
-              itemBuilder: (context, index) {
-                //  final menuSate = descrpconmenu[index];
-              final entry = allItems[index];
-      final restaurante = entry['restaurante'] as NombreComidaRapida2;
-      final submenu = entry['submenu'] as String?;
-      final item = entry['item'] as DescripcionMenu;
-     
-               return   Column(
-                 children: [
-                   tarjetaComida(
-                    item.image,
-                    item.nombre,
-                    item.descripcion,
-                    item.precio
-                   ),
-                    SizedBox(
-                  height: 20,
+            child: NotificationListener<ScrollNotification>(
+                onNotification: (scrollNotification) {
+                  if (scrollNotification is ScrollUpdateNotification) {
+                    double offset = _scrollController.offset;
+                    String? visibleSubmenu;
+                    double minDifference = double.infinity;
+
+                    _submenuOffsets.forEach((submenu, pos) {
+                      final diff = (offset - pos).abs();
+                      if (diff < minDifference) {
+                        minDifference = diff;
+                        visibleSubmenu = submenu;
+                      }
+                    });
+
+                    if (visibleSubmenu != null) {
+                      final index = submenusUnicos.indexOf(visibleSubmenu);
+                      if (index != _selectedSubmenuIndex) {
+                        setState(() {
+                          _selectedSubmenuIndex = index;
+                        });
+                      }
+                    }
+                  }
+                  return false;
+                },
+                child: ListView(
+                  controller: _scrollController,
+                  children: [
+                    for (var submenu in submenusUnicos) ...[
+                      Builder(
+                        builder: (context) {
+                          // ✅ Registramos la posición del grupo
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            final box =
+                                context.findRenderObject() as RenderBox?;
+                            if (box != null) {
+                              final position =
+                                  box.localToGlobal(Offset.zero).dy +
+                                      _scrollController.offset;
+                              _submenuOffsets[submenu ?? ''] = position;
+                            }
+                          });
+
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                             /* Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Text(
+                                  submenu!,
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(ConstantesColorTema2.naraja),
+                                  ),
+                                ),
+                              ), */
+                              ...itemsPorSubmenu[submenu]!.map((entry) {
+                                final item =
+                                    entry['item'] as DescripcionMenu;
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  child: tarjetaComida(
+                                    item.image,
+                                    item.nombre,
+                                    item.descripcion,
+                                    item.precio,
+                                  ),
+                                );
+                              }).toList(),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ],
                 ),
-                 ],
-               );
-              }
-             /* children: [
-                tarjetaComida(),
-                SizedBox(
-                  height: 20,
-                ),
-                tarjetaComida(),
-                SizedBox(
-                  height: 20,
-                ),
-                tarjetaComida(),
-                SizedBox(
-                  height: 20,
-                ),
-                tarjetaComida(),
-              ], */
+              ),
             ),
-          ),
+          
+        
+      
+    
+            
+            /*  ListView.builder(
+                itemCount: allItems.length, //descrpconmenu!.length,
+                itemBuilder: (context, index) {
+                  //  final menuSate = descrpconmenu[index];
+                  final entry = allItems[index];
+                  final restaurante =
+                      entry['restaurante'] as NombreComidaRapida2;
+                  final submenu = entry['submenu'] as String?;
+                  final item = entry['item'] as DescripcionMenu;
+
+                  return Column(
+                    children: [
+                      tarjetaComida(item.image, item.nombre, item.descripcion,
+                          item.precio),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  );
+                }
+                //comentar despoues
+               children: [
+                tarjetaComida(),
+                SizedBox(
+                  height: 20,
+                ),
+                tarjetaComida(),
+                SizedBox(
+                  height: 20,
+                ),
+                tarjetaComida(),
+                SizedBox(
+                  height: 20,
+                ),
+                tarjetaComida(),
+              ], 
+                ), 
+          ),*/
           SizedBox(
             height: 10,
           ),
@@ -375,12 +518,7 @@ class tarjetaComida extends StatelessWidget {
   String? descripcion;
   String? precios;
 
-   tarjetaComida(
-  this.images,
-   this.nombre,
-  this.descripcion,
-  this.precios
-  );
+  tarjetaComida(this.images, this.nombre, this.descripcion, this.precios);
 
   @override
   Widget build(BuildContext context) {
@@ -389,11 +527,7 @@ class tarjetaComida extends StatelessWidget {
         context: context,
         isScrollControlled: true,
         builder: (ctx) => InfoComida2(
-         this.images,
-  this.nombre,
-  this.descripcion,
-  this.precios
-        ),
+            this.images, this.nombre, this.descripcion, this.precios),
       );
     }
 
@@ -407,7 +541,8 @@ class tarjetaComida extends StatelessWidget {
           width: double.infinity,
           height: 150,
           decoration: BoxDecoration(
-              color:  Color(ConstantesColorTema2.naraja), //Color.fromRGBO(109, 109, 109, 0.5),
+              color: Color(ConstantesColorTema2
+                  .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
@@ -421,15 +556,14 @@ class tarjetaComida extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: Color.fromRGBO(245, 233, 233, 1),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      child: Image.asset(
-                        '${images}' ?? 'assets/mora.png', 
-                      
-                         fit: BoxFit.cover,),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: Image.asset(
+                          '${images}' ?? 'assets/mora.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                    ),
-                    
                   ),
                   SizedBox(
                     width: 10,
@@ -453,7 +587,8 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            descripcion ?? '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                            descripcion ??
+                                '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.leckerliOne(
@@ -463,7 +598,7 @@ class tarjetaComida extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            precios ?? '',// 'Precio del resurante',
+                            precios ?? '', // 'Precio del resurante',
                             style: GoogleFonts.leckerliOne(
                                 fontSize: 15,
                                 color: Color.fromRGBO(255, 255, 255, 1)),
