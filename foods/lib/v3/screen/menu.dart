@@ -123,18 +123,20 @@ class _MenuPageState extends ConsumerState<MenuPage> {
             padding: EdgeInsets.only(left: 20, right: 20),
             child: TextFormField(
               decoration: InputDecoration(
+                
                   hintText: 'Buscar',
                   hintStyle: GoogleFonts.leckerliOne(
-                      fontSize: 20, color: Color.fromRGBO(109, 109, 109, 1)),
+                      fontSize: 20, color: Color(ConstantesColorTema2.naraja)), //Color.fromRGBO(109, 109, 109, 1)),
                   filled: true,
-                  fillColor: Color.fromRGBO(109, 109, 109, 0.5),
+                  fillColor: Color(ConstantesColorTema2.blanco),//Color.fromRGBO(109, 109, 109, 0.5),
                   suffixIcon: //Image.asset('assets/buscar.png',width: 78,height: 2,fit: BoxFit.contain,),
                       Icon(
                     Icons.search_rounded,
                     size: 40,
-                    color: Colors.grey,
+                    color: Color(ConstantesColorTema2.naraja)//Colors.grey,
                   ),
                   border: OutlineInputBorder(
+
                       borderRadius: BorderRadius.circular(40))),
             ),
           ),
@@ -429,7 +431,8 @@ class _MenuPageState extends ConsumerState<MenuPage> {
             child: Container(
               width: double.infinity,
               height: 90,
-              color: Color.fromRGBO(109, 109, 109, 0.5),
+              color: 
+              Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
               child: Column(
                 children: [
                   Row(
@@ -456,7 +459,13 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                                 color: Color.fromARGB(255, 247, 246, 242),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Center(
-                              child: Text('Carrito'),
+                              child: Text('Carrito', 
+                               style: GoogleFonts.leckerliOne(
+                                  fontSize: 30,
+                                  color: Color(ConstantesColorTema2.naraja)//Color.fromRGBO(109, 109, 109, 1)
+                                  
+                                  ),
+                              ),
                             ),
                           ),
                         ),

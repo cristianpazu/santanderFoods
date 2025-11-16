@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CarritoPage2 extends StatefulWidget {
@@ -90,7 +91,7 @@ class _CarritoPage2State extends State<CarritoPage2> {
           Container(
             width: double.infinity,
             height: 90,
-            color: Color.fromRGBO(109, 109, 109, 0.5),
+            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
             child: Column(
               children: [
                 Row(
@@ -115,7 +116,9 @@ class _CarritoPage2State extends State<CarritoPage2> {
                               'Pagar',
                               style: GoogleFonts.leckerliOne(
                                   fontSize: 30,
-                                  color: Color.fromRGBO(109, 109, 109, 1)),
+                                  color: Color(ConstantesColorTema2.naraja)//Color.fromRGBO(109, 109, 109, 1)
+                                  
+                                  ),
                             ),
                           ),
                         ),
@@ -149,7 +152,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
         width: double.infinity,
         // height: 110,
         decoration: BoxDecoration(
-            color: Color.fromRGBO(109, 109, 109, 1),
+            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 1),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
