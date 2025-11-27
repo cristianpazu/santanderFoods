@@ -5,6 +5,7 @@ import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_c
 import 'package:foods/v3/entities/NombreComidaRapida2.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
 import 'package:foods/v3/screen/carrito.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:foods/widgets/InfoComida.dart';
@@ -38,8 +39,13 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   Widget build(BuildContext context) {
     final productState =
         ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante));
-
+ print('objectproductState ${productState.id}');
     print('objectproductState ${productState.menuComidaRapidas?.length}');
+  final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
+
+
+print('cantidadEnCarrito $cantidadEnCarrito');
+
 
     if (productState.isLoding!) {
       return Scaffold(
@@ -361,13 +367,19 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                               ...itemsPorSubmenu[submenu]!.map((entry) {
                                 final item =
                                     entry['item'] as DescripcionMenu;
+
+
+print('<<<object>>> ${productState.id}');
+
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 15),
                                   child: tarjetaComida(
+                                    productState.id,
                                     item.image,
                                     item.nombre,
                                     item.descripcion,
                                     item.precio,
+                                    item.unidades,
                                   ),
                                 );
                               }).toList(),
@@ -426,7 +438,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
           SizedBox(
             height: 10,
           ),
-          Hero(
+          cantidadEnCarrito > 0 ?           Hero(
             tag: 'as',
             child: Container(
               width: double.infinity,
@@ -475,7 +487,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                 ],
               ),
             ),
-          )
+          ) : Container(),
         ],
       )),
 
@@ -522,12 +534,14 @@ class _MenuPageState extends ConsumerState<MenuPage> {
 }
 
 class tarjetaComida extends StatelessWidget {
+  int? idRestaurante;
   String? images;
   String? nombre;
   String? descripcion;
   String? precios;
+  String? unidades;
 
-  tarjetaComida(this.images, this.nombre, this.descripcion, this.precios);
+  tarjetaComida(this.idRestaurante,this.images, this.nombre, this.descripcion, this.precios, this.unidades);
 
   @override
   Widget build(BuildContext context) {
@@ -535,8 +549,8 @@ class tarjetaComida extends StatelessWidget {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) => InfoComida2(
-            this.images, this.nombre, this.descripcion, this.precios),
+        builder: (ctx) => InfoComida2(this.idRestaurante,
+            this.images, this.nombre, this.descripcion, this.precios, this.unidades),
       );
     }
 

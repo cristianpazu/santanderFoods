@@ -1,51 +1,65 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v3/entities/items.dart';
+import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class InfoComida2 extends StatefulWidget {
+import '../v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+
+class InfoComida2 extends ConsumerStatefulWidget {
+    int? idRestaurante;
     String? images;
   String? nombre;
   String? descripcion;
   String? precios;
+    String? unidades;
    InfoComida2( 
+    this.idRestaurante,
     this.images,
    this.nombre,
   this.descripcion,
-  this.precios);
-
-
-
+  this.precios,this.unidades);
 
 
   @override
-  State<InfoComida2> createState() => _InfoComidaState(
+  _InfoComidaState createState() => _InfoComidaState(
+    idRestaurante,
     images,
     nombre,
     descripcion,
-    precios
-
+    precios,
+unidades
   );
 }
 
-class _InfoComidaState extends State<InfoComida2> {
+class _InfoComidaState extends ConsumerState<InfoComida2> {
   int valor = 0;
   bool isAddedToCart = false;
+  int? idRestaurante;
    String? images;
   String? nombre;
   String? descripcion;
   String? precios;
+  String? unidades;
 
-    _InfoComidaState( this.images,
+    _InfoComidaState( 
+      this.idRestaurante,
+      this.images,
    this.nombre,
   this.descripcion,
-  this.precios);
+  this.precios,
+   this.unidades);
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    final productState = ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante!));
+   
     String _carTaf = 'as';
     print(valor);
+    print('object ${productState.id}');
     return SafeArea(
         child: Stack(
       children: [
@@ -56,7 +70,7 @@ class _InfoComidaState extends State<InfoComida2> {
             height: height * 0.30,
        child: Container(
         child: Hero(
-          tag: _carTaf,
+          tag:  widget.nombre! + _carTaf,
           child: Image.asset(images ?? ''//'assets/salchipapas.jpg'
           
           ,fit: BoxFit.cover,)),
@@ -162,9 +176,30 @@ class _InfoComidaState extends State<InfoComida2> {
                             padding: EdgeInsets.zero,
                           ),
                           onPressed: () async {
+
+ final item = Items(
+          nombre: nombre!,
+          descripcion: descripcion,
+          precio: precios,
+          unidades: unidades,
+          image: images,
+         
+        );
+
+ final agregado = ref.read(itemsStateNotifier.notifier).agregarItems(item,productState.id);
+
+ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(agregado
+               ? '✅ Se añadió exitosamente al carrito'
+             : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
                             setState(() {
                               _carTaf;
                             });
+                            Navigator.pop(context);
                           },
                           child: Stack(
                             alignment: Alignment.center,

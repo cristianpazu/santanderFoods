@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v3/entities/descripcionMenu.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CarritoPage2 extends StatefulWidget {
+class CarritoPage2 extends ConsumerStatefulWidget {
   const CarritoPage2({super.key});
 
   @override
-  State<CarritoPage2> createState() => _CarritoPage2State();
+  _CarritoPage2State createState() => _CarritoPage2State();
 }
 
-class _CarritoPage2State extends State<CarritoPage2> {
+class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   int valor = 0;
   @override
   Widget build(BuildContext context) {
+       final carrito = ref.watch(itemsStateNotifier);
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -57,8 +61,20 @@ class _CarritoPage2State extends State<CarritoPage2> {
           ),
 
           Expanded(
-            child: ListView(
-              children: [
+            child: ListView.separated(
+              itemCount: carrito.length,
+                separatorBuilder: (context, index) => SizedBox(height: 20),
+              itemBuilder: (context, index) {
+  final itemState = carrito[index];
+final DescripcionMenu item = itemState.descripcionMenu.first;
+                return  TarjetaComidaCarrito(
+                  item.nombre,
+                  item.descripcion,
+                  item.precio,
+                  item.image
+                );
+              },
+            /*  children: [
                 TarjetaComidaCarrito(),
                 SizedBox(
                   height: 20,
@@ -83,7 +99,7 @@ class _CarritoPage2State extends State<CarritoPage2> {
                 SizedBox(
                   height: 20,
                 ),
-              ],
+              ],*/
             ),
           ),
           //
@@ -136,13 +152,21 @@ class _CarritoPage2State extends State<CarritoPage2> {
 }
 
 class TarjetaComidaCarrito extends StatefulWidget {
-  const TarjetaComidaCarrito({super.key});
+  
+  final String? nombre;
+  final String? descripcion;
+  final String? precio;
+  final String? images;
+
+  const TarjetaComidaCarrito(this.nombre, this.descripcion, this.precio, this.images);
 
   @override
   State<TarjetaComidaCarrito> createState() => _TarjetaComidaCarritoState();
 }
 
 class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
+  
+
   int valor = 0;
   @override
   Widget build(BuildContext context) {
@@ -167,7 +191,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                       width: 50,
                       height: 50,
                       child: Image.asset(
-                        'assets/salchipapas.jpg',
+                        widget.images ?? '',//'assets/salchipapas.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -179,10 +203,10 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('data'),
+                        Text(widget.nombre ?? ''),
                         SizedBox(height: 8),
                         Text(
-                          'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
+                         widget.descripcion ?? '' ,// 'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
                           maxLines: 10,
                           textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
@@ -213,7 +237,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                       Padding(
                         padding: const EdgeInsets.only(
                             right: 38.0, left: 38.0, top: 5),
-                        child: Text('20.000'),
+                        child: Text(widget.precio ?? ''),
                       ),
 
                       ///
