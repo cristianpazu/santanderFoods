@@ -56,10 +56,17 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     final productState = ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante!));
+final cartState = ref.watch(itemsStateNotifier);
+
+    final unidadesProducto = cartState
+    .expand((e) => e.descripcionMenu)
+    .where((item) => item.nombre == nombre)
+    .map((item) => item.unidadesPedir ?? 0)
+    .fold(0, (a, b) => a + b);
    
     String _carTaf = 'as';
     print(valor);
-    print('object ${productState.id}');
+    print('object ${nombre}');
     return SafeArea(
         child: Stack(
       children: [
@@ -132,15 +139,17 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  valor++;
-                                });
+                             ref
+                                                        .read(itemsStateNotifier
+                                                            .notifier)
+                                                        .incrementarUnidades(
+                                                            nombre!);
                               },
                               icon: Icon(Icons.add, color: Color(ConstantesColorTema2.blanco),))),
                       SizedBox(
                         width: 10,
                       ),
-                      Text('$valor'),
+                      Text('$unidadesProducto'),
 
                       SizedBox(
                         width: 10,
@@ -154,10 +163,11 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  print(valor);
-                                  valor--;
-                                });
+                            ref
+                                                        .read(itemsStateNotifier
+                                                            .notifier)
+                                                        .decrementarUnidades(
+                                                            nombre!);
                               },
                               icon: Icon(Icons.remove,  color: Color(ConstantesColorTema2.blanco)))),
                       SizedBox(

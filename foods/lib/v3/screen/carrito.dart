@@ -16,7 +16,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   int valor = 0;
   @override
   Widget build(BuildContext context) {
-       final carrito = ref.watch(itemsStateNotifier);
+    final carrito = ref.watch(itemsStateNotifier);
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -63,18 +63,32 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
           Expanded(
             child: ListView.separated(
               itemCount: carrito.length,
-                separatorBuilder: (context, index) => SizedBox(height: 20),
+              separatorBuilder: (context, index) => SizedBox(height: 20),
               itemBuilder: (context, index) {
-  final itemState = carrito[index];
-final DescripcionMenu item = itemState.descripcionMenu.first;
-                return  TarjetaComidaCarrito(
+                final itemState = carrito[index];
+                final DescripcionMenu item = itemState.descripcionMenu.first;
+                return TarjetaComidaCarrito(
                   item.nombre,
                   item.descripcion,
                   item.precio,
-                  item.image
+                  item.image,
+                  () {
+                    ref.read(itemsStateNotifier.notifier).eliminarItems(item);
+                  },
+                  () {
+                    ref
+                        .read(itemsStateNotifier.notifier)
+                        .incrementarUnidades(item.nombre);
+                  },
+                  () {
+                    ref
+                        .read(itemsStateNotifier.notifier)
+                        .decrementarUnidades(item.nombre);
+                  },
+                  item.unidadesPedir
                 );
               },
-            /*  children: [
+              /*  children: [
                 TarjetaComidaCarrito(),
                 SizedBox(
                   height: 20,
@@ -107,7 +121,8 @@ final DescripcionMenu item = itemState.descripcionMenu.first;
           Container(
             width: double.infinity,
             height: 90,
-            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
+            color: Color(ConstantesColorTema2
+                .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
             child: Column(
               children: [
                 Row(
@@ -132,8 +147,9 @@ final DescripcionMenu item = itemState.descripcionMenu.first;
                               'Pagar',
                               style: GoogleFonts.leckerliOne(
                                   fontSize: 30,
-                                  color: Color(ConstantesColorTema2.naraja)//Color.fromRGBO(109, 109, 109, 1)
-                                  
+                                  color: Color(ConstantesColorTema2
+                                      .naraja) //Color.fromRGBO(109, 109, 109, 1)
+
                                   ),
                             ),
                           ),
@@ -152,21 +168,30 @@ final DescripcionMenu item = itemState.descripcionMenu.first;
 }
 
 class TarjetaComidaCarrito extends StatefulWidget {
-  
   final String? nombre;
   final String? descripcion;
   final String? precio;
   final String? images;
+  final VoidCallback onDelete;
+  final VoidCallback incrementarUnidades;
+  final VoidCallback decrementarUnidades;
+  final int? unidadesPedir;
 
-  const TarjetaComidaCarrito(this.nombre, this.descripcion, this.precio, this.images);
+  const TarjetaComidaCarrito(
+      this.nombre,
+      this.descripcion,
+      this.precio,
+      this.images,
+      this.onDelete,
+      this.incrementarUnidades,
+      this.decrementarUnidades,
+      this.unidadesPedir);
 
   @override
   State<TarjetaComidaCarrito> createState() => _TarjetaComidaCarritoState();
 }
 
 class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
-  
-
   int valor = 0;
   @override
   Widget build(BuildContext context) {
@@ -176,7 +201,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
         width: double.infinity,
         // height: 110,
         decoration: BoxDecoration(
-            color: Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 1),
+            color: Color(ConstantesColorTema2
+                .naraja), //Color.fromRGBO(109, 109, 109, 1),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
@@ -191,7 +217,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                       width: 50,
                       height: 50,
                       child: Image.asset(
-                        widget.images ?? '',//'assets/salchipapas.jpg',
+                        widget.images ?? '', //'assets/salchipapas.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -206,7 +232,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         Text(widget.nombre ?? ''),
                         SizedBox(height: 8),
                         Text(
-                         widget.descripcion ?? '' ,// 'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
+                          widget.descripcion ??
+                              '', // 'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
                           maxLines: 10,
                           textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
@@ -218,7 +245,9 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                 //
                 ClipOval(
                     child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          widget.onDelete();
+                        },
                         icon: Icon(Icons.delete_forever_outlined))),
               ],
             ),
@@ -253,9 +282,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  valor++;
-                                });
+                                widget.incrementarUnidades;
                               },
                               icon: Icon(Icons.add))),
                       SizedBox(
@@ -268,7 +295,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: Center(child: Text('$valor')),
+                        child: Center(child: Text('${widget.unidadesPedir}')),
                       ),
 //
                       SizedBox(
@@ -283,10 +310,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  print(valor);
-                                  valor--;
-                                });
+                                widget.decrementarUnidades;
                               },
                               icon: Icon(Icons.remove))),
                     ],
