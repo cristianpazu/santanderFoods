@@ -65,6 +65,46 @@ bool agregarItems(Items nuevoItem, int restauranteId) {
 
 //
 
+void incrementarUnidades3(String nombre) {
+
+  state = state.map((itemState) {
+    return itemState.copyWith(
+      descripcionMenu: itemState.descripcionMenu.map((menuItem) {
+        if (menuItem.nombre == nombre) {
+          final actual = menuItem.unidadesPedir ?? 0;
+
+          return menuItem.copyWith(
+            unidadesPedir: actual + 1,
+          );
+        }
+        return menuItem;
+      }).toList(),
+    );
+  }).toList();
+}
+
+
+void decrementarUnidades3(String nombre) {
+
+  print('0||| $nombre');
+  state = state.map((itemState) {
+  print('0||| entre aqui');
+
+    return itemState.copyWith(
+      descripcionMenu: itemState.descripcionMenu.map((menuItem) {
+        if (menuItem.nombre == nombre) {
+          final actual = menuItem.unidadesPedir ?? 1;
+
+          return menuItem.copyWith(
+            unidadesPedir: actual > 1 ? actual - 1 : 1,
+          );
+        }
+        return menuItem;
+      }).toList(),
+    );
+  }).toList();
+}
+
   void actualizarValor() {}
 
   void limpiarCarrito() {
@@ -110,5 +150,44 @@ bool agregarItems(Items nuevoItem, int restauranteId) {
           precio: item.precio!,
        )
     ];
+  }
+  //
+
+  
+  void incrementarUnidades2(int id) {
+    if (state.isEmpty) {
+    print('⚠️ state vacío, no se puede incrementar');
+    return;
+  }
+    state = state.map((itemState) {
+          print('asdasda $itemState');
+      final updatedMenuDescripcion = itemState.descripcionMenu.map((menuItem) {
+           print('asdasda ${menuItem.id}');
+        if (menuItem.id == id) {
+           print('asdasdazzzzzzzzzz ${menuItem.id}');
+          return menuItem.copyWith(
+            unidadesPedir: (menuItem.unidadesPedir ?? 0) + 1,
+          );
+        }  print('asdasda ${state}');
+        return menuItem;
+      }).toList();
+
+      return itemState.copyWith(descripcionMenu: updatedMenuDescripcion);
+    }).toList();
+  }
+
+  void decrementarUnidades2(int id) {
+    state = state.map((itemState) {
+      final updatedMenuDescripcion = itemState.descripcionMenu.map((menuItem) {
+        if (menuItem.id == id) {
+          final nuevasUnidades = (menuItem.unidadesPedir ?? 1) - 1;
+          if (nuevasUnidades <= 0) return menuItem; // Evita ir a negativo
+          return menuItem.copyWith(unidadesPedir: nuevasUnidades);
+        }
+        return menuItem;
+      }).toList();
+
+      return itemState.copyWith(descripcionMenu: updatedMenuDescripcion);
+    }).toList();
   }
 }

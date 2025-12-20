@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+import 'package:foods/v3/util/Sistema.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,6 +18,14 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   @override
   Widget build(BuildContext context) {
     final carrito = ref.watch(itemsStateNotifier);
+    final total = carrito.fold<int>(0, (suma, itemState) {
+  return suma +
+      itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
+        final precio =  Sistema().parsePrecio(item.precio);
+        final cantidad = item.unidadesPedir ?? 1;
+        return subTotal + (precio * cantidad);
+      });
+});
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -67,6 +76,17 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
               itemBuilder: (context, index) {
                 final itemState = carrito[index];
                 final DescripcionMenu item = itemState.descripcionMenu.first;
+
+
+                print('qqqqqqqqqqqqqqqqqq ${item.nombre}');
+                print('qqqqqqqqqqqqqqqqqq ${item.descripcion}');
+
+                print('qqqqqqqqqqqqqqqqqq ${item.precio}');
+
+                print('qqqqqqqqqqqqqqqqqq ${item.unidades}');
+
+                print('qqqqqqqqqqqqqqqqqq ${item.unidadesPedir}');
+
                 return TarjetaComidaCarrito(
                   item.nombre,
                   item.descripcion,
@@ -78,12 +98,13 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
                   () {
                     ref
                         .read(itemsStateNotifier.notifier)
-                        .incrementarUnidades(item.nombre);
+                        .incrementarUnidades3(item.nombre); 
                   },
                   () {
+                    print('0||| ${item.nombre}');
                     ref
                         .read(itemsStateNotifier.notifier)
-                        .decrementarUnidades(item.nombre);
+                        .decrementarUnidades3(item.nombre);
                   },
                   item.unidadesPedir
                 );
@@ -129,7 +150,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(28.0),
-                      child: Text(' \$ 20.000'),
+                      child: Text('\$ ${Sistema().formato(total)}' ), //Text(' \$ 20.000'),
                     ),
                     Spacer(),
                     Padding(
@@ -282,7 +303,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                widget.incrementarUnidades;
+                                widget.incrementarUnidades();
                               },
                               icon: Icon(Icons.add))),
                       SizedBox(
@@ -310,7 +331,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
-                                widget.decrementarUnidades;
+                                widget.decrementarUnidades();
                               },
                               icon: Icon(Icons.remove))),
                     ],

@@ -370,16 +370,17 @@ print('cantidadEnCarrito $cantidadEnCarrito');
 
 
 print('<<<object>>> ${productState.id}');
-
+print('<<<item.nombre>>> ${item.nombre}');
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 15),
                                   child: tarjetaComida(
                                     productState.id,
+                                    item.id,
                                     item.image,
                                     item.nombre,
                                     item.descripcion,
                                     item.precio,
-                                    item.unidades,
+                                    item.unidadesPedir.toString(),
                                   ),
                                 );
                               }).toList(),
@@ -535,13 +536,14 @@ print('<<<object>>> ${productState.id}');
 
 class tarjetaComida extends StatelessWidget {
   int? idRestaurante;
+  int? ids;
   String? images;
   String? nombre;
   String? descripcion;
   String? precios;
   String? unidades;
 
-  tarjetaComida(this.idRestaurante,this.images, this.nombre, this.descripcion, this.precios, this.unidades);
+  tarjetaComida(this.idRestaurante, this.ids,this.images, this.nombre, this.descripcion, this.precios, this.unidades);
 
   @override
   Widget build(BuildContext context) {
@@ -549,7 +551,7 @@ class tarjetaComida extends StatelessWidget {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) => InfoComida2(this.idRestaurante,
+        builder: (ctx) => InfoComida2(this.idRestaurante, this.ids,
             this.images, this.nombre, this.descripcion, this.precios, this.unidades),
       );
     }

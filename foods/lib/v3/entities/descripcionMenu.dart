@@ -50,7 +50,7 @@ class DescripcionMenu {
     unidades: item.unidades,
     precio: item.precio!,
   
-    unidadesPedir: 1, // por defecto al agregar al carrito
+    unidadesPedir: item.unidadesPedir ?? 1, // por defecto al agregar al carrito
   
   );
 }
