@@ -5,9 +5,13 @@ import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notif
 import 'package:foods/v3/util/Sistema.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CarritoPage2 extends ConsumerStatefulWidget {
-  const CarritoPage2({super.key});
+
+String? telefono;
+
+   CarritoPage2( this.telefono);
 
   @override
   _CarritoPage2State createState() => _CarritoPage2State();
@@ -15,17 +19,97 @@ class CarritoPage2 extends ConsumerStatefulWidget {
 
 class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   int valor = 0;
+String? telefono;
+
+
+
+
   @override
   Widget build(BuildContext context) {
     final carrito = ref.watch(itemsStateNotifier);
+ print('widget.telefono${widget.telefono}');
+
+    final String? phone = widget.telefono;
+
+
+
+
     final total = carrito.fold<int>(0, (suma, itemState) {
-  return suma +
-      itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
-        final precio =  Sistema().parsePrecio(item.precio);
-        final cantidad = item.unidadesPedir ?? 1;
-        return subTotal + (precio * cantidad);
-      });
-});
+      return suma +
+          itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
+            final precio = Sistema().parsePrecio(item.precio);
+            final cantidad = item.unidadesPedir ?? 1;
+            return subTotal + (precio * cantidad);
+          });
+    });
+//
+    Future<void> _openWhatsApp() async {
+      // Construir el mensaje con los productos
+      String message = '🛒 *Pedido desde la app (SantanderFoods) 🛒  *\n\n';
+
+      for (var itemState in carrito) {
+        final item = itemState.descripcionMenu.first;
+        final nombre = item.nombre ?? '';
+        final descripcion = item.descripcion ?? '';
+        final precio = item.precio ?? '';
+        final unidades = item.unidadesPedir ?? 1;
+
+        message += '• *$nombre* - $descripcion\n';
+
+        message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
+
+        /*final salsas = item.salsasSeleccionadas!= [] ?? '';
+
+        message +=
+            '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';*/
+      }
+
+      message += '🧾 *Total:* \$${total}';
+
+      final Uri whatsappUrl = Uri.parse(
+        'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
+      );
+
+      final launched =
+          await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+
+      if (launched) {
+        // Mostrar confirmación al volver de WhatsApp
+        await Future.delayed(
+            const Duration(seconds: 1)); // espera un poco por seguridad
+
+        if (!mounted) return;
+
+        final shouldClear = await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('¿Limpiar carrito?'),
+            content: Text(
+                '¿Confirmas que enviaste el pedido por WhatsApp y deseas vaciar el carrito?'),
+            actions: [
+              TextButton(
+                child: Text('Cancelar'),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+              ElevatedButton(
+                child: Text('Sí, limpiar'),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
+          ),
+        );
+
+        if (shouldClear == true) {
+          ref.read(itemsStateNotifier.notifier).limpiarCarrito();
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No se pudo abrir WhatsApp')),
+        );
+      }
+    }
+
+//
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -76,38 +160,19 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
               itemBuilder: (context, index) {
                 final itemState = carrito[index];
                 final DescripcionMenu item = itemState.descripcionMenu.first;
-
-
-                print('qqqqqqqqqqqqqqqqqq ${item.nombre}');
-                print('qqqqqqqqqqqqqqqqqq ${item.descripcion}');
-
-                print('qqqqqqqqqqqqqqqqqq ${item.precio}');
-
-                print('qqqqqqqqqqqqqqqqqq ${item.unidades}');
-
-                print('qqqqqqqqqqqqqqqqqq ${item.unidadesPedir}');
-
                 return TarjetaComidaCarrito(
-                  item.nombre,
-                  item.descripcion,
-                  item.precio,
-                  item.image,
-                  () {
-                    ref.read(itemsStateNotifier.notifier).eliminarItems(item);
-                  },
-                  () {
-                    ref
-                        .read(itemsStateNotifier.notifier)
-                        .incrementarUnidades3(item.nombre); 
-                  },
-                  () {
-                    print('0||| ${item.nombre}');
-                    ref
-                        .read(itemsStateNotifier.notifier)
-                        .decrementarUnidades3(item.nombre);
-                  },
-                  item.unidadesPedir
-                );
+                    item.nombre, item.descripcion, item.precio, item.image, () {
+                  ref.read(itemsStateNotifier.notifier).eliminarItems(item);
+                }, () {
+                  ref
+                      .read(itemsStateNotifier.notifier)
+                      .incrementarUnidades3(item.nombre);
+                }, () {
+                  print('0||| ${item.nombre}');
+                  ref
+                      .read(itemsStateNotifier.notifier)
+                      .decrementarUnidades3(item.nombre);
+                }, item.unidadesPedir);
               },
               /*  children: [
                 TarjetaComidaCarrito(),
@@ -150,13 +215,23 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(28.0),
-                      child: Text('\$ ${Sistema().formato(total)}' ), //Text(' \$ 20.000'),
+                      child: Text(
+                          '\$ ${Sistema().formato(total)}'), //Text(' \$ 20.000'),
                     ),
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            barrierDismissible:
+                                false, // opcional (evita que se cierre tocando fuera)
+                            builder: (BuildContext context) {
+                              return Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
+                            },
+                          );
+                        },
                         child: Container(
                           width: 150,
                           height: 70,
@@ -165,7 +240,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
                             child: Text(
-                              'Pagar',
+                              'Enviar pedido',
                               style: GoogleFonts.leckerliOne(
                                   fontSize: 30,
                                   color: Color(ConstantesColorTema2

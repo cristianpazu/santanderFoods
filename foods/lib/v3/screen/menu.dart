@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:foods/Utils/ConstantesColor.dart';
-import 'package:foods/v2/presentation/notifiers/Comida_rapida_notifiers/nombre_comida_notifiers.dart';
-import 'package:foods/v3/entities/NombreComidaRapida2.dart';
-import 'package:foods/v3/entities/descripcionMenu.dart';
-import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
-import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
-import 'package:foods/v3/screen/carrito.dart';
-import 'package:foods/v3/util/colores.dart';
-import 'package:foods/widgets/InfoComida.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/buscar.dart';
 import 'package:foods/widgets/drawer.dart';
+import 'package:foods/v3/util/colores.dart';
+import 'package:foods/v3/screen/carrito.dart';
 import 'package:foods/widgets/infoComida2.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v3/entities/descripcionMenu.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
 
 class MenuPage extends ConsumerStatefulWidget {
   final int idRestaurante;
@@ -27,7 +24,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   int _selectedSubmenuIndex = 0;
   final Map<String, double> _submenuOffsets = {};
   final ScrollController _submenuScrollController = ScrollController();
-
+  String _searchText = '';
   @override
   void dispose() {
     _scrollController.dispose();
@@ -39,37 +36,57 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   Widget build(BuildContext context) {
     final productState =
         ref.watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante));
- print('objectproductState ${productState.id}');
+    print('objectproductState ${productState.nombreComidaRapida}');
     print('objectproductState ${productState.menuComidaRapidas?.length}');
-  final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
+    final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
 
 
-print('cantidadEnCarrito $cantidadEnCarrito');
 
+
+    print('cantidadEnCarrito $cantidadEnCarrito');
 
     if (productState.isLoding!) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator()),
-      ); // const CircularProgressIndicator();
+      );
     }
 
     // final menus = productState.menuComidaRapidas ?? [];
 
     //final descrpconmenu = menus.isNotEmpty ? menus[0].descripcion : [];
-//print('objectproductState objectproductState menus ${menus.length}');
+
     print(
         'objectproductState objectproductState menus ${productState.nombreComidaRapida!.length}');
 
     final restaurantes = productState.nombreComidaRapida ?? [];
-    final allItems = restaurantes.expand((restaurante) {
-      return restaurante.menu.expand((menu) {
-        return (menu.descripcion ?? []).map((item) => {
-              'restaurante': restaurante,
-              'submenu': menu.submenu,
-              'item': item,
-            });
-      });
-    }).toList();
+    final filteredItems =
+    ref.watch(filteredMenuProvider(widget.idRestaurante));
+    
+ final contactos = restaurantes
+    .map((restaurante) => restaurante.contacto)
+    .toList();
+final String? telefono = restaurantes.isNotEmpty
+    ? restaurantes.first.contacto
+    : null;
+  
+
+ print('alltimes ${contactos}');
+
+  final submenusUnicos = filteredItems
+    .map((e) => e['submenu'] as String?)
+    .where((s) => s != null && s.isNotEmpty)
+    .toSet()
+    .toList();
+
+final itemsPorSubmenu = {
+  for (var submenu in submenusUnicos)
+    submenu: filteredItems
+        .where((e) => e['submenu'] == submenu)
+        .toList(),
+};
+
+
+/*
     final submenusUnicos = allItems
         .map((e) => e['submenu'] as String?)
         .where((s) => s != null && s.isNotEmpty)
@@ -79,7 +96,7 @@ print('cantidadEnCarrito $cantidadEnCarrito');
     final itemsPorSubmenu = {
       for (var submenu in submenusUnicos)
         submenu: allItems.where((e) => e['submenu'] == submenu).toList(),
-    };
+    }; */
 
     return Scaffold(
       key: _scaffoldKey,
@@ -128,21 +145,26 @@ print('cantidadEnCarrito $cantidadEnCarrito');
           Container(
             padding: EdgeInsets.only(left: 20, right: 20),
             child: TextFormField(
+              onChanged: (value) {
+                ref.read(searchTextProvider.notifier).state =
+                    value.toLowerCase();
+              },
               decoration: InputDecoration(
-                
                   hintText: 'Buscar',
                   hintStyle: GoogleFonts.leckerliOne(
-                      fontSize: 20, color: Color(ConstantesColorTema2.naraja)), //Color.fromRGBO(109, 109, 109, 1)),
+                      fontSize: 20,
+                      color: Color(ConstantesColorTema2
+                          .naraja)), //Color.fromRGBO(109, 109, 109, 1)),
                   filled: true,
-                  fillColor: Color(ConstantesColorTema2.blanco),//Color.fromRGBO(109, 109, 109, 0.5),
+                  fillColor: Color(ConstantesColorTema2
+                      .blanco), //Color.fromRGBO(109, 109, 109, 0.5),
                   suffixIcon: //Image.asset('assets/buscar.png',width: 78,height: 2,fit: BoxFit.contain,),
-                      Icon(
-                    Icons.search_rounded,
-                    size: 40,
-                    color: Color(ConstantesColorTema2.naraja)//Colors.grey,
-                  ),
+                      Icon(Icons.search_rounded,
+                          size: 40,
+                          color:
+                              Color(ConstantesColorTema2.naraja) //Colors.grey,
+                          ),
                   border: OutlineInputBorder(
-
                       borderRadius: BorderRadius.circular(40))),
             ),
           ),
@@ -154,79 +176,77 @@ print('cantidadEnCarrito $cantidadEnCarrito');
             height: 40,
             child: Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: submenusUnicos.length,
-                    itemBuilder: (context, index) {
-                      final submenu = submenusUnicos[index];
-                      final bool isSelected = index == _selectedSubmenuIndex;
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _selectedSubmenuIndex = index;
-                          });
-                          // ✅ Al tocar, scrollea automáticamente al grupo
-                          final offset = _submenuOffsets[submenu] ?? 0;
-                          _scrollController.animateTo(
-                            offset,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        child: Container(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: submenusUnicos.length,
+                  itemBuilder: (context, index) {
+                    final submenu = submenusUnicos[index];
+                    final bool isSelected = index == _selectedSubmenuIndex;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedSubmenuIndex = index;
+                        });
+                        // ✅ Al tocar, scrollea automáticamente al grupo
+                        final offset = _submenuOffsets[submenu] ?? 0;
+                        _scrollController.animateTo(
+                          offset,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Container(
                         height: 40,
-  width: 90,
-  margin: const EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? Color(ConstantesColorTema2.naraja)
-                                : Colors.white,
-                            borderRadius:   BorderRadius.all(Radius.circular(40)),
-                            border: Border.all(
-                              color: Color(ConstantesColorTema2.naraja),
-                              width: 2,
-                            ),
+                        width: 90,
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? Color(ConstantesColorTema2.naraja)
+                              : Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          border: Border.all(
+                            color: Color(ConstantesColorTema2.naraja),
+                            width: 2,
                           ),
-                          child: Center(
-                            child: Text(
-                              submenu ?? '',
-                              style: TextStyle(
-                                color: isSelected
-                                    ? Colors.white
-                                    : Color(ConstantesColorTema2.naraja),
-                                fontWeight: FontWeight.bold,
-                              ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            submenu ?? '',
+                            style: TextStyle(
+                              color: isSelected
+                                  ? Colors.white
+                                  : Color(ConstantesColorTema2.naraja),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                      );
+                      ),
+                    );
 
-                      /* Row(
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 90,
-                            decoration: BoxDecoration(
-                                color: Color(ConstantesColorTema2
-                                    .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40))),
-                            child: Center(
-                                child: Text(
-                              submenu ?? '',
-                              style: TextStyle(
-                                  color: Color(ConstantesColorTema2.blanco)),
-                            )),
-                          ),
-                          //
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
-                      ); */
-                    },
-                  ),
+                    /* Row(
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 90,
+                          decoration: BoxDecoration(
+                              color: Color(ConstantesColorTema2
+                                  .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40))),
+                          child: Center(
+                              child: Text(
+                            submenu ?? '',
+                            style: TextStyle(
+                                color: Color(ConstantesColorTema2.blanco)),
+                          )),
+                        ),
+                        //
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                    ); */
+                  },
                 )
                 /* ListView.builder(
                   itemCount: allItems.length,
@@ -306,53 +326,51 @@ print('cantidadEnCarrito $cantidadEnCarrito');
           //
           Expanded(
             child: NotificationListener<ScrollNotification>(
-                onNotification: (scrollNotification) {
-                  if (scrollNotification is ScrollUpdateNotification) {
-                    double offset = _scrollController.offset;
-                    String? visibleSubmenu;
-                    double minDifference = double.infinity;
+              onNotification: (scrollNotification) {
+                if (scrollNotification is ScrollUpdateNotification) {
+                  double offset = _scrollController.offset;
+                  String? visibleSubmenu;
+                  double minDifference = double.infinity;
 
-                    _submenuOffsets.forEach((submenu, pos) {
-                      final diff = (offset - pos).abs();
-                      if (diff < minDifference) {
-                        minDifference = diff;
-                        visibleSubmenu = submenu;
-                      }
-                    });
+                  _submenuOffsets.forEach((submenu, pos) {
+                    final diff = (offset - pos).abs();
+                    if (diff < minDifference) {
+                      minDifference = diff;
+                      visibleSubmenu = submenu;
+                    }
+                  });
 
-                    if (visibleSubmenu != null) {
-                      final index = submenusUnicos.indexOf(visibleSubmenu);
-                      if (index != _selectedSubmenuIndex) {
-                        setState(() {
-                          _selectedSubmenuIndex = index;
-                        });
-                      }
+                  if (visibleSubmenu != null) {
+                    final index = submenusUnicos.indexOf(visibleSubmenu);
+                    if (index != _selectedSubmenuIndex) {
+                      setState(() {
+                        _selectedSubmenuIndex = index;
+                      });
                     }
                   }
-                  return false;
-                },
-                child: ListView(
-                  controller: _scrollController,
-                  children: [
-                    for (var submenu in submenusUnicos) ...[
-                      Builder(
-                        builder: (context) {
-                          // ✅ Registramos la posición del grupo
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            final box =
-                                context.findRenderObject() as RenderBox?;
-                            if (box != null) {
-                              final position =
-                                  box.localToGlobal(Offset.zero).dy +
-                                      _scrollController.offset;
-                              _submenuOffsets[submenu ?? ''] = position;
-                            }
-                          });
+                }
+                return false;
+              },
+              child: ListView(
+                controller: _scrollController,
+                children: [
+                  for (var submenu in submenusUnicos) ...[
+                    Builder(
+                      builder: (context) {
+                        // ✅ Registramos la posición del grupo
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          final box = context.findRenderObject() as RenderBox?;
+                          if (box != null) {
+                            final position = box.localToGlobal(Offset.zero).dy +
+                                _scrollController.offset;
+                            _submenuOffsets[submenu ?? ''] = position;
+                          }
+                        });
 
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                             /* Padding(
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            /* Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 child: Text(
@@ -364,41 +382,35 @@ print('cantidadEnCarrito $cantidadEnCarrito');
                                   ),
                                 ),
                               ), */
-                              ...itemsPorSubmenu[submenu]!.map((entry) {
-                                final item =
-                                    entry['item'] as DescripcionMenu;
+                            ...itemsPorSubmenu[submenu]!.map((entry) {
+                              final item = entry['item'] as DescripcionMenu;
 
-
-print('<<<object>>> ${productState.id}');
-print('<<<item.nombre>>> ${item.nombre}');
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: tarjetaComida(
-                                    productState.id,
-                                    item.id,
-                                    item.image,
-                                    item.nombre,
-                                    item.descripcion,
-                                    item.precio,
-                                    item.unidadesPedir.toString(),
-                                  ),
-                                );
-                              }).toList(),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
+                              print('<<<object>>> ${productState.id}');
+                              print('<<<item.nombre>>> ${item.nombre}');
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 15),
+                                child: tarjetaComida(
+                                  productState.id,
+                                  item.id,
+                                  item.image,
+                                  item.nombre,
+                                  item.descripcion,
+                                  item.precio,
+                                  item.unidadesPedir.toString(),
+                                ),
+                              );
+                            }).toList(),
+                          ],
+                        );
+                      },
+                    ),
                   ],
-                ),
+                ],
               ),
             ),
-          
-        
-      
-    
-            
-            /*  ListView.builder(
+          ),
+
+          /*  ListView.builder(
                 itemCount: allItems.length, //descrpconmenu!.length,
                 itemBuilder: (context, index) {
                   //  final menuSate = descrpconmenu[index];
@@ -439,56 +451,60 @@ print('<<<item.nombre>>> ${item.nombre}');
           SizedBox(
             height: 10,
           ),
-          cantidadEnCarrito > 0 ?           Hero(
-            tag: 'as',
-            child: Container(
-              width: double.infinity,
-              height: 90,
-              color: 
-              Color(ConstantesColorTema2.naraja),//Color.fromRGBO(109, 109, 109, 0.5),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(28.0),
-                        child: Text('Precio'),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CarritoPage2(),
-                                ));
-                          },
-                          child: Container(
-                            width: 150,
-                            height: 70,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 247, 246, 242),
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                              child: Text('Carrito', 
-                               style: GoogleFonts.leckerliOne(
-                                  fontSize: 30,
-                                  color: Color(ConstantesColorTema2.naraja)//Color.fromRGBO(109, 109, 109, 1)
-                                  
-                                  ),
-                              ),
+          cantidadEnCarrito > 0
+              ? Hero(
+                  tag: 'as',
+                  child: Container(
+                    width: double.infinity,
+                    height: 90,
+                    color: Color(ConstantesColorTema2
+                        .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(28.0),
+                              child: Text('Precio'),
                             ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ) : Container(),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CarritoPage2(telefono),
+                                      ));
+                                },
+                                child: Container(
+                                  width: 150,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 247, 246, 242),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Text(
+                                      'Carrito',
+                                      style: GoogleFonts.leckerliOne(
+                                          fontSize: 30,
+                                          color: Color(ConstantesColorTema2
+                                              .naraja) //Color.fromRGBO(109, 109, 109, 1)
+
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       )),
 
@@ -543,7 +559,8 @@ class tarjetaComida extends StatelessWidget {
   String? precios;
   String? unidades;
 
-  tarjetaComida(this.idRestaurante, this.ids,this.images, this.nombre, this.descripcion, this.precios, this.unidades);
+  tarjetaComida(this.idRestaurante, this.ids, this.images, this.nombre,
+      this.descripcion, this.precios, this.unidades);
 
   @override
   Widget build(BuildContext context) {
@@ -551,8 +568,8 @@ class tarjetaComida extends StatelessWidget {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) => InfoComida2(this.idRestaurante, this.ids,
-            this.images, this.nombre, this.descripcion, this.precios, this.unidades),
+        builder: (ctx) => InfoComida2(this.idRestaurante, this.ids, this.images,
+            this.nombre, this.descripcion, this.precios, this.unidades),
       );
     }
 
