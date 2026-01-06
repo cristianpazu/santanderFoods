@@ -197,8 +197,10 @@ final itemsPorSubmenu = {
                       },
                       child: Container(
                         height: 40,
-                        width: 90,
+                    
                         margin: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 16), // 👈 CLAVE
+
                         decoration: BoxDecoration(
                           color: isSelected
                               ? Color(ConstantesColorTema2.naraja)
