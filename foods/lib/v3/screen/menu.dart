@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/buscar.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/v3/util/colores.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MenuPage extends ConsumerStatefulWidget {
   final int idRestaurante;
@@ -19,18 +21,59 @@ class MenuPage extends ConsumerStatefulWidget {
 
 class _MenuPageState extends ConsumerState<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final Map<String, GlobalKey> _submenuKeys = {};
+
   // Clave para manejar el Drawer
   final ScrollController _scrollController = ScrollController();
-  int _selectedSubmenuIndex = 0;
   final Map<String, double> _submenuOffsets = {};
-  final ScrollController _submenuScrollController = ScrollController();
+ // final ScrollController _submenuScrollController = ScrollController();
   String _searchText = '';
+
+final ItemScrollController _itemScrollController = ItemScrollController();
+final ItemPositionsListener _itemPositionsListener =
+    ItemPositionsListener.create();
+
+  int _selectedSubmenuIndex = 0;
+
+
+
+
+
+
+ @override
+  void initState() {
+    super.initState();
+
+    _itemPositionsListener.itemPositions.addListener(_onScroll);
+  }
+
+
   @override
   void dispose() {
     _scrollController.dispose();
-    _submenuScrollController.dispose();
+      _itemPositionsListener.itemPositions.removeListener(_onScroll);
+   // _submenuScrollController.dispose();
     super.dispose();
   }
+   void _onScroll() {
+  final positions = _itemPositionsListener.itemPositions.value;
+  if (positions.isEmpty) return;
+
+  final visibleItems = positions
+      .where((item) => item.itemTrailingEdge > 0)
+      .toList()
+    ..sort((a, b) => a.itemLeadingEdge.compareTo(b.itemLeadingEdge));
+
+  if (visibleItems.isEmpty) return;
+
+  final currentIndex = visibleItems.first.index;
+
+  if (_selectedSubmenuIndex != currentIndex) {
+    setState(() {
+      _selectedSubmenuIndex = currentIndex;
+    });
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +85,9 @@ class _MenuPageState extends ConsumerState<MenuPage> {
 
 
 
-
     print('cantidadEnCarrito $cantidadEnCarrito');
+
+
 
     if (productState.isLoding!) {
       return Scaffold(
@@ -59,32 +103,45 @@ class _MenuPageState extends ConsumerState<MenuPage> {
         'objectproductState objectproductState menus ${productState.nombreComidaRapida!.length}');
 
     final restaurantes = productState.nombreComidaRapida ?? [];
-    final filteredItems =
-    ref.watch(filteredMenuProvider(widget.idRestaurante));
-    
- final contactos = restaurantes
-    .map((restaurante) => restaurante.contacto)
-    .toList();
-final String? telefono = restaurantes.isNotEmpty
-    ? restaurantes.first.contacto
-    : null;
-  
+    final filteredItems = ref.watch(filteredMenuProvider(widget.idRestaurante));
 
- print('alltimes ${contactos}');
+    final contactos =
+        restaurantes.map((restaurante) => restaurante.contacto).toList();
+    final String? telefono =
+        restaurantes.isNotEmpty ? restaurantes.first.contacto : null;
 
-  final submenusUnicos = filteredItems
-    .map((e) => e['submenu'] as String?)
-    .where((s) => s != null && s.isNotEmpty)
-    .toSet()
-    .toList();
+    print('alltimes ${contactos}');
 
-final itemsPorSubmenu = {
-  for (var submenu in submenusUnicos)
-    submenu: filteredItems
-        .where((e) => e['submenu'] == submenu)
-        .toList(),
-};
+    final submenusUnicos = filteredItems
+        .map((e) => e['submenu'] as String?)
+        .where((s) => s != null && s.isNotEmpty)
+        .toSet()
+        .toList();
 
+    for (var submenu in submenusUnicos) {
+      _submenuKeys.putIfAbsent(submenu!, () => GlobalKey());
+    }
+    /*
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      _submenuKeys.forEach((submenu, key) {
+        final ctx = key.currentContext;
+        if (ctx == null) return;
+
+        final box = ctx.findRenderObject() as RenderBox?;
+        if (box == null) return;
+
+        final position =
+            box.localToGlobal(Offset.zero).dy + _scrollController.offset;
+
+        _submenuOffsets[submenu] = position;
+      });
+    }); */
+    final itemsPorSubmenu = {
+      for (var submenu in submenusUnicos)
+        submenu: filteredItems.where((e) => e['submenu'] == submenu).toList(),
+    };
 
 /*
     final submenusUnicos = allItems
@@ -183,23 +240,67 @@ final itemsPorSubmenu = {
                     final submenu = submenusUnicos[index];
                     final bool isSelected = index == _selectedSubmenuIndex;
                     return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedSubmenuIndex = index;
-                        });
+                     onTap: () {
+  setState(() {
+    _selectedSubmenuIndex = index;
+  });
+
+  _itemScrollController.scrollTo(
+    index: index,
+    duration: const Duration(milliseconds: 450),
+    curve: Curves.easeInOut,
+    alignment: 0,
+  );
+
+
+  /*
+
+  final key = _submenuKeys[submenu];
+  if (key == null) return;
+
+  final ctx = key.currentContext;
+  if (ctx == null) return;
+
+  final box = ctx.findRenderObject() as RenderBox;
+  final scrollable = Scrollable.of(ctx);
+  final viewport = RenderAbstractViewport.of(box);
+
+  final offset = viewport!.getOffsetToReveal(box, 0.0).offset;
+
+  _scrollController.animateTo(
+    offset,
+    duration: const Duration(milliseconds: 450),
+    curve: Curves.easeInOut,
+  ); */
+
+ 
+
+
+                        /*
+ final ctx = _submenuKeys[submenu]?.currentContext;
+  if (ctx != null) {
+    await Scrollable.ensureVisible(
+      ctx,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+      alignment: 0.0, // alineado al top
+    );
+  } */
+
                         // ✅ Al tocar, scrollea automáticamente al grupo
-                        final offset = _submenuOffsets[submenu] ?? 0;
+                        /*  final offset = _submenuOffsets[submenu] ?? 0;
                         _scrollController.animateTo(
                           offset,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
-                        );
+                        ); */
                       },
                       child: Container(
                         height: 40,
-                    
+
                         margin: const EdgeInsets.symmetric(horizontal: 8),
-                        padding: const EdgeInsets.symmetric(horizontal: 16), // 👈 CLAVE
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16), // 👈 CLAVE
 
                         decoration: BoxDecoration(
                           color: isSelected
@@ -223,6 +324,7 @@ final itemsPorSubmenu = {
                           ),
                         ),
                       ),
+                               
                     );
 
                     /* Row(
@@ -248,8 +350,9 @@ final itemsPorSubmenu = {
                         ),
                       ],
                     ); */
+        
                   },
-                )
+                ),
                 /* ListView.builder(
                   itemCount: allItems.length,
                   itemBuilder: (context, index) {
@@ -328,7 +431,34 @@ final itemsPorSubmenu = {
           //
           Expanded(
             child: NotificationListener<ScrollNotification>(
-              onNotification: (scrollNotification) {
+                 onNotification: (notification) {
+      if (notification is ScrollUpdateNotification) {
+        final topLimit = MediaQuery.of(context).padding.top + 120;
+
+        for (int i = submenusUnicos.length - 1; i >= 0; i--) {
+          final key = _submenuKeys[submenusUnicos[i]];
+          final ctx = key?.currentContext;
+          if (ctx == null) continue;
+
+          final box = ctx.findRenderObject() as RenderBox?;
+          if (box == null) continue;
+
+          final pos = box.localToGlobal(Offset.zero).dy;
+
+          // 🔥 ESTA ES LA CLAVE
+          if (pos <= topLimit) {
+            if (_selectedSubmenuIndex != i) {
+              setState(() {
+                _selectedSubmenuIndex = i;
+              });
+            }
+            break;
+          }
+        }
+      }
+      return false;
+              },
+              /*  onNotification: (scrollNotification) {
                 if (scrollNotification is ScrollUpdateNotification) {
                   double offset = _scrollController.offset;
                   String? visibleSubmenu;
@@ -352,12 +482,86 @@ final itemsPorSubmenu = {
                   }
                 }
                 return false;
-              },
-              child: ListView(
+              }, */
+              child: ScrollablePositionedList.builder(
+  itemScrollController: _itemScrollController,
+  itemPositionsListener: _itemPositionsListener,
+  itemCount: submenusUnicos.length,
+  itemBuilder: (context, index) {
+    final submenu = submenusUnicos[index];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            submenu!,
+            style: GoogleFonts.leckerliOne(fontSize: 2,  color: const Color.fromARGB(255, 255, 255, 255),),
+          ),
+        ),
+        ...itemsPorSubmenu[submenu]!.map((entry) {
+          final item = entry['item'] as DescripcionMenu;
+          return Padding(
+           padding: const EdgeInsets.only(bottom: 15),
+                           
+            child: tarjetaComida(
+                                  productState.id,
+                                  item.id,
+                                  item.image,
+                                  item.nombre,
+                                  item.descripcion,
+                                  item.precio,
+                                  item.unidadesPedir.toString(),
+                                ),
+          );
+        }),
+      ],
+    );
+  },
+), /*ListView(
                 controller: _scrollController,
                 children: [
                   for (var submenu in submenusUnicos) ...[
-                    Builder(
+                    Container(
+                    
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                              key: _submenuKeys[submenu],
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(
+                              submenu!,
+                              style: GoogleFonts.leckerliOne(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ),
+                          ...itemsPorSubmenu[submenu]!.map((entry) {
+                            final item = entry['item'] as DescripcionMenu;
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 15),
+                              child: tarjetaComida(
+                                productState.id,
+                                item.id,
+                                item.image,
+                                item.nombre,
+                                item.descripcion,
+                                item.precio,
+                                item.unidadesPedir.toString(),
+                              ),
+                            );
+                          }).toList(),
+                          
+                        ],
+                      ),
+                    ),
+                    /* Builder(
                       builder: (context) {
                         // ✅ Registramos la posición del grupo
                         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -405,10 +609,11 @@ final itemsPorSubmenu = {
                           ],
                         );
                       },
-                    ),
+                    ), */
                   ],
+                   SizedBox(height: 200),
                 ],
-              ),
+              ), */
             ),
           ),
 
@@ -477,7 +682,8 @@ final itemsPorSubmenu = {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => CarritoPage2(telefono),
+                                        builder: (context) =>
+                                            CarritoPage2(telefono),
                                       ));
                                 },
                                 child: Container(
@@ -612,43 +818,47 @@ class tarjetaComida extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Container(
-                    width: 210,
-                    height: 130,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            nombre ?? '', //'Nombre del resurante',
-                            style: GoogleFonts.leckerliOne(
-                                fontSize: 10, color: Colors.black),
+                  Expanded(
+                    child: Container(
+                      //width: 210,
+                      height: 130,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              nombre ?? '', //'Nombre del resurante',
+                              style: GoogleFonts.leckerliOne(
+                                  fontSize: 10, color: Colors.black),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            descripcion ??
-                                '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.leckerliOne(
-                                fontSize: 15, color: Colors.black),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              descripcion ??
+                                  '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                              maxLines: 2,
+
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.leckerliOne(
+                                  fontSize: 15, color: Colors.black),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            precios ?? '', // 'Precio del resurante',
-                            style: GoogleFonts.leckerliOne(
-                                fontSize: 15,
-                                color: Color.fromRGBO(255, 255, 255, 1)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              precios ?? '', // 'Precio del resurante',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.leckerliOne(
+                                  fontSize: 15,
+                                  color: Color.fromRGBO(255, 255, 255, 1)),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
