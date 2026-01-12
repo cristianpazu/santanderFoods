@@ -43,9 +43,16 @@ String? telefono;
           });
     });
 //
-    Future<void> _openWhatsApp() async {
+    Future<void> _openWhatsApp(String nombreCliente,
+  String direccionCliente,
+  String metodoPago,) async {
       // Construir el mensaje con los productos
       String message = '🛒 *Pedido desde la app (SantanderFoods) 🛒  *\n\n';
+
+      message += '👤 *Cliente:* $nombreCliente\n';
+message += '🏠 *Dirección:* $direccionCliente\n';
+message += '💳 *Pago:* $metodoPago\n\n';
+message += '---------------------------\n\n';
 
       for (var itemState in carrito) {
         final item = itemState.descripcionMenu.first;
@@ -63,6 +70,8 @@ String? telefono;
         message +=
             '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';*/
       }
+
+      
 
       message += '🧾 *Total:* \$${total}';
 
@@ -228,7 +237,14 @@ String? telefono;
                             barrierDismissible:
                                 false, // opcional (evita que se cierre tocando fuera)
                             builder: (BuildContext context) {
-                              return Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
+                              return Sistema().alertDialogEnviarPedido2(context, 
+                                 (nombre, direccion, metodoPago) {
+print('Zzzzzzzzzzzzz$nombre');
+print('Zzzzzzzzzzzzz$direccion');
+print('Zzzzzzzzzzzzz$metodoPago');
+
+          _openWhatsApp(nombre, direccion, metodoPago);
+        },); // Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
                             },
                           );
                         },

@@ -189,6 +189,90 @@ Widget alertDialogEnviarPedido(BuildContext context, VoidCallback accion) {
     ],
   );
 }
+//
+Widget alertDialogEnviarPedido2(
+  BuildContext context,
+  void Function(String nombre, String direccion, String metodoPago) accion,
+) {
+  final TextEditingController nombreCtrl = TextEditingController();
+  final TextEditingController direccionCtrl = TextEditingController();
+  String metodoPago = 'Efectivo';
+
+  return AlertDialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    title: const Text(
+      'Completa tus datos',
+      style: TextStyle(fontWeight: FontWeight.bold),
+    ),
+    content: SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: nombreCtrl,
+            decoration: InputDecoration(
+              labelText: 'Nombre',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          TextField(
+            controller: direccionCtrl,
+            decoration: InputDecoration(
+              labelText: 'Dirección',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          DropdownButtonFormField<String>(
+            value: metodoPago,
+            decoration: InputDecoration(
+              labelText: 'Método de pago',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            items: const [
+              DropdownMenuItem(value: 'Efectivo', child: Text('Efectivo')),
+              DropdownMenuItem(value: 'Tarjeta', child: Text('Tarjeta')),
+            ],
+            onChanged: (value) {
+              metodoPago = value ?? 'Efectivo';
+            },
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('Cancelar'),
+      ),
+      ElevatedButton(
+        onPressed: () {
+          accion(
+            nombreCtrl.text.trim(),
+            direccionCtrl.text.trim(),
+            metodoPago,
+          );
+          Navigator.pop(context);
+        },
+        child: const Text('Confirmar'),
+      ),
+    ],
+  );
+}
+
 
 
 }

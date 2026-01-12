@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.3.1
   shared_preferences: ^2.2.2
   add_to_cart_animation: ^2.0.4
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
