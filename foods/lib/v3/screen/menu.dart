@@ -140,14 +140,23 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     final cartStates = ref.watch(itemsStateNotifier);
 
     final total = cartStates.fold<double>(0, (sum, state) {
-      final subtotal = state.descripcionMenu.fold<double>(0, (sub, item) {
-        final precio = double.tryParse(item.precio ?? '0') ?? 0;
-        final unidades = item.unidadesPedir ?? 1;
-        return sub + (precio * unidades);
-      });
+  final subtotal = state.descripcionMenu.fold<double>(0, (sub, item) {
 
-      return sum + subtotal;
-    });
+    // 👇 AQUÍ VA EXACTAMENTE
+    final precio = double.tryParse(
+      item.precio
+          ?.replaceAll(RegExp(r'[^0-9.]'), '') ?? '0',
+    ) ?? 0;
+
+    final unidades = item.unidadesPedir ?? 1;
+
+    return sub + (precio * unidades);
+  });
+
+  return sum + subtotal;
+});
+
+  
 /*
     final submenusUnicos = allItems
         .map((e) => e['submenu'] as String?)
