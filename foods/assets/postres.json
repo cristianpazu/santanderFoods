@@ -3,7 +3,7 @@
   "nombres": "Postres la mejor",
   "image": "assets/solar.jpeg",
   "direccion": "calle 3c ",
-  "contacto": "321000000",
+  "contacto": "3113510690",
   "menu": [
     {
       "submenu": "Postres",
@@ -49,7 +49,7 @@
           "id": 5,
           "nombre": "Pastel 1",
           "descripcion": "",
-          "image": "assets/mora.png",
+          "image": "assets/pastel4.png",
           "unidades": "0",
           "precio": "$ 12.000"
         },
@@ -57,7 +57,7 @@
           "id": 6,
           "nombre": "Pastel 2",
           "descripcion": "",
-          "image": "assets/mora.png",
+          "image": "assets/pastel2.png",
           "unidades": "0",
           "precio": "$ 12.000"
         },
@@ -65,39 +65,15 @@
           "id": 7,
           "nombre": "Pastel 3",
           "descripcion": "",
-          "image": "assets/mora.png",
+          "image": "assets/pasteal1.png",
           "unidades": "0",
           "precio": "$ 12.000"
         },
         {
           "id": 9,
-          "nombre": "Pastel 4",
+          "nombre": "Pastel de Banano",
           "descripcion": "",
-          "image": "assets/mora.png",
-          "unidades": "0",
-          "precio": "$ 12.000"
-        },
-        {
-          "id": 11,
-          "nombre": "Pastel 5",
-          "descripcion": "",
-          "image": "assets/mora.png",
-          "unidades": "0",
-          "precio": "$ 12.000"
-        },
-        {
-          "id": 12,
-          "nombre": "Pastel 6",
-          "descripcion": "",
-          "image": "assets/mora.png",
-          "unidades": "0",
-          "precio": "$ 12.000"
-        },
-        {
-          "id": 13,
-          "nombre": "Pastel 7",
-          "descripcion": "",
-          "image": "assets/mora.png",
+          "image": "assets/pastelbanano.png",
           "unidades": "0",
           "precio": "$ 12.000"
         }

@@ -1,0 +1,304 @@
+ {
+        "id": 1,
+        "nombres": "Salchi King", 
+        "image": "assets/salchiking.png",
+        "direccion": "carrera 11 # 12-52 zona franca containers",
+        "contacto": "304 5523908",
+       
+    
+        "menu": [
+          {
+            "submenu": "Salchipapas personales",
+            "descripcion": [
+              {
+                 "id": 1,
+                "nombre": "KINGREX",
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, carne de res en salsa de la casa, tocineta y salsas especiales",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 24.000"
+              },
+              {
+                 "id": 2,
+                "nombre": "POLLO",
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, pollo en salsa de la casa, tocineta y salsa especiales",
+                  "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 23.000"
+              },
+              {
+                 "id": 3,
+                "nombre": "RANCHERITA",
+               "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, rachera tocineta y salsas especiales",
+              "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+               "precio": "$ 24.000"
+              },
+              {
+                 "id": 4,
+                "nombre": "EXOTIQUITA",
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, tocineta, pollo y carne en salsas de la casa, cosilla ahumada al barril, chorizo, guacamole, pico de gallo y salsas especiales",
+                "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 32.000"
+              },
+              {
+                 "id": 5,
+                "nombre": "CHORIKINCITA",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, chorizo, tocineta y salsas especiales",
+               "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 22.000"
+              },
+              {
+                  "id": 6,
+                "nombre": "COSTIKINCITA",
+              
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, costilla ahumada asada al barril con salsa BBQ, tocineta y salsas especiales",
+               "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 24.000"
+              },
+              {
+                  "id": 7,
+                "nombre": "MIXTICA",
+                
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maiz dulce, pollo en salsa de la casa, carne de res en salsa de la casa, tocineta y salsas especiales",
+               "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 27.000"
+              },
+              {
+                  "id": 8,
+                "nombre": "AMERICANA",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso gratinado, maduro, ripio, maiz dulce, chorizo,tocineta y salsa especiales",
+              "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$ 26.000"
+              }
+            ]
+          },
+          {
+            "submenu": "FAVORITAS DE SIEMPRE",
+            "descripcion": [
+              {
+                  "id": 9,
+                "nombre": "MINI-EXOTICA",
+              
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maíz dulce, tocineta, pollo y carne en salsas de la casa, costilla ahumada al barril, chorizo, guacamole, pico de gallo y salsas especiales.",
+              "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$48.000 (PARA DOS)"
+              },
+              {
+                  "id": 10,
+                "nombre": "PORKING",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, guacamole, 300gr de panceta de cerdo al barril, pico de gallo, limón y salsas especiales.",
+                "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$50.000 (PARA DOS)"
+              },
+              {
+                 "id": 11,
+                "nombre": "CRUNCHY-KING",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, guacamole, 300gr de panceta de cerdo al barril, pico de gallo, limón y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$55.000 (PARA DOS)"
+              },
+              {
+                 "id": 12,
+                "nombre": "COSTIKING",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maíz dulce, costilla ahumada al barril con salsa BBQ, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$37.000 (PARA DOS)"
+              },
+              {
+                 "id": 13,
+                "nombre": "AMERICANA",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso americano gratinado, maduro, maíz, tocineta, chorizo Santarosano, salsa BBQ y de la casa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$39.000 (PARA DOS)"
+              },
+              {
+                 "id": 14,
+                "nombre": "MEXICANA",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, guacamole, pico de gallo, maíz, jalapeño, nachos, carne en salsa de la casa, pollo en salsa de la casa, queso cheddar y salsa de pepinillo.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "Para 2 personas $60.000 / Para 4-5 personas $80.000"
+              },
+              {
+                 "id": 15,
+                "nombre": "EXOTICA",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maíz dulce, tocineta, pollo y carne en salsas de la casa, costilla ahumada al barril, chorizo, guacamole, pico de gallo y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$68.000 (PARA 4-5 PERSONAS)"
+              },
+              {
+                 "id": 16,
+                "nombre": "SALCHI-KING",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozarella, maduro, maíz dulce, tocineta, ranchera, pollo y carne en salsas de la casa, costilla ahumada al barril, chorizo, guacamole, pico de gallo y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "$130.000 (PARA 8-10 PERSONAS)"
+              }
+            ]
+          },
+          {
+           
+            "submenu": "Salchipapas para 2",
+            "descripcion": [
+              {
+                 "id": 17,
+                "nombre": "Sencilla",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "20.000"
+              },
+              {
+                 "id": 18,
+                "nombre": "Callejera",
+               
+                "descripcion": "Papa criolla, salchicha americana, ripio, maíz, pollo y la combinación callejera (cebolla, tocineta, queso, chorizo, salsa especial).",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "23.000 (2 personas) /n 43.000 (4 personas)"
+              },
+              {
+                 "id": 19,
+                "nombre": "Re-Callejera",
+               
+                "descripcion": "Papa criolla, salchicha americana, ripio, maíz, pollo y la combinación callejera (cebolla, tocineta, queso, chorizo, salsa especial).",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "90.000 (8-10 personas)"
+              },
+              {
+
+                 "id": 20,
+                "nombre": "Mixta",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, pollo en salsa de la casa, res en salsa de la casa, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "42.000"
+              },
+              {
+                 "id": 21,
+                "nombre": "Choriking",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, chorizo, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "33.000"
+              },
+              {
+                 "id": 22,
+                "nombre": "Chori-Caramelo",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella gratinado, tocineta premium, chori-caramelo y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "44.000"
+              },
+              {
+                 "id": 23,
+                "nombre": "Kinrex",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, res en salsa de la casa, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "36.000"
+              },
+              {
+                 "id": 24,
+                "nombre": "Pollo",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, pollo en salsa de la casa, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "34.000"
+              },
+              {
+                 "id": 25,
+                "nombre": "Ranchera",
+               
+                "descripcion": "Papa criolla, salchicha americana, queso mozzarella, maduro, maíz dulce, ranchera, tocineta y salsas especiales.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "36.000"
+              }
+            ]
+          },
+          {
+            "submenu": "Salchiking Infantil",
+            "descripcion": [
+              {
+                 "id": 26,
+                "nombre": "Salchi-Kids",
+               
+                "descripcion": "Papa amarilla, salchicha americana, queso gratinado, maíz, salsas de la casa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "14.000"
+              },
+              { "id": 27,
+                "nombre": "Burger-Kids",
+               
+                "descripcion": "Carne 100% angus de 100g, tomate en rodaja, lechuga, queso y salsa de la casa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "16.000"
+              }
+            ]
+          },
+          {
+            "submenu": "Perros",
+            "descripcion": [
+              {
+                 "id": 28,
+                "nombre": "Americano",
+               
+                "descripcion": "Pan perro artesanal, salchicha americana, queso americano gratinado, tocineta, ripio, salsa BBQ y salsa de la casa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "19.000"
+              },
+              {
+                 "id": 29,
+                "nombre": "Callejero",
+               
+                "descripcion": "Pan perro artesanal, salchicha americana, mezcla callejera de queso, tocineta, cebolla y salsa especial, ripio y salsa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "21.000"
+              },
+              {
+                 "id": 30,
+                "nombre": "Costi-Dog",
+               
+                "descripcion": "Pan perro artesanal, salchicha americana, queso americano gratinado, costilla ahumada asada al barril, tocineta, guacamole y pico de gallo, BBQ y salsa de la casa.",
+                 "image": "assets/proximamente.jpg",
+                  "unidades": "0",
+                "precio": "22.000"
+              }
+            ]
+          }
+          
+        ]
+      }
