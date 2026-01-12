@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DrawerPage extends StatelessWidget {
-  const DrawerPage({super.key});
+
+ String? nombreRestaurante;
+
+   DrawerPage({super.key,  this.nombreRestaurante});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +17,15 @@ class DrawerPage extends StatelessWidget {
           CircleAvatar(
             radius: 100,
             backgroundColor: Colors.amber, // color de fondo
-            child: Text(
+            child: ClipOval(child: Image.asset('assets/salchiking.png'))/*Text(
               'f', // iniciales
               style: GoogleFonts.leckerliOne(
                   fontSize: 50, color: Color.fromRGBO(109, 109, 109, 1)),
-            ),
+            ), */
           ),
           SizedBox(height: 10,),
           Center(
-            child: Text('Foods',style: GoogleFonts.leckerliOne(
+            child: Text(nombreRestaurante ?? 'Foods',style: GoogleFonts.leckerliOne(
                     fontSize: 50, color: Color.fromRGBO(109, 109, 109, 1)),),
           ),
 

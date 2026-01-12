@@ -100,10 +100,16 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     final restaurantes = productState.nombreComidaRapida ?? [];
     final filteredItems = ref.watch(filteredMenuProvider(widget.idRestaurante));
 
+//telefono
     final contactos =
         restaurantes.map((restaurante) => restaurante.contacto).toList();
     final String? telefono =
         restaurantes.isNotEmpty ? restaurantes.first.contacto : null;
+
+        //nombre restaurante
+       
+    final String? nombreRestaurante =
+        restaurantes.isNotEmpty ? restaurantes.first.nombres : null;
 
     print('alltimes ${contactos}');
 
@@ -171,7 +177,9 @@ class _MenuPageState extends ConsumerState<MenuPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: DrawerPage(),
+      drawer: DrawerPage(
+        nombreRestaurante: nombreRestaurante,
+      ),
       body: SafeArea(
           child: Column(
         children: [
