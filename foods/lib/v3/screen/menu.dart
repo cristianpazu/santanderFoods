@@ -22,58 +22,57 @@ class MenuPage extends ConsumerStatefulWidget {
 class _MenuPageState extends ConsumerState<MenuPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final Map<String, GlobalKey> _submenuKeys = {};
-
+  bool _isProgrammaticScroll = false;
   // Clave para manejar el Drawer
   final ScrollController _scrollController = ScrollController();
   final Map<String, double> _submenuOffsets = {};
- // final ScrollController _submenuScrollController = ScrollController();
+  // final ScrollController _submenuScrollController = ScrollController();
   String _searchText = '';
 
-final ItemScrollController _itemScrollController = ItemScrollController();
-final ItemPositionsListener _itemPositionsListener =
-    ItemPositionsListener.create();
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener =
+      ItemPositionsListener.create();
 
   int _selectedSubmenuIndex = 0;
 
-
-
-
-
-
- @override
+  @override
   void initState() {
     super.initState();
 
     _itemPositionsListener.itemPositions.addListener(_onScroll);
   }
 
-
   @override
   void dispose() {
     _scrollController.dispose();
-      _itemPositionsListener.itemPositions.removeListener(_onScroll);
-   // _submenuScrollController.dispose();
+    _itemPositionsListener.itemPositions.removeListener(_onScroll);
+    // _submenuScrollController.dispose();
     super.dispose();
   }
-   void _onScroll() {
-  final positions = _itemPositionsListener.itemPositions.value;
-  if (positions.isEmpty) return;
 
-  final visibleItems = positions
-      .where((item) => item.itemTrailingEdge > 0)
-      .toList()
-    ..sort((a, b) => a.itemLeadingEdge.compareTo(b.itemLeadingEdge));
+  void _onScroll() {
 
-  if (visibleItems.isEmpty) return;
+ if (_isProgrammaticScroll) return;
 
-  final currentIndex = visibleItems.first.index;
+    final positions = _itemPositionsListener.itemPositions.value;
+    if (positions.isEmpty) return;
 
-  if (_selectedSubmenuIndex != currentIndex) {
-    setState(() {
-      _selectedSubmenuIndex = currentIndex;
-    });
+    // Tomamos el item cuyo centro está más cerca del top visible
+    final item = positions
+        .where(
+            (item) => item.itemLeadingEdge < 0.3 && item.itemTrailingEdge > 0.3)
+        .toList();
+
+    if (item.isEmpty) return;
+
+    final currentIndex = item.first.index;
+
+    if (_selectedSubmenuIndex != currentIndex) {
+      setState(() {
+        _selectedSubmenuIndex = currentIndex;
+      });
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -83,11 +82,7 @@ final ItemPositionsListener _itemPositionsListener =
     print('objectproductState ${productState.menuComidaRapidas?.length}');
     final cantidadEnCarrito = ref.watch(itemsStateNotifier).length;
 
-
-
     print('cantidadEnCarrito $cantidadEnCarrito');
-
-
 
     if (productState.isLoding!) {
       return Scaffold(
@@ -142,7 +137,17 @@ final ItemPositionsListener _itemPositionsListener =
       for (var submenu in submenusUnicos)
         submenu: filteredItems.where((e) => e['submenu'] == submenu).toList(),
     };
+    final cartStates = ref.watch(itemsStateNotifier);
 
+    final total = cartStates.fold<double>(0, (sum, state) {
+      final subtotal = state.descripcionMenu.fold<double>(0, (sub, item) {
+        final precio = double.tryParse(item.precio ?? '0') ?? 0;
+        final unidades = item.unidadesPedir ?? 1;
+        return sub + (precio * unidades);
+      });
+
+      return sum + subtotal;
+    });
 /*
     final submenusUnicos = allItems
         .map((e) => e['submenu'] as String?)
@@ -232,28 +237,36 @@ final ItemPositionsListener _itemPositionsListener =
             width: double.infinity,
             height: 40,
             child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: submenusUnicos.length,
-                  itemBuilder: (context, index) {
-                    final submenu = submenusUnicos[index];
-                    final bool isSelected = index == _selectedSubmenuIndex;
-                    return GestureDetector(
-                     onTap: () {
-  setState(() {
-    _selectedSubmenuIndex = index;
-  });
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: submenusUnicos.length,
+                itemBuilder: (context, index) {
+                  final submenu = submenusUnicos[index];
+                  final bool isSelected = index == _selectedSubmenuIndex;
+                  return GestureDetector(
+                    onTap: () async  {
+             
 
-  _itemScrollController.scrollTo(
-    index: index,
-    duration: const Duration(milliseconds: 450),
-    curve: Curves.easeInOut,
-    alignment: 0,
-  );
+                      setState(() {
+                        _selectedSubmenuIndex = index;
+                      });
+
+                       _isProgrammaticScroll = true;
+
+                    await   _itemScrollController.scrollTo(
+                        index: index,
+                        duration: const Duration(milliseconds: 450),
+                        curve: Curves.easeOutCubic,
+                        alignment: 0.0,
+                      );
+
+                        await Future.delayed(const Duration(milliseconds: 60));
 
 
-  /*
+                        _isProgrammaticScroll = false;
+
+                      /*
 
   final key = _submenuKeys[submenu];
   if (key == null) return;
@@ -273,10 +286,7 @@ final ItemPositionsListener _itemPositionsListener =
     curve: Curves.easeInOut,
   ); */
 
- 
-
-
-                        /*
+                      /*
  final ctx = _submenuKeys[submenu]?.currentContext;
   if (ctx != null) {
     await Scrollable.ensureVisible(
@@ -287,47 +297,46 @@ final ItemPositionsListener _itemPositionsListener =
     );
   } */
 
-                        // ✅ Al tocar, scrollea automáticamente al grupo
-                        /*  final offset = _submenuOffsets[submenu] ?? 0;
+                      // ✅ Al tocar, scrollea automáticamente al grupo
+                      /*  final offset = _submenuOffsets[submenu] ?? 0;
                         _scrollController.animateTo(
                           offset,
                           duration: const Duration(milliseconds: 300),
                           curve: Curves.easeInOut,
                         ); */
-                      },
-                      child: Container(
-                        height: 40,
+                    },
+                    child: Container(
+                      height: 40,
 
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16), // 👈 CLAVE
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16), // 👈 CLAVE
 
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? Color(ConstantesColorTema2.naraja)
-                              : Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          border: Border.all(
-                            color: Color(ConstantesColorTema2.naraja),
-                            width: 2,
-                          ),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? Color(ConstantesColorTema2.naraja)
+                            : Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        border: Border.all(
+                          color: Color(ConstantesColorTema2.naraja),
+                          width: 2,
                         ),
-                        child: Center(
-                          child: Text(
-                            submenu ?? '',
-                            style: TextStyle(
-                              color: isSelected
-                                  ? Colors.white
-                                  : Color(ConstantesColorTema2.naraja),
-                              fontWeight: FontWeight.bold,
-                            ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          submenu ?? '',
+                          style: TextStyle(
+                            color: isSelected
+                                ? Colors.white
+                                : Color(ConstantesColorTema2.naraja),
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                               
-                    );
+                    ),
+                  );
 
-                    /* Row(
+                  /* Row(
                       children: [
                         Container(
                           height: 40,
@@ -350,10 +359,9 @@ final ItemPositionsListener _itemPositionsListener =
                         ),
                       ],
                     ); */
-        
-                  },
-                ),
-                /* ListView.builder(
+                },
+              ),
+              /* ListView.builder(
                   itemCount: allItems.length,
                   itemBuilder: (context, index) {
                      final entry = allItems[index];
@@ -422,7 +430,7 @@ final ItemPositionsListener _itemPositionsListener =
                 ), 
               ),
               */
-                ),
+            ),
           ),
           //
           SizedBox(
@@ -430,190 +438,45 @@ final ItemPositionsListener _itemPositionsListener =
           ),
           //
           Expanded(
-            child: NotificationListener<ScrollNotification>(
-                 onNotification: (notification) {
-      if (notification is ScrollUpdateNotification) {
-        final topLimit = MediaQuery.of(context).padding.top + 120;
+            child: ScrollablePositionedList.builder(
+              itemScrollController: _itemScrollController,
+              itemPositionsListener: _itemPositionsListener,
+              itemCount: submenusUnicos.length,
+              itemBuilder: (context, index) {
+                final submenu = submenusUnicos[index];
 
-        for (int i = submenusUnicos.length - 1; i >= 0; i--) {
-          final key = _submenuKeys[submenusUnicos[i]];
-          final ctx = key?.currentContext;
-          if (ctx == null) continue;
-
-          final box = ctx.findRenderObject() as RenderBox?;
-          if (box == null) continue;
-
-          final pos = box.localToGlobal(Offset.zero).dy;
-
-          // 🔥 ESTA ES LA CLAVE
-          if (pos <= topLimit) {
-            if (_selectedSubmenuIndex != i) {
-              setState(() {
-                _selectedSubmenuIndex = i;
-              });
-            }
-            break;
-          }
-        }
-      }
-      return false;
-              },
-              /*  onNotification: (scrollNotification) {
-                if (scrollNotification is ScrollUpdateNotification) {
-                  double offset = _scrollController.offset;
-                  String? visibleSubmenu;
-                  double minDifference = double.infinity;
-
-                  _submenuOffsets.forEach((submenu, pos) {
-                    final diff = (offset - pos).abs();
-                    if (diff < minDifference) {
-                      minDifference = diff;
-                      visibleSubmenu = submenu;
-                    }
-                  });
-
-                  if (visibleSubmenu != null) {
-                    final index = submenusUnicos.indexOf(visibleSubmenu);
-                    if (index != _selectedSubmenuIndex) {
-                      setState(() {
-                        _selectedSubmenuIndex = index;
-                      });
-                    }
-                  }
-                }
-                return false;
-              }, */
-              child: ScrollablePositionedList.builder(
-  itemScrollController: _itemScrollController,
-  itemPositionsListener: _itemPositionsListener,
-  itemCount: submenusUnicos.length,
-  itemBuilder: (context, index) {
-    final submenu = submenusUnicos[index];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: Text(
-            submenu!,
-            style: GoogleFonts.leckerliOne(fontSize: 2,  color: const Color.fromARGB(255, 255, 255, 255),),
-          ),
-        ),
-        ...itemsPorSubmenu[submenu]!.map((entry) {
-          final item = entry['item'] as DescripcionMenu;
-          return Padding(
-           padding: const EdgeInsets.only(bottom: 15),
-                           
-            child: tarjetaComida(
-                                  productState.id,
-                                  item.id,
-                                  item.image,
-                                  item.nombre,
-                                  item.descripcion,
-                                  item.precio,
-                                  item.unidadesPedir.toString(),
-                                ),
-          );
-        }),
-      ],
-    );
-  },
-), /*ListView(
-                controller: _scrollController,
-                children: [
-                  for (var submenu in submenusUnicos) ...[
-                    Container(
-                    
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                              key: _submenuKeys[submenu],
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
-                            child: Text(
-                              submenu!,
-                              style: GoogleFonts.leckerliOne(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                              ),
-                            ),
-                          ),
-                          ...itemsPorSubmenu[submenu]!.map((entry) {
-                            final item = entry['item'] as DescripcionMenu;
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 15),
-                              child: tarjetaComida(
-                                productState.id,
-                                item.id,
-                                item.image,
-                                item.nombre,
-                                item.descripcion,
-                                item.precio,
-                                item.unidadesPedir.toString(),
-                              ),
-                            );
-                          }).toList(),
-                          
-                        ],
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Text(
+                        submenu!,
+                        style: GoogleFonts.leckerliOne(
+                          fontSize: 2,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                        ),
                       ),
                     ),
-                    /* Builder(
-                      builder: (context) {
-                        // ✅ Registramos la posición del grupo
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          final box = context.findRenderObject() as RenderBox?;
-                          if (box != null) {
-                            final position = box.localToGlobal(Offset.zero).dy +
-                                _scrollController.offset;
-                            _submenuOffsets[submenu ?? ''] = position;
-                          }
-                        });
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            /* Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: Text(
-                                  submenu!,
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(ConstantesColorTema2.naraja),
-                                  ),
-                                ),
-                              ), */
-                            ...itemsPorSubmenu[submenu]!.map((entry) {
-                              final item = entry['item'] as DescripcionMenu;
-
-                              print('<<<object>>> ${productState.id}');
-                              print('<<<item.nombre>>> ${item.nombre}');
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 15),
-                                child: tarjetaComida(
-                                  productState.id,
-                                  item.id,
-                                  item.image,
-                                  item.nombre,
-                                  item.descripcion,
-                                  item.precio,
-                                  item.unidadesPedir.toString(),
-                                ),
-                              );
-                            }).toList(),
-                          ],
-                        );
-                      },
-                    ), */
+                    ...itemsPorSubmenu[submenu]!.map((entry) {
+                      final item = entry['item'] as DescripcionMenu;
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: tarjetaComida(
+                          productState.id,
+                          item.id,
+                          item.image,
+                          item.nombre,
+                          item.descripcion,
+                          item.precio,
+                          item.unidadesPedir.toString(),
+                        ),
+                      );
+                    }),
                   ],
-                   SizedBox(height: 200),
-                ],
-              ), */
+                );
+              },
             ),
           ),
 
@@ -672,7 +535,9 @@ final ItemPositionsListener _itemPositionsListener =
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(28.0),
-                              child: Text('Precio'),
+                              child: Text(
+                                '\$ ${total.toStringAsFixed(2)}',
+                              ),
                             ),
                             Spacer(),
                             Padding(
