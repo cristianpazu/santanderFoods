@@ -156,9 +156,13 @@ message += '---------------------------\n\n';
                 ),
                 Container(
                   child: Text(
-                    'Carrito',
-                    style: GoogleFonts.leckerliOne(
-                        fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),
+                    'Carrito', style:  TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 30,
+    color: Color(ConstantesColorTema2.descripciones))
+                    //style: GoogleFonts.leckerliOne(
+                      //  fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),
                   ),
                 ),
               ],
@@ -269,10 +273,15 @@ print('Zzzzzzzzzzzzz$metodoPago');
                           child: Center(
                             child: Text(
                               'Enviar pedido',
-                              style: GoogleFonts.leckerliOne(
-                                  fontSize: 20,
-                                  color: Color(ConstantesColorTema2
-                                      .naraja) //Color.fromRGBO(109, 109, 109, 1)
+                               style:  TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2.precios)
+                             // style: GoogleFonts.leckerliOne(
+                               //   fontSize: 20,
+                                 // color: Color(ConstantesColorTema2
+                                   //   .naraja) //Color.fromRGBO(109, 109, 109, 1)
 
                                   ),
                             ),

@@ -139,8 +139,13 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                   Text(
                     precios ?? '',
                     // 'Precio',
-                    style: GoogleFonts.leckerliOne(
-                        fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
+                    style:  TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2.precios)),
+                    //style: GoogleFonts.leckerliOne(
+                      //  fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
                   ),
                   Spacer(),
                   Row(

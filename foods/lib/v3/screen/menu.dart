@@ -756,9 +756,16 @@ class tarjetaComida extends StatelessWidget {
                             child: Text(
                               precios ?? '', // 'Precio del resurante',
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.leckerliOne(
-                                  fontSize: 15,
-                                  color: Color(ConstantesColorTema2.precios)),
+                              style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 15,
+    color: Color(ConstantesColorTema2.precios) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+
+                                          ),
+                              //style: GoogleFonts.leckerliOne(
+                                //  fontSize: 15,
+                                  //color: Color(ConstantesColorTema2.precios)),
                             ),
                           ),
                         ],
