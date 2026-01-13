@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/buscar.dart';
+import 'package:foods/v3/util/Sistema.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:foods/v3/screen/carrito.dart';
@@ -145,7 +146,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     };
     final cartStates = ref.watch(itemsStateNotifier);
 
-    final total = cartStates.fold<double>(0, (sum, state) {
+    /*final total = cartStates.fold<double>(0, (sum, state) {
   final subtotal = state.descripcionMenu.fold<double>(0, (sub, item) {
 
     // 👇 AQUÍ VA EXACTAMENTE
@@ -160,7 +161,16 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   });
 
   return sum + subtotal;
-});
+}); */
+
+final total = cartStates.fold<int>(0, (suma, itemState) {
+      return suma +
+          itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
+            final precio = Sistema().parsePrecio(item.precio);
+            final cantidad = item.unidadesPedir ?? 1;
+            return subTotal + (precio * cantidad);
+          });
+    });
 
   
 /*
@@ -176,6 +186,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     }; */
 
     return Scaffold(
+      backgroundColor: Color.fromRGBO(247, 247, 247, 0.96),
       key: _scaffoldKey,
       drawer: DrawerPage(
         nombreRestaurante: nombreRestaurante,
@@ -187,7 +198,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
             padding: const EdgeInsets.all(28.0),
             child: Row(
               children: [
-                Container(
+               /* Container(
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 247, 246, 242),
                     borderRadius: BorderRadius.circular(20),
@@ -207,7 +218,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                           ?.openDrawer(); // Abre el drawer manualmente
                     },
                   ),
-                ),
+                ),*/
                 SizedBox(
                   width: 120,
                 ),
@@ -553,7 +564,10 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                             Padding(
                               padding: const EdgeInsets.all(28.0),
                               child: Text(
-                                '\$ ${total.toStringAsFixed(2)}',
+                                '\$ ${Sistema().formato(total)}',
+                                style: GoogleFonts.leckerliOne(
+                                          color: Color(ConstantesColorTema2
+                                              .blanco))
                               ),
                             ),
                             Spacer(),
@@ -577,10 +591,11 @@ class _MenuPageState extends ConsumerState<MenuPage> {
                                   child: Center(
                                     child: Text(
                                       'Carrito',
-                                      style: GoogleFonts.leckerliOne(
-                                          fontSize: 30,
-                                          color: Color(ConstantesColorTema2
-                                              .naraja) //Color.fromRGBO(109, 109, 109, 1)
+                                      style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 30,
+    color: Color(ConstantesColorTema2.naranja2) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
 
                                           ),
                                     ),
@@ -674,7 +689,7 @@ class tarjetaComida extends StatelessWidget {
           height: 150,
           decoration: BoxDecoration(
               color: Color(ConstantesColorTema2
-                  .naraja), //Color.fromRGBO(109, 109, 109, 0.5),
+                  .blanco), //Color.fromRGBO(109, 109, 109, 0.5),
               borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
@@ -713,8 +728,12 @@ class tarjetaComida extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               nombre ?? '', //'Nombre del resurante',
-                              style: GoogleFonts.leckerliOne(
-                                  fontSize: 10, color: Colors.black),
+                              style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 10,
+    color: Color(0xFF2B2B2B),
+  ),//GoogleFonts.leckerliOne(fontSize: 10, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -725,8 +744,11 @@ class tarjetaComida extends StatelessWidget {
                               maxLines: 2,
 
                               overflow: TextOverflow.ellipsis,
-                              style: GoogleFonts.leckerliOne(
-                                  fontSize: 15, color: Colors.black),
+                              style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 15,
+    color: Color(0xFF2B2B2B)),//GoogleFonts.leckerliOne( fontSize: 15, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -736,7 +758,7 @@ class tarjetaComida extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.leckerliOne(
                                   fontSize: 15,
-                                  color: Color.fromRGBO(255, 255, 255, 1)),
+                                  color: Color(ConstantesColorTema2.precios)),
                             ),
                           ),
                         ],

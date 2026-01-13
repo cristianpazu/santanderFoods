@@ -42,12 +42,14 @@ String? telefono;
             return subTotal + (precio * cantidad);
           });
     });
+
+    print('total $total');
 //
     Future<void> _openWhatsApp(String nombreCliente,
   String direccionCliente,
   String metodoPago,) async {
       // Construir el mensaje con los productos
-      String message = '🛒 *Pedido desde la app (SantanderFoods) 🛒  *\n\n';
+      String message = '🛒 *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
 
       message += '👤 *Cliente:* $nombreCliente\n';
 message += '🏠 *Dirección:* $direccionCliente\n';
@@ -120,6 +122,7 @@ message += '---------------------------\n\n';
 
 //
     return Scaffold(
+      backgroundColor: Color.fromRGBO(247, 247, 247, 0.96),
       body: SafeArea(
           child: Column(
         children: [
@@ -225,7 +228,16 @@ message += '---------------------------\n\n';
                     Padding(
                       padding: const EdgeInsets.all(28.0),
                       child: Text(
-                          '\$ ${Sistema().formato(total)}'), //Text(' \$ 20.000'),
+                          '\$ ${Sistema().formato(total)}',
+                           style: GoogleFonts.leckerliOne(
+                                  fontSize: 20,
+                                  color: Color(ConstantesColorTema2
+                                      .blanco) //Color.fromRGBO(109, 109, 109, 1)
+
+                                  ),
+                          ), //Text(' \$ 20.000'),
+                              
+
                     ),
                     Spacer(),
                     Padding(
@@ -258,7 +270,7 @@ print('Zzzzzzzzzzzzz$metodoPago');
                             child: Text(
                               'Enviar pedido',
                               style: GoogleFonts.leckerliOne(
-                                  fontSize: 30,
+                                  fontSize: 20,
                                   color: Color(ConstantesColorTema2
                                       .naraja) //Color.fromRGBO(109, 109, 109, 1)
 
@@ -314,7 +326,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
         // height: 110,
         decoration: BoxDecoration(
             color: Color(ConstantesColorTema2
-                .naraja), //Color.fromRGBO(109, 109, 109, 1),
+                .blanco), //Color.fromRGBO(109, 109, 109, 1),
             borderRadius: BorderRadius.circular(20)),
         child: Column(
           children: [
@@ -349,6 +361,10 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                           maxLines: 10,
                           textAlign: TextAlign.justify,
                           overflow: TextOverflow.ellipsis,
+                         style: TextStyle(
+                            color: 
+                          Color.fromRGBO(0, 0, 0, 0.534)
+                          )
                         )
                       ],
                     ),
@@ -360,7 +376,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         onPressed: () {
                           widget.onDelete();
                         },
-                        icon: Icon(Icons.delete_forever_outlined))),
+                        icon: Icon(Icons.delete_forever_outlined, color:  Color(ConstantesColorTema2
+                                      .naranja2) ))),
               ],
             ),
             SizedBox(
@@ -375,30 +392,39 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 38.0, left: 38.0, top: 5),
-                        child: Text(widget.precio ?? ''),
+                      Expanded(
+                        child: Text(
+                          widget.precio ?? '', 
+                          softWrap: true,
+        maxLines: 3,
+  
+                        style: TextStyle(
+                            color: 
+                        Color(ConstantesColorTema2
+                                      .naranja2)
+                          )),
                       ),
 
                       ///
-                      Spacer(),
+                   SizedBox(width: 8),
 
                       ///
                       Container(
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Color(ConstantesColorTema2
+                                      .naranja2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
                                 widget.incrementarUnidades();
                               },
-                              icon: Icon(Icons.add))),
+                              icon: Icon(Icons.add, color: Color(ConstantesColorTema2
+                                      .blanco),))),
                       SizedBox(
-                        width: 10,
+                        width: 8,
                       ),
 
                       Container(
@@ -407,7 +433,7 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: Center(child: Text('${widget.unidadesPedir}')),
+                        child: Center(child: Text('${widget.unidadesPedir}',)),
                       ),
 //
                       SizedBox(
@@ -417,14 +443,16 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Color(ConstantesColorTema2
+                                      .naranja2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
                                 widget.decrementarUnidades();
                               },
-                              icon: Icon(Icons.remove))),
+                              icon: Icon(Icons.remove, color: Color(ConstantesColorTema2
+                                      .blanco),))),
                     ],
                   ),
                   //

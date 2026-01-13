@@ -116,22 +116,31 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                   Text(
                     nombre ?? '',
                     //'Nombre del producto',
-                    style: GoogleFonts.leckerliOne(
-                        fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
+                    style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 25,
+    color: Color(ConstantesColorTema2.titulos)) //GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
                   ),
                   Text(
                     descripcion ?? '',
                     // 'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                     maxLines: 5,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.leckerliOne(
-                        fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
+                    style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2.descripciones))//GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 0.534)),
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                   Text(
                     precios ?? '',
                     // 'Precio',
                     style: GoogleFonts.leckerliOne(
-                        fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
+                        fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
                   ),
                   Spacer(),
                   Row(
@@ -226,11 +235,16 @@ print('cantidadZZZZZZZZZ $cantidad');
                               // El texto "Agregar" siempre visible
                               Text(
                                 'Agregar',
-                                style: GoogleFonts.leckerliOne(
+                                style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 15,
+    color: Color(ConstantesColorTema2
+                                      .blanco))/*GoogleFonts.leckerliOne(
                                   fontSize: 15,
                                   color: Color(ConstantesColorTema2
-                                      .blanco), //Color.fromRGBO(109, 109, 109, 1),
-                                ),
+                                      .blanco) , //Color.fromRGBO(109, 109, 109, 1),
+                                ),*/
                               ),
                               // El ícono invisible hasta que se presiona
                             ],

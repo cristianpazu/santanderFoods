@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:foods/v3/util/colores.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Sistema {
 
-  int parsePrecio(String? precio) {
+  int parsePrecio2(String? precio) {
   if (precio == null) return 0;
 
   return int.tryParse(
     precio.replaceAll(RegExp(r'[^0-9]'), ''),
   ) ?? 0;
+}
+
+int parsePrecio(String? precio) {
+   if (precio == null || precio.isEmpty) return 0;
+
+  // 1️⃣ Quédate solo con lo que parece un precio (antes de texto)
+  String precios = precio.split('(').first;
+
+  // 2️⃣ Elimina todo menos números
+  precio = precios.replaceAll(RegExp(r'[^0-9]'), '');
+
+  return int.tryParse(precio) ?? 0;
 }
 
 String formato(int valor) {
@@ -44,7 +58,13 @@ Widget modalEnviarPedido(BuildContext context) {
 
           const Text(
             'Completa tus datos',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+           style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+   
+                                          ),
+           // style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
 
           const SizedBox(height: 15),
@@ -122,7 +142,12 @@ Widget alertDialogEnviarPedido(BuildContext context, VoidCallback accion) {
     ),
     title: const Text(
       'Completa tus datos',
-      style: TextStyle(fontWeight: FontWeight.bold),
+      style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+   
+                                          ),// style: TextStyle(fontWeight: FontWeight.bold),
     ),
     content: SingleChildScrollView(
       child: Column(
@@ -184,7 +209,13 @@ Widget alertDialogEnviarPedido(BuildContext context, VoidCallback accion) {
        accion();
           Navigator.pop(context);
         },
-        child: const Text('Confirmar'),
+        child:  Text('Confirmar',  
+        style: GoogleFonts.leckerliOne(
+                                  fontSize: 20,
+                                  color: Color(ConstantesColorTema2
+                                      .naranja2) //Color.fromRGBO(109, 109, 109, 1)
+
+                                  ),),
       ),
     ],
   );
@@ -204,7 +235,12 @@ Widget alertDialogEnviarPedido2(
     ),
     title: const Text(
       'Completa tus datos',
-      style: TextStyle(fontWeight: FontWeight.bold),
+       style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+   
+                                          ),//style: TextStyle(fontWeight: FontWeight.bold),
     ),
     content: SingleChildScrollView(
       child: Column(
@@ -255,10 +291,23 @@ Widget alertDialogEnviarPedido2(
     ),
     actions: [
       TextButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFF36B21)), //Colors(ConstantesColorTema2.naranja2)
+        ),
         onPressed: () => Navigator.pop(context),
-        child: const Text('Cancelar'),
+        child:  Text('Cancelar',
+        style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2.blanco) 
+                                          ),
+        ),
       ),
       ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFF36B21)), //Colors(ConstantesColorTema2.naranja2)
+        ),
         onPressed: () {
           accion(
             nombreCtrl.text.trim(),
@@ -267,7 +316,19 @@ Widget alertDialogEnviarPedido2(
           );
           Navigator.pop(context);
         },
-        child: const Text('Confirmar'),
+        child:  Text('Confirmar',
+        style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2.blanco) 
+                                          ),
+        /* GoogleFonts.leckerliOne(
+                                  fontSize: 20,
+                                  color: Color(ConstantesColorTema2
+                                      .naranja2) //Color.fromRGBO(109, 109, 109, 1)
+
+                                  ), */),
       ),
     ],
   );
