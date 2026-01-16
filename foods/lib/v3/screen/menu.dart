@@ -489,6 +489,12 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
                     ),
                     ...itemsPorSubmenu[submenu]!.map((entry) {
                       final item = entry['item'] as DescripcionMenu;
+
+                    if (item.salsas != null) {
+  for (var salsa in item.salsas!) {
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<< ${salsa.nombre}');
+  }
+}
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 15),
                         child: tarjetaComida(
@@ -499,6 +505,10 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
                           item.descripcion,
                           item.precio,
                           item.unidadesPedir.toString(),
+                          item.salsas
+                                    ?.where((s) => s.nombre != null)
+                                    .map((s) => s.nombre!)
+                                    .toList()
                         ),
                       );
                     }),
@@ -663,18 +673,20 @@ class tarjetaComida extends StatelessWidget {
   String? descripcion;
   String? precios;
   String? unidades;
-
+  List<String>?  salsas;
   tarjetaComida(this.idRestaurante, this.ids, this.images, this.nombre,
-      this.descripcion, this.precios, this.unidades);
+      this.descripcion, this.precios, this.unidades,this.salsas);
 
   @override
   Widget build(BuildContext context) {
+
+    print('salsassalsasasasasasas $salsas');
     void _openIconButtonPressed() {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (ctx) => InfoComida2(this.idRestaurante, this.ids, this.images,
-            this.nombre, this.descripcion, this.precios, this.unidades),
+            this.nombre, this.descripcion, this.precios, this.unidades,this.salsas),
       );
     }
 

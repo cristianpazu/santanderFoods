@@ -1,3 +1,5 @@
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
+
 class Items {
    int? id;
   String? nombre;
@@ -6,6 +8,7 @@ class Items {
   String? unidades;
   String? precio;
   int? unidadesPedir;
+    List<Salsa>? salsas;
 
   Items({
     this.id,
@@ -15,6 +18,7 @@ class Items {
     this.unidades,
     this.precio,
     this.unidadesPedir,
+   this.salsas
   });
 
   factory Items.fromJson(Map<String, dynamic> json) => Items(
@@ -25,6 +29,7 @@ class Items {
         unidades: json["unidades"],
         precio: json["precio"],
         unidadesPedir: json["unidadesPedir"],
+        salsas: json["salsas"] == null ? [] : List<Salsa>.from(json["salsas"]!.map((x) => Salsa.fromJson(x))),
      
       );
 
@@ -36,6 +41,7 @@ class Items {
         "unidades": unidades,
         "precio": precio,
         "unidadesPedir": unidadesPedir,
+         "salsas": salsas == null ? [] : List<dynamic>.from(salsas!.map((x) => x.toJson())),
          
       };
 
@@ -49,7 +55,7 @@ class Items {
     String? precio,
   
     int? unidadesPedir,
-  
+   List<String>? salsasSeleccionadas,
   }) {
     return Items(
       id: id ?? this.id,
@@ -60,13 +66,13 @@ class Items {
       precio: precio ?? this.precio,
 
       unidadesPedir: unidadesPedir ?? this.unidadesPedir,
-   
+   salsas: salsas ?? this.salsas
     );
   }
 
 
   @override
   String toString() {
-    return 'MenuDescripcion(id: $id,  nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio)';
+    return 'MenuDescripcion(id: $id,  nombre: $nombre, descripcion: $descripcion, image: $image, unidades: $unidades, precio: $precio, salsas: $salsas)';
   }
 }
