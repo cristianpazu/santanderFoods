@@ -27,7 +27,8 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   // Clave para manejar el Drawer
   final ScrollController _scrollController = ScrollController();
   final Map<String, double> _submenuOffsets = {};
-  // final ScrollController _submenuScrollController = ScrollController();
+  final ScrollController _submenuScrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
   String _searchText = '';
 
   final ItemScrollController _itemScrollController = ItemScrollController();
@@ -45,15 +46,15 @@ class _MenuPageState extends ConsumerState<MenuPage> {
 
   @override
   void dispose() {
+    _submenuScrollController.dispose();
+    _submenuScrollController.dispose();
     _scrollController.dispose();
     _itemPositionsListener.itemPositions.removeListener(_onScroll);
-    // _submenuScrollController.dispose();
     super.dispose();
   }
 
   void _onScroll() {
-
- if (_isProgrammaticScroll) return;
+    if (_isProgrammaticScroll) return;
 
     final positions = _itemPositionsListener.itemPositions.value;
     if (positions.isEmpty) return;
@@ -72,6 +73,12 @@ class _MenuPageState extends ConsumerState<MenuPage> {
       setState(() {
         _selectedSubmenuIndex = currentIndex;
       });
+      //
+      _submenuScrollController.animateTo(
+        currentIndex * 120.0, // ancho aproximado del item
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
@@ -107,8 +114,8 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     final String? telefono =
         restaurantes.isNotEmpty ? restaurantes.first.contacto : null;
 
-        //nombre restaurante
-       
+    //nombre restaurante
+
     final String? nombreRestaurante =
         restaurantes.isNotEmpty ? restaurantes.first.nombres : null;
 
@@ -163,7 +170,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   return sum + subtotal;
 }); */
 
-final total = cartStates.fold<int>(0, (suma, itemState) {
+    final total = cartStates.fold<int>(0, (suma, itemState) {
       return suma +
           itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
             final precio = Sistema().parsePrecio(item.precio);
@@ -172,7 +179,6 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
           });
     });
 
-  
 /*
     final submenusUnicos = allItems
         .map((e) => e['submenu'] as String?)
@@ -198,7 +204,7 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
             padding: const EdgeInsets.all(28.0),
             child: Row(
               children: [
-               /* Container(
+                /* Container(
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 247, 246, 242),
                     borderRadius: BorderRadius.circular(20),
@@ -235,9 +241,11 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
           Container(
             padding: EdgeInsets.only(left: 20, right: 20),
             child: TextFormField(
+              controller: _searchController,
               onChanged: (value) {
                 ref.read(searchTextProvider.notifier).state =
                     value.toLowerCase();
+                setState(() {});
               },
               decoration: InputDecoration(
                   hintText: 'Buscar',
@@ -248,14 +256,36 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
                   filled: true,
                   fillColor: Color(ConstantesColorTema2
                       .blanco), //Color.fromRGBO(109, 109, 109, 0.5),
-                  suffixIcon: //Image.asset('assets/buscar.png',width: 78,height: 2,fit: BoxFit.contain,),
-                      Icon(Icons.search_rounded,
+                  prefixIcon: Icon(Icons.search_rounded,
+                      size: 20,
+                      color: Color(ConstantesColorTema2.naraja) //Colors.grey,
+                      ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? //Image.asset('assets/buscar.png',width: 78,height: 2,fit: BoxFit.contain,),
+                      IconButton(
+                          icon: Icon(Icons.close,
+                              size: 32,
+                              color: Color(ConstantesColorTema2.naranja2)),
+                          onPressed: () {
+                            _searchController.clear();
+
+                            ref.read(searchTextProvider.notifier).state = '';
+
+                            FocusScope.of(context).unfocus(); // opcional
+                            setState(() {});
+                          },
+                        )
+                      : null /*Icon(Icons.search_rounded,
                           size: 40,
                           color:
                               Color(ConstantesColorTema2.naraja) //Colors.grey,
                           ),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40))),
+                      borderRadius: BorderRadius.circular(40)) */
+
+                  ),
             ),
           ),
           SizedBox(
@@ -267,32 +297,30 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: ListView.builder(
+                controller: _submenuScrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: submenusUnicos.length,
                 itemBuilder: (context, index) {
                   final submenu = submenusUnicos[index];
                   final bool isSelected = index == _selectedSubmenuIndex;
                   return GestureDetector(
-                    onTap: () async  {
-             
-
+                    onTap: () async {
                       setState(() {
                         _selectedSubmenuIndex = index;
                       });
 
-                       _isProgrammaticScroll = true;
+                      _isProgrammaticScroll = true;
 
-                    await   _itemScrollController.scrollTo(
+                      await _itemScrollController.scrollTo(
                         index: index,
                         duration: const Duration(milliseconds: 450),
                         curve: Curves.easeOutCubic,
                         alignment: 0.0,
                       );
 
-                        await Future.delayed(const Duration(milliseconds: 60));
+                      await Future.delayed(const Duration(milliseconds: 60));
 
-
-                        _isProgrammaticScroll = false;
+                      _isProgrammaticScroll = false;
 
                       /*
 
@@ -563,12 +591,10 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(28.0),
-                              child: Text(
-                                '\$ ${Sistema().formato(total)}',
-                                style: GoogleFonts.leckerliOne(
-                                          color: Color(ConstantesColorTema2
-                                              .blanco))
-                              ),
+                              child: Text('\$ ${Sistema().formato(total)}',
+                                  style: GoogleFonts.leckerliOne(
+                                      color:
+                                          Color(ConstantesColorTema2.blanco))),
                             ),
                             Spacer(),
                             Padding(
@@ -592,10 +618,12 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
                                     child: Text(
                                       'Carrito',
                                       style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 30,
-    color: Color(ConstantesColorTema2.naranja2) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+                                          fontFamily: 'Poppins',
+                                          fontWeight:
+                                              FontWeight.w600, // SemiBold
+                                          fontSize: 30,
+                                          color: Color(ConstantesColorTema2
+                                              .naranja2) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
 
                                           ),
                                     ),
@@ -729,11 +757,11 @@ class tarjetaComida extends StatelessWidget {
                             child: Text(
                               nombre ?? '', //'Nombre del resurante',
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 10,
-    color: Color(0xFF2B2B2B),
-  ),//GoogleFonts.leckerliOne(fontSize: 10, color: Colors.black),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600, // SemiBold
+                                fontSize: 10,
+                                color: Color(0xFF2B2B2B),
+                              ), //GoogleFonts.leckerliOne(fontSize: 10, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -745,10 +773,11 @@ class tarjetaComida extends StatelessWidget {
 
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 15,
-    color: Color(0xFF2B2B2B)),//GoogleFonts.leckerliOne( fontSize: 15, color: Colors.black),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 15,
+                                  color: Color(
+                                      0xFF2B2B2B)), //GoogleFonts.leckerliOne( fontSize: 15, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -757,15 +786,16 @@ class tarjetaComida extends StatelessWidget {
                               precios ?? '', // 'Precio del resurante',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 15,
-    color: Color(ConstantesColorTema2.precios) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 15,
+                                  color: Color(ConstantesColorTema2
+                                      .precios) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
 
-                                          ),
+                                  ),
                               //style: GoogleFonts.leckerliOne(
-                                //  fontSize: 15,
-                                  //color: Color(ConstantesColorTema2.precios)),
+                              //  fontSize: 15,
+                              //color: Color(ConstantesColorTema2.precios)),
                             ),
                           ),
                         ],
