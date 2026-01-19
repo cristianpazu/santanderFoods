@@ -8,10 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CarritoPage2 extends ConsumerStatefulWidget {
+  String? telefono;
 
-String? telefono;
-
-   CarritoPage2( this.telefono);
+  CarritoPage2(this.telefono);
 
   @override
   _CarritoPage2State createState() => _CarritoPage2State();
@@ -19,20 +18,14 @@ String? telefono;
 
 class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   int valor = 0;
-String? telefono;
-
-
-
+  String? telefono;
 
   @override
   Widget build(BuildContext context) {
     final carrito = ref.watch(itemsStateNotifier);
- print('widget.telefono${widget.telefono}');
+    print('widget.telefono${widget.telefono}');
 
     final String? phone = widget.telefono;
-
-
-
 
     final total = carrito.fold<int>(0, (suma, itemState) {
       return suma +
@@ -45,16 +38,19 @@ String? telefono;
 
     print('total $total');
 //
-    Future<void> _openWhatsApp(String nombreCliente,
-  String direccionCliente,
-  String metodoPago,) async {
+    Future<void> _openWhatsApp(
+      String nombreCliente,
+      String direccionCliente,
+      String metodoPago,
+    ) async {
       // Construir el mensaje con los productos
-      String message = '🛒 *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
+      String message =
+          '🛒 *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
 
       message += '👤 *Cliente:* $nombreCliente\n';
-message += '🏠 *Dirección:* $direccionCliente\n';
-message += '💳 *Pago:* $metodoPago\n\n';
-message += '---------------------------\n\n';
+      message += '🏠 *Dirección:* $direccionCliente\n';
+      message += '💳 *Pago:* $metodoPago\n\n';
+      message += '---------------------------\n\n';
 
       for (var itemState in carrito) {
         final item = itemState.descripcionMenu.first;
@@ -62,8 +58,14 @@ message += '---------------------------\n\n';
         final descripcion = item.descripcion ?? '';
         final precio = item.precio ?? '';
         final unidades = item.unidadesPedir ?? 1;
+        final tieneSalsas = item.salsas != null && item.salsas!.isNotEmpty;
+        final salsas = tieneSalsas ? item.salsas!.join(', ') : '';
 
         message += '• *$nombre* - $descripcion\n';
+
+        if (tieneSalsas) {
+          message += ' - *Salsas:* $salsas\n';
+        }
 
         message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
 
@@ -72,8 +74,6 @@ message += '---------------------------\n\n';
         message +=
             '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';*/
       }
-
-      
 
       message += '🧾 *Total:* \$${total}';
 
@@ -155,15 +155,15 @@ message += '---------------------------\n\n';
                   width: 120,
                 ),
                 Container(
-                  child: Text(
-                    'Carrito', style:  TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 30,
-    color: Color(ConstantesColorTema2.descripciones))
-                    //style: GoogleFonts.leckerliOne(
+                  child: Text('Carrito',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600, // SemiBold
+                          fontSize: 30,
+                          color: Color(ConstantesColorTema2.descripciones))
+                      //style: GoogleFonts.leckerliOne(
                       //  fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),
-                  ),
+                      ),
                 ),
               ],
             ),
@@ -232,16 +232,14 @@ message += '---------------------------\n\n';
                     Padding(
                       padding: const EdgeInsets.all(28.0),
                       child: Text(
-                          '\$ ${Sistema().formato(total)}',
-                           style: GoogleFonts.leckerliOne(
-                                  fontSize: 20,
-                                  color: Color(ConstantesColorTema2
-                                      .blanco) //Color.fromRGBO(109, 109, 109, 1)
+                        '\$ ${Sistema().formato(total)}',
+                        style: GoogleFonts.leckerliOne(
+                            fontSize: 20,
+                            color: Color(ConstantesColorTema2
+                                .blanco) //Color.fromRGBO(109, 109, 109, 1)
 
-                                  ),
-                          ), //Text(' \$ 20.000'),
-                              
-
+                            ),
+                      ), //Text(' \$ 20.000'),
                     ),
                     Spacer(),
                     Padding(
@@ -253,14 +251,16 @@ message += '---------------------------\n\n';
                             barrierDismissible:
                                 false, // opcional (evita que se cierre tocando fuera)
                             builder: (BuildContext context) {
-                              return Sistema().alertDialogEnviarPedido2(context, 
-                                 (nombre, direccion, metodoPago) {
-print('Zzzzzzzzzzzzz$nombre');
-print('Zzzzzzzzzzzzz$direccion');
-print('Zzzzzzzzzzzzz$metodoPago');
+                              return Sistema().alertDialogEnviarPedido2(
+                                context,
+                                (nombre, direccion, metodoPago) {
+                                  print('Zzzzzzzzzzzzz$nombre');
+                                  print('Zzzzzzzzzzzzz$direccion');
+                                  print('Zzzzzzzzzzzzz$metodoPago');
 
-          _openWhatsApp(nombre, direccion, metodoPago);
-        },); // Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
+                                  _openWhatsApp(nombre, direccion, metodoPago);
+                                },
+                              ); // Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
                             },
                           );
                         },
@@ -273,15 +273,15 @@ print('Zzzzzzzzzzzzz$metodoPago');
                           child: Center(
                             child: Text(
                               'Enviar pedido',
-                               style:  TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 20,
-    color: Color(ConstantesColorTema2.precios)
-                             // style: GoogleFonts.leckerliOne(
-                               //   fontSize: 20,
-                                 // color: Color(ConstantesColorTema2
-                                   //   .naraja) //Color.fromRGBO(109, 109, 109, 1)
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 20,
+                                  color: Color(ConstantesColorTema2.precios)
+                                  // style: GoogleFonts.leckerliOne(
+                                  //   fontSize: 20,
+                                  // color: Color(ConstantesColorTema2
+                                  //   .naraja) //Color.fromRGBO(109, 109, 109, 1)
 
                                   ),
                             ),
@@ -365,16 +365,13 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         Text(widget.nombre ?? ''),
                         SizedBox(height: 8),
                         Text(
-                          widget.descripcion ??
-                              '', // 'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
-                          maxLines: 10,
-                          textAlign: TextAlign.justify,
-                          overflow: TextOverflow.ellipsis,
-                         style: TextStyle(
-                            color: 
-                          Color.fromRGBO(0, 0, 0, 0.534)
-                          )
-                        )
+                            widget.descripcion ??
+                                '', // 'hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado.hamburguesa "La hamburguesa del Oeste Salvaje": una torre de carne Angus a la plancha, cubierta con queso cheddar fundido, cebolla caramelizada y una generosa porción de salsa BBQ casera, todo en un panecillo de pretzel tostado. ',
+                            maxLines: 10,
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Color.fromRGBO(0, 0, 0, 0.534)))
                       ],
                     ),
                   ),
@@ -385,8 +382,8 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         onPressed: () {
                           widget.onDelete();
                         },
-                        icon: Icon(Icons.delete_forever_outlined, color:  Color(ConstantesColorTema2
-                                      .naranja2) ))),
+                        icon: Icon(Icons.delete_forever_outlined,
+                            color: Color(ConstantesColorTema2.naranja2)))),
               ],
             ),
             SizedBox(
@@ -402,36 +399,32 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Text(
-                          widget.precio ?? '', 
-                          softWrap: true,
-        maxLines: 3,
-  
-                        style: TextStyle(
-                            color: 
-                        Color(ConstantesColorTema2
-                                      .naranja2)
-                          )),
+                        child: Text(widget.precio ?? '',
+                            softWrap: true,
+                            maxLines: 3,
+                            style: TextStyle(
+                                color: Color(ConstantesColorTema2.naranja2))),
                       ),
 
                       ///
-                   SizedBox(width: 8),
+                      SizedBox(width: 8),
 
                       ///
                       Container(
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Color(ConstantesColorTema2
-                                      .naranja2),
+                              color: Color(ConstantesColorTema2.naranja2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
                                 widget.incrementarUnidades();
                               },
-                              icon: Icon(Icons.add, color: Color(ConstantesColorTema2
-                                      .blanco),))),
+                              icon: Icon(
+                                Icons.add,
+                                color: Color(ConstantesColorTema2.blanco),
+                              ))),
                       SizedBox(
                         width: 8,
                       ),
@@ -442,7 +435,10 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: Center(child: Text('${widget.unidadesPedir}',)),
+                        child: Center(
+                            child: Text(
+                          '${widget.unidadesPedir}',
+                        )),
                       ),
 //
                       SizedBox(
@@ -452,16 +448,17 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                           width: 50,
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Color(ConstantesColorTema2
-                                      .naranja2),
+                              color: Color(ConstantesColorTema2.naranja2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
                               onPressed: () {
                                 widget.decrementarUnidades();
                               },
-                              icon: Icon(Icons.remove, color: Color(ConstantesColorTema2
-                                      .blanco),))),
+                              icon: Icon(
+                                Icons.remove,
+                                color: Color(ConstantesColorTema2.blanco),
+                              ))),
                     ],
                   ),
                   //
