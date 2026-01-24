@@ -1,3 +1,4 @@
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
 import 'package:foods/v3/entities/items.dart';
 
 class DescripcionMenu {
@@ -9,7 +10,7 @@ class DescripcionMenu {
   String? unidades;
 
   int? unidadesPedir;
-
+   List<Salsa>? salsas;
   DescripcionMenu({
     this.id,
     required this.nombre,
@@ -18,6 +19,7 @@ class DescripcionMenu {
     required this.precio,
     this.unidades,
     this.unidadesPedir,
+      this.salsas
   });
 
   factory DescripcionMenu.fromJson(Map<String, dynamic> json) =>
@@ -28,7 +30,8 @@ class DescripcionMenu {
           precio: json["precio"],
           unidades: json["unidades"],
           image: json["image"],
-          unidadesPedir: json["unidadesPedir"]);
+          unidadesPedir: json["unidadesPedir"],
+                   salsas: json["salsas"] == null ? [] : List<Salsa>.from(json["salsas"]!.map((x) => Salsa.fromJson(x))),);
 
   Map<String, dynamic> toJson() => {
     "id":id,
@@ -37,7 +40,8 @@ class DescripcionMenu {
         "precio": precio,
         "image": image,
         "unidades": unidades,
-        "unidadesPedir": unidadesPedir
+        "unidadesPedir": unidadesPedir,
+          "salsas": salsas == null ? [] : List<dynamic>.from(salsas!.map((x) => x.toJson())),
       };
 
 
@@ -51,7 +55,7 @@ class DescripcionMenu {
     precio: item.precio!,
   
     unidadesPedir: item.unidadesPedir ?? 1, // por defecto al agregar al carrito
-  
+  salsas: item.salsas
   );
 }
 
@@ -64,6 +68,7 @@ class DescripcionMenu {
     String? precio,
     String? unidades,
     int? unidadesPedir,
+    List<Salsa>? salsas,
   }) {
     return DescripcionMenu(
       id: id ?? this.id,
@@ -72,6 +77,7 @@ class DescripcionMenu {
         image: image ?? this.image,
         unidades: unidades ?? this.unidades,
         precio: precio ?? this.precio,
-        unidadesPedir: unidadesPedir ?? this.unidadesPedir);
+        unidadesPedir: unidadesPedir ?? this.unidadesPedir,
+       salsas: salsas ?? this.salsas);
   }
 }

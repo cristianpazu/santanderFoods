@@ -1,6 +1,8 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/Utils/titutlos.dart';
 import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state.dart';
 import 'package:foods/v3/entities/items.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
@@ -18,12 +20,13 @@ class InfoComida2 extends ConsumerStatefulWidget {
   String? descripcion;
   String? precios;
   String? unidades;
+   List<String>?  salsas;
   InfoComida2(this.idRestaurante, this.id, this.images, this.nombre,
-      this.descripcion, this.precios, this.unidades);
+      this.descripcion, this.precios, this.unidades,this.salsas);
 
   @override
   _InfoComidaState createState() => _InfoComidaState(
-      idRestaurante, id, images, nombre, descripcion, precios, unidades);
+      idRestaurante, id, images, nombre, descripcion, precios, unidades,salsas);
 }
 
 class _InfoComidaState extends ConsumerState<InfoComida2> {
@@ -36,12 +39,24 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
   String? descripcion;
   String? precios;
   String? unidades;
+    List<String>?  salsas;
 
   _InfoComidaState(this.idRestaurante, this.id, this.images, this.nombre,
-      this.descripcion, this.precios, this.unidades);
+      this.descripcion, this.precios, this.unidades,this.salsas);
+
+final Map<int, bool> _salsasSeleccionadas = {};
+
+    int get cantidadSeleccionadas =>
+      _salsasSeleccionadas.values.where((v) => v).length;
 
   @override
   Widget build(BuildContext context) {
+/*
+final salsasSeleccionadas = widget.salsas
+            ?.where((salsa) => _salsasSeleccionadas[salsa['id']] ?? false)
+            .map((salsa) => salsa['nombre'].toString())
+            .toList() ??
+        []; */
     double height = MediaQuery.of(context).size.height;
     final productState = ref
         .watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante!));
@@ -66,6 +81,70 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
     print('objectZZZZ ${unidadesProducto} - ${id}');
 
     print('object ${nombre} - ${id}');
+    final Widget salsaWidget = widget.salsas != null &&
+            widget.salsas!.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Selecciona hasta 5 salsas:',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                decoration: BoxDecoration(
+                    color: Color(ConstantesColorTema2.blanco),
+                    borderRadius: BorderRadius.circular(5)),
+                height: 200, // ajusta según necesites
+                child: GridView.count(
+                  physics:
+                      NeverScrollableScrollPhysics(), // para que no se pueda hacer scroll dentro del Grid
+                  crossAxisCount: 2, // dos columnas
+                  childAspectRatio:
+                      4, // ancho/alto de cada item, para que quede bien
+                  children: widget.salsas!.asMap().entries.map((entry) {
+                   final index = entry.key;
+  final nombre = entry.value;
+
+                    return CheckboxListTile(
+                      activeColor:
+                          Color(ConstantesColorTema2.naranja2), // color del check cuando está activo
+                      checkColor: Color(ConstantesColorTema2.blanco),
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                              nombre ?? '', //'Nombre del resurante',
+                              style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 15,
+    color: Color(0xFF2B2B2B))), //Text(nombre),
+                      value: _salsasSeleccionadas[index] ?? false,
+                      onChanged: (selected) {
+                        final yaSeleccionada =
+                            _salsasSeleccionadas[index] ?? false;
+                        if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Solo puedes seleccionar hasta 2 salsas'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                          return;
+                        }
+
+                        setState(() {
+                          _salsasSeleccionadas[index] = selected ?? false;
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          )
+        : const SizedBox.shrink();
+
     return SafeArea(
         child: Stack(
       children: [
@@ -113,39 +192,44 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    nombre ?? '',
-                    //'Nombre del producto',
-                    style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 25,
-    color: Color(ConstantesColorTema2.titulos)) //GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
-                  ),
-                  Text(
-                    descripcion ?? '',
-                    // 'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-                    maxLines: 5,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 20,
-    color: Color(ConstantesColorTema2.descripciones))//GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 0.534)),
-                  ),
+                  Text(nombre ?? '',
+                      //'Nombre del producto',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600, // SemiBold
+                          fontSize: 25,
+                          color: Color(ConstantesColorTema2
+                              .titulos)) //GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
+                      ),
+                  Text(descripcion ?? '',
+                      // 'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600, // SemiBold
+                          fontSize: 20,
+                          color: Color(ConstantesColorTema2
+                              .descripciones)) //GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 0.534)),
+                      ),
                   SizedBox(
                     height: 20,
                   ),
+
+ salsaWidget ?? Container(
+                          
+                          ),
+                  //
                   Text(
                     precios ?? '',
                     // 'Precio',
-                    style:  TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 20,
-    color: Color(ConstantesColorTema2.precios)),
+                    style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600, // SemiBold
+                        fontSize: 20,
+                        color: Color(ConstantesColorTema2.precios)),
                     //style: GoogleFonts.leckerliOne(
-                      //  fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
+                    //  fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
                   ),
                   Spacer(),
                   Row(
@@ -207,15 +291,14 @@ class _InfoComidaState extends ConsumerState<InfoComida2> {
                           ),
                           onPressed: () async {
                             final item = Items(
-                              nombre: nombre!,
-                              descripcion: descripcion,
-                              precio: precios,
-                              unidades:unidades,
-                              image: images,
-                              unidadesPedir: cantidad
-                            );
-                          
-print('cantidadZZZZZZZZZ $cantidad');
+                                nombre: nombre!,
+                                descripcion: descripcion,
+                                precio: precios,
+                                unidades: unidades,
+                                image: images,
+                                unidadesPedir: cantidad);
+
+                            print('cantidadZZZZZZZZZ $cantidad');
                             final agregado = ref
                                 .read(itemsStateNotifier.notifier)
                                 .agregarItems(item, productState.id);
@@ -238,19 +321,18 @@ print('cantidadZZZZZZZZZ $cantidad');
                             alignment: Alignment.center,
                             children: [
                               // El texto "Agregar" siempre visible
-                              Text(
-                                'Agregar',
-                                style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 15,
-    color: Color(ConstantesColorTema2
-                                      .blanco))/*GoogleFonts.leckerliOne(
+                              Text('Agregar',
+                                  style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600, // SemiBold
+                                      fontSize: 15,
+                                      color: Color(ConstantesColorTema2
+                                          .blanco)) /*GoogleFonts.leckerliOne(
                                   fontSize: 15,
                                   color: Color(ConstantesColorTema2
                                       .blanco) , //Color.fromRGBO(109, 109, 109, 1),
                                 ),*/
-                              ),
+                                  ),
                               // El ícono invisible hasta que se presiona
                             ],
                           ),
