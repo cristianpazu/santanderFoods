@@ -29,7 +29,8 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   // Clave para manejar el Drawer
   final ScrollController _scrollController = ScrollController();
   final Map<String, double> _submenuOffsets = {};
-  // final ScrollController _submenuScrollController = ScrollController();
+  final ScrollController _submenuScrollController = ScrollController();
+  final TextEditingController _searchController = TextEditingController();
   String _searchText = '';
 
   final ItemScrollController _itemScrollController = ItemScrollController();
@@ -47,15 +48,15 @@ class _MenuPageState extends ConsumerState<MenuPage> {
 
   @override
   void dispose() {
+    _submenuScrollController.dispose();
+    _submenuScrollController.dispose();
     _scrollController.dispose();
     _itemPositionsListener.itemPositions.removeListener(_onScroll);
-    // _submenuScrollController.dispose();
     super.dispose();
   }
 
   void _onScroll() {
-
- if (_isProgrammaticScroll) return;
+    if (_isProgrammaticScroll) return;
 
     final positions = _itemPositionsListener.itemPositions.value;
     if (positions.isEmpty) return;
@@ -74,6 +75,12 @@ class _MenuPageState extends ConsumerState<MenuPage> {
       setState(() {
         _selectedSubmenuIndex = currentIndex;
       });
+      //
+      _submenuScrollController.animateTo(
+        currentIndex * 120.0, // ancho aproximado del item
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     }
   }
 
@@ -109,8 +116,8 @@ class _MenuPageState extends ConsumerState<MenuPage> {
     final String? telefono =
         restaurantes.isNotEmpty ? restaurantes.first.contacto : null;
 
-        //nombre restaurante
-       
+    //nombre restaurante
+
     final String? nombreRestaurante =
         restaurantes.isNotEmpty ? restaurantes.first.nombres : null;
 
@@ -165,7 +172,7 @@ class _MenuPageState extends ConsumerState<MenuPage> {
   return sum + subtotal;
 }); */
 
-final total = cartStates.fold<int>(0, (suma, itemState) {
+    final total = cartStates.fold<int>(0, (suma, itemState) {
       return suma +
           itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
             final precio = Sistema().parsePrecio(item.precio);
@@ -174,7 +181,6 @@ final total = cartStates.fold<int>(0, (suma, itemState) {
           });
     });
 
-  
 /*
     final submenusUnicos = allItems
         .map((e) => e['submenu'] as String?)
@@ -1131,11 +1137,11 @@ class tarjetaComida extends StatelessWidget {
                             child: Text(
                               nombre ?? '', //'Nombre del resurante',
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 10,
-    color: Color(0xFF2B2B2B),
-  ),//GoogleFonts.leckerliOne(fontSize: 10, color: Colors.black),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600, // SemiBold
+                                fontSize: 10,
+                                color: Color(0xFF2B2B2B),
+                              ), //GoogleFonts.leckerliOne(fontSize: 10, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -1147,10 +1153,11 @@ class tarjetaComida extends StatelessWidget {
 
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 15,
-    color: Color(0xFF2B2B2B)),//GoogleFonts.leckerliOne( fontSize: 15, color: Colors.black),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 15,
+                                  color: Color(
+                                      0xFF2B2B2B)), //GoogleFonts.leckerliOne( fontSize: 15, color: Colors.black),
                             ),
                           ),
                           Padding(
@@ -1159,15 +1166,16 @@ class tarjetaComida extends StatelessWidget {
                               precios ?? '', // 'Precio del resurante',
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.w600, // SemiBold
-    fontSize: 15,
-    color: Color(ConstantesColorTema2.precios) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 15,
+                                  color: Color(ConstantesColorTema2
+                                      .precios) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
 
-                                          ),
+                                  ),
                               //style: GoogleFonts.leckerliOne(
-                                //  fontSize: 15,
-                                  //color: Color(ConstantesColorTema2.precios)),
+                              //  fontSize: 15,
+                              //color: Color(ConstantesColorTema2.precios)),
                             ),
                           ),
                         ],

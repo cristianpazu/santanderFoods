@@ -24,7 +24,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
   Widget build(BuildContext context) {
     final carrito = ref.watch(itemsStateNotifier);
     print('widget.telefono${widget.telefono}');
-
+ print('carrito.carrito${carrito}');
     final String? phone = widget.telefono;
 
     final total = carrito.fold<int>(0, (suma, itemState) {
@@ -59,12 +59,16 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
         final precio = item.precio ?? '';
         final unidades = item.unidadesPedir ?? 1;
         final tieneSalsas = item.salsas != null && item.salsas!.isNotEmpty;
-        final salsas = tieneSalsas ? item.salsas!.join(', ') : '';
-
+         print('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii ${item.salsas}');
+      final salsas = tieneSalsas
+    ? item.salsas!.map((salsa) => salsa.nombre).join(', ')
+    : '';
+ print('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii $tieneSalsas');
         message += '• *$nombre* - $descripcion\n';
 
         if (tieneSalsas) {
-          message += ' - *Salsas:* $salsas\n';
+          print('aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii $tieneSalsas');
+          message += ' - *Salsas:* ${salsas}\n';
         }
 
         message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
