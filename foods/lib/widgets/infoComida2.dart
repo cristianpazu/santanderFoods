@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/Utils/ConstantesColor.dart';
 import 'package:foods/Utils/titutlos.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
 import 'package:foods/v2/presentation/notifiers/items_notifiers/item_state.dart';
 import 'package:foods/v3/entities/items.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
@@ -63,7 +64,15 @@ final salsasSeleccionadas = widget.salsas
     final cartState = ref.watch(itemsStateNotifier);
 
     final cantidad = ref.watch(cantidadProvider);
-
+final List<Salsa> salsasSeleccionadas = widget.salsas!
+    .asMap()
+    .entries
+    .where((entry) => _salsasSeleccionadas[entry.key] == true)
+    .map((entry) => Salsa(
+          id: entry.key,
+          nombre: entry.value,
+        ))
+    .toList();
     final unidadesProducto = cartState
         .expand((e) {
           print('objectZZZZ|||| ${e.descripcionMenu} - ${id}');
@@ -296,7 +305,9 @@ final salsasSeleccionadas = widget.salsas
                                 precio: precios,
                                 unidades: unidades,
                                 image: images,
-                                unidadesPedir: cantidad);
+                                unidadesPedir: cantidad,
+                                salsas: salsasSeleccionadas
+                                );
 
                             print('cantidadZZZZZZZZZ $cantidad');
                             final agregado = ref
