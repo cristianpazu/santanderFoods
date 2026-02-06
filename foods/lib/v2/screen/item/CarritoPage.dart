@@ -92,6 +92,42 @@ message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
       );
 
 
+
+
+/*
+     
+final Uri whatsappUrl = Uri(
+  scheme: 'https',
+  host: 'wa.me',
+  path: phone,
+  queryParameters: {
+    'text': message,
+  },
+);
+
+print('whatsappUrl $whatsappUrl');
+
+      // final launched = await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+
+      final launched = await launchUrl(
+  whatsappUrl,
+  mode: kIsWeb
+      ? LaunchMode.platformDefault // 👈 WEB
+      : LaunchMode.externalApplication, // 👈 MÓVIL
+);
+
+ */
+
+
+
+
+
+
+
+
+
+
+
        final launched = await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
 
   if (launched) {
