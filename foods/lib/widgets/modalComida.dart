@@ -1,0 +1,351 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
+import 'package:foods/v3/entities/items.dart';
+import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_2_notifiers.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/cantidad_provider.dart';
+import 'package:foods/v3/util/colores.dart';
+
+import '../v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
+
+class ModalInfoComida2 extends ConsumerStatefulWidget {
+  int? idRestaurante;
+  int? id;
+  String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+  String? unidades;
+  List<String>? salsas;
+ // BuildContext context;
+  ModalInfoComida2(this.idRestaurante, this.id, this.images, this.nombre,
+      this.descripcion, this.precios, this.unidades, this.salsas //,this.context
+      );
+
+  @override
+  _ModalInfoComidaState createState() => _ModalInfoComidaState(idRestaurante,
+      id, images, nombre, descripcion, precios, unidades, salsas, //this.context
+      );
+}
+
+class _ModalInfoComidaState extends ConsumerState<ModalInfoComida2> {
+
+  
+  int valor = 0;
+  bool isAddedToCart = false;
+  int? idRestaurante;
+  int? id;
+  String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+  String? unidades;
+  List<String>? salsas;
+  //BuildContext context;
+  _ModalInfoComidaState(this.idRestaurante, this.id, this.images, this.nombre,
+      this.descripcion, this.precios, this.unidades, this.salsas,//this.context
+      );
+
+      
+
+  final Map<int, bool> _salsasSeleccionadas = {};
+
+  int get cantidadSeleccionadas =>
+      _salsasSeleccionadas.values.where((v) => v).length;
+
+  @override
+  Widget build(BuildContext context) {
+/*
+final salsasSeleccionadas = widget.salsas
+            ?.where((salsa) => _salsasSeleccionadas[salsa['id']] ?? false)
+            .map((salsa) => salsa['nombre'].toString())
+            .toList() ??
+        []; */
+    double height = MediaQuery.of(context).size.height;
+    final productState = ref
+        .watch(nombreComidaRapidaRestaurante2Provider(widget.idRestaurante!));
+    final cartState = ref.watch(itemsStateNotifier);
+
+    final cantidad = ref.watch(cantidadProvider);
+    final List<Salsa> salsasSeleccionadas = widget.salsas!
+        .asMap()
+        .entries
+        .where((entry) => _salsasSeleccionadas[entry.key] == true)
+        .map((entry) => Salsa(
+              id: entry.key,
+              nombre: entry.value,
+            ))
+        .toList();
+    final unidadesProducto = cartState
+        .expand((e) {
+          return e.descripcionMenu;
+        })
+        .where((item) {
+          return item.nombre == nombre;
+        })
+        .map((item) => item.unidadesPedir ?? 0)
+        .fold(0, (a, b) => a + b);
+
+    String _carTaf = 'as';
+
+    final Widget salsaWidget =
+        widget.salsas != null && widget.salsas!.isNotEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Selecciona hasta 5 salsas:',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color(ConstantesColorTema2.blanco),
+                        borderRadius: BorderRadius.circular(5)),
+                    height: 200, // ajusta según necesites
+                    child: GridView.count(
+                      physics:
+                          NeverScrollableScrollPhysics(), // para que no se pueda hacer scroll dentro del Grid
+                      crossAxisCount: 2, // dos columnas
+                      childAspectRatio:
+                          4, // ancho/alto de cada item, para que quede bien
+                      children: widget.salsas!.asMap().entries.map((entry) {
+                        final index = entry.key;
+                        final nombre = entry.value;
+
+                        return CheckboxListTile(
+                          activeColor: Color(ConstantesColorTema2
+                              .naranja2), // color del check cuando está activo
+                          checkColor: Color(ConstantesColorTema2.blanco),
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(nombre ?? '', //'Nombre del resurante',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 15,
+                                  color: Color(0xFF2B2B2B))), //Text(nombre),
+                          value: _salsasSeleccionadas[index] ?? false,
+                          onChanged: (selected) {
+                            final yaSeleccionada =
+                                _salsasSeleccionadas[index] ?? false;
+                            if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Solo puedes seleccionar hasta 2 salsas'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                              return;
+                            }
+
+                            setState(() {
+                              _salsasSeleccionadas[index] = selected ?? false;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              )
+            : const SizedBox.shrink();
+
+    return Material(
+      color: Colors.transparent,
+      child: Center(
+        child: Container(/*
+          width: 600,
+          height: 600, */
+          constraints:  BoxConstraints(
+        maxWidth: 700,
+        maxHeight: height * 0.9, // límite, NO fijo
+      ),
+      padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            
+          color: Color(ConstantesColorTema.blanco),
+            borderRadius: BorderRadius.circular(20)
+          ),
+          child: SingleChildScrollView(
+            
+            child: Column(
+            mainAxisSize: MainAxisSize.min, 
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          widget.images ?? '',
+                          width: 250,
+                          height: 250,
+                        
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(
+                            width: 100,
+                            height: 100,
+                            color: Colors.grey.shade300,
+                            child: const Icon(Icons.image_not_supported),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.nombre ?? '',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          widget.descripcion ?? '',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.grey.shade700),
+                        ),
+                        Text(
+                          precios ?? '',
+                          // 'Precio',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600, // SemiBold
+                              fontSize: 20,
+                              color: Color(ConstantesColorTema2.precios)),
+                          //style: GoogleFonts.leckerliOne(
+                          //  fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        salsaWidget ?? Container(),
+                      ],
+                    ))
+                  ],
+                ),
+                //
+                
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Color(ConstantesColorTema2.naraja),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: IconButton(
+                            onPressed: () {
+                              ref.read(cantidadProvider.notifier).state++;
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: Color(ConstantesColorTema2.blanco),
+                            ))),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text('$cantidad'),
+                    
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Color(ConstantesColorTema2.naraja),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: IconButton(
+                            onPressed: () {
+                              final notifier = ref.read(cantidadProvider.notifier);
+                              if (notifier.state > 1) {
+                                notifier.state--;
+                              }
+                            },
+                            icon: Icon(Icons.remove,
+                                color: Color(ConstantesColorTema2.blanco)))),
+                    SizedBox(
+                      width: 80,
+                    ),
+                    ////
+                    Container(
+                   
+                      width: 150,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Color(ConstantesColorTema2.naraja),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        onPressed: () async {
+                          final item = Items(
+                              nombre: nombre!,
+                              descripcion: descripcion,
+                              precio: precios,
+                              unidades: unidades,
+                              image: images,
+                              unidadesPedir: cantidad,
+                              salsas: salsasSeleccionadas);
+                    
+                          print('cantidadZZZZZZZZZ $cantidad');
+                          final agregado = ref
+                              .read(itemsStateNotifier.notifier)
+                              .agregarItems(item, productState.id);
+                    /*
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(agregado
+                                  ? '✅ Se añadió exitosamente al carrito'
+                                  : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+                              duration: Duration(seconds: 2),
+                            ),
+                          ); */
+                          setState(() {
+                            _carTaf;
+                          });
+                          ref.read(cantidadProvider.notifier).state = 1;
+                          Navigator.pop(context);
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            // El texto "Agregar" siempre visible
+                            Text('Agregar',
+                                style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w600, // SemiBold
+                                    fontSize: 15,
+                                    color: Color(ConstantesColorTema2.blanco))),
+                            // El ícono invisible hasta que se presiona
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    //
+                  ],
+                ),
+                    
+                //
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

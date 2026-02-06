@@ -85,3 +85,37 @@ class MenuResponsive extends StatelessWidget {
   }
 } 
 
+/*
+
+
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          useMaterial3: true,
+        ),
+        builder: (context, widget) => ResponsiveBreakpoints.builder(
+          child: widget!,
+          breakpoints: const [
+            Breakpoint(start: 0, end: 450, name: MOBILE),
+            Breakpoint(start: 451, end: 800, name: TABLET),
+            Breakpoint(start: 801, end: 1920, name: DESKTOP),
+            Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+          ],
+        ),
+        home: MenuPage(1),
+      ),
+    );
+  }
+}
+*/

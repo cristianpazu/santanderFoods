@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:foods/Utils/ConstantesColor.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
+import 'package:foods/v3/entities/items.dart';
 import 'package:foods/v3/presentation/notifiers/comida_rapida_notifiers/nombre_comida_rapida_2_state.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/buscar.dart';
+import 'package:foods/v3/presentation/notifiers/items_notifiers/cantidad_provider.dart';
 import 'package:foods/v3/util/Sistema.dart';
 import 'package:foods/widgets/drawer.dart';
 import 'package:foods/v3/util/colores.dart';
 import 'package:foods/v3/screen/carrito.dart';
 import 'package:foods/widgets/infoComida2.dart';
+import 'package:foods/widgets/modalComida.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
@@ -1194,7 +1199,7 @@ class tarjetaComida extends StatelessWidget {
 
   //tarjeta comida 2
 
-class tarjetaComida2 extends StatelessWidget {
+class tarjetaComida2 extends ConsumerStatefulWidget {
   int? idRestaurante;
   int? ids;
   String? images;
@@ -1207,26 +1212,61 @@ class tarjetaComida2 extends StatelessWidget {
       this.descripcion, this.precios, this.unidades,this.salsas);
 
   @override
-  Widget build(BuildContext context) {
-
-    print('salsassalsasasasasasas $salsas');
-    void _openIconButtonPressed() {
-      showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    backgroundColor: Colors.transparent,
-    builder: (_) => ModalInfoComida(
-      idRestaurante: idRestaurante,
-      ids: ids,
-      images: images,
-      nombre: nombre,
-      descripcion: descripcion,
-      precios: precios,
-      unidades: unidades,
-      salsas: salsas,
-    ),
+  _tarjetaComida2State createState() => _tarjetaComida2State(
+  idRestaurante, ids, images, nombre,
+      descripcion, precios, unidades,salsas
   );
+}
+
+class _tarjetaComida2State extends ConsumerState<tarjetaComida2> {
+
+
+
+  int valor = 0;
+  bool isAddedToCart = false;
+  int? idRestaurante;
+  int? id;
+  String? images;
+  String? nombre;
+  String? descripcion;
+  String? precios;
+  String? unidades;
+  List<String>? salsas;
+  //BuildContext context;
+  _tarjetaComida2State(this.idRestaurante, this.id, this.images, this.nombre,
+      this.descripcion, this.precios, this.unidades, this.salsas,//this.context
+      );
+
+
+
+  final Map<int, bool> _salsasSeleccionadas = {};
+
+  int get cantidadSeleccionadas =>
+      _salsasSeleccionadas.values.where((v) => v).length;
+
+  @override
+  Widget build(BuildContext context) {
+        print('salsassalsasasasasasas ${widget.salsas}');
+    void _openIconButtonPressed(BuildContext context) {
+      final CurrentContext = context;
+      showDialog(
+    context: context,
+    barrierDismissible: true, // cerrar tocando fuera
+    builder: (context)  {
+
+       return GestureDetector(
+        onTap: () {
+          Navigator.of(context).pop();  // Cerrar el modal si el usuario toca fuera
+        },
+    child: ModalInfoComida2(this.widget.idRestaurante, this.widget.ids, this.widget.images,
+            this.widget.nombre, this.widget.descripcion, this.widget.precios, this.widget.unidades,this.widget.salsas //CurrentContext
+            ), 
+       );
+      
+ 
+ }
+  );
+
     }
 
     return Padding(
@@ -1235,7 +1275,7 @@ class tarjetaComida2 extends StatelessWidget {
           borderRadius: BorderRadius.circular(20), 
         child: InkWell(
           onTap: () {
-            _openIconButtonPressed();
+            _openIconButtonPressed(context);
           },
           child: Container(
    
@@ -1258,7 +1298,7 @@ class tarjetaComida2 extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           child: Image.asset(
-                            '${images}' ?? 'assets/mora.png',
+                            '${widget.images}' ?? 'assets/mora.png',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -1279,7 +1319,7 @@ class tarjetaComida2 extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                nombre ?? '', //'Nombre del resurante',
+                                widget.nombre ?? '', //'Nombre del resurante',
                                 style: TextStyle(
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w600, // SemiBold
@@ -1291,7 +1331,7 @@ class tarjetaComida2 extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                descripcion ??
+                                widget.descripcion ??
                                     '', //'Descricion del resuranteaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                                 maxLines: 2,
         
@@ -1306,7 +1346,7 @@ class tarjetaComida2 extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                precios ?? '', // 'Precio del resurante',
+                                widget.precios ?? '', // 'Precio del resurante',
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
             fontFamily: 'Poppins',
