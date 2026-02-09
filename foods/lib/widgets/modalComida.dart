@@ -89,13 +89,17 @@ final salsasSeleccionadas = widget.salsas
 
     String _carTaf = 'as';
 
+    final int maxSalsas =
+    nombre == 'Alitas x 24' || nombre == 'Combos 400 gr' ? 5 : 3;
+
     final Widget salsaWidget =
         widget.salsas != null && widget.salsas!.isNotEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Selecciona hasta 5 salsas:',
+                 
+                   Text(
+                    'Selecciona hasta $maxSalsas salsas:',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
@@ -129,11 +133,14 @@ final salsasSeleccionadas = widget.salsas
                           onChanged: (selected) {
                             final yaSeleccionada =
                                 _salsasSeleccionadas[index] ?? false;
-                            if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
+
+                              
+
+                            if (!yaSeleccionada && cantidadSeleccionadas >= maxSalsas ) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
+                                 SnackBar(
                                   content: Text(
-                                      'Solo puedes seleccionar hasta 2 salsas'),
+                                      'Solo puedes seleccionar hasta $maxSalsas salsas'),
                                   duration: Duration(seconds: 2),
                                 ),
                               );
@@ -305,7 +312,34 @@ final salsasSeleccionadas = widget.salsas
                           final agregado = ref
                               .read(itemsStateNotifier.notifier)
                               .agregarItems(item, productState.id);
-                    /*
+
+                            // Mostrar el diálogo
+     /* showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  (agregado
+                      ? '✅ Se añadió exitosamente al carrito'
+                      : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n Vacía el carrito o finaliza tu pedido.'),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+
+      // Cerrar el diálogo después de 2 segundos
+      Future.delayed(Duration(seconds: 12), () {
+        if (Navigator.canPop(context)) {
+          Navigator.of(context).pop(); // Cierra el diálogo después de 2 segundos
+        }
+      }); */
+                              
+                    
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(agregado
@@ -313,7 +347,7 @@ final salsasSeleccionadas = widget.salsas
                                   : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
                               duration: Duration(seconds: 2),
                             ),
-                          ); */
+                          ); 
                           setState(() {
                             _carTaf;
                           });

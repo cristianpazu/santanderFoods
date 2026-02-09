@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
 import 'package:foods/v3/entities/descripcionMenu.dart';
 import 'package:foods/v3/presentation/notifiers/items_notifiers/item_state_notifiers.dart';
 import 'package:foods/v3/util/Sistema.dart';
@@ -180,6 +181,8 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
               itemBuilder: (context, index) {
                 final itemState = carrito[index];
                 final DescripcionMenu item = itemState.descripcionMenu.first;
+
+
                 return TarjetaComidaCarrito(
                     item.nombre, item.descripcion, item.precio, item.image, () {
                   ref.read(itemsStateNotifier.notifier).eliminarItems(item);
@@ -192,7 +195,10 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
                   ref
                       .read(itemsStateNotifier.notifier)
                       .decrementarUnidades3(item.nombre);
-                }, item.unidadesPedir);
+                }, item.unidadesPedir, item.salsas
+                
+                
+                );
               },
               /*  children: [
                 TarjetaComidaCarrito(),
@@ -313,6 +319,7 @@ class TarjetaComidaCarrito extends StatefulWidget {
   final VoidCallback incrementarUnidades;
   final VoidCallback decrementarUnidades;
   final int? unidadesPedir;
+  final List<Salsa>? salsas;
 
   const TarjetaComidaCarrito(
       this.nombre,
@@ -322,7 +329,8 @@ class TarjetaComidaCarrito extends StatefulWidget {
       this.onDelete,
       this.incrementarUnidades,
       this.decrementarUnidades,
-      this.unidadesPedir);
+      this.unidadesPedir,
+      this.salsas);
 
   @override
   State<TarjetaComidaCarrito> createState() => _TarjetaComidaCarritoState();
@@ -330,6 +338,20 @@ class TarjetaComidaCarrito extends StatefulWidget {
 
 class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
   int valor = 0;
+
+
+String _decripcionConSalsas() {
+  final nombre = widget.descripcion ?? '';
+  final salsas = widget.salsas ?? [];
+
+   // Si no hay salsas, solo mostramos el nombre
+  if (salsas.isEmpty) return nombre;
+
+  // Si hay salsas, las mostramos junto con el texto 'SALSAS SELECCIONADAS:'
+  final nombresSalsas = salsas.map((s) => s.nombre).join(', ');
+  return '$nombre SALSAS SELECCIONADAS: ($nombresSalsas)';
+}
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -375,7 +397,17 @@ class _TarjetaComidaCarritoState extends State<TarjetaComidaCarrito> {
                             textAlign: TextAlign.justify,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 0, 0.534)))
+                                color: Color.fromRGBO(0, 0, 0, 0.534))),
+                                if (widget.salsas != null && widget.salsas!.isNotEmpty)
+      Text(
+        'SALSAS SELECCIONADAS: (${widget.salsas!.map((s) => s.nombre).join(', ')})',
+        style: TextStyle(
+          color: Color(ConstantesColorTema2.naranja2), // Color para las salsas
+        ),
+        maxLines: 10,
+        textAlign: TextAlign.justify,
+        overflow: TextOverflow.ellipsis,
+      ),
                       ],
                     ),
                   ),
