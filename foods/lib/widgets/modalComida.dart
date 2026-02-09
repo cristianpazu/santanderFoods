@@ -89,8 +89,23 @@ final salsasSeleccionadas = widget.salsas
 
     String _carTaf = 'as';
 
-    final int maxSalsas =
-    nombre == 'Alitas x 24' || nombre == 'Combos 400 gr' ? 5 : 3;
+final Set<String> nombresMax5 = {
+  'Alitas x 24', 'Alitas x 12', 'Combos 600 gr', 'Combos 400 gr',
+  'Costilla 600 gr', 'Costilla 400 gr',
+};
+
+final Set<String> nombresMax3 = {
+  'Alitas x 4', 'Alitas x 6', 'Alitas x 8', 'Combos 200 gr', 'Combos 300 gr',
+};
+
+
+   final int maxSalsas = nombresMax5.contains(nombre) 
+    ? 5 
+    : (nombresMax3.contains(nombre) ? 3 : 0);
+
+
+    print('nombresMax 5 ${nombresMax5}');
+
 
     final Widget salsaWidget =
         widget.salsas != null && widget.salsas!.isNotEmpty
