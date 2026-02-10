@@ -314,6 +314,19 @@ final Set<String> nombresMax3 = {
                           padding: EdgeInsets.zero,
                         ),
                         onPressed: () async {
+
+ if (cantidadSeleccionadas < maxSalsas) {
+    // Si no hay suficientes salsas seleccionadas, mostrar un mensaje de advertencia
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Por favor, selecciona al menos $maxSalsas salsas'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+    return; // No continuar con la adición al carrito
+  }
+
+
                           final item = Items(
                               nombre: nombre!,
                               descripcion: descripcion,
