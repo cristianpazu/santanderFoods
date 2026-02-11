@@ -90,13 +90,39 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
     print('objectZZZZ ${unidadesProducto} - ${id}');
 
     print('object ${nombre} - ${id}');
+
+  
+    final Set<String> nombresMax5 = {
+      'Alitas x 24',
+      'Alitas x 12',
+      'Combos 600 gr',
+      'Combos 400 gr',
+      'Costilla 600 gr',
+      'Costilla 400 gr',
+    };
+
+    final Set<String> nombresMax3 = {
+      'Alitas x 4',
+      'Alitas x 6',
+      'Alitas x 8',
+      'Combos 200 gr',
+      'Combos 300 gr',
+    };
+
+    final int maxSalsas = nombresMax5.contains(nombre)
+        ? 5
+        : (nombresMax3.contains(nombre) ? 3 : 0);
+
+
+
+
     final Widget salsaWidget = widget.salsas != null &&
             widget.salsas!.isNotEmpty
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Selecciona hasta 5 salsas:',
+               Text(
+                'Selecciona hasta $maxSalsas salsas:',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
@@ -133,9 +159,9 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
                             _salsasSeleccionadas[index] ?? false;
                         if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
+                             SnackBar(
                               content: Text(
-                                  'Solo puedes seleccionar hasta 2 salsas'),
+                                  'Solo puedes seleccionar hasta $maxSalsas salsas'),
                               duration: Duration(seconds: 2),
                             ),
                           );
@@ -225,9 +251,7 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
                     height: 20,
                   ),
 
- salsaWidget ?? Container(
-                          
-                          ),
+ salsaWidget ?? Container(),
                   //
                   Text(
                     precios ?? '',
@@ -316,6 +340,12 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
 
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
+                                 behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.only(
+      bottom: 800, // 👈 entre más grande, más arriba aparece
+      left: 16,
+      right: 16,
+    ),
                                 content: Text(agregado
                                     ? '✅ Se añadió exitosamente al carrito'
                                     : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),

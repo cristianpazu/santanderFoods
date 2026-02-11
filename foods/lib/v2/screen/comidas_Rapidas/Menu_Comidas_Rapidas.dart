@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foods/Utils/titutlos.dart';
+import 'package:foods/v3/util/colores.dart';
 import 'package:foods/widgets/chipsAll.dart';
 import 'package:foods/UI/atoms/textFiled.dart';
 import 'package:foods/widgets/CardComida.dart';
@@ -190,9 +191,14 @@ class MenucomidasRapidas extends ConsumerWidget {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(agregado
-             ? '✅ Se añadió exitosamente al carrito'
-             : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+            behavior: SnackBarBehavior.floating,
+             backgroundColor: Color(ConstantesColorTema2.naraja),
+            content: Padding(
+             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              child: Text(agregado
+               ? '✅ Se añadió exitosamente al carrito'
+               : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+            ),
             duration: Duration(seconds: 2),
           ),
         );

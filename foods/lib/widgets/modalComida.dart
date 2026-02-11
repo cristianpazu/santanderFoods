@@ -228,13 +228,23 @@ final salsasSeleccionadas = widget.salsas
                         child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        Row(
+                          children: [
+                    Text(
                           widget.nombre ?? '',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        Spacer(),
+                          
+                                           IconButton(onPressed: (){
+                                             Navigator.of(context).pop(); 
+                                           }, icon: Icon(Icons.highlight_off_outlined))
+                          ],
+                        ),
+                       
                         const SizedBox(height: 8),
                         Text(
                           widget.descripcion ?? '',
@@ -375,9 +385,14 @@ final salsasSeleccionadas = widget.salsas
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(agregado
-                                  ? '✅ Se añadió exitosamente al carrito'
-                                  : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+                                behavior: SnackBarBehavior.floating,
+             backgroundColor: Color(ConstantesColorTema2.naraja),
+                              content: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                                child: Text(agregado
+                                    ? '✅ Se añadió exitosamente al carrito'
+                                    : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+                              ),
                               duration: Duration(seconds: 2),
                             ),
                           );

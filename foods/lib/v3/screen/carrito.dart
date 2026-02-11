@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
@@ -81,13 +82,41 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
       }
 
       message += '🧾 *Total:* \$${total}';
-
+/*
       final Uri whatsappUrl = Uri.parse(
         'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',
       );
 
       final launched =
-          await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+          await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication); */
+
+
+
+
+
+     
+final Uri whatsappUrl = Uri(
+  scheme: 'https',
+  host: 'wa.me',
+  path: phone,
+  queryParameters: {
+    'text': message,
+  },
+);
+
+print('whatsappUrl $whatsappUrl');
+
+      // final launched = await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
+
+      final launched = await launchUrl(
+  whatsappUrl,
+  mode: kIsWeb
+      ? LaunchMode.platformDefault // 👈 WEB
+      : LaunchMode.externalApplication, // 👈 MÓVIL
+);
+
+
+
 
       if (launched) {
         // Mostrar confirmación al volver de WhatsApp

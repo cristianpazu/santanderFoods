@@ -1251,13 +1251,11 @@ class _tarjetaComida2State extends ConsumerState<tarjetaComida2> {
       final CurrentContext = context;
       showDialog(
     context: context,
-    barrierDismissible: true, // cerrar tocando fuera
+    barrierDismissible: false, // cerrar tocando fuera
     builder: (context)  {
 
        return GestureDetector(
-        onTap: () {
-          Navigator.of(context).pop();  // Cerrar el modal si el usuario toca fuera
-        },
+       
     child: ModalInfoComida2(this.widget.idRestaurante, this.widget.ids, this.widget.images,
             this.widget.nombre, this.widget.descripcion, this.widget.precios, this.widget.unidades,this.widget.salsas //CurrentContext
             ), 
