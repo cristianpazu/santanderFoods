@@ -1,0 +1,46 @@
+{
+  "nombre_comida_rapida": [
+    {
+      "id": 1,
+      "nombres": "Hamburgueseria la mejor",
+      "image": "assets/solar.jpeg",
+      "direccion": "calle 3c ",
+      "contacto": "321000000",
+      "menu": [
+        {
+          "submenu": "Hamburguesas",
+          "descripcion": [
+            {
+              "nombre": "Hamburguesas doble carne",
+              "descripcion": "Una deliciosa y jugosa hamburguesa con doble carne de res 100% premium, acompañada de queso derretido, bacon crujiente, tomate fresco y lechuga crujiente, todo dentro de un pan suave y tostado. Añade tu salsa favorita (mayonesa, ketchup, mostaza o BBQ) para darle el toque perfecto.",
+              "image": "assets/hamburgesasDobleCarne.jpg",
+              "unidades": "0",
+              "precio": "$ 30.000"
+            },
+            {
+              "nombre": "Hamburguesas Sencilla",
+              "descripcion": "una jugosa hamburguesa de carne de res, acompañada de queso cheddar derretido, tomate fresco y lechuga crujiente, todo servido en un pan suave y esponjoso.",
+              "image": "assets/hamburgesaSencilla.jpg",
+              "unidades": "0",
+              "precio": "$ 20.000"
+            },
+            {
+              "nombre": "Hamburguesas con tocino",
+              "descripcion": "Una explosión de sabor con una jugosa carne de res acompañada de crispy bacon que le da un toque ahumado y crujiente. Añadimos queso cheddar derretido, tomate fresco y lechuga crujiente, todo entre un pan suave que complementa perfectamente la mezcla de sabores. Ideal para los amantes del tocino que buscan algo extra en cada mordida.",
+              "image": "assets/hamburguesaConTocino.jpg",
+              "unidades": "0",
+              "precio": "$ 35.000"
+            },
+            {
+              "nombre": "Hamburguesas con cebolla caramelizada",
+              "descripcion": "Una deliciosa combinación de carne de res jugosa, queso cheddar derretido y cebolla caramelizada que aporta un toque dulce y sabroso. Acompañada de tomate fresco y lechuga crujiente, todo servido en un pan suave.",
+              "image": "assets/hamburguesaCebollaCaramelizada.jpeg",
+              "unidades": "0",
+              "precio": "$ 40.000"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

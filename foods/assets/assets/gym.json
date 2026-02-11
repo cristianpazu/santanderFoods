@@ -1,0 +1,468 @@
+[
+  {
+    "nombre": "GYM",
+    "nombre_gimasios": [
+      {
+        "id": 1,
+        "nombres": "Body strong",
+        "image": "assets/logoBody.png",
+        "informacion": [
+          {
+            "nombre": "Club deportivo Body Strong",
+            "direccion": "Centro Comercial Torre Sur, Cra 11 #6-61 Segundo Piso, Santander de Quilichao, Cauca",
+            "contacto": "310 3528035",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "07:00 a.m a 02:00 p.m."
+              },
+              {
+                "Domingo": "08:00 a.m a 01:00 p.m."
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Tarifas del gym",
+                "descripcion": [
+                  {
+                    "nombre": "Plan especial",
+                    "descripcion": "5 A.M A 6:30A.M Y 10 A.M A 3 P.M.",
+                    "precio": "$ 65.000"
+                  },
+                  {
+                    "nombre": "Plan ejecutivo",
+                    "descripcion": "3 veces x semana horario ilimitado",
+                    "precio": "$ 70.000"
+                  },
+                  {
+                    "nombre": "Plan integral",
+                    "descripcion": "Todos los dias horarios ilimitado",
+                    "precio": "$ 85.000"
+                  },
+                  {
+                    "nombre": "Entreno diario",
+                    "descripcion": "--",
+                    "precio": "$ 15.000"
+                  },
+                  {
+                    "nombre": "Plan semana",
+                    "descripcion": "7 dias consecutivo",
+                    "precio": "$ 35.000"
+                  },
+                  {
+                    "nombre": "Plan 15 dias",
+                    "descripcion": "15 dias consecutivo",
+                    "precio": "$ 60.000"
+                  },
+                  {
+                    "nombre": "Plan fuerza publica",
+                    "descripcion": "--",
+                    "precio": "$ 65.000"
+                  },
+                  {
+                    "nombre": "Tiq. 15 entrenos",
+                    "descripcion": "Vigencia 45 dias",
+                    "precio": "$ 85.000"
+                  },
+                  {
+                    "nombre": "Tiq. 30 entrenos",
+                    "descripcion": "Vigencia 2 meses",
+                    "precio": "$ 150.000"
+                  },
+                  {
+                    "nombre": "Tiq. 30 entrenos",
+                    "descripcion": "Vigencia 2 meses",
+                    "precio": "$ 150.000"
+                  },
+                  {
+                    "nombre": "Plan empresarial",
+                    "descripcion": "5 personas C/U",
+                    "precio": "$ 650.000"
+                  },
+                  {
+                    "nombre": "Plan familiar",
+                    "descripcion": "3 personas C/U",
+                    "precio": "$ 70.000"
+                  },
+                  {
+                    "nombre": "Plan pareja",
+                    "descripcion": "C/U",
+                    "precio": "$ 75.000"
+                  }
+                ]
+              },
+              {
+                "submenu": "Tarifas del gym anual",
+                "descripcion": [
+                  {
+                    "nombre": "Plan integral",
+                    "descripcion": "paga 12 meses x",
+                    "precio": "$ 720.000"
+                  },
+                  {
+                    "nombre": "Plan especial",
+                    "descripcion": "paga 12 meses x",
+                    "precio": "$ 550.000"
+                  },
+                  {
+                    "nombre": "Plan pareja",
+                    "descripcion": "paga 12 meses x",
+                    "precio": "$ 680.000"
+                  }
+                ]
+              },
+              {
+                "submenu": "Tarifas del gym semestral",
+                "descripcion": [
+                  {
+                    "nombre": "Plan integral",
+                    "descripcion": "paga 6 meses x",
+                    "precio": "$ 385.000"
+                  },
+                  {
+                    "nombre": "Plan especial",
+                    "descripcion": "paga 6 meses x",
+                    "precio": "$ 220.000"
+                  },
+                  {
+                    "nombre": "Plan pareja",
+                    "descripcion": "paga 6 meses x",
+                    "precio": "$ 360.000"
+                  }
+                ]
+              },
+              {
+                "submenu": "Tarifas del gym trismetral",
+                "descripcion": [
+                  {
+                    "nombre": "Plan integral",
+                    "descripcion": "paga 3 meses x",
+                    "precio": "$ 205.000"
+                  },
+                  {
+                    "nombre": "Plan especial",
+                    "descripcion": "paga 3 meses x",
+                    "precio": "$ 165.000"
+                  },
+                  {
+                    "nombre": "Plan pareja",
+                    "descripcion": "paga 3 meses x",
+                    "precio": "$ 195.000"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "nombres": "Gimnasios Luiyan",
+        "image": "assets/luiya_gym.jpg",
+        "informacion": [
+          {
+            "nombre": "Gimnasios Luiyan",
+            "direccion": "calle 9a No16-91 barrio la victoria sede principal, Santander de Quilichao, Colombia",
+            "contacto": "sin numero",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m a 10:00 p.m."
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Tarifas del gym",
+                "descripcion": [
+                  {
+                    "nombre": "Plan 1",
+                    "descripcion": "",
+                    "precio": "$ 20.000"
+                  },
+                  {
+                    "nombre": "Plan 2",
+                    "descripcion": "",
+                    "precio": "$ 30.000"
+                  },
+                  {
+                    "nombre": "Plan 3",
+                    "descripcion": "",
+                    "precio": "$ 45.000"
+                  },
+                  {
+                    "nombre": "Plan 4",
+                    "descripcion": "",
+                    "precio": "$ 60.000"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "nombres": "AFE GYM",
+        "image": "assets/afegym.png",
+        "informacion": [
+          {
+            "nombre": "AFE GYM",
+            "direccion": " Calle 15 #11 bis – 126 Piso 2 – Supermercado La Feria",
+            "contacto": "3174237732",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m a 10:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "07:00 a.m a 01:00 p.m."
+              },
+              {
+                "Domingo": "07:00 a.m a 01:00 p.m."
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Tarifas del gym",
+                "descripcion": [
+                  {
+                    "nombre": "Plan 1",
+                    "descripcion": "",
+                    "precio": "$ 20.000"
+                  },
+                  {
+                    "nombre": "Plan 2",
+                    "descripcion": "",
+                    "precio": "$ 30.000"
+                  },
+                  {
+                    "nombre": "Plan 3",
+                    "descripcion": "",
+                    "precio": "$ 45.000"
+                  },
+                  {
+                    "nombre": "Plan 4",
+                    "descripcion": "",
+                    "precio": "$ 60.000"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "nombres": "GIMNASIO BEST BODY GYM",
+        "image": "assets/afegym.png",
+        "informacion": [
+          {
+            "nombre": "GIMNASIO BEST BODY GYM",
+            "direccion": "a 1a-144, Cra. 6 #1a-2",
+            "contacto": "311 6333232",
+            "horario": [
+              {
+                "Lunes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "nombres": "Hit Fitness",
+        "image": "assets/hitFitness.jpg",
+        "informacion": [
+          {
+            "nombre": "Hit Fitness",
+            "direccion": "a 1a-144, Cra. 6 #1a-2",
+            "contacto": "312 2487333",
+            "horario": [
+              {
+                "Lunes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "06:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "06:00 a.m a 02:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "nombres": "Fenix GYM",
+        "image": "assets/fenixgym.png",
+        "informacion": [
+          {
+            "nombre": "Fenix GYM",
+            "direccion": "Cl. 2 Sur #9A - 41, Santander de Quilichao, Cauca",
+            "contacto": "312 2487333",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m - 12 p.m a 1:30 p.m. -09:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Sabado": "05:00 a.m - 12 p.m a 1:30 p.m. - 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "nombres": "BLACK POWER GYM (BPG)",
+        "image": "assets/BPG.png",
+        "informacion": [
+          {
+            "nombre": "BLACK POWER GYM (BPG)",
+            "direccion": "Calle 14 & Carrera 16, Santander de Quilichao, Cauca",
+            "contacto": "310 7234563",
+            "horario": [
+              {
+                "Lunes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Martes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Miercoles": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Jueves": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Viernes": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Sabado": "05:00 a.m a 09:00 p.m."
+              },
+              {
+                "Domingo": "Cerrado"
+              }
+            ],
+            "tarifas": [
+              {
+                "submenu": "Sin informacion",
+                "descripcion": [
+                  {
+                    "nombre": "--",
+                    "descripcion": "Sin informacion",
+                    "precio": "--"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

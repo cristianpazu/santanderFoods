@@ -1,0 +1,29 @@
+[
+  {
+    "nombre": "CATEGORIAS",
+    "nombre_categoria": [
+      {
+        "id": 1,
+        "nombre_categoria": "Salchipapa",
+        "image": "assets/salchipapas.jpg"
+      },
+      {
+        "id": 2,
+        "nombre_categoria": "Hamburgesas",
+        "image":"assets/hamburges.png"
+      },
+      {
+        "id": 3,
+        "nombre_categoria": "Pizza",
+        "image":"assets/pizza.jpeg"
+      },
+      {
+        "id": 4,
+        "nombre_categoria": "alitas",
+        "image":"assets/alitas.jpg"
+      }
+  
+      
+    ]
+  }
+]

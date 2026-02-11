@@ -1,0 +1,32 @@
+{
+    "nombre_restaurantes": [
+      {
+        "nombres": "El Solar",
+        "informacion": [
+          {"detalle1": "algo", "detalle2": "algo más"}
+        ]
+      },
+      {
+        "nombres": "El Mar",
+        "informacion": [
+          {"detalle1": "algo", "detalle2": "algo más"}
+        ]
+      }
+    ]
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
