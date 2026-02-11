@@ -18,20 +18,20 @@ class ModalInfoComida2 extends ConsumerStatefulWidget {
   String? precios;
   String? unidades;
   List<String>? salsas;
- // BuildContext context;
+  // BuildContext context;
   ModalInfoComida2(this.idRestaurante, this.id, this.images, this.nombre,
       this.descripcion, this.precios, this.unidades, this.salsas //,this.context
       );
 
   @override
-  _ModalInfoComidaState createState() => _ModalInfoComidaState(idRestaurante,
-      id, images, nombre, descripcion, precios, unidades, salsas, //this.context
+  _ModalInfoComidaState createState() => _ModalInfoComidaState(
+        idRestaurante,
+        id, images, nombre, descripcion, precios, unidades,
+        salsas, //this.context
       );
 }
 
 class _ModalInfoComidaState extends ConsumerState<ModalInfoComida2> {
-
-  
   int valor = 0;
   bool isAddedToCart = false;
   int? idRestaurante;
@@ -43,11 +43,16 @@ class _ModalInfoComidaState extends ConsumerState<ModalInfoComida2> {
   String? unidades;
   List<String>? salsas;
   //BuildContext context;
-  _ModalInfoComidaState(this.idRestaurante, this.id, this.images, this.nombre,
-      this.descripcion, this.precios, this.unidades, this.salsas,//this.context
-      );
-
-      
+  _ModalInfoComidaState(
+    this.idRestaurante,
+    this.id,
+    this.images,
+    this.nombre,
+    this.descripcion,
+    this.precios,
+    this.unidades,
+    this.salsas, //this.context
+  );
 
   final Map<int, bool> _salsasSeleccionadas = {};
 
@@ -89,31 +94,35 @@ final salsasSeleccionadas = widget.salsas
 
     String _carTaf = 'as';
 
-final Set<String> nombresMax5 = {
-  'Alitas x 24', 'Alitas x 12', 'Combos 600 gr', 'Combos 400 gr',
-  'Costilla 600 gr', 'Costilla 400 gr',
-};
+    final Set<String> nombresMax5 = {
+      'Alitas x 24',
+      'Alitas x 12',
+      'Combos 600 gr',
+      'Combos 400 gr',
+      'Costilla 600 gr',
+      'Costilla 400 gr',
+    };
 
-final Set<String> nombresMax3 = {
-  'Alitas x 4', 'Alitas x 6', 'Alitas x 8', 'Combos 200 gr', 'Combos 300 gr',
-};
+    final Set<String> nombresMax3 = {
+      'Alitas x 4',
+      'Alitas x 6',
+      'Alitas x 8',
+      'Combos 200 gr',
+      'Combos 300 gr',
+    };
 
-
-   final int maxSalsas = nombresMax5.contains(nombre) 
-    ? 5 
-    : (nombresMax3.contains(nombre) ? 3 : 0);
-
+    final int maxSalsas = nombresMax5.contains(nombre)
+        ? 5
+        : (nombresMax3.contains(nombre) ? 3 : 0);
 
     print('nombresMax 5 ${nombresMax5}');
-
 
     final Widget salsaWidget =
         widget.salsas != null && widget.salsas!.isNotEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                 
-                   Text(
+                  Text(
                     'Selecciona hasta $maxSalsas salsas:',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
@@ -149,11 +158,10 @@ final Set<String> nombresMax3 = {
                             final yaSeleccionada =
                                 _salsasSeleccionadas[index] ?? false;
 
-                              
-
-                            if (!yaSeleccionada && cantidadSeleccionadas >= maxSalsas ) {
+                            if (!yaSeleccionada &&
+                                cantidadSeleccionadas >= maxSalsas) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
+                                SnackBar(
                                   content: Text(
                                       'Solo puedes seleccionar hasta $maxSalsas salsas'),
                                   duration: Duration(seconds: 2),
@@ -177,23 +185,21 @@ final Set<String> nombresMax3 = {
     return Material(
       color: Colors.transparent,
       child: Center(
-        child: Container(/*
+        child: Container(
+          /*
           width: 600,
           height: 600, */
-          constraints:  BoxConstraints(
-        maxWidth: 700,
-        maxHeight: height * 0.9, // límite, NO fijo
-      ),
-      padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            
-          color: Color(ConstantesColorTema.blanco),
-            borderRadius: BorderRadius.circular(20)
+          constraints: BoxConstraints(
+            maxWidth: 700,
+            maxHeight: height * 0.9, // límite, NO fijo
           ),
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+              color: Color(ConstantesColorTema.blanco),
+              borderRadius: BorderRadius.circular(20)),
           child: SingleChildScrollView(
-            
             child: Column(
-            mainAxisSize: MainAxisSize.min, 
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -207,7 +213,6 @@ final Set<String> nombresMax3 = {
                           widget.images ?? '',
                           width: 250,
                           height: 250,
-                        
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) => Container(
                             width: 100,
@@ -257,7 +262,7 @@ final Set<String> nombresMax3 = {
                   ],
                 ),
                 //
-                
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -266,7 +271,8 @@ final Set<String> nombresMax3 = {
                         height: 50,
                         decoration: BoxDecoration(
                             color: Color(ConstantesColorTema2.naraja),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: IconButton(
                             onPressed: () {
                               ref.read(cantidadProvider.notifier).state++;
@@ -279,7 +285,7 @@ final Set<String> nombresMax3 = {
                       width: 10,
                     ),
                     Text('$cantidad'),
-                    
+
                     SizedBox(
                       width: 10,
                     ),
@@ -288,10 +294,12 @@ final Set<String> nombresMax3 = {
                         height: 50,
                         decoration: BoxDecoration(
                             color: Color(ConstantesColorTema2.naraja),
-                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
                         child: IconButton(
                             onPressed: () {
-                              final notifier = ref.read(cantidadProvider.notifier);
+                              final notifier =
+                                  ref.read(cantidadProvider.notifier);
                               if (notifier.state > 1) {
                                 notifier.state--;
                               }
@@ -303,7 +311,6 @@ final Set<String> nombresMax3 = {
                     ),
                     ////
                     Container(
-                   
                       width: 150,
                       height: 50,
                       decoration: BoxDecoration(
@@ -314,18 +321,17 @@ final Set<String> nombresMax3 = {
                           padding: EdgeInsets.zero,
                         ),
                         onPressed: () async {
-
- if (cantidadSeleccionadas < maxSalsas) {
-    // Si no hay suficientes salsas seleccionadas, mostrar un mensaje de advertencia
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Por favor, selecciona al menos $maxSalsas salsas'),
-        duration: Duration(seconds: 2),
-      ),
-    );
-    return; // No continuar con la adición al carrito
-  }
-
+                          if (cantidadSeleccionadas < maxSalsas) {
+                            // Si no hay suficientes salsas seleccionadas, mostrar un mensaje de advertencia
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Por favor, selecciona al menos $maxSalsas salsas'),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                            return; // No continuar con la adición al carrito
+                          }
 
                           final item = Items(
                               nombre: nombre!,
@@ -335,14 +341,14 @@ final Set<String> nombresMax3 = {
                               image: images,
                               unidadesPedir: cantidad,
                               salsas: salsasSeleccionadas);
-                    
+
                           print('cantidadZZZZZZZZZ $cantidad');
                           final agregado = ref
                               .read(itemsStateNotifier.notifier)
                               .agregarItems(item, productState.id);
 
-                            // Mostrar el diálogo
-     /* showDialog(
+                          // Mostrar el diálogo
+                          /* showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -366,8 +372,7 @@ final Set<String> nombresMax3 = {
           Navigator.of(context).pop(); // Cierra el diálogo después de 2 segundos
         }
       }); */
-                              
-                    
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(agregado
@@ -375,7 +380,7 @@ final Set<String> nombresMax3 = {
                                   : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
                               duration: Duration(seconds: 2),
                             ),
-                          ); 
+                          );
                           setState(() {
                             _carTaf;
                           });
@@ -397,11 +402,11 @@ final Set<String> nombresMax3 = {
                         ),
                       ),
                     ),
-                    
+
                     //
                   ],
                 ),
-                    
+
                 //
               ],
             ),
