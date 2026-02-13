@@ -591,10 +591,16 @@ Widget _gridComidas(List<String?> submenusUnicos, Map<String?, List<Map<String, 
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
               submenu ?? '',
-              style: GoogleFonts.leckerliOne(
+              style:  TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 18,
+    color:  Colors.black,)
+              
+                /* GoogleFonts.leckerliOne(
                 fontSize: 18,
                 color: Colors.black,
-              ),
+              ), */
             ),
           ),
           // Aquí tenemos el GridView, mostrando las tarjetas como en varias columnas
@@ -987,10 +993,18 @@ if (ctx != null) {
             },
             decoration: InputDecoration(
                 hintText: 'Buscar',
-                hintStyle: GoogleFonts.leckerliOne(
+                hintStyle: 
+                
+                TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 20,
+    color: Color(ConstantesColorTema2
+                        .naraja))
+                /*GoogleFonts.leckerliOne(
                     fontSize: 20,
                     color: Color(ConstantesColorTema2
-                        .naraja)), //Color.fromRGBO(109, 109, 109, 1)),
+                        .naraja))*/, //Color.fromRGBO(109, 109, 109, 1)),
                 filled: true,
                 fillColor: Color(ConstantesColorTema2
                     .blanco), //Color.fromRGBO(109, 109, 109, 0.5),
@@ -1057,8 +1071,11 @@ if (ctx != null) {
         Container(
           child: Text(
             'Foods',
-            style: GoogleFonts.leckerliOne(
-                fontSize: 30, color: Color.fromRGBO(109, 109, 109, 1)),
+            style: TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600, // SemiBold
+    fontSize: 30,
+    color: Color(0xFF2B2B2B)),
           ),
         ),
       ],
