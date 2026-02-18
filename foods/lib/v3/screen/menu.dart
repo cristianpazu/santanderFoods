@@ -1103,8 +1103,11 @@ class tarjetaComida extends StatelessWidget {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
-        builder: (ctx) => InfoComida2(this.idRestaurante, this.ids, this.images,
-            this.nombre, this.descripcion, this.precios, this.unidades,this.salsas),
+        builder: (ctx) => Scaffold(
+          backgroundColor: Colors.transparent,
+    body: InfoComida2(this.idRestaurante, this.ids, this.images,
+              this.nombre, this.descripcion, this.precios, this.unidades,this.salsas),
+        ),
       );
     }
 

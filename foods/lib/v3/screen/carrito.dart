@@ -47,7 +47,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
     ) async {
       // Construir el mensaje con los productos
       String message =
-          '🛒 *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
+          '\u{1F6D2} *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
 
       message += '👤 *Cliente:* $nombreCliente\n';
       message += '🏠 *Dirección:* $direccionCliente\n';
@@ -74,6 +74,8 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
         }
 
         message += ' - *cantidad:* $unidades\n  *Precio:* \ $precio\n\n';
+ 
+        message += 'Recuerda que el envio de tu pedido tiene un cobro de domicilio de 4000 \n';
 
         /*final salsas = item.salsasSeleccionadas!= [] ?? '';
 
@@ -81,7 +83,11 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
             '• *$nombre* - $descripcion\n - Salsas: $salsas\n - cantidad: $unidades\n  Precio: \$${precio}\n\n';*/
       }
 
-      message += '🧾 *Total:* \$${total}';
+      int totalDomiciolo = total + 4000;
+
+
+
+      message += '🧾 *Total:* \$${totalDomiciolo}';
 /*
       final Uri whatsappUrl = Uri.parse(
         'https://wa.me/$phone?text=${Uri.encodeComponent(message)}',

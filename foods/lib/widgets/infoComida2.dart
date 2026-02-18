@@ -123,7 +123,7 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
             children: [
                Text(
                 'Selecciona hasta $maxSalsas salsas:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(ConstantesColorTema2.naranja2)),
               ),
               const SizedBox(height: 8),
               Container(
@@ -157,11 +157,21 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
                       onChanged: (selected) {
                         final yaSeleccionada =
                             _salsasSeleccionadas[index] ?? false;
-                        if (!yaSeleccionada && cantidadSeleccionadas >= 5) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+                        if (!yaSeleccionada && cantidadSeleccionadas >= maxSalsas) {
+                       
+                         ScaffoldMessenger.of(context).showSnackBar(
                              SnackBar(
+                                  behavior: SnackBarBehavior.floating,
+                                   backgroundColor: Color(ConstantesColorTema2.naraja),
+                                    margin: EdgeInsets.only(
+        bottom: 80, 
+        left: 16,
+        right: 16,
+      ),
                               content: Text(
-                                  'Solo puedes seleccionar hasta $maxSalsas salsas'),
+                                  'Solo puedes seleccionar hasta $maxSalsas salsas',
+                                  style: TextStyle(color: Colors.white),
+                                  ),
                               duration: Duration(seconds: 2),
                             ),
                           );
@@ -337,12 +347,12 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
                             final agregado = ref
                                 .read(itemsStateNotifier.notifier)
                                 .agregarItems(item, productState.id);
-
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                  behavior: SnackBarBehavior.floating,
+                                  backgroundColor: Color(ConstantesColorTema2.naraja),
     margin: EdgeInsets.only(
-      bottom: 800, // 👈 entre más grande, más arriba aparece
+ bottom: 80, 
       left: 16,
       right: 16,
     ),

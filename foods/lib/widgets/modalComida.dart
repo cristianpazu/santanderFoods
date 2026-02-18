@@ -124,7 +124,7 @@ final salsasSeleccionadas = widget.salsas
                 children: [
                   Text(
                     'Selecciona hasta $maxSalsas salsas:',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(ConstantesColorTema2.naranja2)),
                   ),
                   const SizedBox(height: 8),
                   Container(
@@ -160,13 +160,34 @@ final salsasSeleccionadas = widget.salsas
 
                             if (!yaSeleccionada &&
                                 cantidadSeleccionadas >= maxSalsas) {
-                              ScaffoldMessenger.of(context).showSnackBar(
+
+Future.microtask(() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Color(ConstantesColorTema2.naraja),
+      margin: EdgeInsets.only(
+        bottom: 80, // si tienes carrito abajo
+        left: 16,
+        right: 16,
+      ),
+      content: Text(
+        'Solo puedes seleccionar hasta $maxSalsas salsas',
+        style: TextStyle(color: Colors.white),
+      ),
+      duration: Duration(seconds: 2),
+    ),
+  );
+});
+
+
+                              /*ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
-                                      'Solo puedes seleccionar hasta $maxSalsas salsas'),
+                                      'Soasdsadasdlo puedes seleccionar hasta $maxSalsas salsas'),
                                   duration: Duration(seconds: 2),
                                 ),
-                              );
+                              ); */
                               return;
                             }
 
@@ -333,13 +354,42 @@ final salsasSeleccionadas = widget.salsas
                         onPressed: () async {
                           if (cantidadSeleccionadas < maxSalsas) {
                             // Si no hay suficientes salsas seleccionadas, mostrar un mensaje de advertencia
-                            ScaffoldMessenger.of(context).showSnackBar(
+
+Future.microtask(() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Color(ConstantesColorTema2.naraja),
+      margin: EdgeInsets.only(
+        bottom: 80, // si tienes carrito abajo
+        left: 16,
+        right: 16,
+      ),
+      content: Text(
+        'Por favor, selecciona al menos $maxSalsas salsas',
+        style: TextStyle(color: Colors.white),
+      ),
+      duration: Duration(seconds: 2),
+    ),
+  );
+});
+
+
+
+                         /*   ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
                                     'Por favor, selecciona al menos $maxSalsas salsas'),
+                                     behavior: SnackBarBehavior.floating,
+    margin: EdgeInsets.only(
+     top: 20,
+      left: 16,
+      right: 16,
+      bottom: MediaQuery.of(context).size.height - 150,
+    ),
                                 duration: Duration(seconds: 2),
                               ),
-                            );
+                            ); */
                             return; // No continuar con la adición al carrito
                           }
 
@@ -383,6 +433,31 @@ final salsasSeleccionadas = widget.salsas
         }
       }); */
 
+
+
+
+      
+      Future.microtask(() {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Color(ConstantesColorTema2.naraja),
+      margin: EdgeInsets.only(
+        bottom: 80, // si tienes carrito abajo
+        left: 16,
+        right: 16,
+      ),
+      content: Text(agregado
+                                    ? '✅ Se añadió exitosamente al carrito'
+                                    : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
+                            
+       
+      duration: Duration(seconds: 2),
+    ),
+  );
+});
+       
+/*
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 behavior: SnackBarBehavior.floating,
@@ -395,7 +470,7 @@ final salsasSeleccionadas = widget.salsas
                               ),
                               duration: Duration(seconds: 2),
                             ),
-                          );
+                          ); */
                           setState(() {
                             _carTaf;
                           });
