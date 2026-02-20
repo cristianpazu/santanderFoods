@@ -107,6 +107,7 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
       'Alitas x 8',
       'Combos 200 gr',
       'Combos 300 gr',
+      'Costilla 200 gr',
     };
 
     final int maxSalsas = nombresMax5.contains(nombre)
@@ -114,7 +115,7 @@ final List<Salsa> salsasSeleccionadas = widget.salsas!
         : (nombresMax3.contains(nombre) ? 3 : 0);
 
 
-
+print('maxSalsasmaxSalsasmaxSalsas $maxSalsas');
 
     final Widget salsaWidget = widget.salsas != null &&
             widget.salsas!.isNotEmpty

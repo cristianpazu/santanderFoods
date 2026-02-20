@@ -47,7 +47,7 @@ class _CarritoPage2State extends ConsumerState<CarritoPage2> {
     ) async {
       // Construir el mensaje con los productos
       String message =
-          '\u{1F6D2} *Pedido desde la aplicación (SantanderFoods) 🛒  *\n\n';
+          '\u{1F6D2} *Pedido desde la aplicación (SantanderFoods) \u{1F6D2}  *\n\n';
 
       message += '👤 *Cliente:* $nombreCliente\n';
       message += '🏠 *Dirección:* $direccionCliente\n';

@@ -109,13 +109,19 @@ final salsasSeleccionadas = widget.salsas
       'Alitas x 8',
       'Combos 200 gr',
       'Combos 300 gr',
+      'Costilla 200 gr'
     };
 
     final int maxSalsas = nombresMax5.contains(nombre)
         ? 5
         : (nombresMax3.contains(nombre) ? 3 : 0);
 
-    print('nombresMax 5 ${nombresMax5}');
+
+print('maxSalsasmaxSalsasmaxSalsas $maxSalsas');
+print('maxSalsasmaxSalsasmaxSalsas  ${widget.nombre}');
+
+
+
 
     final Widget salsaWidget =
         widget.salsas != null && widget.salsas!.isNotEmpty
@@ -230,8 +236,8 @@ Future.microtask(() {
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          widget.images ?? '',
+                        child: Image.asset(
+                          widget.images ?? 'assets/hamburgesasDobleCarne.jpg',
                           width: 250,
                           height: 250,
                           fit: BoxFit.cover,
