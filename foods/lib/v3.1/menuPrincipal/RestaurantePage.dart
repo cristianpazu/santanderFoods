@@ -1,8 +1,13 @@
-import 'package:flutter/material.dart' show BuildContext, Widget, Scaffold, EdgeInsets, TextStyle, NeverScrollableScrollPhysics, SizedBox, BoxDecoration, Text, Icon, CircularProgressIndicator, Center, AppBar, ListView, CrossAxisAlignment, FontWeight, Padding, BorderRadius, RoundedRectangleBorder, Colors, Column, Expanded, Checkbox, Row, Card, BoxShadow, MainAxisAlignment, ElevatedButton, Icons, Navigator, MaterialPageRoute, Container;
-import 'package:flutter_riverpod/flutter_riverpod.dart' show ConsumerStatefulWidget, ConsumerState;
-import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart' show RestaurantePage;
-import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart' show resturantesStateNotifierProvider;
-import 'package:foods/v3.1/notifiers/resturanteNotifiers/detalle_restaurante_notifire.dart' show restauranteDetalleProvider;
+import 'package:flutter/material.dart'
+    show AppBar, BorderRadius, BoxDecoration, BoxShadow, BuildContext, Card, Center, Checkbox, CircularProgressIndicator, Color, Colors, Column, Container, CrossAxisAlignment, EdgeInsets, ElevatedButton, Expanded, FontWeight, Icon, IconButton, Icons, ListView, MainAxisAlignment, MaterialPageRoute, Navigator, NeverScrollableScrollPhysics, Padding, RoundedRectangleBorder, Row, Scaffold, SizedBox, Text, TextStyle, Widget;
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show ConsumerStatefulWidget, ConsumerState;
+import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
+    show RestaurantePage;
+import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart'
+    show resturantesStateNotifierProvider;
+import 'package:foods/v3.1/notifiers/resturanteNotifiers/detalle_restaurante_notifire.dart'
+    show restauranteDetalleProvider;
 
 class Restaurantespage extends ConsumerStatefulWidget {
   final int idRestaurante;
@@ -17,13 +22,10 @@ class _RestaurantePageState extends ConsumerState<Restaurantespage> {
   bool isChecked = false;
   final Map<int, bool> seleccionados = {};
 
-  
-
-
-  
   @override
   Widget build(BuildContext context) {
-    final restauranteState = ref.watch(restauranteDetalleProvider(widget.idRestaurante));
+    final restauranteState =
+        ref.watch(restauranteDetalleProvider(widget.idRestaurante));
 /*
 final carritoState =
     ref.watch(carritoStateNotifier);
@@ -56,21 +58,18 @@ int calcularTotal(Carritostate carritoState) {
 
     final menus = restauranteState.restaurantecompletoresponsedto?.menus;
 
-
-
     return Scaffold(
-      
       body: Column(
         children: [
           Text(
-          restauranteState.restaurantecompletoresponsedto!.nombre,
-        ),
+            restauranteState.restaurantecompletoresponsedto!.nombre,
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: menus?.length,
               itemBuilder: (context, menuIndex) {
                 final menu = menus?[menuIndex];
-            
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,7 +89,7 @@ int calcularTotal(Carritostate carritoState) {
                       itemCount: menu.submenus.length,
                       itemBuilder: (context, subIndex) {
                         final subMenu = menu.submenus[subIndex];
-            
+
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -112,17 +111,16 @@ int calcularTotal(Carritostate carritoState) {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: subMenu.productos.length,
                               itemBuilder: (context, productIndex) {
-                                final producto = subMenu.productos[productIndex];
-            
-            
-              final productos =
-            subMenu.productos[productIndex];
-            
+                                final producto =
+                                    subMenu.productos[productIndex];
+
+                                final productos =
+                                    subMenu.productos[productIndex];
+                                /*
               final existe = carritoState.items.any(
                 (e) => e.idProducto == productos.id,
-              );  
-            
-            
+              );  */
+
                                 return Card(
                                   elevation: 3,
                                   margin: const EdgeInsets.symmetric(
@@ -159,7 +157,7 @@ int calcularTotal(Carritostate carritoState) {
                                               Text(
                                                 '\$${producto.precio}',
                                                 style: const TextStyle(
-                                                  color: Colors.green,
+                                                    color: Color.fromRGBO(244, 81, 30, 1),
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -167,7 +165,18 @@ int calcularTotal(Carritostate carritoState) {
                                             ],
                                           ),
                                         ),
-            
+                                        Container(
+                                          decoration: BoxDecoration(
+                                          color: Color.fromRGBO(244, 81, 30, 1),
+                                            borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          child: Center(
+
+                                            child: IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+                                          ),
+                                        )
+
+
                                         /*
                                         Checkbox(
                                           value: existe,//seleccionados[producto.id] ?? false,
@@ -240,7 +249,7 @@ int calcularTotal(Carritostate carritoState) {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-            ),/*
+            ), /*
             Text(
               '\$${calcularTotal(carritoState)}',
               style: const TextStyle(
@@ -249,7 +258,7 @@ int calcularTotal(Carritostate carritoState) {
                 fontWeight: FontWeight.bold,
               ),
             ), */
-           /* ElevatedButton.icon(
+            /* ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
