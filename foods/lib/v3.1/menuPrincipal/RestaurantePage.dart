@@ -1,5 +1,40 @@
 import 'package:flutter/material.dart'
-    show AppBar, BorderRadius, BoxDecoration, BoxShadow, BuildContext, Card, Center, Checkbox, CircularProgressIndicator, Color, Colors, Column, Container, CrossAxisAlignment, EdgeInsets, ElevatedButton, Expanded, FontWeight, Icon, IconButton, Icons, ListView, MainAxisAlignment, MaterialPageRoute, Navigator, NeverScrollableScrollPhysics, Padding, RoundedRectangleBorder, Row, Scaffold, SizedBox, Text, TextStyle, Widget;
+    show
+        AppBar,
+        BorderRadius,
+        BoxDecoration,
+        BoxShadow,
+        BuildContext,
+        Card,
+        Center,
+        Checkbox,
+        CircularProgressIndicator,
+        Color,
+        Colors,
+        Column,
+        Container,
+        CrossAxisAlignment,
+        EdgeInsets,
+        ElevatedButton,
+        Expanded,
+        FontWeight,
+        Icon,
+        IconButton,
+        Icons,
+        ListView,
+        MainAxisAlignment,
+        MaterialPageRoute,
+        Navigator,
+        NeverScrollableScrollPhysics,
+        Padding,
+        RoundedRectangleBorder,
+        Row,
+        Scaffold,
+        SizedBox,
+        Text,
+        TextStyle,
+        Widget,
+        ClipRRect;
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
 import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
@@ -134,6 +169,24 @@ int calcularTotal(Carritostate carritoState) {
                                     padding: const EdgeInsets.all(18),
                                     child: Row(
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Container(
+                                              width: 85,
+                                              height: 90,
+                                              color: Colors.green,
+                                            ),
+                                            /*Image.asset(
+              'assets/comida_rapida.jpeg',
+              width: 75,
+              height: 85,
+              fit: BoxFit.cover,
+            ), */
+                                          ),
+                                        ),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
@@ -157,7 +210,8 @@ int calcularTotal(Carritostate carritoState) {
                                               Text(
                                                 '\$${producto.precio}',
                                                 style: const TextStyle(
-                                                    color: Color.fromRGBO(244, 81, 30, 1),
+                                                  color: Color.fromRGBO(
+                                                      244, 81, 30, 1),
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -167,15 +221,16 @@ int calcularTotal(Carritostate carritoState) {
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
-                                          color: Color.fromRGBO(244, 81, 30, 1),
-                                            borderRadius: BorderRadius.circular(10)
-                                          ),
+                                              color: Color.fromRGBO(
+                                                  244, 81, 30, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
                                           child: Center(
-
-                                            child: IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+                                            child: IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(Icons.add)),
                                           ),
                                         )
-
 
                                         /*
                                         Checkbox(
