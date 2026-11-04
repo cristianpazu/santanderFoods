@@ -9,6 +9,7 @@ import 'package:flutter/material.dart'
         Center,
         Checkbox,
         CircularProgressIndicator,
+        ClipRRect,
         Color,
         Colors,
         Column,
@@ -34,9 +35,12 @@ import 'package:flutter/material.dart'
         Text,
         TextStyle,
         Widget,
-        ClipRRect;
+        circular,
+        showModalBottomSheet;
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
+import 'package:foods/v3.1/menuPrincipal/comidaId.dart' show Comidaid;
 import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
     show RestaurantePage;
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart'
@@ -61,6 +65,18 @@ class _RestaurantePageState extends ConsumerState<Restaurantespage> {
   Widget build(BuildContext context) {
     final restauranteState =
         ref.watch(restauranteDetalleProvider(widget.idRestaurante));
+
+    void _openIconButtonPressed() {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (ctx) => Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Comidaid(),
+        ),
+      );
+    }
+
 /*
 final carritoState =
     ref.watch(carritoStateNotifier);
@@ -96,8 +112,61 @@ int calcularTotal(Carritostate carritoState) {
     return Scaffold(
       body: Column(
         children: [
-          Text(
-            restauranteState.restaurantecompletoresponsedto!.nombre,
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              color: Colors.amber,
+            ),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        'assets/hamburgesaConCrema.jpg',
+                        width: 75,
+                        height: 85,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              //
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                       padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      restauranteState.restaurantecompletoresponsedto!.nombre,
+                      style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                      
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Text(
+                restauranteState.restaurantecompletoresponsedto!.nombre,
+                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+              ),
+            ],
           ),
           Expanded(
             child: ListView.builder(
@@ -166,27 +235,25 @@ int calcularTotal(Carritostate carritoState) {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(18),
+                                    padding: const EdgeInsets.all(10),
                                     child: Row(
                                       children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            child: Container(
-                                              width: 85,
-                                              height: 90,
-                                              color: Colors.green,
-                                            ),
-                                            /*Image.asset(
-              'assets/comida_rapida.jpeg',
-              width: 75,
-              height: 85,
-              fit: BoxFit.cover,
-            ), */
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: /*Container(
+                                            width: 85,
+                                            height: 90,
+                                            color: Colors.green,
+                                          ), */
+                                              Image.asset(
+                                            'assets/hamburgesaConCrema.jpg',
+                                            width: 75,
+                                            height: 85,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
+                                        const SizedBox(width: 8),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
@@ -227,11 +294,12 @@ int calcularTotal(Carritostate carritoState) {
                                                   BorderRadius.circular(10)),
                                           child: Center(
                                             child: IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  _openIconButtonPressed();
+                                                },
                                                 icon: Icon(Icons.add)),
                                           ),
                                         )
-
                                         /*
                                         Checkbox(
                                           value: existe,//seleccionados[producto.id] ?? false,
@@ -286,7 +354,11 @@ int calcularTotal(Carritostate carritoState) {
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
