@@ -1,28 +1,36 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:foods/v3/util/colores.dart' show ConstantesColorTema2;
 
 class Comidaid extends StatelessWidget {
-  const Comidaid({super.key});
+  int? id;
+  String? images;
+  String? nombre;
+  String? descripcion;
+  int? precios;
+  Comidaid({this.id, this.images, this.nombre, this.descripcion, this.precios});
 
   @override
   Widget build(BuildContext context) {
-        double height = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Stack(
-        children: [
-          Positioned(
-          top: 0,
-          left: 0,
-          right: 0,
-          height: height * 0.30,
-          child: Container(
-            child:  Image.asset(
-                  'images' ?? '' //'assets/salchipapas.jpg'
+    double height = MediaQuery.of(context).size.height;
 
-                  ,
-                  fit: BoxFit.cover,
-                ))),
-Positioned(
+    print(nombre);
+    return SafeArea(
+      child: Stack(children: [
+        Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: height * 0.30,
+            child: Container(
+                child: Image.asset(
+              'images' ?? '' //'assets/salchipapas.jpg'
+
+              ,
+              fit: BoxFit.cover,
+            ))),
+        Positioned(
           bottom: 0, // Colocamos el container verde en la parte inferior
           left: 0,
           right: 0,
@@ -42,7 +50,7 @@ Positioned(
                   SizedBox(
                     height: 10,
                   ),
-                  Text('nombre' ?? '',
+                  Text(nombre ?? '',
                       //'Nombre del producto',
                       style: TextStyle(
                           fontFamily: 'Poppins',
@@ -51,7 +59,7 @@ Positioned(
                           color: Color(ConstantesColorTema2
                               .titulos)) //GoogleFonts.leckerliOne(fontSize: 20, color: Color.fromRGBO(0, 0, 0, 1)),
                       ),
-                  Text('descripcion' ?? '',
+                  Text(descripcion ?? '',
                       // 'Descripcion del productoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                       maxLines: 5,
                       overflow: TextOverflow.ellipsis,
@@ -66,10 +74,10 @@ Positioned(
                     height: 20,
                   ),
 
-Container(),
+                  Container(),
                   //
                   Text(
-                    '' ?? '',
+                    '$precios',
                     // 'Precio',
                     style: TextStyle(
                         fontFamily: 'Poppins',
@@ -90,9 +98,7 @@ Container(),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
-                              onPressed: () {
-                               
-                              },
+                              onPressed: () {},
                               icon: Icon(
                                 Icons.add,
                                 color: Color(ConstantesColorTema2.blanco),
@@ -113,9 +119,7 @@ Container(),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                           child: IconButton(
-                              onPressed: () {
-                                
-                              },
+                              onPressed: () {},
                               icon: Icon(Icons.remove,
                                   color: Color(ConstantesColorTema2.blanco)))),
                       SizedBox(
@@ -134,23 +138,22 @@ Container(),
                             padding: EdgeInsets.zero,
                           ),
                           onPressed: () async {
-                           
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                 behavior: SnackBarBehavior.floating,
-                                  backgroundColor: Color(ConstantesColorTema2.naraja),
-    margin: EdgeInsets.only(
- bottom: 80, 
-      left: 16,
-      right: 16,
-    ),
-                                content: Text(
-                                     '✅ Se añadió exitosamente al carrito'),
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor:
+                                    Color(ConstantesColorTema2.naraja),
+                                margin: EdgeInsets.only(
+                                  bottom: 80,
+                                  left: 16,
+                                  right: 16,
+                                ),
+                                content:
+                                    Text('✅ Se añadió exitosamente al carrito'),
                                 duration: Duration(seconds: 2),
                               ),
                             );
-                          
-                          
+
                             Navigator.pop(context);
                           },
                           child: Stack(
@@ -174,7 +177,7 @@ Container(),
                           ),
                         ),
                       ),
-                     
+
                       //
                     ],
                   ),
@@ -183,8 +186,7 @@ Container(),
             ),
           ),
         ),
-          
-Positioned(
+        Positioned(
             top: 30,
             left: 20,
             child: Container(
@@ -208,7 +210,7 @@ Positioned(
                   icon: Icon(Icons.cancel_outlined)),
             )),
 
-            /*
+        /*
          decoration: BoxDecoration(
            image: DecorationImage(
              image: AssetImage('assets/salchipapas.jpg'), // Ruta de la imagen
@@ -216,11 +218,7 @@ Positioned(
            ), 
          ),
          */
-        ]
-          ),
-        );
-        
-      
-      
+      ]),
+    );
   }
 }

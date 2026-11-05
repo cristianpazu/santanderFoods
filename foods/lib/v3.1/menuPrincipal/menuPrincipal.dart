@@ -3,7 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/widgets.dart' show StatelessWidget;
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
-import 'package:foods/v3.1/menuPrincipal/RestaurantePage.dart' show Restaurantespage;
+import 'package:foods/v3.1/menuPrincipal/RestaurantePage.dart'
+    show Restaurantespage;
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart'
     show resturantesStateNotifierProvider;
 
@@ -44,14 +45,27 @@ class RestaurantePageState extends ConsumerState {
                   // textoBusqueda = value;
                 });
               },
-              
               decoration: InputDecoration(
-                
                 hintText: 'Buscar restaurantes o comidas...',
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
-              
                   borderRadius: BorderRadius.circular(50),
+                ),
+              ),
+            ),
+          ),
+
+          //Promociones
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 150,
+              width: sizeScreen.width,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'assets/hamburgesaConCrema.jpg',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -59,13 +73,12 @@ class RestaurantePageState extends ConsumerState {
 
           //
           Padding(
-            padding: const EdgeInsets.only(left:  12.0),
+            padding: const EdgeInsets.only(left: 12.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Restaurante disponible',
                 style: TextStyle(
-                  
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -129,19 +142,22 @@ class RestaurantePageState extends ConsumerState {
                           ],
                         ),
                       ),
-                       Padding(
-                        padding: EdgeInsets.only(right: 8),
-                        child:  IconButton(onPressed: (){
-                          Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Restaurantespage(
-                            idRestaurante: restaurante.idRestaurante!,
+                      Padding(
+                          padding: EdgeInsets.only(right: 8),
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Restaurantespage(
+                                      idRestaurante: restaurante.idRestaurante!,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: Icon(Icons
+                                  .chevron_right)) //Icon(Icons.chevron_right),
                           ),
-                        ),
-                      );
-                        }, icon: Icon(Icons.chevron_right))  //Icon(Icons.chevron_right),
-                      ),
                     ],
                   ),
                 ),

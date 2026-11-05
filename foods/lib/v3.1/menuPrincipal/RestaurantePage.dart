@@ -8,6 +8,7 @@ import 'package:flutter/material.dart'
         Card,
         Center,
         Checkbox,
+        CircleAvatar,
         CircularProgressIndicator,
         ClipRRect,
         Color,
@@ -40,6 +41,8 @@ import 'package:flutter/material.dart'
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
+import 'package:foods/v3.1/menuPrincipal/CurvaPortadaClipper.dart'
+    show CurvaPortadaClipper;
 import 'package:foods/v3.1/menuPrincipal/comidaId.dart' show Comidaid;
 import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
     show RestaurantePage;
@@ -66,13 +69,24 @@ class _RestaurantePageState extends ConsumerState<Restaurantespage> {
     final restauranteState =
         ref.watch(restauranteDetalleProvider(widget.idRestaurante));
 
-    void _openIconButtonPressed() {
+    void _openIconButtonPressed(
+      int? id,
+  String? images,
+  String? nombre,
+  String? descripcion,
+  int? precios) {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (ctx) => Scaffold(
           backgroundColor: Colors.transparent,
-          body: Comidaid(),
+          body: Comidaid(
+            id: id,
+            images: '',
+            nombre: nombre,
+            descripcion: descripcion,
+            precios: precios,
+          ),
         ),
       );
     }
@@ -110,66 +124,214 @@ int calcularTotal(Carritostate carritoState) {
     final menus = restauranteState.restaurantecompletoresponsedto?.menus;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.amber,
-            ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // PORTADA CON CURVA
+            SizedBox(
+              height: 220,
+              child: Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                  // IMAGEN DE PORTADA
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 220,
+                    child: ClipPath(
+                      clipper: CurvaPortadaClipper(),
                       child: Image.asset(
                         'assets/hamburgesaConCrema.jpg',
-                        width: 75,
-                        height: 85,
+                        width: double.infinity,
+                        height: 220,
                         fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  // REGRESAR
+                  Positioned(
+                    top: 45,
+                    left: 15,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black45,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ),
+
+                  // FAVORITOS
+                  /*
+            Positioned(
+              top: 45,
+              right: 15,
+              child: CircleAvatar(
+                backgroundColor: Colors.black45,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.favorite_border,
+                    color: Colors.amber,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ), */
+
+                  // LOGO
+                  Positioned(
+                    bottom: 0,
+                    left: 15,
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      padding: const EdgeInsets.all(3),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/hamburgesaConCrema.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              //
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                       padding: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      restauranteState.restaurantecompletoresponsedto!.nombre,
-                      style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                      
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text(
+            ),
+
+            // NOMBRE DEL RESTAURANTE
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 5, 16, 10),
+              child: Text(
                 restauranteState.restaurantecompletoresponsedto!.nombre,
                 style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ],
-          ),
-          Expanded(
-            child: ListView.builder(
+            ),
+            //Direccion
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 16, 10),
+              child: Row(
+                children: [
+                  Icon(Icons.location_on_outlined),
+                  Text(
+                    restauranteState.restaurantecompletoresponsedto!.direccion,
+                    style: const TextStyle(
+                      fontFamily: 'Roboto',
+                     
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF647786),
+                      letterSpacing: 0.2,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            //
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 16, 10),
+              child: Text(
+                'Santander de Quilichao',
+                style: const TextStyle(
+                  fontFamily: 'Roboto',
+                 
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFF647786),
+                  letterSpacing: 0.2,
+                ),
+              ),
+            ),
+            // telefono
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 16, 10),
+              child: Row(
+                children: [
+                  Icon(Icons.phone),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    restauranteState.restaurantecompletoresponsedto!.telefono,
+                    style: const TextStyle(
+                      fontFamily: 'Roboto',
+                  
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF647786),
+                      letterSpacing: 0.2,
+                    ),
+                  )
+                ],
+              ),
+            ),
+
+            /* Container(
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.amber,
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          'assets/hamburgesaConCrema.jpg',
+                          width: 75,
+                          height: 85,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                //
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                         padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                        restauranteState.restaurantecompletoresponsedto!.nombre,
+                        style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),
+                        
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Text(
+                  restauranteState.restaurantecompletoresponsedto!.nombre,
+                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                ),
+              ],
+            ), */
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: menus?.length,
               itemBuilder: (context, menuIndex) {
                 final menu = menus?[menuIndex];
@@ -295,9 +457,19 @@ int calcularTotal(Carritostate carritoState) {
                                           child: Center(
                                             child: IconButton(
                                                 onPressed: () {
-                                                  _openIconButtonPressed();
+                                                  print('object ${producto.nombre}');
+                                                  _openIconButtonPressed(
+producto.id,
+'',
+producto.nombre,
+producto.descripcion,
+producto.precio
+                                                  );
                                                 },
-                                                icon: Icon(Icons.add)),
+                                                icon: Icon(Icons.add,
+                                                
+                                                color: Colors.white,
+                                                )),
                                           ),
                                         )
                                         /*
@@ -349,8 +521,8 @@ int calcularTotal(Carritostate carritoState) {
                 );
               },
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(20),
