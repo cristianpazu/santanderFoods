@@ -88,98 +88,103 @@ class Comidaid extends StatelessWidget {
                     //  fontSize: 20, color: Color(ConstantesColorTema2.naraja),),
                   ),
                   Spacer(),
-                  Row(
-                    children: [
-                      Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Color(ConstantesColorTema2.naraja),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                color: Color(ConstantesColorTema2.blanco),
-                              ))),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text('cantidad'),
-
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Color(ConstantesColorTema2.naraja),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.remove,
-                                  color: Color(ConstantesColorTema2.blanco)))),
-                      SizedBox(
-                        width: 80,
-                      ),
-                      ////
-                      Container(
-                        width: 150,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Color(ConstantesColorTema2.naraja),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          onPressed: () async {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                behavior: SnackBarBehavior.floating,
-                                backgroundColor:
-                                    Color(ConstantesColorTema2.naraja),
-                                margin: EdgeInsets.only(
-                                  bottom: 80,
-                                  left: 16,
-                                  right: 16,
-                                ),
-                                content:
-                                    Text('✅ Se añadió exitosamente al carrito'),
-                                duration: Duration(seconds: 2),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                            width: 45,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Color(ConstantesColorTema2.naraja),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Color(ConstantesColorTema2.blanco),
+                                ))),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text('cantidad'),
+                    
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                            width: 45,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Color(ConstantesColorTema2.naraja),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.remove,
+                                    color: Color(ConstantesColorTema2.blanco)))),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        ////
+                        Expanded(
+                          child: Container(
+                            width: 150,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Color(ConstantesColorTema2.naraja),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
                               ),
-                            );
-
-                            Navigator.pop(context);
-                          },
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              // El texto "Agregar" siempre visible
-                              Text('Agregar',
-                                  style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600, // SemiBold
+                              onPressed: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor:
+                                        Color(ConstantesColorTema2.naraja),
+                                    margin: EdgeInsets.only(
+                                      bottom: 80,
+                                      left: 16,
+                                      right: 16,
+                                    ),
+                                    content:
+                                        Text('✅ Se añadió exitosamente al carrito'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                                              
+                                Navigator.pop(context);
+                              },
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  // El texto "Agregar" siempre visible
+                                  Text('Agregar',
+                                      style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w600, // SemiBold
+                                          fontSize: 15,
+                                          color: Color(ConstantesColorTema2
+                                              .blanco)) /*GoogleFonts.leckerliOne(
                                       fontSize: 15,
                                       color: Color(ConstantesColorTema2
-                                          .blanco)) /*GoogleFonts.leckerliOne(
-                                  fontSize: 15,
-                                  color: Color(ConstantesColorTema2
-                                      .blanco) , //Color.fromRGBO(109, 109, 109, 1),
-                                ),*/
-                                  ),
-                              // El ícono invisible hasta que se presiona
-                            ],
+                                          .blanco) , //Color.fromRGBO(109, 109, 109, 1),
+                                    ),*/
+                                      ),
+                                  // El ícono invisible hasta que se presiona
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-
-                      //
-                    ],
+                    
+                        //
+                      ],
+                    ),
                   ),
                 ],
               ),
