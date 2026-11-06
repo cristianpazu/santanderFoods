@@ -43,6 +43,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
 import 'package:foods/v3.1/menuPrincipal/CurvaPortadaClipper.dart'
     show CurvaPortadaClipper;
+import 'package:foods/v3.1/menuPrincipal/carritoPages.dart';
 import 'package:foods/v3.1/menuPrincipal/comidaId.dart' show Comidaid;
 import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
     show RestaurantePage;
@@ -50,6 +51,9 @@ import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.da
     show resturantesStateNotifierProvider;
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/detalle_restaurante_notifire.dart'
     show restauranteDetalleProvider;
+import 'package:foods/v3/util/Sistema.dart' show Sistema;
+import 'package:foods/v3/util/colores.dart' show ConstantesColorTema2;
+import 'package:google_fonts/google_fonts.dart' show GoogleFonts;
 
 class Restaurantespage extends ConsumerStatefulWidget {
   final int idRestaurante;
@@ -69,18 +73,15 @@ class _RestaurantePageState extends ConsumerState<Restaurantespage> {
     final restauranteState =
         ref.watch(restauranteDetalleProvider(widget.idRestaurante));
 
-    void _openIconButtonPressed(
-      int? id,
-  String? images,
-  String? nombre,
-  String? descripcion,
-  int? precios) {
+    void _openIconButtonPressed(int? idRestaurante, int? id, String? images,
+        String? nombre, String? descripcion, int? precios) {
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         builder: (ctx) => Scaffold(
           backgroundColor: Colors.transparent,
           body: Comidaid(
+            idRestaurante: idRestaurante,
             id: id,
             images: '',
             nombre: nombre,
@@ -230,7 +231,6 @@ int calcularTotal(Carritostate carritoState) {
                     restauranteState.restaurantecompletoresponsedto!.direccion,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
-                     
                       fontWeight: FontWeight.w400,
                       color: Color(0xFF647786),
                       letterSpacing: 0.2,
@@ -246,7 +246,6 @@ int calcularTotal(Carritostate carritoState) {
                 'Santander de Quilichao',
                 style: const TextStyle(
                   fontFamily: 'Roboto',
-                 
                   fontWeight: FontWeight.w400,
                   color: Color(0xFF647786),
                   letterSpacing: 0.2,
@@ -266,7 +265,6 @@ int calcularTotal(Carritostate carritoState) {
                     restauranteState.restaurantecompletoresponsedto!.telefono,
                     style: const TextStyle(
                       fontFamily: 'Roboto',
-                  
                       fontWeight: FontWeight.w400,
                       color: Color(0xFF647786),
                       letterSpacing: 0.2,
@@ -276,59 +274,6 @@ int calcularTotal(Carritostate carritoState) {
               ),
             ),
 
-            /* Container(
-              height: 200,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-              ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/hamburgesaConCrema.jpg',
-                          width: 75,
-                          height: 85,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                //
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                         padding: const EdgeInsets.only(top: 20),
-                      child: Text(
-                        restauranteState.restaurantecompletoresponsedto!.nombre,
-                        style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),
-                        
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Text(
-                  restauranteState.restaurantecompletoresponsedto!.nombre,
-                  style: const TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                ),
-              ],
-            ), */
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -457,18 +402,21 @@ int calcularTotal(Carritostate carritoState) {
                                           child: Center(
                                             child: IconButton(
                                                 onPressed: () {
-                                                  print('object ${producto.nombre}');
+                                                  print(
+                                                      'object ${producto.nombre}');
                                                   _openIconButtonPressed(
-producto.id,
-'',
-producto.nombre,
-producto.descripcion,
-producto.precio
-                                                  );
+                                                      restauranteState
+                                                          .restaurantecompletoresponsedto!
+                                                          .idRestaurante,
+                                                      producto.id,
+                                                      '',
+                                                      producto.nombre,
+                                                      producto.descripcion,
+                                                      producto.precio);
                                                 },
-                                                icon: Icon(Icons.add,
-                                                
-                                                color: Colors.white,
+                                                icon: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
                                                 )),
                                           ),
                                         )
@@ -542,29 +490,67 @@ producto.precio
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Total',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ), /*
+            /*Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(28.0),
+                            child: Text(
+                              '\$ ${Sistema().formato(0)}',
+                              style: GoogleFonts.leckerliOne(
+                                        color: Color(ConstantesColorTema2
+                                            .blanco))
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CarritoPages(restauranteState.restaurantecompletoresponsedto!.telefono),
+                                    ));
+                              },
+                              child: Container(
+                                width: 150,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 247, 246, 242),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Text(
+                                    'Carrito',
+                                    style: TextStyle(
+  fontFamily: 'Poppins',
+  fontWeight: FontWeight.w600, // SemiBold
+  fontSize: 30,
+  color: Color(ConstantesColorTema2.naranja2) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ) */
+           
             Text(
-              '\$${calcularTotal(carritoState)}',
+              '\$ s',
               style: const TextStyle(
                 fontSize: 22,
                 color: Colors.green,
                 fontWeight: FontWeight.bold,
               ),
-            ), */
-            /* ElevatedButton.icon(
+            ), 
+            ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) =>  CarritoPage(
-                      idMesa: widget.idMesas,
-                    ),
+                    builder: (_) =>   CarritoPages(restauranteState.restaurantecompletoresponsedto!.telefono),
+                             
                   ),
                 );
               },
@@ -574,7 +560,7 @@ producto.precio
               label: const Text(
                 'Carrito',
               ),
-            ), */
+            ), 
           ],
         ),
       ),

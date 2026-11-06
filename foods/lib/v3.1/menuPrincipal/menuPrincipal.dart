@@ -96,69 +96,83 @@ class RestaurantePageState extends ConsumerState {
 
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  height: 110,
-                  width: sizeScreen.width,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            width: 85,
-                            height: 90,
-                            color: Colors.green,
-                          ),
-                          /*Image.asset(
-              'assets/comida_rapida.jpeg',
-              width: 75,
-              height: 85,
-              fit: BoxFit.cover,
-            ), */
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Restaurantespage(
+                          idRestaurante: restaurante.idRestaurante!,
                         ),
                       ),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${restaurante.nombre}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    height: 110,
+                    width: sizeScreen.width,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Container(
+                              width: 85,
+                              height: 90,
+                              color: Colors.green,
                             ),
-                            SizedBox(height: 4),
-                            Text('⭐ 0(0)'),
-                            Text('${restaurante.descripcion}'),
-                            Text('${restaurante.telefono}'),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                          padding: EdgeInsets.only(right: 8),
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Restaurantespage(
-                                      idRestaurante: restaurante.idRestaurante!,
-                                    ),
-                                  ),
-                                );
-                              },
-                              icon: Icon(Icons
-                                  .chevron_right)) //Icon(Icons.chevron_right),
+                            /*Image.asset(
+                                'assets/comida_rapida.jpeg',
+                                width: 75,
+                                height: 85,
+                                fit: BoxFit.cover,
+                              ), */
                           ),
-                    ],
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${restaurante.nombre}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text('⭐ 0(0)'),
+                              Text('${restaurante.descripcion}'),
+                              Text('${restaurante.telefono}'),
+                            ],
+                          ),
+                        ),
+                        /*
+                        Padding(
+                            padding: EdgeInsets.only(right: 8),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Restaurantespage(
+                                        idRestaurante: restaurante.idRestaurante!,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons
+                                    .chevron_right)) //Icon(Icons.chevron_right),
+                            ), */
+                      ],
+                    ),
                   ),
                 ),
               );

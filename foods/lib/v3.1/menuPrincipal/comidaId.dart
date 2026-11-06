@@ -3,17 +3,29 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerWidget, WidgetRef;
+import 'package:foods/v3.1/entities/ItemsPedido.dart' show Items, ItemsPedido;
+import 'package:foods/v3.1/notifiers/Item/item_state_notifiers.dart'
+    show itemsStateNotifier, itemsPagesStateNotifier;
 import 'package:foods/v3.1/provider/CantidadProvider.dart'
     show cantidadProvider;
 import 'package:foods/v3/util/colores.dart' show ConstantesColorTema2;
 
 class Comidaid extends ConsumerWidget {
+  int? idRestaurante;
   int? id;
   String? images;
   String? nombre;
   String? descripcion;
   int? precios;
-  Comidaid({this.id, this.images, this.nombre, this.descripcion, this.precios});
+  int? unidades;
+  Comidaid(
+      {this.idRestaurante,
+      this.id,
+      this.images,
+      this.nombre,
+      this.descripcion,
+      this.precios,
+      int? unidades});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
@@ -105,7 +117,11 @@ class Comidaid extends ConsumerWidget {
                                     BorderRadius.all(Radius.circular(10))),
                             child: IconButton(
                                 onPressed: () {
-                                  ref.read(cantidadProvider.notifier).state--;
+                                  final notifier =
+                                      ref.read(cantidadProvider.notifier);
+                                  if (notifier.state > 1) {
+                                    notifier.state--;
+                                  }
                                 },
                                 icon: Icon(Icons.remove,
                                     color:
@@ -151,6 +167,19 @@ class Comidaid extends ConsumerWidget {
                                 padding: EdgeInsets.zero,
                               ),
                               onPressed: () async {
+                                final item = ItemsPedido(
+                                  nombre: nombre!,
+                                  descripcion: descripcion,
+                                  precio: precios,
+                                  unidades: unidades,
+                                  image: images,
+                                  unidadesPedir: cantidad,
+                                );
+
+                                print('cantidadZZZZZZZZZ $cantidad');
+                                final agregado = ref
+                                    .read(itemsPagesStateNotifier.notifier)
+                                    .agregarItems(item, idRestaurante!);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     behavior: SnackBarBehavior.floating,
@@ -161,12 +190,13 @@ class Comidaid extends ConsumerWidget {
                                       left: 16,
                                       right: 16,
                                     ),
-                                    content: Text(
-                                        '✅ Se añadió exitosamente al carrito'),
+                                    content: Text(agregado
+                                        ? '✅ Se añadió exitosamente al carrito'
+                                        : '⚠️ El producto ya está en el carrito  O ⚠️ Solo puedes agregar productos de un restaurante.\n  Vacía el carrito o finaliza tu pedido.'),
                                     duration: Duration(seconds: 2),
                                   ),
                                 );
-
+                                ref.read(cantidadProvider.notifier).state = 1;
                                 Navigator.pop(context);
                               },
                               child: Stack(
