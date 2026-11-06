@@ -1,19 +1,23 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    show ConsumerWidget, WidgetRef;
+import 'package:foods/v3.1/provider/CantidadProvider.dart'
+    show cantidadProvider;
 import 'package:foods/v3/util/colores.dart' show ConstantesColorTema2;
 
-class Comidaid extends StatelessWidget {
+class Comidaid extends ConsumerWidget {
   int? id;
   String? images;
   String? nombre;
   String? descripcion;
   int? precios;
   Comidaid({this.id, this.images, this.nombre, this.descripcion, this.precios});
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
+    final cantidad = ref.watch(cantidadProvider);
 
     print(nombre);
     return SafeArea(
@@ -100,19 +104,21 @@ class Comidaid extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Color(ConstantesColorTema2.blanco),
-                                ))),
+                                onPressed: () {
+                                  ref.read(cantidadProvider.notifier).state--;
+                                },
+                                icon: Icon(Icons.remove,
+                                    color:
+                                        Color(ConstantesColorTema2.blanco)))),
                         SizedBox(
                           width: 5,
                         ),
-                        Text('cantidad'),
-                    
+                        Text('$cantidad'),
+
                         SizedBox(
                           width: 5,
                         ),
+
                         Container(
                             width: 45,
                             height: 50,
@@ -121,9 +127,13 @@ class Comidaid extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.remove,
-                                    color: Color(ConstantesColorTema2.blanco)))),
+                                onPressed: () {
+                                  ref.read(cantidadProvider.notifier).state++;
+                                },
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Color(ConstantesColorTema2.blanco),
+                                ))),
                         SizedBox(
                           width: 10,
                         ),
@@ -151,12 +161,12 @@ class Comidaid extends StatelessWidget {
                                       left: 16,
                                       right: 16,
                                     ),
-                                    content:
-                                        Text('✅ Se añadió exitosamente al carrito'),
+                                    content: Text(
+                                        '✅ Se añadió exitosamente al carrito'),
                                     duration: Duration(seconds: 2),
                                   ),
                                 );
-                                              
+
                                 Navigator.pop(context);
                               },
                               child: Stack(
@@ -166,7 +176,8 @@ class Comidaid extends StatelessWidget {
                                   Text('Agregar',
                                       style: TextStyle(
                                           fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600, // SemiBold
+                                          fontWeight:
+                                              FontWeight.w600, // SemiBold
                                           fontSize: 15,
                                           color: Color(ConstantesColorTema2
                                               .blanco)) /*GoogleFonts.leckerliOne(
@@ -181,7 +192,7 @@ class Comidaid extends StatelessWidget {
                             ),
                           ),
                         ),
-                    
+
                         //
                       ],
                     ),
