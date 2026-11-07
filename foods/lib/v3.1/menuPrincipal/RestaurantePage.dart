@@ -47,6 +47,7 @@ import 'package:foods/v3.1/menuPrincipal/carritoPages.dart';
 import 'package:foods/v3.1/menuPrincipal/comidaId.dart' show Comidaid;
 import 'package:foods/v3.1/menuPrincipal/menuPrincipal.dart'
     show RestaurantePage;
+import 'package:foods/v3.1/notifiers/Item/item_state_notifiers.dart';
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart'
     show resturantesStateNotifierProvider;
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/detalle_restaurante_notifire.dart'
@@ -72,6 +73,8 @@ class _RestaurantePageState extends ConsumerState<Restaurantespage> {
   Widget build(BuildContext context) {
     final restauranteState =
         ref.watch(restauranteDetalleProvider(widget.idRestaurante));
+
+       
 
     void _openIconButtonPressed(int? idRestaurante, int? id, String? images,
         String? nombre, String? descripcion, int? precios) {
@@ -123,6 +126,18 @@ int calcularTotal(Carritostate carritoState) {
     }
 
     final menus = restauranteState.restaurantecompletoresponsedto?.menus;
+    final cantidadEnCarrito = ref.watch(itemsPagesStateNotifier).length;
+ final cartStates = ref.watch(itemsPagesStateNotifier);
+    final total = cartStates.fold<int>(0, (suma, itemState) {
+      return suma +
+          itemState.descripcionMenu.fold<int>(0, (subTotal, item) {
+            final precio = item.precio;
+            final cantidad = item.unidadesPedir ?? 1;
+            return subTotal + (precio! * cantidad);
+          });
+    });
+
+    print('object $cantidadEnCarrito');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -472,98 +487,104 @@ int calcularTotal(Carritostate carritoState) {
           ],
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
+      bottomNavigationBar:
+       cantidadEnCarrito > 0 ? 
+       SafeArea(
+         child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+            ),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black12,
+              )
+            ],
           ),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 10,
-              color: Colors.black12,
-            )
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            /*Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(28.0),
-                            child: Text(
-                              '\$ ${Sistema().formato(0)}',
-                              style: GoogleFonts.leckerliOne(
-                                        color: Color(ConstantesColorTema2
-                                            .blanco))
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(28.0),
+                              child: Text(
+                                '\$  ${Sistema().formato(total)}',
+                                style:const TextStyle(
+                  fontSize: 22,
+                  color: Color(ConstantesColorTema2.naranja2),
+                  fontWeight: FontWeight.bold,
+                ),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          CarritoPages(restauranteState.restaurantecompletoresponsedto!.telefono),
-                                    ));
-                              },
-                              child: Container(
-                                width: 150,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 247, 246, 242),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Center(
-                                  child: Text(
-                                    'Carrito',
-                                    style: TextStyle(
-  fontFamily: 'Poppins',
-  fontWeight: FontWeight.w600, // SemiBold
-  fontSize: 30,
-  color: Color(ConstantesColorTema2.naranja2) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
-
-                                        ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CarritoPages(restauranteState.restaurantecompletoresponsedto!.telefono),
+                                      ));
+                                },
+                                child: Container(
+                                  width: 150,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                      color: Color(ConstantesColorTema2.naranja2),//Color.fromARGB(255, 247, 246, 242),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Text(
+                                      'Carrito',
+                                      style: TextStyle(
+           fontFamily: 'Poppins',
+           fontWeight: FontWeight.w600, // SemiBold
+           fontSize: 30,
+           color: Color(ConstantesColorTema2.blanco) //GoogleFonts.leckerliOne(fontSize: 30,color: Color(ConstantesColorTema2.naraja) //Color.fromRGBO(109, 109, 109, 1)
+         
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )
-                        ],
-                      ) */
-           
-            Text(
-              '\$ s',
-              style: const TextStyle(
-                fontSize: 22,
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
+                            )
+                          ],
+                        ) 
+         
+             /* Text(
+                '\$ s',
+                style: const TextStyle(
+                  fontSize: 22,
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ), 
-            ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) =>   CarritoPages(restauranteState.restaurantecompletoresponsedto!.telefono),
-                             
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.shopping_cart,
-              ),
-              label: const Text(
-                'Carrito',
-              ),
-            ), 
-          ],
-        ),
-      ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CarritoPages(restauranteState
+                          .restaurantecompletoresponsedto!.telefono),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.shopping_cart,
+                ),
+                label: const Text(
+                  'Carrito',
+                ),
+              ), */
+            ],
+          ),
+               ),
+       ) : const SizedBox.shrink(),
     );
   }
 }

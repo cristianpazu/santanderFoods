@@ -255,9 +255,11 @@ print('whatsappUrl $whatsappUrl');
                       padding: const EdgeInsets.all(28.0),
                       child: Text(
                         '\$ ${Sistema().formato(total)}',
-                        style: GoogleFonts.leckerliOne(
-                            fontSize: 20,
-                            color: Color(ConstantesColorTema2
+                        style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600, // SemiBold
+                                  fontSize: 20,
+                                  color: Color(ConstantesColorTema2
                                 .blanco) //Color.fromRGBO(109, 109, 109, 1)
 
                             ),
