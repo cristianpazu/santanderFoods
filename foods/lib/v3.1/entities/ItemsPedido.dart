@@ -1,6 +1,7 @@
 import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
 
 class ItemsPedido {
+  int? idRestaurante;
    int? id;
   String? nombre;
   dynamic descripcion;
@@ -11,6 +12,7 @@ class ItemsPedido {
     List<Salsa>? salsas;
 
   ItemsPedido({
+    this.idRestaurante,
     this.id,
     this.nombre,
     required this.descripcion,
@@ -22,6 +24,7 @@ class ItemsPedido {
   });
 
   factory ItemsPedido.fromJson(Map<String, dynamic> json) => ItemsPedido(
+    idRestaurante: json["idRestaurante"],
     id: json["id"],
         nombre: json["nombre"],
         descripcion: json["descripcion"],
@@ -34,6 +37,7 @@ class ItemsPedido {
       );
 
   Map<String, dynamic> toJson() => {
+    "idRestaurante":idRestaurante,
       "id":id,
         "nombre": nombre,
         "descripcion": descripcion,
@@ -47,6 +51,7 @@ class ItemsPedido {
 
 
        ItemsPedido copyWith({
+        int? idRestaurante,
         int? id,
     String? nombre,
     dynamic descripcion,
@@ -58,6 +63,7 @@ class ItemsPedido {
    List<String>? salsasSeleccionadas,
   }) {
     return ItemsPedido(
+      idRestaurante: idRestaurante ?? this.idRestaurante,
       id: id ?? this.id,
       nombre: nombre ?? this.nombre,
       descripcion: descripcion ?? this.descripcion,

@@ -2,8 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:foods/v2/domain/entities/comidas_rapidas/Salsa.dart';
+import 'package:foods/v3.1/entities/PedidoDTO.dart';
+import 'package:foods/v3.1/entities/PedidoItemDTO.dart';
 import 'package:foods/v3.1/entities/descripcionPedidoMenu.dart' show DescripcionPedidoMenu;
 import 'package:foods/v3.1/notifiers/Item/item_state_notifiers.dart' show itemsPagesStateNotifier;
+import 'package:foods/v3.1/provider/pedido_providers.dart';
 
 import 'package:foods/v3/util/Sistema.dart';
 import 'package:foods/v3/util/colores.dart';
@@ -46,6 +49,44 @@ class _CarritoPagesState extends ConsumerState<CarritoPages> {
       String direccionCliente,
       String metodoPago,
     ) async {
+       try {
+          if (carrito.isEmpty) return;
+
+    // 1. Obtener el ID del restaurante.
+    final restauranteId = carrito.first.id;
+
+    if (restauranteId == null) {
+      throw Exception('No se encontró el restaurante');
+    }
+   
+      // 2. Construir los productos del pedido.
+    final itemsPedido = carrito.expand((itemState) {
+      return itemState.descripcionMenu.map((item) {
+        print(item.toJson());
+         if (item.id == null) {
+  throw Exception('El producto ${item.nombre} no tiene ID');
+}
+        return PedidoItemDTO(
+          productoId: item.id!,
+          cantidad: item.unidadesPedir ?? 1,
+         // Aquí agregaremos los IDs de las salsas.
+        );
+      });
+    }).toList();
+
+       // 3. Construir el DTO completo.
+    final pedidoDto = PedidoDTO(
+      restauranteId: restauranteId,
+      nombreCliente: nombreCliente,
+      telefonoCliente: '', // Falta obtener el teléfono del cliente.
+      direccionEntrega: direccionCliente,
+      metodoPago: metodoPago,
+      items: itemsPedido,
+    );
+print('Pedido $pedidoDto');
+         // 4. Registrar primero en Spring Boot.
+    await ref.read(pedidoProvider).registrarPedido(pedidoDto);
+print('Pedido registrado correctamente');
       // Construir el mensaje con los productos
       String message =
           '\u{1F6D2} *Pedido desde la aplicación (SantanderFoods) \u{1F6D2}  *\n\n';
@@ -159,7 +200,20 @@ print('whatsappUrl $whatsappUrl');
           SnackBar(content: Text('No se pudo abrir WhatsApp')),
         );
       }
-    }
+        } catch (e, stackTrace) {
+  print('ERROR COMPLETO: $e');
+  print('STACKTRACE: $stackTrace');
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('No se pudo registrar el pedido'),
+      ),
+    );
+  }
+    } 
+   
 
 //
     return Scaffold(
@@ -218,7 +272,11 @@ print('whatsappUrl $whatsappUrl');
                 final itemState = carrito[index];
                 final DescripcionPedidoMenu item = itemState.descripcionMenu.first;
 
-                print('object ${item.nombre}');
+                print('objectqqqqqqqqqqqqqqqqqq ${itemState.descripcionMenu.first.id}');
+                
+                print('objectqqqqqqqqqqqqqqqqqq ${itemState.descripcionMenu.first.idRestaurante}');
+
+ print('objectqqqqqqqqqqqqqqqqqq ${itemState.descripcionMenu.first.nombre}');
 
                 return TarjetaComidaCarrito(
                     item.nombre, item.descripcion, item.precio, item.image, () {
@@ -287,6 +345,7 @@ print('whatsappUrl $whatsappUrl');
                               ); // Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
                             },
                           );
+                          
                         },
                         child: Container(
                           width: 150,

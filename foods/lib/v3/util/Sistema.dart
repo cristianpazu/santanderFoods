@@ -304,6 +304,7 @@ Widget alertDialogEnviarPedido2(
                                           ),
         ),
       ),
+        const SizedBox(height: 10),
       ElevatedButton(
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll<Color>(Color(0xFFF36B21)), //Colors(ConstantesColorTema2.naranja2)

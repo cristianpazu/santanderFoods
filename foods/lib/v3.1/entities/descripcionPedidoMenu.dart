@@ -3,6 +3,7 @@ import 'package:foods/v3.1/entities/ItemsPedido.dart';
 import 'package:foods/v3/entities/items.dart';
 
 class DescripcionPedidoMenu {
+   int? idRestaurante;
   int? id;
   String nombre;
   String descripcion;
@@ -13,6 +14,7 @@ class DescripcionPedidoMenu {
   int? unidadesPedir;
    List<Salsa>? salsas;
   DescripcionPedidoMenu({
+    this.idRestaurante,
     this.id,
     required this.nombre,
     required this.descripcion,
@@ -25,6 +27,7 @@ class DescripcionPedidoMenu {
 
   factory DescripcionPedidoMenu.fromJson(Map<String, dynamic> json) =>
       DescripcionPedidoMenu(
+        idRestaurante: json['idRestaurante'],
         id: json["id"],
           nombre: json["nombre"],
           descripcion: json["descripcion"],
@@ -35,6 +38,7 @@ class DescripcionPedidoMenu {
                    salsas: json["salsas"] == null ? [] : List<Salsa>.from(json["salsas"]!.map((x) => Salsa.fromJson(x))),);
 
   Map<String, dynamic> toJson() => {
+    "idRestaurante": idRestaurante,
     "id":id,
         "nombre": nombre,
         "descripcion": descripcion,
@@ -48,6 +52,7 @@ class DescripcionPedidoMenu {
 
  factory DescripcionPedidoMenu.fromItems(ItemsPedido item) {
   return DescripcionPedidoMenu(
+    idRestaurante:  item.id,
     id: item.id,
     nombre: item.nombre!,
     descripcion: item.descripcion,

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
 import 'package:foods/v3.1/menuPrincipal/RestaurantePage.dart'
     show Restaurantespage;
+import 'package:foods/v3.1/notifiers/buscar_notifier.dart';
 import 'package:foods/v3.1/notifiers/resturanteNotifiers/Resturante_notifiers.dart'
     show resturantesStateNotifierProvider;
 
@@ -22,13 +23,15 @@ class RestaurantePageState extends ConsumerState {
 
     final listaRestaurantes = restaurantes.restaurantesresponsedto ?? [];
     final sizeScreen = MediaQuery.of(context).size;
-
+final listaRestaurante =
+        ref.watch(filteredRestaurantesProvider);
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsetsGeometry.all(8),
+            padding:EdgeInsets.all(8),
+
             child: Row(
               children: [
                 Icon(Icons.location_on_outlined),
@@ -39,11 +42,13 @@ class RestaurantePageState extends ConsumerState {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            child: TextFormField(
               onChanged: (value) {
-                setState(() {
+               
                   // textoBusqueda = value;
-                });
+                  ref.read(searchTextPageProvider.notifier).state =
+                  value.toLowerCase();
+                
               },
               decoration: InputDecoration(
                 hintText: 'Buscar restaurantes o comidas...',
@@ -89,10 +94,18 @@ class RestaurantePageState extends ConsumerState {
           const SizedBox(height: 20),
           //
           Expanded(
-              child: ListView.builder(
-            itemCount: listaRestaurantes.length,
+              child:  restaurantes .isLoding == true
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : listaRestaurantes.isEmpty
+                    ? const Center(
+                        child: Text('No se encontraron restaurantes'),
+                      )
+                    : ListView.builder(
+            itemCount: listaRestaurante.length,
             itemBuilder: (context, index) {
-              final restaurante = listaRestaurantes[index];
+              final restaurante = listaRestaurante[index];
 
               return Padding(
                 padding: const EdgeInsets.all(8.0),

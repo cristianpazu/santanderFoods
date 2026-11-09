@@ -168,6 +168,8 @@ class Comidaid extends ConsumerWidget {
                               ),
                               onPressed: () async {
                                 final item = ItemsPedido(
+                                  idRestaurante: idRestaurante,
+                                  id: id,
                                   nombre: nombre!,
                                   descripcion: descripcion,
                                   precio: precios,

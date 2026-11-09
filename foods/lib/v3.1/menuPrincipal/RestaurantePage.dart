@@ -1,43 +1,5 @@
 import 'package:flutter/material.dart'
-    show
-        AppBar,
-        BorderRadius,
-        BoxDecoration,
-        BoxShadow,
-        BuildContext,
-        Card,
-        Center,
-        Checkbox,
-        CircleAvatar,
-        CircularProgressIndicator,
-        ClipRRect,
-        Color,
-        Colors,
-        Column,
-        Container,
-        CrossAxisAlignment,
-        EdgeInsets,
-        ElevatedButton,
-        Expanded,
-        FontWeight,
-        Icon,
-        IconButton,
-        Icons,
-        ListView,
-        MainAxisAlignment,
-        MaterialPageRoute,
-        Navigator,
-        NeverScrollableScrollPhysics,
-        Padding,
-        RoundedRectangleBorder,
-        Row,
-        Scaffold,
-        SizedBox,
-        Text,
-        TextStyle,
-        Widget,
-        circular,
-        showModalBottomSheet;
+    show AlertDialog, AppBar, BorderRadius, BoxDecoration, BoxShadow, BuildContext, Card, Center, Checkbox, CircleAvatar, CircularProgressIndicator, ClipRRect, Color, Colors, Column, Container, CrossAxisAlignment, EdgeInsets, ElevatedButton, Expanded, FontWeight, Icon, IconButton, Icons, ListView, MainAxisAlignment, MaterialPageRoute, Navigator, NeverScrollableScrollPhysics, Padding, RoundedRectangleBorder, Row, Scaffold, SizedBox, Text, TextButton, TextStyle, Widget, circular, showDialog, showModalBottomSheet;
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ConsumerStatefulWidget, ConsumerState;
@@ -179,7 +141,53 @@ int calcularTotal(Carritostate carritoState) {
                           Icons.arrow_back,
                           color: Colors.white,
                         ),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () {
+                           final carrito = ref.read(itemsPagesStateNotifier);
+                          final restauranteIdCarrito = carrito.isNotEmpty
+      ? carrito.first.id
+      : null;
+
+  final restauranteIdActual = widget.idRestaurante;
+
+
+print('restauranteIdCarrito ${restauranteIdCarrito }');
+print('restauranteIdActual ${restauranteIdActual }');
+
+                    /*    if (carrito.isNotEmpty &&
+      restauranteIdCarrito != restauranteIdActual) {
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Pedido pendiente'),
+        content: const Text(
+          'Tienes productos de otro restaurante en tu carrito. '
+          'Debes finalizar tu pedido antes de cambiar de restaurante.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: const Text('Salir'),
+          ),
+        ],
+      ),
+    );
+
+  } else {*/ 
+   Navigator.pop(context);
+ // }
+  }
+
+  
                       ),
                     ),
                   ),
