@@ -47,6 +47,7 @@ class _CarritoPagesState extends ConsumerState<CarritoPages> {
     Future<void> _openWhatsApp(
       String nombreCliente,
       String direccionCliente,
+      String telefono,
       String metodoPago,
     ) async {
        try {
@@ -78,7 +79,7 @@ class _CarritoPagesState extends ConsumerState<CarritoPages> {
     final pedidoDto = PedidoDTO(
       restauranteId: restauranteId,
       nombreCliente: nombreCliente,
-      telefonoCliente: '', // Falta obtener el teléfono del cliente.
+      telefonoCliente: telefono, // Falta obtener el teléfono del cliente.
       direccionEntrega: direccionCliente,
       metodoPago: metodoPago,
       items: itemsPedido,
@@ -335,12 +336,12 @@ print('whatsappUrl $whatsappUrl');
                             builder: (BuildContext context) {
                               return Sistema().alertDialogEnviarPedido2(
                                 context,
-                                (nombre, direccion, metodoPago) {
+                                (nombre, direccion, telefono ,metodoPago) {
                                   print('Zzzzzzzzzzzzz$nombre');
                                   print('Zzzzzzzzzzzzz$direccion');
                                   print('Zzzzzzzzzzzzz$metodoPago');
 
-                                  _openWhatsApp(nombre, direccion, metodoPago);
+                                  _openWhatsApp(nombre, direccion,telefono, metodoPago);
                                 },
                               ); // Sistema().alertDialogEnviarPedido(context, _openWhatsApp);
                             },

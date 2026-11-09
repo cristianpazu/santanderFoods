@@ -5,7 +5,7 @@ class Baseurl {
  static final String consultarSubMenu = '/submenu/traer/submenus';
  static String consultarRestaurante(int id) =>
     '/restaurante/traer/menuTodo/$id';
-  static final String registrarPedido = '/Pedido/pedido';
+  static final String registrarPedido = '/pedidos/registrar';
   static final String consultarProducto = '/producto/listar/productos';
 
 static final String consultarSubmenus = '/submenu/listar/submenus';
